@@ -1,0 +1,3 @@
+- La torcia si accende e spegne con F
+- La visuale sembra storta quando ti giri (prima funzionava bene..avrò toccato qualcosa per errore)
+- Goditi il non fare nulla :D
