@@ -6,13 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     //Variabili per l'animazione
     private Animator animator;
-    private AnimatorStateInfo currentState;
-    static int isWalking = Animator.StringToHash("Base Layer.isWalking");
-    static int isRunning = Animator.StringToHash("Base Layer.isRunning");
-
-    //Variabili per lo spostamento del giocatore
-    public float Velocità_spost = 0;
-    private Rigidbody rb;
+    //private AnimatorStateInfo currentState;
+    //static int isWalking = Animator.StringToHash("Base Layer.isWalking");
+    //static int isRunning = Animator.StringToHash("Base Layer.isRunning");
 
     //Spostamento camera e giocatore
     public float Velocità_X = 2.0f;
@@ -27,24 +23,24 @@ public class PlayerController : MonoBehaviour
 
     //Suoni passi
     [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-     //Da implementare quando avremo gestito bene il salto
-    // [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
-   // [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
-                     private AudioSource m_AudioSource;
+    [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
+    [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+    private AudioSource m_AudioSource;
+
+    public float altezza_salto;
+    private bool isJumping;
+    private bool isOnGround;
 
     // Use this for initialization
     void Start()
     {
 
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
         m_AudioSource = GetComponent<AudioSource>();
 
-        //Modifico la posizione e la rotazione della torcia per metterla in mano al giocatore (non funziona)
-        /*Vector3 pos_torcia = new Vector3(-22.0f, -6.0f, -3.0f);
-        Vector3 rot_torcia = new Vector3(0.0f, -90.0f, -90.0f);
-        torcia.transform.position = pos_torcia;
-        torcia.transform.eulerAngles = rot_torcia;*/
+        isOnGround = true;
+        isJumping = false;
+
     }
 
     // Update is called once per frame
@@ -58,45 +54,96 @@ public class PlayerController : MonoBehaviour
         transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
 
         //Aggiorno la rotazione della camera in base allo spostamento vert. ed oriz. del mouse
-        camera.transform.eulerAngles = new Vector3(Spostamento_Y, Spostamento_X, 0.0f);
+       /* if (Spostamento_Y >= -75.0f && Spostamento_Y <= 55.0f) camera.transform.eulerAngles = new Vector3(Spostamento_Y, Spostamento_X, 0.0f);
+        else if (Spostamento_Y >= 55.0f) camera.transform.eulerAngles = new Vector3(55.0f, Spostamento_X, 0.0f);
+        else if (Spostamento_Y >= -75.0f) camera.transform.eulerAngles = new Vector3(-75.0f, Spostamento_X, 0.0f);*/
+
+
+
 
     }
 
     private void FixedUpdate() //ad ogni frame fisico
     {
-        ///////////////
-        //Spostamento del giocatore
-        float movementHorizontal = Input.GetAxis("Horizontal");
-        float movementVertical = Input.GetAxis("Vertical");
+        //Gestione della camminata dritta e di lato
+        animator.SetFloat("isWalking", Input.GetAxis("Vertical"));
+        animator.SetFloat("isTurning", Input.GetAxis("Horizontal"));
 
-        Vector3 movement = new Vector3(movementHorizontal, 0.0f, movementVertical);
+        //Se ha raccolto la torcia, non è più senza armi, altrimenti lo è
+        if (animator.GetBool("Torch")) animator.SetBool("WeaponLess", false);
+        else animator.SetBool("WeaponLess", true);
 
-        rb.AddForce(movement * Velocità_spost);
-        //////////////
+        //Di default non sta prendendo niente
+        animator.SetBool("isTaken", false);
 
+        //Di default non sta correndo
+        animator.SetBool("isRunning", false);
 
+        //Di default non sta saltando
+        //animator.SetBool("isJumping", false);
 
-        currentState = animator.GetCurrentAnimatorStateInfo(0); //info relative allo stato attuale
+        //Di default non è accovacciato
+        animator.SetBool("isCrouching", false);
 
-        //Se avanza
-        if ((Input.GetKey("w")) && !Input.GetKeyDown(KeyCode.LeftShift))
+        //Se avanza, riproduce il suo dei passi
+        if ((Input.GetAxis("Vertical") != 0.0) || (Input.GetAxis("Horizontal") != 0.0))
         {
-            animator.SetFloat("isWalking", 1.0f);
             PlayFootStepAudio();
+        }
 
+        //Se prende un oggetto, allora aggiorno isTaken
+        if (Input.GetButton("Pickup"))
+        {
+            animator.SetBool("isTaken", true);
+        }
 
-        }    //Se corre e avanza
-        else if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Input.GetKey("w"))
+        //Se corre
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             animator.SetBool("isRunning", true);
-          
         }
-        else
-        {
-            animator.SetFloat("isWalking", 0.0f);
 
+        //Se corre e salta
+        /*if (Input.GetButton("Jump") && Input.GetKey(KeyCode.LeftShift)) {
+            animator.SetBool("isRunning", true);
+            animator.SetBool("isJumping", true);
+        }*/
+
+        //Se salta e quindi non è a terra (non è un'animazione)
+
+        if (isJumping && !isOnGround)
+        {
+            isJumping = false;
+            isOnGround = true;
         }
-        Debug.Log("isWalking: "+animator.GetFloat("isWalking")+"; isRunning: "+ animator.GetBool("isRunning"), this);
+
+        //Se si accovaccia
+        if (Input.GetButton("Crouch"))
+        {
+            animator.SetBool("isCrouching", true);
+        }
+
+        if (isJumping) PlayJumpSound();
+
+
+
+
+        //Debug.Log("isWalking: "+animator.GetFloat("isWalking")+"; isRunning: "+ animator.GetBool("isRunning")+"; WeaponLess: "+ animator.GetBool("WeaponLess")+"; isTurning: " + animator.GetFloat("isTurning"),  this);
+    }
+
+
+    public void LateUpdate(){
+
+        float salto = Mathf.Sqrt(altezza_salto * -2f * Physics.gravity.y);
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("Salto: "+ salto);
+            transform.position.Set(0.0f, transform.position.y+salto, 0.0f);
+            isJumping = true;
+            isOnGround = false;
+        }
+
     }
 
     private void PlayFootStepAudio()
@@ -109,5 +156,18 @@ public class PlayerController : MonoBehaviour
         // move picked sound to index 0 so it's not picked next time
         m_FootstepSounds[n] = m_FootstepSounds[0];
         m_FootstepSounds[0] = m_AudioSource.clip;
+    }
+
+    private void PlayLandingSound()
+    {
+        m_AudioSource.clip = m_LandSound;
+        m_AudioSource.Play();
+        //m_NextStep = m_StepCycle + .5f;
+    }
+
+    private void PlayJumpSound()
+    {
+        m_AudioSource.clip = m_JumpSound;
+        m_AudioSource.Play();
     }
 }

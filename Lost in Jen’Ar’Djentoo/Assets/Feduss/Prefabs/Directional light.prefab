@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1448342814307934}
+  m_RootGameObject: {fileID: 1777984812968284}
   m_IsPrefabParent: 1
---- !u!1 &1448342814307934
+--- !u!1 &1777984812968284
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4448075285118460}
-  - component: {fileID: 108952595792029338}
+  - component: {fileID: 4909767157865314}
+  - component: {fileID: 108987648008538562}
   m_Layer: 0
   m_Name: Directional light
   m_TagString: Untagged
@@ -27,12 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4448075285118460
+--- !u!4 &4909767157865314
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1448342814307934}
+  m_GameObject: {fileID: 1777984812968284}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: -50.872345, y: -41.89685, z: 201.28929}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,17 +40,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!108 &108952595792029338
+--- !u!108 &108987648008538562
 Light:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1448342814307934}
+  m_GameObject: {fileID: 1777984812968284}
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
