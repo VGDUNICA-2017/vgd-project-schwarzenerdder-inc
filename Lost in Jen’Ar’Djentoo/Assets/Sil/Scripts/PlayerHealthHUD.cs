@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerHealthHUD : MonoBehaviour {
 
-	private const int startHealth = 100;
+	private const int startHealth = 30;
 	public int currentHealth;
-	public Slider healtSlider;
-	public Image fillHealthSlider;
+	public Image healthRadial;
+	public Text healthText;
 
 	private Color fullHealthColor = Color.green;
 	private Color halfHealthColor = Color.yellow;
@@ -27,7 +27,7 @@ public class PlayerHealthHUD : MonoBehaviour {
 		moveScript = GetComponent<PlayerController> ();
 
 		currentHealth = startHealth;
-		SliderUpdate (startHealth);
+		RadialUpdate (startHealth);
 
 		damaged = false;
 		if (currentHealth > 0) {
@@ -43,18 +43,23 @@ public class PlayerHealthHUD : MonoBehaviour {
 			TakeDamage (10);
 		} 
 
-		if ((currentHealth < 100) && (Input.GetKeyDown(KeyCode.Y))) {
-			currentHealth += 10;
-			SliderUpdate (currentHealth);
+		if (Input.GetKeyDown(KeyCode.G)) {
+			StartCoroutine (DamageOverTime (3, 10));
+		} 
+
+		if (Input.GetKeyDown(KeyCode.Y)) {
+			HealDamage (10);
 		}
 
-
+		if (Input.GetKeyDown(KeyCode.H)) {
+			StartCoroutine (HealOverTime (3, 10));
+		} 
+			
 		if (damaged) {
 			damageImage.color = flashColor;
 		} else {
 			damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
 		}
-
 		damaged = false;
 	}
 
@@ -63,32 +68,57 @@ public class PlayerHealthHUD : MonoBehaviour {
 
 		currentHealth -= amount;
 
-		SliderUpdate (currentHealth);
+		RadialUpdate (currentHealth);
 
 		if (currentHealth <= 0 && !isDead) {
 			Death ();
 		}
 	}
 
-	void SliderUpdate (int health) {
-		healtSlider.value = health;
+	public IEnumerator DamageOverTime (int amount, int times) {
+		for (int i = 0; i < times; i++) {
+			TakeDamage (amount);
+			yield return new WaitForSeconds (1);
+		}
+	}
+
+	public void HealDamage (int amount) {
+		currentHealth += amount;
+
+		if (currentHealth > startHealth) {
+			currentHealth = startHealth;
+		}
+
+		RadialUpdate (currentHealth);
+	}
+
+	public IEnumerator HealOverTime (int amount, int times) {
+		for (int i = 0; i < times; i++) {
+			HealDamage (amount);
+			yield return new WaitForSeconds (1);
+		}
+	}
+
+	void RadialUpdate (int health) {
+		healthText.text = health + "%";
+
+		healthRadial.fillAmount = (float) health / startHealth;
 
 		if (health == 100) {
-			fillHealthSlider.color = fullHealthColor;
+			healthRadial.color = fullHealthColor;
 		} else if ((health < 100) && (health > 50)) {
-			fillHealthSlider.color = Color.Lerp (halfHealthColor, fullHealthColor, (float)(health - 50) / 50);
+			healthRadial.color = Color.Lerp (halfHealthColor, fullHealthColor, (float)(health - 50) / 50);
 		} else if (health == 50) {
-			fillHealthSlider.color = halfHealthColor;
+			healthRadial.color = halfHealthColor;
 		} else if ((health < 50) && (health > 0)) {
-			fillHealthSlider.color = Color.Lerp (noHealthColor, halfHealthColor, (float)health / 50);
+			healthRadial.color = Color.Lerp (noHealthColor, halfHealthColor, (float)health / 50);
 		} else if (health <= 0) {
-			fillHealthSlider.enabled = false;
+			healthRadial.enabled = false;
 		}
 	}
 
 	void Death () {
 		isDead = true;
-
 		moveScript.enabled = false;
 	}
 }

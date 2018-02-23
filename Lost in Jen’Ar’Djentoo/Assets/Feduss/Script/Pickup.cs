@@ -10,11 +10,23 @@ public class Pickup : MonoBehaviour {
     private Animator animator;
     public bool flag;
 
+    PistolScript pistol;
+    PlayerMagazineHUD a;
+
     // Use this for initialization
     void Start() {
         testo.enabled = false;
         flag = false;
         animator = fin.GetComponent<Animator>();
+
+        //Disattivo la parte dell'hud delle munizioni
+        a=GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMagazineHUD>();
+        a.enabled = false;
+
+        //Mi servirà per riprodurre il suono di pickup della pistola
+        pistol = GameObject.Find("P226Stock").GetComponent<PistolScript>();
+        
+
     }
 
         // Update is called once per frame
@@ -40,14 +52,28 @@ public class Pickup : MonoBehaviour {
 
     public void OnTriggerStay(Collider other)
     {
-        if (Input.GetButton("Pickup"))
+        if (Input.GetButton("Pickup") )
         {
-            //Debug.Log("Hai raccolto l'arma :D");
-            gameObject.SetActive(false);
-            testo.enabled = false;
-            EquipTorch();
+            if (gameObject.name.Equals("la Torcia"))
+            {
+                EquipTorch();
+                gameObject.SetActive(false);
+                testo.enabled = false;
+                
+            }
+
+            if(gameObject.name.Equals("P226"))
+            {
+                EquipPistol();
+                gameObject.SetActive(false);
+                testo.enabled = false;
+               
+            }
+           
 
         }
+
+        
     }
 
     public void OnTriggerExit(Collider other)
@@ -62,5 +88,15 @@ public class Pickup : MonoBehaviour {
     {
         animator.SetBool("Torch", true);
         animator.SetBool("WeaponLess", false);
+    }
+
+    public void EquipPistol()
+    {
+        animator.SetBool("Torch", false);
+        animator.SetBool("Pistol", true);
+
+        //Riproduto il suono di equip della pistola e riattivo la parte dell'hud delle munizioni
+        pistol.PlayEquipPistolSound();
+        a.enabled = false;
     }
 }

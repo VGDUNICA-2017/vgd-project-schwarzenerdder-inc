@@ -3,7 +3,7 @@ guid: 5947b48ad5ab7f54eb30ed6992da86f7
 timeCreated: 1518028048
 licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: muro_eye_cornl2
@@ -27,10 +27,32 @@ ModelImporter:
     4300002: muro_eyes
     4300004: muro_head_muro
     4300006: muro_muro_main
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: muro_eye_cornl2Mat
+    second: {fileID: 2100000, guid: 748fcf8ed5274a142b9a8d47f1ed095c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: muro_eyesMat
+    second: {fileID: 2100000, guid: a48ebfa6eadce814887aea874603f01b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: muro_head_muroMat
+    second: {fileID: 2100000, guid: 70c616fcb82286c48a970167bcd36f5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: muro_muro_mainMat
+    second: {fileID: 2100000, guid: 68cef262b0a4fee4d807681413fc01d5, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -43,6 +65,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -67,6 +90,8 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

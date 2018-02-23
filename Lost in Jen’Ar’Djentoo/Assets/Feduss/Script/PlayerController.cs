@@ -6,9 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     //Variabili per l'animazione
     private Animator animator;
-    //private AnimatorStateInfo currentState;
-    //static int isWalking = Animator.StringToHash("Base Layer.isWalking");
-    //static int isRunning = Animator.StringToHash("Base Layer.isRunning");
 
     //Spostamento camera e giocatore
     public float Velocità_X = 2.0f;
@@ -25,11 +22,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
     [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
     [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+
     private AudioSource m_AudioSource;
 
-    public float altezza_salto;
-    private bool isJumping;
-    private bool isOnGround;
+    private bool isOnGround=false;
+
+    private Rigidbody rb;
+
+    private CapsuleCollider collider_fin;
+
+    private float prec_collider_center;
+    private float prec_collider_height;
 
     // Use this for initialization
     void Start()
@@ -37,34 +40,55 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody>();
 
-        isOnGround = true;
-        isJumping = false;
+        collider_fin = GetComponent<CapsuleCollider>();
+
+        prec_collider_center = collider_fin.center.y;
+        prec_collider_height = collider_fin.height;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Ricavo gli angoli di rotazione X e Y in base allo spostamento del mouse
-        Spostamento_X += Velocità_X * Input.GetAxis("Mouse X");
-        Spostamento_Y -= Velocità_Y * Input.GetAxis("Mouse Y");
 
-        //Aggiorno la rotazione del giocatore in base allo spostamento orizzontale del mouse
-        transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
+        if (!(animator.GetCurrentAnimatorStateInfo(0).IsName("Picking")) || !(animator.GetCurrentAnimatorStateInfo(1).IsName("Reload")))
+        {
+            //Ricavo gli angoli di rotazione X e Y in base allo spostamento del mouse
+            Spostamento_X += Velocità_X * Input.GetAxis("Mouse X");
+            Spostamento_Y -= Velocità_Y * Input.GetAxis("Mouse Y");
 
-        //Aggiorno la rotazione della camera in base allo spostamento vert. ed oriz. del mouse
-       /* if (Spostamento_Y >= -75.0f && Spostamento_Y <= 55.0f) camera.transform.eulerAngles = new Vector3(Spostamento_Y, Spostamento_X, 0.0f);
-        else if (Spostamento_Y >= 55.0f) camera.transform.eulerAngles = new Vector3(55.0f, Spostamento_X, 0.0f);
-        else if (Spostamento_Y >= -75.0f) camera.transform.eulerAngles = new Vector3(-75.0f, Spostamento_X, 0.0f);*/
+            //Aggiorno la rotazione del giocatore in base allo spostamento orizzontale del mouse
+            transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
+        }
+
+        PlayAnimation();
+
 
 
 
 
     }
 
-    private void FixedUpdate() //ad ogni frame fisico
-    {
+
+    public void LateUpdate(){
+
+        float jump = Input.GetAxis("Jump");
+        float jumpSpeed=5f;
+
+        if (Input.GetButtonDown("Jump") && isOnGround)
+        {
+           
+            
+            Vector3 jumpVector = new Vector3(0.0f, jump * jumpSpeed, 0.0f);
+            rb.AddForce(jumpVector, ForceMode.Impulse);
+        }
+
+    }
+
+    private void PlayAnimation() {
+
         //Gestione della camminata dritta e di lato
         animator.SetFloat("isWalking", Input.GetAxis("Vertical"));
         animator.SetFloat("isTurning", Input.GetAxis("Horizontal"));
@@ -103,46 +127,38 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", true);
         }
 
-        //Se corre e salta
-        /*if (Input.GetButton("Jump") && Input.GetKey(KeyCode.LeftShift)) {
-            animator.SetBool("isRunning", true);
-            animator.SetBool("isJumping", true);
-        }*/
-
-        //Se salta e quindi non è a terra (non è un'animazione)
-
-        if (isJumping && !isOnGround)
-        {
-            isJumping = false;
-            isOnGround = true;
-        }
 
         //Se si accovaccia
         if (Input.GetButton("Crouch"))
         {
             animator.SetBool("isCrouching", true);
+            collider_fin.center = new Vector3(0f, 0.95f, 0f);
+            collider_fin.height = 2.55f;
         }
-
-        if (isJumping) PlayJumpSound();
-
-
-
-
-        //Debug.Log("isWalking: "+animator.GetFloat("isWalking")+"; isRunning: "+ animator.GetBool("isRunning")+"; WeaponLess: "+ animator.GetBool("WeaponLess")+"; isTurning: " + animator.GetFloat("isTurning"),  this);
-    }
-
-
-    public void LateUpdate(){
-
-        float salto = Mathf.Sqrt(altezza_salto * -2f * Physics.gravity.y);
-
-        if (Input.GetButtonDown("Jump"))
+        else
         {
-            Debug.Log("Salto: "+ salto);
-            transform.position.Set(0.0f, transform.position.y+salto, 0.0f);
-            isJumping = true;
-            isOnGround = false;
+            collider_fin.center = new Vector3(0f, prec_collider_center, 0f);
+            collider_fin.height = prec_collider_height;
         }
+
+
+        //Inizialmente non ho armi..quindi non ho la parte di hud sulla pistola
+        PlayerMagazineHUD pmHUD= GetComponent<PlayerMagazineHUD>();
+        GameObject ShotsUI =GameObject.FindGameObjectWithTag("ShotsUI");
+        pmHUD.enabled = false;
+
+        if (animator.GetBool("Pistol"))
+        {
+            if (GameObject.Find("la Torcia (Impugnata)")) GameObject.Find("la Torcia (Impugnata)").SetActive(false);
+
+            ShotsUI.SetActive(true);
+            pmHUD.enabled = true;
+
+
+        }
+
+        animator.SetBool("isReloading", false);
+        animator.SetBool("isFiring", false);
 
     }
 
@@ -169,5 +185,25 @@ public class PlayerController : MonoBehaviour
     {
         m_AudioSource.clip = m_JumpSound;
         m_AudioSource.Play();
+    }
+
+   
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Terreno"))
+        {
+            isOnGround = true;
+            PlayLandingSound();
+        }
+    }
+
+    public void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.CompareTag("Terreno"))
+        {
+            isOnGround = false;
+            PlayJumpSound();
+        }
     }
 }

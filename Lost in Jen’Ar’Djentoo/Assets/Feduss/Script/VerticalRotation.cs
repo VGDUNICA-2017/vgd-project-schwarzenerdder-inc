@@ -26,7 +26,11 @@ public class VerticalRotation : MonoBehaviour {
 
         if (gameObject.CompareTag("Testa")) RotazioneVerticale();
 
-        if (animator.GetBool("Torch")) RotazioneVerticale();
+        if (animator.GetBool("Torch") && gameObject.CompareTag("Braccio_sx")) RotazioneVerticale();
+
+        if (animator.GetBool("Pistol")) RotazioneVerticale();
+
+
     }
 
     public void RotazioneVerticale()

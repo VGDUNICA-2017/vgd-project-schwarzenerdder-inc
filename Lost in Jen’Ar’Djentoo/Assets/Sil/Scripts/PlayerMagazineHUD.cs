@@ -18,9 +18,9 @@ public class PlayerMagazineHUD : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ammo = 12;
-		magCapacity = 12;
-		invAmmo = 60;
+		ammo = 8;
+		magCapacity = 8;
+		invAmmo = 8;
 
 		nextFire = 0.0f;
 
@@ -30,19 +30,13 @@ public class PlayerMagazineHUD : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if ((Input.GetAxis ("Fire1") == 1.0f) && (ammo > 0) && (Time.time > nextFire)) {
-			AdjAmmo (-1);
-		}
-
-		if (Input.GetKeyDown (KeyCode.R)) {
-			Reload ();
-		}
+		
 	}
 
 	public void AdjAmmo (int shots) {
 		ammo += shots;
 		ammoText.text = ammo.ToString();
-		nextFire = Time.time + cooldownTime;
+		//nextFire = Time.time + cooldownTime;
 	}
 		
 	public void Reload () {
@@ -69,4 +63,5 @@ public class PlayerMagazineHUD : MonoBehaviour {
 		invAmmoText.text = invAmmo.ToString();
 		nextFire = Time.time + cooldownTime;
 	}
+
 }

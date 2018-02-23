@@ -8,6 +8,13 @@ TagManager:
   - Torcia
   - Braccio_sx
   - Testa
+  - nodecal
+  - Terreno
+  - Serranda
+  - Porta
+  - Cutter
+  - Recinzione
+  - ShotsUI
   layers:
   - Default
   - TransparentFX
