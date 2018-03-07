@@ -33,6 +33,7 @@ public class Door : MonoBehaviour {
 
 		//La porta è chiusa e richiede di aprirsi
 		if (!(isOpened) && (moveDoor)) {
+			messageBox.enabled = false;
 			currentY = transform.eulerAngles.y;
 
 			currentY = Mathf.LerpAngle(currentY, openDoorY, Time.deltaTime);
@@ -54,6 +55,7 @@ public class Door : MonoBehaviour {
 
 		//La porta è aperta e richiede di chiudersi
 		if ((isOpened) && (moveDoor)) {
+			messageBox.enabled = false;
 			currentY = transform.eulerAngles.y;
 
 			currentY = Mathf.LerpAngle(currentY, closeDoorY, Time.deltaTime);

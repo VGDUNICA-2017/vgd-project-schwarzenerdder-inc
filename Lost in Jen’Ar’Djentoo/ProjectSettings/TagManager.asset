@@ -15,6 +15,9 @@ TagManager:
   - Cutter
   - Recinzione
   - ShotsUI
+  - Braccio_dx
+  - FxTemporaire
+  - Proiettile
   layers:
   - Default
   - TransparentFX

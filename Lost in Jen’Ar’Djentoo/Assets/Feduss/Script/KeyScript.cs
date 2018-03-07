@@ -51,7 +51,7 @@ public class KeyScript : MonoBehaviour
                     limits.max = 90;                  
                 
                     GameObject.FindGameObjectWithTag("Recinzione").GetComponent<HingeJoint>().limits = limits;
-                    Debug.Log(GameObject.FindGameObjectWithTag("Recinzione").GetComponent<HingeJoint>().limits.max);
+                    Debug.Log("Limite max rotazione recinzione: " + GameObject.FindGameObjectWithTag("Recinzione").GetComponent<HingeJoint>().limits.max);
 
                     Destroy(GameObject.Find("chain"), 2f);
 
