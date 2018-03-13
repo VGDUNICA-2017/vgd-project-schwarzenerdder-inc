@@ -10,6 +10,7 @@ public class InventorySystem : MonoBehaviour {
 	private const int fullHealth = 100;
 	private int currentHealth;
 	private bool isDead;
+	private int medKits;
 
     //Riferimenti armi (pistola = index 0; fucile a pompa = index 1; SMG = index 2)
     private int[] ammo = new int[] {0, 0, 0};
@@ -23,14 +24,19 @@ public class InventorySystem : MonoBehaviour {
 	private bool mappa;
 	private bool cesoie;
 
+	//Altri riferimenti
+	private bool noWeapon = true;
+
 	// Use this for initialization
 	void Start () {
 		hudScript = gameObject.GetComponent<HUDSystem> ();
 
 		//Vita default
 		currentHealth = fullHealth;
-		hudScript.radialHealthSet (currentHealth, fullHealth);
 		isDead = false;
+		medKits = 0;
+		hudScript.radialHealthSet (currentHealth, fullHealth);
+		hudScript.medKitSet (medKits);
 
 		//Armi default
 		setWeapon (false, 0);
@@ -45,7 +51,14 @@ public class InventorySystem : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+		if (this.getMappa()) {
+			hudScript.hudMinimap ();
+		}
+
+		if ((getWeapon (0) || getWeapon (1) || getWeapon (2)) && noWeapon) {
+			hudScript.hudShots ();
+			noWeapon = false;
+		}
 	}
 
 	//Funzione per subire danni
@@ -71,9 +84,43 @@ public class InventorySystem : MonoBehaviour {
 		hudScript.radialHealthSet (currentHealth, fullHealth);
 	}
 
+	//Getter punti vita
+	public int getHealth(){
+		return this.currentHealth;
+	}
+
 	//Getter status vita
 	public bool getStatus () {
 		return this.isDead;
+	}
+
+	//Funzione di uso del medKit
+	public void useMedKit () {
+		if (medKits > 0) {
+			if (getHealth () < 100) {
+				healDamage (50);
+				medKits--;
+				hudScript.medKitSet (medKits);
+			}
+		} else {
+			hudScript.medKitSet (-1);
+		}
+	}
+
+	//Getter dei medKit
+	public int medKitsLeft () {
+		return this.medKits;
+	}
+
+	//Funzione di raccolta medkit. Rende la risposta a "ho raccolto il medKit?"
+	public bool medkitPickup () {
+		if (medKits < 3) {
+			medKits++;
+			hudScript.medKitSet (medKits);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	//Pausa caffe! u.u
@@ -108,6 +155,11 @@ public class InventorySystem : MonoBehaviour {
 		}
 	}
 
+	//Funzione di cambio arma nell'HUD
+	public void changeWeaponHUD (int indexArma) {
+		hudScript.reloadWeapon (ammo [indexArma], invAmmo [indexArma]);
+	}
+
 	//Funzione di ricarica
 	public void reloadWeapon (int indexArma) {
 		int passedShots;
@@ -136,7 +188,8 @@ public class InventorySystem : MonoBehaviour {
 		hudScript.reloadWeapon (ammo [indexArma], invAmmo [indexArma]);
 	}
 
-	public int ammoPickup (int pickup, int indexArma) {
+	//Funzione di raccolta munizioni
+	public int ammoPickup (int pickup, int indexArma, int currentWeapon) {
 		int lasting = 0;
 
 		//Ricarica inventario
@@ -151,7 +204,9 @@ public class InventorySystem : MonoBehaviour {
 		}
 
 		//Setting
-		hudScript.invAmmoUpdate (invAmmo [indexArma]);
+		if (currentWeapon == indexArma) {
+			hudScript.invAmmoUpdate (invAmmo [indexArma]);
+		}
 		return lasting;
 	}
 
@@ -159,7 +214,6 @@ public class InventorySystem : MonoBehaviour {
 	public void setWeapon (bool state, int indexArma) {
 		this.weapons [indexArma] = state;
 	}
-
 	public bool getWeapon (int indexArma) {
 		return this.weapons [indexArma];
 	}

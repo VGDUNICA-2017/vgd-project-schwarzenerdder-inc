@@ -27,13 +27,10 @@ public class WeaponScript : MonoBehaviour {
 
     //Proiettile
     public GameObject bullet;
+    public GameObject fire_effect;
 
     //start_bullet=posizione iniziale di istanza del proiettile
     private Transform start_bullet;
-
-    
-
-
 
 	// Use this for initialization
 	void Start () {
@@ -44,7 +41,7 @@ public class WeaponScript : MonoBehaviour {
 		inventario = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
 		hudsystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HUDSystem>();
 
-        bulletscript = bullet.GetComponent<BulletScript>(); 
+        bulletscript = bullet.GetComponent<BulletScript>();
 
     }
 
@@ -58,7 +55,7 @@ public class WeaponScript : MonoBehaviour {
 			hudsystem.hudShots();
 
             //Salvo quella che sarà la parentela del proiettile con l'arma
-            start_bullet = GameObject.Find("P226 (Impugnata)").transform;
+            start_bullet = GameObject.Find("Start_Bullet").transform;
 
             //Distruggo il proiettile già presente nell'arma
             Destroy(GameObject.Find("P69mm"), 1f);
@@ -68,26 +65,27 @@ public class WeaponScript : MonoBehaviour {
 		leftMagAmmo = inventario.ammoLeft(index);
 		leftInvAmmo = inventario.ammoInvLeft(index);
 
-		//Spara se preme il tasto sinistro del mouse, se non sta già sparando e se non sta ricaricando
+		//Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
 		if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(1).IsName("Reload") && 
-			!(animator.GetCurrentAnimatorStateInfo(0).IsName("Fire"))) {
+			(!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !animator.IsInTransition(0) && !player.GetBool("isRunning"))) {
 
 			//Se il caricatore è vuoto
 			if (leftMagAmmo == 0) {
 				PlayEmptyMag();
-			} else {
+			}
+            else {
 				animator.SetBool("Fire", true);
 
-                //Istanzio il proiettile
-                Instantiate(bullet, start_bullet);
+                //Istanzio il proiettile e l'effetto dello sparo
+                Instantiate(bullet, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
+                Instantiate(fire_effect, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f,90f,0f)));
+
 
                 PlayShootSound();
-				player.SetBool("isFiring", true);
-                
-			}
-			inventario.shot(index);
+            }
+            inventario.shot(index);
 
-		} else {
+        } else {
 			animator.SetBool("Fire", false);
         }
 
@@ -121,6 +119,7 @@ public class WeaponScript : MonoBehaviour {
 			animator.SetBool ("OutOfInvAmmo", false);
 		}
 	}
+
 
 	private void PlayReloadSound() {
 		m_AudioSource.clip = m_ReloadSound;

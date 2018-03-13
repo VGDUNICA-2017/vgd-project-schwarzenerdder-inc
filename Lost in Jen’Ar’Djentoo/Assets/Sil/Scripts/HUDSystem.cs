@@ -8,9 +8,10 @@ public class HUDSystem : MonoBehaviour {
 	public Image screenDamage;
 	public Image radialHealth;
 	public Text healthText;
+	public Image med1;
+	public Image med2;
+	public Image med3;
 	public GameObject shotsUI;
-	public Text ammoText;
-	public Text invAmmoText;
 	public GameObject minimapSet;
 	public GameObject reticle;
 
@@ -24,15 +25,24 @@ public class HUDSystem : MonoBehaviour {
 	private Color halfHealthColor = Color.yellow;
 	private Color zeroHealthColor = Color.red;
 
+	//Supporti per i mark dei medkit
+	private Color medFullColor = Color.green;
+	private Color medEmptyColor = Color.black;
+	private bool noMed;
+	private bool[] medStatus = new bool[3];
+	private RectTransform med1Transform;
+	private RectTransform med2Transform;
+	private RectTransform med3Transform;
+
 	//Supporti per le munizioni
+	private Text ammoText;
+	private Text invAmmoText;
 	private bool noAmmo;
 
 	//Supporti per il mirino
 	private RectTransform reticleTransform;
 	private const float MovingSize = 50.0f;
 	private const float StayingSize = 30.0f;
-
-	//Supporti vari
 	private bool moving;
 
 	// Use this for initialization
@@ -43,10 +53,16 @@ public class HUDSystem : MonoBehaviour {
 		reticle.SetActive (false);
 
 		//Recupero elementi
+		ammoText = shotsUI.transform.Find ("ShotsLeft").transform.GetComponent<Text> ();
+		invAmmoText = shotsUI.transform.Find ("ShotsInventory").transform.GetComponent<Text> ();
 		reticleTransform = (RectTransform)reticle.transform;
+		med1Transform = (RectTransform)med1.transform;
+		med2Transform = (RectTransform)med2.transform;
+		med3Transform = (RectTransform)med3.transform;
 
 		//Set variabili di supporto
 		damaged = false;
+		noMed = false;
 		noAmmo = false;
 		moving = false;
 	}
@@ -59,6 +75,34 @@ public class HUDSystem : MonoBehaviour {
 			damaged = false;
 		} else {
 			screenDamage.color = Color.Lerp (screenDamage.color, Color.clear, flashSpeed * Time.deltaTime);
+		}
+
+		//Gestore interfaccia medkit
+		if (noMed) {
+			//Flash dei medkit quando non se ne hanno
+			medFlash (med1, med1Transform, Color.red, medEmptyColor);
+			medFlash (med2, med2Transform, Color.red, medEmptyColor);
+			medFlash (med3, med3Transform, Color.red, medEmptyColor);
+			noMed = false;
+		} else {
+			//MedKit 1
+			if (medStatus [0]) {
+				medFlash (med1, med1Transform, medFullColor, medFullColor);
+			} else {
+				medFlash (med1, med1Transform, medEmptyColor, medEmptyColor);
+			}
+			//Medkit 2
+			if (medStatus [1]) {
+				medFlash (med2, med2Transform, medFullColor, medFullColor);
+			} else {
+				medFlash (med2, med2Transform, medEmptyColor, medEmptyColor);
+			}
+			//Medkit 3
+			if (medStatus [2]) {
+				medFlash (med3, med3Transform, medFullColor, medFullColor);
+			} else {
+				medFlash (med3, med3Transform, medEmptyColor, medEmptyColor);
+			}
 		}
 
 		//Flash dei colpi senza colpi in canna. True = frame dello sparo
@@ -76,14 +120,10 @@ public class HUDSystem : MonoBehaviour {
 			reticleTransform.sizeDelta = new Vector2 (
 				Mathf.Lerp (reticleTransform.rect.width, MovingSize, 0.2f), 
 				Mathf.Lerp (reticleTransform.rect.height, MovingSize, 0.2f));
-			//reticleTransform.rect.width = Mathf.Lerp (reticleTransform.rect.width, MovingSize, Time.deltaTime);
-			//reticleTransform.rect.height = Mathf.Lerp (reticleTransform.rect.height, MovingSize, Time.deltaTime); 
 		} else {
 			reticleTransform.sizeDelta = new Vector2 (
 				Mathf.Lerp (reticleTransform.rect.width, StayingSize, 0.2f), 
 				Mathf.Lerp (reticleTransform.rect.height, StayingSize, 0.2f));
-			//reticleTransform.rect.width = Mathf.Lerp (reticleTransform.rect.width, StayingSize, Time.deltaTime);
-			//reticleTransform.rect.height = Mathf.Lerp (reticleTransform.rect.height, StayingSize, Time.deltaTime); 
 		}
 	}
 
@@ -123,7 +163,49 @@ public class HUDSystem : MonoBehaviour {
 		}
 	}
 
-	//setter per flash schermo
+	//Gestore del visualizzatore medKit
+	public void medKitSet (int quantity) {
+		switch (quantity) {
+		case -1:
+			noMed = true;
+			break;
+		case 0:
+			medStatus [0] = false;
+			medStatus [1] = false;
+			medStatus [2] = false;
+			break;
+		case 1:
+			medStatus [0] = true;
+			medStatus [1] = false;
+			medStatus [2] = false;
+			break;
+		case 2:
+			medStatus [0] = true;
+			medStatus [1] = true;
+			medStatus [2] = false;
+			break;
+		case 3:
+			medStatus [0] = true;
+			medStatus [1] = true;
+			medStatus [2] = true;
+			break;
+		}
+	}
+
+	//Pulser del medkti
+	public void medFlash (Image medKit, RectTransform medTransform, Color flashColor, Color normalColor) {
+		if (noMed) {
+			medKit.color = flashColor;
+			medTransform.sizeDelta = new Vector2 (15.0f, 15.0f);
+		} else {
+			medKit.color = Color.Lerp (medKit.color, normalColor, Time.deltaTime * 2.0f);
+			medTransform.sizeDelta = new Vector2 (
+				Mathf.Lerp (medTransform.rect.width, 10.0f, Time.deltaTime * 2.0f),
+				Mathf.Lerp (medTransform.rect.height, 10.0f, Time.deltaTime * 2.0f));
+		}
+	}
+
+	//Setter per flash schermo
 	public void getDamage () {
 		this.damaged = true;
 	}

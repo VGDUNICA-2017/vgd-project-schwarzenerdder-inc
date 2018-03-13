@@ -14,6 +14,7 @@ public class Pickup : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        testo = GameObject.Find("MessageBox").GetComponent<Text>();
         testo.enabled = false;
         flag = false;
         animator = fin.GetComponent<Animator>();
@@ -34,12 +35,14 @@ public class Pickup : MonoBehaviour {
                 EquipTorch();
                 testo.enabled = false;
 				inventario.setTorcia (true);
+                Destroy(gameObject);
             }
 
             if(gameObject.name.Equals("P226")) {
                 EquipPistol();
                 testo.enabled = false;
 				inventario.startAmmo (0);
+                Destroy(gameObject);
             }
         }
     }

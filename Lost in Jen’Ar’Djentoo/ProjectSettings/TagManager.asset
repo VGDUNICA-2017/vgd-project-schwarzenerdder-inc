@@ -18,6 +18,7 @@ TagManager:
   - Braccio_dx
   - FxTemporaire
   - Proiettile
+  - Enemy
   layers:
   - Default
   - TransparentFX

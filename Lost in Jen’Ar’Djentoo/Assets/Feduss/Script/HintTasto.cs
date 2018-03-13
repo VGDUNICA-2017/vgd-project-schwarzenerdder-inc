@@ -12,6 +12,7 @@ public class HintTasto : MonoBehaviour {
     public void Start()
     {
         access = GameObject.FindGameObjectWithTag("Cutter").GetComponent<KeyScript>();
+        testo = GameObject.Find("MessageBox").GetComponent<Text>();
     }
 
 

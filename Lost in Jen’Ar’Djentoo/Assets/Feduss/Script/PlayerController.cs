@@ -14,8 +14,10 @@ public class PlayerController : MonoBehaviour
     private float Spostamento_Y = 0.0f;
 
     //Variabili spostamento rotazione braccia durante mira
-    public float pos_sx=-13;
-    public float pos_dx=6f;
+    private float pos_sx= 11.2f; //offset per il braccio sx
+    private float pos_dx= 4.14f; //offset per il braccio dx
+    private float pos_dsx_up= -5.2f; //offset per l'altezza delle braccia quando miri
+    public float pos_dx_down; //offset per l'altezza del braccio dx quando non miri
 
     //Variabile dove salvo la rotazione verticale delle braccia e della testa (vedi lateupdate)
     private float posX;
@@ -45,18 +47,26 @@ public class PlayerController : MonoBehaviour
     //Variabili di salvataggio oggetti/armi equipaggiati e elementi dell'hud (eventualmente da nascondere per qualche motivo)
     private GameObject torcia_imp;
     private GameObject pistola_imp;
+    private GameObject testa;
+    private GameObject braccio_sx;
+    private GameObject braccio_dx;
 
     //Fov della camera (utile per quando si mira)
     int start_fov = 90;
-    int end_fov = 45;
+    int end_fov = 35;
 
-    //Rotazione della pistola (utile per quando si mira)
-    Vector3 pistol_start_angles = new Vector3(95.15399f, -101.196f, -106.771f);
-    Vector3 pistol_end_angles= new Vector3(99.077f, -83.23401f, -95.02301f);
+    //Transform della pistola (utile per quando si mira)
+    Vector3 pistol_start_angles = new Vector3(93.73999f, -333.442f, -353.222f);
+    Vector3 pistol_end_angles = new Vector3(112.066f, 192.071f, 184.422f);
+
+    Vector3 pistol_end_pos = new Vector3(0.131f, -0.016f, 0.053f);
+    Vector3 pistol_start_pos = new Vector3(0.1356f, -0.0514f, 0.0475f);
+
+    //Rotazione della torcia (cambia quando ti accovacci)
+    private Vector3 torcia_start_angles= new Vector3(0.005f, 45f, 75f);
+    private Vector3 torcia_end_angles= new Vector3(0.005f, 45f, 50f);
 
     private HUDSystem hudsystem;
-
-    private Transform aimSpot;
 
     // Use this for initialization
     void Start()
@@ -76,10 +86,6 @@ public class PlayerController : MonoBehaviour
         pistola_imp = GameObject.Find("P226 (Impugnata)");
         MainCamera = GameObject.Find("Camera");
         hudsystem = GetComponent<HUDSystem>();
-
-        aimSpot = GameObject.Find("Reticle").GetComponent<Transform>();
-        
-
 
     }
 
@@ -123,8 +129,8 @@ public class PlayerController : MonoBehaviour
 
         RotazioneVerticale(GameObject.FindGameObjectWithTag("Testa").transform);
 
-        if (animator.GetBool("Torch") || animator.GetBool("Pistol")) RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_dx").transform);
-        if (animator.GetBool("Pistol")) RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_sx").transform); 
+       if (animator.GetBool("Torch") || animator.GetBool("Pistol")) RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_dx").transform);
+       if (animator.GetBool("Pistol") && animator.GetBool("isAiming")) RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_sx").transform); 
         
 
     }
@@ -145,7 +151,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //ROTAZIONE VERTICALE DELLA TESTA E DEL BRACCIO SX
+    //ROTAZIONE VERTICALE DELLA TESTA E DELLE BRACCIA
     public void RotazioneVerticale(Transform parte_corpo)
     {
         Spostamento_Y = -(Velocità_Y * Input.GetAxis("Mouse Y"));  
@@ -155,22 +161,22 @@ public class PlayerController : MonoBehaviour
         if (posX < -45.0f) posX = -45.0f;
         if (posX > 60.0f) posX = 60.0f;
 
-        //Se sta ricaricando, blocco la rotazione verticale, altrimenti no 
-        if ((animator.GetCurrentAnimatorStateInfo(1).IsName("Reload")) && !parte_corpo.gameObject.CompareTag("Testa"))
+        //Offset per le braccia (quando hai la pistola)
+        if (animator.GetBool("Pistol") && !parte_corpo.gameObject.CompareTag("Testa") && animator.GetCurrentAnimatorStateInfo(1).IsName("Aim"))
         {
-            parte_corpo.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-            //GameObject.Find("P6Mag").transform.SetParent(GameObject.Find("swat:RightHand").transform);
+            if (parte_corpo.gameObject.CompareTag("Braccio_dx")) parte_corpo.localEulerAngles = new Vector3(posX + pos_dsx_up, GameObject.FindGameObjectWithTag("Player").transform.rotation.y + pos_dx, 0f);
+            if (parte_corpo.gameObject.CompareTag("Braccio_sx")) parte_corpo.localEulerAngles = new Vector3(posX + pos_dsx_up, GameObject.FindGameObjectWithTag("Player").transform.rotation.y + pos_sx, 0f);
+        }
+        else if ((animator.GetCurrentAnimatorStateInfo(0).IsName("Torch Crouch") || animator.GetCurrentAnimatorStateInfo(0).IsName("Crouch Pistol")) && !(parte_corpo.gameObject.CompareTag("Testa") &&
+                  !(animator.GetCurrentAnimatorStateInfo(1).IsName("Aim"))))
+        {
+            parte_corpo.localEulerAngles = new Vector3(posX - pos_dx_down, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
+            torcia_imp.transform.localEulerAngles = torcia_end_angles;
         }
         else
         {
-            parte_corpo.eulerAngles = (new Vector3(posX, Spostamento_X, 0.0f));
-           // GameObject.Find("P6Mag").transform.parent = GameObject.Find("P226 (Impugnata)").transform;
-        }
-
-        if (Input.GetButton("Aim") && !animator.GetBool("Torch"))
-        {
-            GameObject.FindGameObjectWithTag("Braccio_sx").transform.eulerAngles = new Vector3(posX, Spostamento_X+pos_sx, 0.0f);
-            GameObject.FindGameObjectWithTag("Braccio_dx").transform.eulerAngles = new Vector3(posX, Spostamento_X-pos_dx, 0.0f);
+            parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
+            torcia_imp.transform.localEulerAngles = torcia_start_angles;
         }
 
     }
@@ -216,6 +222,7 @@ public class PlayerController : MonoBehaviour
         {
             //Di default non sta correndo
             animator.SetBool("isRunning", false);
+
         }
 
 
@@ -234,26 +241,31 @@ public class PlayerController : MonoBehaviour
             //Di default non è accovacciato
             animator.SetBool("isCrouching", false);
         }
- 
-
-        //Se preme il tasto dx del mouse e se non ho la torcia
-        if (Input.GetButton("Aim") && !animator.GetBool("Torch"))
+        
+        //MIRA
+        //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo
+        if (Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Run Pistol"))
         {
             animator.SetBool("isAiming", true);
+            hudsystem.hudReticle(false);
 
-            MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime*5);
-            //pistola_imp.transform.localRotation = Quaternion.Euler(pistol_end_angles);
-            //pistola_imp.transform.LookAt(aimSpot);
-            //pistola_imp.transform.localRotation.SetLookRotation(aimSpot.rotation.eulerAngles);
+            //Non setta la posizione
+            pistola_imp.transform.localPosition = pistol_end_pos;
+            pistola_imp.transform.localEulerAngles = pistol_end_angles;
+            MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime * 5);
+
         }
         else
         {
             animator.SetBool("isAiming", false);
-            MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime*5);
-            //pistola_imp.transform.localRotation = Quaternion.Euler(pistol_start_angles);
-            //pistola_imp.transform.LookAt(aimSpot);
-            //pistola_imp.transform.localRotation.SetLookRotation(aimSpot.rotation.eulerAngles);
+            pistola_imp.transform.localPosition = pistol_start_pos;
+            pistola_imp.transform.localEulerAngles = pistol_start_angles;
+            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(true);
+            else hudsystem.hudReticle(false);
+            MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
+
         }
+
 
     }
 
