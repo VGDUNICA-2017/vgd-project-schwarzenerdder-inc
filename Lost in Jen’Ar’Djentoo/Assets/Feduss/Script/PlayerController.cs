@@ -14,10 +14,7 @@ public class PlayerController : MonoBehaviour
     private float Spostamento_Y = 0.0f;
 
     //Variabili spostamento rotazione braccia durante mira
-    private float pos_sx= 11.2f; //offset per il braccio sx
-    private float pos_dx= 4.14f; //offset per il braccio dx
-    private float pos_dsx_up= -5.2f; //offset per l'altezza delle braccia quando miri
-    public float pos_dx_down; //offset per l'altezza del braccio dx quando non miri
+    private float pos_dx_noAim=-15f; //offset per la posizione orizzontale del braccio dx quando non miri
 
     //Variabile dove salvo la rotazione verticale delle braccia e della testa (vedi lateupdate)
     private float posX;
@@ -52,19 +49,22 @@ public class PlayerController : MonoBehaviour
     private GameObject braccio_dx;
 
     //Fov della camera (utile per quando si mira)
-    int start_fov = 90;
+    int start_fov = 60;
     int end_fov = 35;
 
     //Transform della pistola (utile per quando si mira)
-    Vector3 pistol_start_angles = new Vector3(93.73999f, -333.442f, -353.222f);
-    Vector3 pistol_end_angles = new Vector3(112.066f, 192.071f, 184.422f);
+    Vector3 pistol_start_angles = new Vector3(78.55801f, -77.943f, -77.22501f);
+    Vector3 pistol_end_angles = new Vector3(71.749f, -66.369f, -52.329f);
 
-    Vector3 pistol_end_pos = new Vector3(0.131f, -0.016f, 0.053f);
-    Vector3 pistol_start_pos = new Vector3(0.1356f, -0.0514f, 0.0475f);
+    Vector3 pistol_start_pos = new Vector3(0.2576f, -0.0756f, 0.1487f);
+    Vector3 pistol_end_pos = new Vector3(0.275f, -0.048f, 0.183f);
+
+    //Debug
+    bool autoaim = false;
 
     //Rotazione della torcia (cambia quando ti accovacci)
-    private Vector3 torcia_start_angles= new Vector3(0.005f, 45f, 75f);
-    private Vector3 torcia_end_angles= new Vector3(0.005f, 45f, 50f);
+    private Vector3 torcia_start_angles= new Vector3(0.005f, -45f, -75f);
+    private Vector3 torcia_end_angles= new Vector3(0.005f, -45f, -50f);
 
     private HUDSystem hudsystem;
 
@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
         //Aggiorno lo stato delle armi/hud in base a quella equipaggiata 
         SetActive();
 
+        RotazioneVerticale(MainCamera.transform);
     }
 
 
@@ -129,8 +130,8 @@ public class PlayerController : MonoBehaviour
 
         RotazioneVerticale(GameObject.FindGameObjectWithTag("Testa").transform);
 
-       if (animator.GetBool("Torch") || animator.GetBool("Pistol")) RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_dx").transform);
-       if (animator.GetBool("Pistol") && animator.GetBool("isAiming")) RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_sx").transform); 
+        RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_dx").transform);
+        RotazioneVerticale(GameObject.FindGameObjectWithTag("Braccio_sx").transform); 
         
 
     }
@@ -158,26 +159,38 @@ public class PlayerController : MonoBehaviour
 
         posX += Spostamento_Y;
 
-        if (posX < -45.0f) posX = -45.0f;
-        if (posX > 60.0f) posX = 60.0f;
-
-        //Offset per le braccia (quando hai la pistola)
-        if (animator.GetBool("Pistol") && !parte_corpo.gameObject.CompareTag("Testa") && animator.GetCurrentAnimatorStateInfo(1).IsName("Aim"))
+        if (animator.GetBool("Pistol"))
         {
-            if (parte_corpo.gameObject.CompareTag("Braccio_dx")) parte_corpo.localEulerAngles = new Vector3(posX + pos_dsx_up, GameObject.FindGameObjectWithTag("Player").transform.rotation.y + pos_dx, 0f);
-            if (parte_corpo.gameObject.CompareTag("Braccio_sx")) parte_corpo.localEulerAngles = new Vector3(posX + pos_dsx_up, GameObject.FindGameObjectWithTag("Player").transform.rotation.y + pos_sx, 0f);
-        }
-        else if ((animator.GetCurrentAnimatorStateInfo(0).IsName("Torch Crouch") || animator.GetCurrentAnimatorStateInfo(0).IsName("Crouch Pistol")) && !(parte_corpo.gameObject.CompareTag("Testa") &&
-                  !(animator.GetCurrentAnimatorStateInfo(1).IsName("Aim"))))
-        {
-            parte_corpo.localEulerAngles = new Vector3(posX - pos_dx_down, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
-            torcia_imp.transform.localEulerAngles = torcia_end_angles;
+            if (posX < -15.0f) posX = -15.0f;
+            if (posX > 20.0f) posX = 20.0f;
         }
         else
         {
+            if (posX < -45.0f) posX = -45.0f;
+            if (posX > 60.0f) posX = 60.0f;
+        }
+
+        //Offset per le braccia (quando hai la pistola e sta mirando)
+        if (animator.GetBool("Pistol") && animator.GetBool("isAiming") || (animator.GetBool("Pistol") && parte_corpo.name.Equals("Camera")))
+        {
             parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
+        }
+
+        //Aggiusto l'offset iniziale della rotazione verticale quando è accovacciato
+        if ((animator.GetCurrentAnimatorStateInfo(0).IsName("Torch Crouch")) && !(parte_corpo.gameObject.CompareTag("Testa") && !animator.GetBool("isAiming")))
+        {
+               
+                parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y+ pos_dx_noAim, 0f);
+                torcia_imp.transform.localEulerAngles = torcia_end_angles;
+        }
+
+        //offset del braccio sx quando hai la la torcia
+        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("Torch") && !animator.GetBool("isAiming"))
+        {
+            parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y+pos_dx_noAim, 0f);
             torcia_imp.transform.localEulerAngles = torcia_start_angles;
         }
+            
 
     }
 
@@ -244,7 +257,7 @@ public class PlayerController : MonoBehaviour
         
         //MIRA
         //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo
-        if (Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Run Pistol"))
+        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Run Pistol"))
         {
             animator.SetBool("isAiming", true);
             hudsystem.hudReticle(false);
@@ -252,6 +265,8 @@ public class PlayerController : MonoBehaviour
             //Non setta la posizione
             pistola_imp.transform.localPosition = pistol_end_pos;
             pistola_imp.transform.localEulerAngles = pistol_end_angles;
+            //pistola_imp.transform.localPosition= Vector3.Lerp(pistola_imp.transform.localPosition, pistol_end_pos, Time.deltaTime * 5);
+            //pistola_imp.transform.localEulerAngles = Vector3.Lerp(pistola_imp.transform.localEulerAngles, pistol_end_angles, Time.deltaTime * 5);
             MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime * 5);
 
         }
@@ -260,7 +275,9 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isAiming", false);
             pistola_imp.transform.localPosition = pistol_start_pos;
             pistola_imp.transform.localEulerAngles = pistol_start_angles;
-            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(true);
+            //pistola_imp.transform.localPosition = Vector3.Lerp(pistola_imp.transform.localPosition, pistol_start_pos, Time.deltaTime * 5);
+            //pistola_imp.transform.localEulerAngles = Vector3.Lerp(pistola_imp.transform.localEulerAngles, pistol_start_angles, Time.deltaTime * 5);
+            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(false);
             else hudsystem.hudReticle(false);
             MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
 

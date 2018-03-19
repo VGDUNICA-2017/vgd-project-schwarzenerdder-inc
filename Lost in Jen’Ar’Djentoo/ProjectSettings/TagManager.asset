@@ -19,6 +19,10 @@ TagManager:
   - FxTemporaire
   - Proiettile
   - Enemy
+  - Ammo_9mm
+  - Ammo_shotgun
+  - Ammo_smg
+  - FirstAid
   layers:
   - Default
   - TransparentFX

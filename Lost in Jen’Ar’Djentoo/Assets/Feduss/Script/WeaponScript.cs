@@ -67,7 +67,7 @@ public class WeaponScript : MonoBehaviour {
 
 		//Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
 		if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(1).IsName("Reload") && 
-			(!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !animator.IsInTransition(0) && !player.GetBool("isRunning"))) {
+			(!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && player.GetBool("isAiming")  && !animator.IsInTransition(0) && !player.GetBool("isRunning"))) {
 
 			//Se il caricatore è vuoto
 			if (leftMagAmmo == 0) {

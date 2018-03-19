@@ -9,6 +9,7 @@ public class BulletScript : MonoBehaviour {
     public GameObject bullet_impact;
     public GameObject bullet_impact_generic;
     private ContactPoint contact;
+    public float offset;
 
     // Use this for initialization
     void Start () {
@@ -17,14 +18,8 @@ public class BulletScript : MonoBehaviour {
 
         //Instantiate(fire_fx, transform);
 
-        //Aggiungo la forza dello sparo al proiettile
+        //Aggiungo la forza dello sparo al proiettile, frontalmente rispetto al gamebject vuoto usato come riferimento
         GetComponent<Rigidbody>().AddForce(start_bullet.transform.forward*100f, ForceMode.Impulse);
-
-
-
-        //Inizialmente il proiettile viene istanziato come figlio dell'arma...poi la parentela viene annullata,
-        //per far si che il proiettile, una volta sparato, non segua i movimenti del parent originale
-
 
         //Distrugge il colpo se non colpisce niente
         if (gameObject!=null) Destroy(gameObject, 15f);
@@ -39,7 +34,7 @@ public class BulletScript : MonoBehaviour {
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal); //aggiusto la rotazione
         Vector3 pos = contact.point;
 
-        if (other.gameObject.tag != "Enemy") Instantiate(bullet_impact_generic, pos, rot);
+        if (other.gameObject.tag != "Enemy") Instantiate(bullet_impact_generic, pos, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
         else Instantiate(bullet_impact, pos, rot);
 
         Destroy(gameObject);

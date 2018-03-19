@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
 	private GameObject player;
 	private Animator animator;
+	private NavMeshAgent agent;
 
 	public float spotDistance = 20.0f;
 	public float attackDistance = 5.0f;
@@ -15,8 +17,9 @@ public class EnemyController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
-		animator = GetComponent<Animator> ();
-		startPosition = transform.position;
+		animator = this.GetComponent<Animator> ();
+		startPosition = this.transform.position;
+		agent = this.GetComponent<NavMeshAgent> ();
 
 		animator.SetBool ("Idle", true);
 		animator.SetBool ("Spotted", false);
@@ -33,11 +36,9 @@ public class EnemyController : MonoBehaviour {
 		} else {
 			atStart = false;
 		}
-
-        PlayAnimation();
 	}
 
-	public void PlayAnimation () {
+	public void FixedUpdate () {
 		float distance = Vector3.Distance (this.transform.position, player.transform.position);
 
 		//TODO Rivedere le distanze
@@ -64,6 +65,8 @@ public class EnemyController : MonoBehaviour {
 		animator.SetBool ("Idle", true);
 		animator.SetBool ("Spotted", false);
 		animator.SetBool ("Attack", false);
+
+		agent.enabled = false;
 		//TODO
 	}
 
@@ -72,11 +75,16 @@ public class EnemyController : MonoBehaviour {
 		animator.SetBool ("Idle", false);
 		animator.SetBool ("Spotted", true);
 		animator.SetBool ("Attack", false);
+
+		agent.enabled = false;
+		//agent.SetDestination (player.transform.position);
 		//TODO
 	}
 
 	//Funzione di ritorno al punto iniziale
 	public void backToStart () {
+		agent.enabled = true;
+		agent.SetDestination (startPosition);
 		//TODO
 	}
 
@@ -85,6 +93,8 @@ public class EnemyController : MonoBehaviour {
 		animator.SetBool ("Idle", false);
 		animator.SetBool ("Spotted", true);
 		animator.SetBool ("Attack", true);
+
+		agent.enabled = false;
 		//TODO
 	}
 }

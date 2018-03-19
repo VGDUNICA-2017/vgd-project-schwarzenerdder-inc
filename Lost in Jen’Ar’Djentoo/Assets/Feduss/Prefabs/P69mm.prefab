@@ -39,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 1246835509981504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.017122269, y: 0.0044828537, z: -0.0009880543}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,10 +111,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff09f7d4837882845a1e5a6bd67136fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire_fx: {fileID: 100000, guid: 03a4a1935a9f4454c861dfa0aa6df562, type: 2}
-  bullet_impact: {fileID: 100002, guid: fc7f8379080d0a844ad699b91bfd56f0, type: 2}
-  bullet_impact_generic: {fileID: 100002, guid: 957385c45b877e645a128e11a3efb2f9,
+  fire_fx: {fileID: 100006, guid: 30b4cc2728d8cec499fad63ba93785a4, type: 2}
+  bullet_impact: {fileID: 1929431216076050, guid: fe72b27d75d44954a853f763a6e72ed9,
     type: 2}
+  bullet_impact_generic: {fileID: 100006, guid: 9e95c7b2183a4f345aaf86846f8f1918,
+    type: 2}
+  offset: 90
 --- !u!136 &136103850551513788
 CapsuleCollider:
   m_ObjectHideFlags: 1

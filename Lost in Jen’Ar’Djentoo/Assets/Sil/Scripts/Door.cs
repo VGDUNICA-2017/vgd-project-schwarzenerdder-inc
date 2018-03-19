@@ -20,7 +20,9 @@ public class Door : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		isOpened = false;
-		messageBox.enabled = false;
+
+        messageBox= GameObject.Find("MessageBox").GetComponent<Text>();
+        messageBox.enabled = false;
 		inRange = false;
 	}
 
