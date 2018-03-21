@@ -45,14 +45,18 @@ public class Pickup : MonoBehaviour {
     public void OnTriggerStay(Collider other) {
         if (Input.GetButton("Open Door") && other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)")) {
             if (gameObject.name.Equals("la Torcia")) {
-                EquipTorch();
+                //EquipTorch();
+                animator.SetBool("isTaken", true);
+                //animator.SetBool("isTaken", false);
                 testo.enabled = false;
 				inventario.setTorcia (true);
                 Destroy(gameObject);
             }
 
             if(gameObject.name.Equals("P226")) {
-                EquipPistol();
+                //EquipPistol();
+                animator.SetBool("isTaken", true);
+               //animator.SetBool("isTaken", false);
                 testo.enabled = false;
 				inventario.startAmmo (0);
                 Destroy(gameObject);

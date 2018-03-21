@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour {
 	//Elementi da settare
 	public float spotDistance = 20.0f;
 	public float attackDistance = 3.0f;
+    private int health = 100;
 
 	void Start () {
 		animator = this.GetComponent<Animator> ();
@@ -75,7 +76,36 @@ public class EnemyController : MonoBehaviour {
 			//Attacco
 			agent.enabled = false;
 			animator.SetFloat ("Speed", 0.0f);
+
+            //Randomizzo per scegliere casualmente tra le 3 animazioni di attacco
+            animator.SetFloat("Range", Random.Range(-1f, 1f));
+
 			animator.SetTrigger ("Attack");
 		}
-	}
+
+        if (health==0)
+        {
+            animator.SetBool("Death", true);
+        }
+        else animator.SetBool("Death", false);
+
+        Debug.Log(health);
+
+    }
+
+    public int TakeDamage(int damage)
+    {
+        //Randomizzo per scegliere casualmente tra le 3 animazioni di danno
+        animator.SetFloat("Range", Random.Range(-1f, 1f));
+
+        animator.SetTrigger("Hit");
+
+        if (health <= 0)
+        {
+            health = 0;
+            animator.SetBool("Death", true);
+        }
+
+        return health -= damage;
+    }
 }

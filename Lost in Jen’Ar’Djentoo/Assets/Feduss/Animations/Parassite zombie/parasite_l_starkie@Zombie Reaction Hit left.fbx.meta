@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6bca33ded6b5b124c9d016dac55c0c3f
-timeCreated: 1520612832
+guid: d5605a25add33fb4abb84b6a25e96568
+timeCreated: 1521650408
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -137,7 +137,7 @@ ModelImporter:
     400126: Spine
     400128: Spine1
     400130: Spine2
-    7400000: Zombie Death
+    7400000: Zombie Reaction Hit left
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -167,25 +167,25 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Zombie Death
+      name: Zombie Reaction Hit left
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 178
+      lastFrame: 130
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 0
+      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
-      heightFromFeet: 1
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

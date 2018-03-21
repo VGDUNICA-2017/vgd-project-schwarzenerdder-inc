@@ -254,8 +254,8 @@ public class HUDSystem : MonoBehaviour {
 	}
 
 	//Attiva HUD armi
-	public void hudShots () {
-		shotsUI.SetActive (true);
+	public void hudShots (bool state) {
+		shotsUI.SetActive (state);
 	}
 
 	//Attiva minimappa

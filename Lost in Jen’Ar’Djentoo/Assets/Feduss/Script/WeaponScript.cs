@@ -32,7 +32,7 @@ public class WeaponScript : MonoBehaviour {
     private Transform start_bullet;
 
     //RAYCAST
-    public int gunDamage = 1; //danno dell'arma
+    private int gunDamage = 20; //danno dell'arma
     public float fireRate = .25f; //tempo tra uno sparo e l'altro..nel nostro caso, determinerà la durante dell'animazione di sparo (più è alto, più sparera velocemente)
 
     public float weaponRange = 50f; //gittata dell'arma
@@ -42,8 +42,8 @@ public class WeaponScript : MonoBehaviour {
 
     private Camera tpsCam; //serve per sapere dove il player sta mirando
 
-    //debug
-    private LineRenderer laserLine;
+    public GameObject bullet_impact;
+    public GameObject bullet_impact_generic;
 
     // Use this for initialization
     void Start () {
@@ -56,8 +56,6 @@ public class WeaponScript : MonoBehaviour {
 
         //bulletscript = bullet.GetComponent<BulletScript>();
 
-        //
-        laserLine = GetComponent<LineRenderer>();
         tpsCam = GameObject.Find("Camera").GetComponent<Camera>();
 
     }
@@ -69,7 +67,7 @@ public class WeaponScript : MonoBehaviour {
 			//imposto l'index dell'arma (serve per l'inventario)
 			index = 0;
             //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
-			hudsystem.hudShots();
+			hudsystem.hudShots(true);
 
             //Salvo quella che sarà la parentela del proiettile con l'arma
             start_bullet = GameObject.Find("Start_Bullet").transform;
@@ -77,14 +75,15 @@ public class WeaponScript : MonoBehaviour {
             //Distruggo il proiettile già presente nell'arma
             Destroy(GameObject.Find("P69mm"), 1f);
         }
+        else hudsystem.hudShots(false);
 
         //Setto le munizioni nel caricatore e di riserva con quanto vi è nell'inventario
-		leftMagAmmo = inventario.ammoLeft(index);
+        leftMagAmmo = inventario.ammoLeft(index);
 		leftInvAmmo = inventario.ammoInvLeft(index);
 
 		//Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
 		if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(1).IsName("Reload") && 
-			(!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !animator.IsInTransition(0) && !player.GetBool("isRunning"))) {
+			(!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !player.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !animator.IsInTransition(0) && !player.GetBool("isRunning") && !player.GetBool("isCrouching"))) {
 
 			//Se il caricatore è vuoto
 			if (leftMagAmmo == 0) {
@@ -107,7 +106,6 @@ public class WeaponScript : MonoBehaviour {
 
         } else {
 			animator.SetBool("Fire", false);
-            laserLine.enabled = false;
         }
 
 		if (Input.GetButton("Reload") && !(animator.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && 
@@ -143,12 +141,9 @@ public class WeaponScript : MonoBehaviour {
 
     private void RaycastShot()
     {
-        laserLine.enabled = true;
 
         Vector3 rayOrigin = tpsCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0)); //centro della camera
         RaycastHit hit; //variabile per la memorizazzione delle info sull'oggetto colpito
-
-        laserLine.SetPosition(0, gunEnd.position); //setto la posizione iniziale del raggio
 
         //cast del ray: rayOrigin: 
         //-origine del ray (il centro del camera)
@@ -157,11 +152,16 @@ public class WeaponScript : MonoBehaviour {
         //-gittata raggio
         if (Physics.Raycast(rayOrigin, tpsCam.transform.forward, out hit, weaponRange))
         {
-            laserLine.SetPosition(1, hit.point); //se colpisco qualcosa, la fine del raggio nell'oggetto colpito
-        }
-        else
-        {
-            laserLine.SetPosition(1, tpsCam.transform.forward * weaponRange); //altrimenti all'infinito, sino al range definito
+            if (hit.collider.gameObject.CompareTag("Enemy"))
+            {
+                //Istanzio il sangue sul nemico
+                Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
+
+                //Gli infliggo danno
+                hit.collider.gameObject.GetComponent<EnemyController>().TakeDamage(gunDamage);
+
+            }
+            else Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f))); 
         }
 
     }

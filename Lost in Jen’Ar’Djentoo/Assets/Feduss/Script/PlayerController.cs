@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     //Variabili per l'animazione
     private Animator animator;
+    private Animator enemy;
 
     //Spostamento giocatore
     public float Velocità_X = 2.0f; //Velocità di spostamento orizzontale
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float Spostamento_Y = 0.0f;
 
     //Variabili spostamento rotazione braccia durante mira
-    private float pos_dx_noAim=-15f; //offset per la posizione orizzontale del braccio dx quando non miri
+    public float pos_dx_noAim=-15f; //offset per la posizione orizzontale del braccio dx quando non miri
 
     //Variabile dove salvo la rotazione verticale delle braccia e della testa (vedi lateupdate)
     private float posX;
@@ -64,12 +65,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 torcia_end_angles= new Vector3(0.005f, -45f, -50f);
 
     private HUDSystem hudsystem;
+    private InventorySystem inventory;
 
     // Use this for initialization
     void Start()
     {
 
         animator = GetComponent<Animator>();
+        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
 
@@ -83,6 +86,7 @@ public class PlayerController : MonoBehaviour
         pistola_imp = GameObject.Find("P226 (Impugnata)");
         MainCamera = GameObject.Find("Camera");
         hudsystem = GetComponent<HUDSystem>();
+        inventory = GetComponent<InventorySystem>();
 
     }
 
@@ -102,6 +106,8 @@ public class PlayerController : MonoBehaviour
         SetActive();
 
         RotazioneVerticale(MainCamera.transform);
+
+        SwitchWeapon();
     }
 
 
@@ -168,23 +174,30 @@ public class PlayerController : MonoBehaviour
         }
 
         //Offset per le braccia (quando hai la pistola e sta mirando)
-        if (animator.GetBool("Pistol") && animator.GetBool("isAiming") || (animator.GetBool("Pistol") && parte_corpo.name.Equals("Camera")))
+        if (animator.GetBool("Pistol") && (animator.GetBool("isAiming") || animator.GetBool("isFiring")) || (animator.GetBool("Pistol") && parte_corpo.name.Equals("Camera")))
         {
             parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
         }
 
         //Aggiusto l'offset iniziale della rotazione verticale quando è accovacciato
-        if ((animator.GetCurrentAnimatorStateInfo(0).IsName("Torch Crouch")) && !(parte_corpo.gameObject.CompareTag("Testa") && !animator.GetBool("isAiming")))
+        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("isCrouching") && !(parte_corpo.gameObject.CompareTag("Testa") && !animator.GetBool("isAiming")))
         {
-               
-                parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y+ pos_dx_noAim, 0f);
+
+            if (parte_corpo.name.Equals("MainCamera"))
+            {
+                parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
+            }
+            else
+            {
+                parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y + pos_dx_noAim, 0f);
+            }
                 torcia_imp.transform.localEulerAngles = torcia_end_angles;
         }
 
         //offset del braccio sx quando hai la la torcia
-        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("Torch") && !animator.GetBool("isAiming"))
+        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && !parte_corpo.gameObject.name.Equals("MainCamera") && animator.GetBool("Torch") && !animator.GetBool("isAiming"))
         {
-            parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y+pos_dx_noAim, 0f);
+            parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
             torcia_imp.transform.localEulerAngles = torcia_start_angles;
         }
             
@@ -242,11 +255,13 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isCrouching", true);
             collider_fin.center = new Vector3(0f, 0.75f, 0f);
             collider_fin.height = 1.45f;
+            MainCamera.transform.localPosition = Vector3.Lerp(new Vector3(2f, 3.5f, -3f), new Vector3(2f, 3.0f, -3f), 1f);
         }
         else
         {
             collider_fin.center = new Vector3(0f, prec_collider_center, 0f);
             collider_fin.height = prec_collider_height;
+            MainCamera.transform.localPosition = Vector3.Lerp(new Vector3(2f, 3.0f, -3f), new Vector3(2f, 3.5f, -3f), 1f);
 
             //Di default non è accovacciato
             animator.SetBool("isCrouching", false);
@@ -254,16 +269,14 @@ public class PlayerController : MonoBehaviour
         
         //MIRA
         //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo
-        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Run Pistol"))
+        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning"))
         {
             animator.SetBool("isAiming", true);
             hudsystem.hudReticle(true);
 
-            //Non setta la posizione
             pistola_imp.transform.localPosition = pistol_end_pos;
             pistola_imp.transform.localEulerAngles = pistol_end_angles;
-            //pistola_imp.transform.localPosition= Vector3.Lerp(pistola_imp.transform.localPosition, pistol_end_pos, Time.deltaTime * 5);
-            //pistola_imp.transform.localEulerAngles = Vector3.Lerp(pistola_imp.transform.localEulerAngles, pistol_end_angles, Time.deltaTime * 5);
+
             MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime * 5);
 
         }
@@ -272,15 +285,34 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isAiming", false);
             pistola_imp.transform.localPosition = pistol_start_pos;
             pistola_imp.transform.localEulerAngles = pistol_start_angles;
-            //pistola_imp.transform.localPosition = Vector3.Lerp(pistola_imp.transform.localPosition, pistol_start_pos, Time.deltaTime * 5);
-            //pistola_imp.transform.localEulerAngles = Vector3.Lerp(pistola_imp.transform.localEulerAngles, pistol_start_angles, Time.deltaTime * 5);
-            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(true);
+
+            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(false);
             else hudsystem.hudReticle(false);
+
             MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
 
         }
 
 
+    }
+
+    //Da completare man mano che inseriremo le altre armi
+    private void SwitchWeapon()
+    {
+
+        //Torcia
+        if (Input.GetKeyDown("1") && animator.GetBool("Pistol"))
+        {
+            animator.SetBool("Pistol", false);
+            animator.SetBool("Torch", true);
+        }
+
+        //Pistola
+        if (Input.GetKeyDown("2") && animator.GetBool("Torch"))
+        {
+            animator.SetBool("Torch", false);
+            animator.SetBool("Pistol", true);
+        }
     }
 
     //Metodi per gestire i suoni del giocatore
@@ -328,6 +360,17 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = false;
             PlayJumpSound();
+        }
+    }
+
+    //Danno del mostro
+
+    public void OnTriggerEnter(Collider other)
+    {
+        //wip, va regolato il danno in base al nemico
+        if(other.gameObject.CompareTag("Braccio_dx") || other.gameObject.CompareTag("Braccio_sx") && (enemy.GetCurrentAnimatorStateInfo(0).IsName("Attacking")))
+        {
+            inventory.takeDamage(15);
         }
     }
 }
