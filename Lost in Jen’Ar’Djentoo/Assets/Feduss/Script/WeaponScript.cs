@@ -25,15 +25,28 @@ public class WeaponScript : MonoBehaviour {
 	private int leftInvAmmo;
 	private int index;
 
-    //Proiettile
-    public GameObject bullet;
+    //Effetto dello sparo
     public GameObject fire_effect;
 
     //start_bullet=posizione iniziale di istanza del proiettile
     private Transform start_bullet;
 
-	// Use this for initialization
-	void Start () {
+    //RAYCAST
+    public int gunDamage = 1; //danno dell'arma
+    public float fireRate = .25f; //tempo tra uno sparo e l'altro..nel nostro caso, determinerà la durante dell'animazione di sparo (più è alto, più sparera velocemente)
+
+    public float weaponRange = 50f; //gittata dell'arma
+    public float hitForce = 100f; //forza impressa dal colpo durante la collisione
+
+    public Transform gunEnd; //transform del gameobject vuoto, dal quale partirà il raycast
+
+    private Camera tpsCam; //serve per sapere dove il player sta mirando
+
+    //debug
+    private LineRenderer laserLine;
+
+    // Use this for initialization
+    void Start () {
 		animator = GetComponent<Animator>();
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
 		m_AudioSource = GetComponent<AudioSource>();
@@ -41,7 +54,11 @@ public class WeaponScript : MonoBehaviour {
 		inventario = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
 		hudsystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HUDSystem>();
 
-        bulletscript = bullet.GetComponent<BulletScript>();
+        //bulletscript = bullet.GetComponent<BulletScript>();
+
+        //
+        laserLine = GetComponent<LineRenderer>();
+        tpsCam = GameObject.Find("Camera").GetComponent<Camera>();
 
     }
 
@@ -67,7 +84,7 @@ public class WeaponScript : MonoBehaviour {
 
 		//Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
 		if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(1).IsName("Reload") && 
-			(!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && player.GetBool("isAiming")  && !animator.IsInTransition(0) && !player.GetBool("isRunning"))) {
+			(!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !animator.IsInTransition(0) && !player.GetBool("isRunning"))) {
 
 			//Se il caricatore è vuoto
 			if (leftMagAmmo == 0) {
@@ -77,7 +94,10 @@ public class WeaponScript : MonoBehaviour {
 				animator.SetBool("Fire", true);
 
                 //Istanzio il proiettile e l'effetto dello sparo
-                Instantiate(bullet, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
+                //DEPRECATO IN FAVORE DEL RAYCAST Instantiate(bullet, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
+
+                RaycastShot();
+
                 Instantiate(fire_effect, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f,90f,0f)));
 
 
@@ -87,6 +107,7 @@ public class WeaponScript : MonoBehaviour {
 
         } else {
 			animator.SetBool("Fire", false);
+            laserLine.enabled = false;
         }
 
 		if (Input.GetButton("Reload") && !(animator.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && 
@@ -119,6 +140,31 @@ public class WeaponScript : MonoBehaviour {
 			animator.SetBool ("OutOfInvAmmo", false);
 		}
 	}
+
+    private void RaycastShot()
+    {
+        laserLine.enabled = true;
+
+        Vector3 rayOrigin = tpsCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0)); //centro della camera
+        RaycastHit hit; //variabile per la memorizazzione delle info sull'oggetto colpito
+
+        laserLine.SetPosition(0, gunEnd.position); //setto la posizione iniziale del raggio
+
+        //cast del ray: rayOrigin: 
+        //-origine del ray (il centro del camera)
+        //-direzione del ray (il forward della camera
+        //-info sull'oggetto colpito
+        //-gittata raggio
+        if (Physics.Raycast(rayOrigin, tpsCam.transform.forward, out hit, weaponRange))
+        {
+            laserLine.SetPosition(1, hit.point); //se colpisco qualcosa, la fine del raggio nell'oggetto colpito
+        }
+        else
+        {
+            laserLine.SetPosition(1, tpsCam.transform.forward * weaponRange); //altrimenti all'infinito, sino al range definito
+        }
+
+    }
 
 
 	private void PlayReloadSound() {

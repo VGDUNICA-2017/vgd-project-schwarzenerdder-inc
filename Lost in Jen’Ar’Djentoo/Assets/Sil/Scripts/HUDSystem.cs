@@ -4,57 +4,61 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDSystem : MonoBehaviour {
-	//Riferimenti
-	public Image screenDamage;
-	public Image radialHealth;
-	public Text healthText;
-	public Image med1;
-	public Image med2;
-	public Image med3;
-	public GameObject shotsUI;
-	public GameObject minimapSet;
-	public GameObject reticle;
-
 	//Supporti per il flash dello schermo
+	public Image screenDamage;
 	private bool damaged;
 	private float flashSpeed = 2.5f;
 	public Color flashColor = new Color (1.0f, 0.0f, 0.0f, 0.1f);
 
 	//Supporti per il radiale di vita
+	public Image radialHealth;
+	public Text healthText;
 	private Color fullHealthColor = Color.green;
 	private Color halfHealthColor = Color.yellow;
 	private Color zeroHealthColor = Color.red;
 
 	//Supporti per i mark dei medkit
+	public Image med1;
+	public Image med2;
+	public Image med3;
+	private RectTransform med1Transform;
+	private RectTransform med2Transform;
+	private RectTransform med3Transform;
 	private Color medFullColor = Color.green;
 	private Color medEmptyColor = Color.black;
 	private bool noMed;
 	private bool[] medStatus = new bool[3];
-	private RectTransform med1Transform;
-	private RectTransform med2Transform;
-	private RectTransform med3Transform;
 
 	//Supporti per le munizioni
+	public GameObject shotsUI;
 	private Text ammoText;
 	private Text invAmmoText;
 	private bool noAmmo;
 
+	//Supporti per la minimappa
+	public GameObject minimapSet;
+
 	//Supporti per il mirino
+	public GameObject reticle;
 	private RectTransform reticleTransform;
 	private const float MovingSize = 50.0f;
 	private const float StayingSize = 30.0f;
+	private const float AimingSize = 20.0f;
 	private bool moving;
+	private bool aiming;
 
 	// Use this for initialization
 	void Start () {
+		//Recupero elementi HUD
+		ammoText = shotsUI.transform.Find ("ShotsLeft").transform.GetComponent<Text> ();
+		invAmmoText = shotsUI.transform.Find ("ShotsInventory").transform.GetComponent<Text> ();
+
 		//Disabilitazion elementi HUD
 		shotsUI.SetActive (false);
 		minimapSet.SetActive (false);
 		reticle.SetActive (false);
 
-		//Recupero elementi
-		ammoText = shotsUI.transform.Find ("ShotsLeft").transform.GetComponent<Text> ();
-		invAmmoText = shotsUI.transform.Find ("ShotsInventory").transform.GetComponent<Text> ();
+		//Recupero transform
 		reticleTransform = (RectTransform)reticle.transform;
 		med1Transform = (RectTransform)med1.transform;
 		med2Transform = (RectTransform)med2.transform;
@@ -65,6 +69,7 @@ public class HUDSystem : MonoBehaviour {
 		noMed = false;
 		noAmmo = false;
 		moving = false;
+		aiming = false;
 	}
 	
 	// Update is called once per frame
@@ -115,15 +120,22 @@ public class HUDSystem : MonoBehaviour {
 			ammoText.fontSize = (int)Mathf.Lerp (ammoText.fontSize, 25, flashSpeed * Time.deltaTime);
 		}
 
-		//Ingrandimento del reticolo in movimento (true), e rimpicciolimento (false)
-		if (moving) {
+		//Chiusura totale del reticolo in mira (true)
+		if (aiming) {
 			reticleTransform.sizeDelta = new Vector2 (
-				Mathf.Lerp (reticleTransform.rect.width, MovingSize, 0.2f), 
-				Mathf.Lerp (reticleTransform.rect.height, MovingSize, 0.2f));
+				Mathf.Lerp (reticleTransform.rect.width, AimingSize, 0.2f), 
+				Mathf.Lerp (reticleTransform.rect.height, AimingSize, 0.2f));
 		} else {
-			reticleTransform.sizeDelta = new Vector2 (
-				Mathf.Lerp (reticleTransform.rect.width, StayingSize, 0.2f), 
-				Mathf.Lerp (reticleTransform.rect.height, StayingSize, 0.2f));
+			//Ingrandimento del reticolo in movimento (true) o stabilizzaione (false)
+			if (moving) {
+				reticleTransform.sizeDelta = new Vector2 (
+					Mathf.Lerp (reticleTransform.rect.width, MovingSize, 0.2f), 
+					Mathf.Lerp (reticleTransform.rect.height, MovingSize, 0.2f));
+			} else {
+				reticleTransform.sizeDelta = new Vector2 (
+					Mathf.Lerp (reticleTransform.rect.width, StayingSize, 0.2f), 
+					Mathf.Lerp (reticleTransform.rect.height, StayingSize, 0.2f));
+			}
 		}
 	}
 
@@ -234,6 +246,11 @@ public class HUDSystem : MonoBehaviour {
 	//Setter di movimento
 	public void movingState (bool state) {
 		moving = state;
+	}
+
+	//Setter di mira
+	public void aimingState (bool state) {
+		aiming = state;
 	}
 
 	//Attiva HUD armi

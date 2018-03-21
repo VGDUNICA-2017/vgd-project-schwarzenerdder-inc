@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviour
     private float posY;
 
     //Suoni passi
-    [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-    [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
-    [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+    [SerializeField] public AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
+    [SerializeField] public AudioClip m_JumpSound;           // the sound played when character leaves the ground.
+    [SerializeField] public AudioClip m_LandSound;           // the sound played when character touches back on ground.
     private AudioSource m_AudioSource;
 
 
@@ -44,9 +44,6 @@ public class PlayerController : MonoBehaviour
     //Variabili di salvataggio oggetti/armi equipaggiati e elementi dell'hud (eventualmente da nascondere per qualche motivo)
     private GameObject torcia_imp;
     private GameObject pistola_imp;
-    private GameObject testa;
-    private GameObject braccio_sx;
-    private GameObject braccio_dx;
 
     //Fov della camera (utile per quando si mira)
     int start_fov = 60;
@@ -260,7 +257,7 @@ public class PlayerController : MonoBehaviour
         if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Run Pistol"))
         {
             animator.SetBool("isAiming", true);
-            hudsystem.hudReticle(false);
+            hudsystem.hudReticle(true);
 
             //Non setta la posizione
             pistola_imp.transform.localPosition = pistol_end_pos;
@@ -277,7 +274,7 @@ public class PlayerController : MonoBehaviour
             pistola_imp.transform.localEulerAngles = pistol_start_angles;
             //pistola_imp.transform.localPosition = Vector3.Lerp(pistola_imp.transform.localPosition, pistol_start_pos, Time.deltaTime * 5);
             //pistola_imp.transform.localEulerAngles = Vector3.Lerp(pistola_imp.transform.localEulerAngles, pistol_start_angles, Time.deltaTime * 5);
-            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(false);
+            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(true);
             else hudsystem.hudReticle(false);
             MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
 
