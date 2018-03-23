@@ -46,6 +46,39 @@ public class HintTasto : MonoBehaviour {
             }
         }
 
+        if (gameObject.name.Equals("Corsa"))
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                testo.text = "Premi \"Left Shit\" per correre";
+                testo.enabled = true;
+            }
+        }
+
+        if (gameObject.name.Equals("Camminata"))
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                testo.text = "Premi \"W\" per avanzare";
+                testo.enabled = true;
+            }
+        }
+
+        if (gameObject.name.Equals("TorciaHint"))
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                testo.text = "Premi \"F\" per accendere e spegnere la torcia";
+                testo.enabled = true;
+            }
+        }
+
+        if (gameObject.name.Equals("KitmedicoHint"))
+        {
+            testo.text = "Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo";
+            testo.enabled = true;
+        }
+
 
 
 

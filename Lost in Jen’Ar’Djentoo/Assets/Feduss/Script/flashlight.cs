@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class flashlight : MonoBehaviour {
 
-    public Light torcia;
+    private Light torcia;
 
 	// Use this for initialization
 	void Start () {
-        torcia.enabled = false;
+        torcia = GameObject.Find("Luce").GetComponent<Light>();
+        torcia.enabled = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-            if (Input.GetKeyDown("f"))
+            if (Input.GetButtonDown("Torcia"))
             {
                 if (torcia.enabled) torcia.enabled = false;
                 else torcia.enabled = true;

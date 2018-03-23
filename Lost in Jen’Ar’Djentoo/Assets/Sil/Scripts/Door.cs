@@ -19,10 +19,9 @@ public class Door : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		isOpened = false;
-
-        messageBox= GameObject.Find("MessageBox").GetComponent<Text>();
-        messageBox.enabled = false;
+        messageBox = GameObject.Find("MessageBox").GetComponent<Text>();
+        isOpened = false;
+		messageBox.enabled = false;
 		inRange = false;
 	}
 

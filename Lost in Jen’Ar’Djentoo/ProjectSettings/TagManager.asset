@@ -23,6 +23,7 @@ TagManager:
   - Ammo_shotgun
   - Ammo_smg
   - FirstAid
+  - Luce
   layers:
   - Default
   - TransparentFX

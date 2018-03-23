@@ -18,7 +18,6 @@ public class WeaponScript : MonoBehaviour {
     //Script varie
     private InventorySystem inventario;
 	private HUDSystem hudsystem;
-    private BulletScript bulletscript;
 
     //munizioni nel caricatore, di riserva e tipo di arma
     private int leftMagAmmo;
@@ -53,8 +52,6 @@ public class WeaponScript : MonoBehaviour {
 
 		inventario = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
 		hudsystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HUDSystem>();
-
-        //bulletscript = bullet.GetComponent<BulletScript>();
 
         tpsCam = GameObject.Find("Camera").GetComponent<Camera>();
 
@@ -91,9 +88,6 @@ public class WeaponScript : MonoBehaviour {
 			}
             else {
 				animator.SetBool("Fire", true);
-
-                //Istanzio il proiettile e l'effetto dello sparo
-                //DEPRECATO IN FAVORE DEL RAYCAST Instantiate(bullet, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
 
                 RaycastShot();
 
@@ -156,13 +150,28 @@ public class WeaponScript : MonoBehaviour {
             {
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
-
+                Debug.Log("nemico");
                 //Gli infliggo danno
-                hit.collider.gameObject.GetComponent<EnemyController>().TakeDamage(gunDamage);
 
+                hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
             }
-            else Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f))); 
+            else //danno bonus se lo colpisce all testa
+                if (hit.collider.gameObject.CompareTag("Testa"))
+                {
+                    //Istanzio il sangue sul nemico
+                    Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
+                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);
+                }
+                else
+                {
+                    Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+                    Debug.Log("terreno");
+                }
+
+
+
         }
+        
 
     }
 

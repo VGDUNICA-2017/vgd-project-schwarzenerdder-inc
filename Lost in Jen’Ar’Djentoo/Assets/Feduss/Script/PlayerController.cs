@@ -32,19 +32,16 @@ public class PlayerController : MonoBehaviour
     private bool isOnGround=false;
 
 
-    //Corpo rigido di fin
-    private Rigidbody rb;
-
     //Capsule collider di fin e variabili per salvare il suo collider (utile per quando si accovaccia)
     private CapsuleCollider collider_fin;
     private float prec_collider_center;
     private float prec_collider_height;
 
-    private GameObject MainCamera;
+    public GameObject MainCamera;
 
     //Variabili di salvataggio oggetti/armi equipaggiati e elementi dell'hud (eventualmente da nascondere per qualche motivo)
-    private GameObject torcia_imp;
-    private GameObject pistola_imp;
+    public GameObject torcia_imp;
+    public GameObject pistola_imp;
 
     //Fov della camera (utile per quando si mira)
     int start_fov = 60;
@@ -58,7 +55,7 @@ public class PlayerController : MonoBehaviour
     Vector3 pistol_end_pos = new Vector3(0.275f, -0.048f, 0.183f);
 
     //Debug
-    bool autoaim = false;
+    public bool autoaim = false;
 
     //Rotazione della torcia (cambia quando ti accovacci)
     private Vector3 torcia_start_angles= new Vector3(0.005f, -45f, -75f);
@@ -67,24 +64,25 @@ public class PlayerController : MonoBehaviour
     private HUDSystem hudsystem;
     private InventorySystem inventory;
 
+    private bool flag_damage = false;
+    
+    //flag per il possesso delle armi
+    public bool getTorch=false;
+    public bool getPistol = false;
+    public bool getShotgun = false;
+    public bool getSmg = false;
+
     // Use this for initialization
     void Start()
     {
+        Cursor.visible = false;
 
         animator = GetComponent<Animator>();
         enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Animator>();
         m_AudioSource = GetComponent<AudioSource>();
-        rb = GetComponent<Rigidbody>();
-
-        collider_fin = GetComponent<CapsuleCollider>();
-        //Salvo alcune info del collider di fin (utile per quando si accovaccia, e poi si rialza)
-        prec_collider_center = collider_fin.center.y;
-        prec_collider_height = collider_fin.height;
 
         //Recupero gameobjects
-        torcia_imp = GameObject.Find("la Torcia (Impugnata)");
-        pistola_imp = GameObject.Find("P226 (Impugnata)");
-        MainCamera = GameObject.Find("Camera");
+
         hudsystem = GetComponent<HUDSystem>();
         inventory = GetComponent<InventorySystem>();
 
@@ -108,24 +106,24 @@ public class PlayerController : MonoBehaviour
         RotazioneVerticale(MainCamera.transform);
 
         SwitchWeapon();
-    }
+
+        //Kitmedico
+        if (Input.GetKeyDown("k"))
+        {
+            inventory.useMedKit();
+        }
+
+        //serve per far si che il nemico infligga danno una sola volta durante ogni animazione di attacco (vedi l'ontriggerenter per il resto del codice)
+        if (!enemy.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+        {
+            flag_damage = true;
+        }
+
+
+        }
 
 
     public void LateUpdate(){
-
-        ///////////////////
-        //SALTO
-
-        float jump = Input.GetAxis("Jump");
-        float jumpSpeed=5f;
-
-        if (Input.GetButtonDown("Jump") && isOnGround)
-        {
-           
-            
-            Vector3 jumpVector = new Vector3(0.0f, jump * jumpSpeed, 0.0f);
-            rb.AddForce(jumpVector, ForceMode.Impulse);
-        }
 
 
         /////////////////
@@ -174,7 +172,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Offset per le braccia (quando hai la pistola e sta mirando)
-        if (animator.GetBool("Pistol") && (animator.GetBool("isAiming") || animator.GetBool("isFiring")) || (animator.GetBool("Pistol") && parte_corpo.name.Equals("Camera")))
+        if (animator.GetBool("WeaponLess") || (animator.GetBool("Pistol") && (animator.GetBool("isAiming") || animator.GetBool("isFiring")) || (animator.GetBool("Pistol")) && parte_corpo.name.Equals("Camera")))
         {
             parte_corpo.localEulerAngles = new Vector3(posX, GameObject.FindGameObjectWithTag("Player").transform.rotation.y, 0f);
         }
@@ -225,17 +223,6 @@ public class PlayerController : MonoBehaviour
             hudsystem.movingState(false);
         }
 
-        //Se prende un oggetto, allora aggiorno isTaken
-        if (Input.GetButton("Pickup"))
-        {
-            animator.SetBool("isTaken", true);
-        }
-        else
-        {
-            //Di default non sta prendendo niente
-            animator.SetBool("isTaken", false);
-        }
-
         //Se corre
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -253,18 +240,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Crouch"))
         {
             animator.SetBool("isCrouching", true);
-            collider_fin.center = new Vector3(0f, 0.75f, 0f);
-            collider_fin.height = 1.45f;
+            GetComponent<CharacterController>().height = 3.3f;
+            GetComponent<CharacterController>().center = new Vector3(0f, 1.1f, 0f);
             MainCamera.transform.localPosition = Vector3.Lerp(new Vector3(2f, 3.5f, -3f), new Vector3(2f, 3.0f, -3f), 1f);
         }
         else
         {
-            collider_fin.center = new Vector3(0f, prec_collider_center, 0f);
-            collider_fin.height = prec_collider_height;
-            MainCamera.transform.localPosition = Vector3.Lerp(new Vector3(2f, 3.0f, -3f), new Vector3(2f, 3.5f, -3f), 1f);
-
             //Di default non è accovacciato
             animator.SetBool("isCrouching", false);
+            GetComponent<CharacterController>().height = 3.8f;
+            GetComponent<CharacterController>().center = new Vector3(0f, 1.59f, 0f);
+            MainCamera.transform.localPosition = Vector3.Lerp(new Vector3(2f, 3.0f, -3f), new Vector3(2f, 3.5f, -3f), 1f);
+            
         }
         
         //MIRA
@@ -293,6 +280,24 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        //salto
+        if (Input.GetButtonDown("Jump"))
+        {
+            animator.SetTrigger("isJumping");
+        }
+
+        //turn
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            animator.SetFloat("isTurningMouse", 1);
+        }
+
+        //turn
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            animator.SetFloat("isTurningMouse", -1);
+        }
+
 
     }
 
@@ -301,19 +306,45 @@ public class PlayerController : MonoBehaviour
     {
 
         //Torcia
-        if (Input.GetKeyDown("1") && animator.GetBool("Pistol"))
+        if (Input.GetKeyDown("1") && getTorch)
         {
-            animator.SetBool("Pistol", false);
+            if(animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+            //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
+            //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+
             animator.SetBool("Torch", true);
         }
 
         //Pistola
-        if (Input.GetKeyDown("2") && animator.GetBool("Torch"))
+        if (Input.GetKeyDown("2") && getPistol)
         {
-            animator.SetBool("Torch", false);
+            if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+            //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
+            //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
             animator.SetBool("Pistol", true);
         }
+
+        //Shotgun
+        if (Input.GetKeyDown("3") && getShotgun)
+        {
+            if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+            if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+            //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+            //animator.SetBool("Shotgun", true);
+        }
+
+        //Smg
+        if (Input.GetKeyDown("4") && getSmg)
+        {
+            if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+            if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+            //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
+            //animator.SetBool("Smg", true);
+        }
+
+
     }
+
 
     //Metodi per gestire i suoni del giocatore
 
@@ -342,35 +373,28 @@ public class PlayerController : MonoBehaviour
         m_AudioSource.Play();
     }
 
-   
-    //Metodi per capire quando il giocatore sta "con i piedi per terra"
-
-    public void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Terreno"))
-        {
-            isOnGround = true;
-            PlayLandingSound();
-        }
-    }
-
-    public void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.CompareTag("Terreno"))
-        {
-            isOnGround = false;
-            PlayJumpSound();
-        }
-    }
-
-    //Danno del mostro
-
     public void OnTriggerEnter(Collider other)
     {
-        //wip, va regolato il danno in base al nemico
-        if(other.gameObject.CompareTag("Braccio_dx") || other.gameObject.CompareTag("Braccio_sx") && (enemy.GetCurrentAnimatorStateInfo(0).IsName("Attacking")))
+        if (other.gameObject.CompareTag("Braccio_sx") || other.gameObject.CompareTag("Braccio_dx"))
         {
-            inventory.takeDamage(15);
+            if (enemy.GetCurrentAnimatorStateInfo(0).IsName("Attacking") && flag_damage)
+            {
+                inventory.takeDamage(15);
+                flag_damage = false;
+
+                if (inventory.getStatus()) animator.SetTrigger("Death");
+            }
+        }
+
+        if (other.gameObject.CompareTag("Braccio_sx") && other.gameObject.CompareTag("Braccio_dx"))
+        {
+            if (enemy.GetCurrentAnimatorStateInfo(0).IsName("Attacking") && flag_damage)
+            {
+                inventory.takeDamage(30);
+                flag_damage = false;
+
+                if (inventory.getStatus()) animator.SetTrigger("Death");
+            }
         }
     }
 }

@@ -36,31 +36,35 @@ public class Pickup : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)")) {
+        if (other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)"))
+        {
             testo.text = "Premi \"E\" per raccogliere "+gameObject.name;
             testo.enabled = true;
         }
+
     }
 
     public void OnTriggerStay(Collider other) {
         if (Input.GetButton("Open Door") && other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)")) {
             if (gameObject.name.Equals("la Torcia")) {
-                //EquipTorch();
-                animator.SetBool("isTaken", true);
-                //animator.SetBool("isTaken", false);
+                EquipTorch();
+                //animator.SetTrigger("isTaken"); 
                 testo.enabled = false;
 				inventario.setTorcia (true);
+                fin.GetComponent<PlayerController>().getTorch = true;
+                Destroy(GameObject.Find("MuroInvisibile1"));
                 Destroy(gameObject);
             }
 
             if(gameObject.name.Equals("P226")) {
-                //EquipPistol();
-                animator.SetBool("isTaken", true);
-               //animator.SetBool("isTaken", false);
+                EquipPistol();
+                //animator.SetTrigger("isTaken");
                 testo.enabled = false;
 				inventario.startAmmo (0);
+                fin.GetComponent<PlayerController>().getPistol = true;
                 Destroy(gameObject);
             }
+  
 
             if (gameObject.CompareTag("Ammo_9mm"))
             {

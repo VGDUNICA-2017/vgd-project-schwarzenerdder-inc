@@ -66,12 +66,16 @@ public class InventorySystem : MonoBehaviour {
 	public void takeDamage(int damage) {
 		currentHealth -= damage;
 
-		hudScript.getDamage ();
+        if (currentHealth < 0)
+        {
+            isDead = true;
+            currentHealth = 0;
+        }
+
+        hudScript.getDamage ();
 		hudScript.radialHealthSet (currentHealth, fullHealth);
 
-		if (currentHealth < 0) {
-			isDead = true;
-		}
+		
 	}
 
 	//Funzione per curare danni

@@ -11,15 +11,18 @@ public class EnemyController : MonoBehaviour {
 	private NavMeshAgent agent;
 
 	//Variabili di supporto
-	private Vector3 startPosition;
-	private float currentDistance;
-	private float lastDistance;
-	private bool backToStart;
+	[SerializeField] public Vector3 startPosition;
+	public float currentDistance;
+	public float lastDistance;
+	public bool backToStart;
+	private bool canRoar;
+	private const int MaxHealth = 100;
+	public int health;
+	public bool isDead;
 
 	//Elementi da settare
 	public float spotDistance = 20.0f;
 	public float attackDistance = 3.0f;
-    private int health = 100;
 
 	void Start () {
 		animator = this.GetComponent<Animator> ();
@@ -30,82 +33,114 @@ public class EnemyController : MonoBehaviour {
 		currentDistance = 99.9f;
 		backToStart = false;
 		startPosition = this.transform.position;
+
+		canRoar = true;
+
+		health = MaxHealth;
+		if (health < 1) {
+			isDead = true;
+		} else {
+			isDead = false;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		lastDistance = currentDistance;
-		currentDistance = Vector3.Distance (this.transform.position, player.transform.position);
+		//Se il nemico è vivo
+		if (health > 0) {
+			lastDistance = currentDistance;
+			currentDistance = Vector3.Distance (this.transform.position, player.transform.position);
 
-		//Azione di posizionamento
-		if (currentDistance > spotDistance) {
-			if ((lastDistance <= spotDistance) || backToStart) {
-				//Sistema di ritorno
-				agent.enabled = true;
-				animator.SetFloat ("Speed", agent.speed);
-				agent.SetDestination(startPosition);
+			//Azione di posizionamento
+			if (currentDistance > spotDistance) {
+				canRoar = true;
 
-				//Trigger animazione "bersaglio perso"
-				if (!backToStart) {
-					animator.SetTrigger ("Lost");
-				}
+				if ((lastDistance <= spotDistance) || backToStart) {
+					//Trigger animazione "bersaglio perso"
+					if (!backToStart) {
+						animator.SetTrigger ("Lost");
+					}
 
-				//Altro sistema di ingresso:
-				//Il primo update che entra verifica la condizione (lastDistance <= spotDistance)
-				//Gli altri entrano finché non torna alla posizione iniziale
-				if (this.transform.position == startPosition) {
-					backToStart = false;
+					//Controllo sullo stato dell'animator
+					//Durante l'animazione "PlayerLost", il nemico non si deve muovere
+					float startDistance = Vector3.Distance(this.transform.position, startPosition);
+					if (animator.GetCurrentAnimatorStateInfo (0).IsName ("PlayerLost")) {
+						agent.enabled = false;
+					} else {
+						//Sistema di ritorno
+						agent.enabled = true;
+						agent.SetDestination (startPosition);
+
+						if (startDistance < 5.0f && startDistance >= 1.5f) {
+							animator.SetFloat ("Speed", Mathf.Lerp (animator.GetFloat ("Speed"), 0.0f, Time.deltaTime));
+						} else if (startDistance < 1.5f) {
+							agent.enabled = false;
+							animator.SetFloat ("Speed", 0.0f);
+						}
+					}
+
+					//Altro sistema di ingresso:
+					//Il primo update che entra verifica la condizione (lastDistance <= spotDistance)
+					//Gli altri entrano finché non torna alla posizione iniziale
+					if (startDistance < 1.5f) {
+						backToStart = false;
+					} else {
+						backToStart = true;
+					}
+
 				} else {
-					backToStart = true;
+					//Idle
+					agent.enabled = false;
+					animator.SetFloat ("Speed", 0.0f);
 				}
 
-			} else {
-				//Idle
+			} else if ((currentDistance <= spotDistance) && (currentDistance > attackDistance)) {
+				//Ruggito
+				if (canRoar) {
+					animator.SetTrigger ("Spotted");
+					canRoar = false;
+				}
+
+				//Se il nemico si trova nello stato di moving, allora l'agent viene attivato
+				//In qualunque altro stato, è inattivo
+				//Questo previene il movimento durante attacco e ruggito
+				if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Moving")) {
+					animator.SetFloat ("Speed", 1.0f);
+					agent.enabled = true;
+					agent.SetDestination (player.transform.position);
+
+				} else {
+					agent.enabled = false;
+				}
+
+
+			} else if (currentDistance <= attackDistance) {
+				//Attacco
+				this.transform.LookAt(player.transform.position);
 				agent.enabled = false;
+				animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 				animator.SetFloat ("Speed", 0.0f);
+				animator.SetTrigger ("Attack");
 			}
-
-		} else if ((currentDistance <= spotDistance) && (currentDistance > attackDistance)) {
-			//Insegumento del player
-			agent.enabled = true;
-			animator.SetFloat ("Speed", agent.speed);
-			animator.SetTrigger ("Spotted");
-			agent.SetDestination (player.transform.position);
-
-		} else if (currentDistance <= attackDistance) {
-			//Attacco
-			agent.enabled = false;
-			animator.SetFloat ("Speed", 0.0f);
-
-            //Randomizzo per scegliere casualmente tra le 3 animazioni di attacco
-            animator.SetFloat("Range", Random.Range(-1f, 1f));
-
-			animator.SetTrigger ("Attack");
+		} else {
+			//Se il nemico non è ancora in fase di morte, attiva tale animazione
+			if (isDead) {
+				animator.SetTrigger ("Death");
+				animator.SetFloat ("Speed", 0.0f);
+				agent.enabled = false;
+				isDead = false;
+			}
 		}
+	}
 
-        if (health==0)
-        {
-            animator.SetBool("Death", true);
-        }
-        else animator.SetBool("Death", false);
+	public void takeDamage(int damage) {
+		this.health -= damage;
 
-        Debug.Log(health);
+		animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
+		animator.SetTrigger ("Hit");
 
-    }
-
-    public int TakeDamage(int damage)
-    {
-        //Randomizzo per scegliere casualmente tra le 3 animazioni di danno
-        animator.SetFloat("Range", Random.Range(-1f, 1f));
-
-        animator.SetTrigger("Hit");
-
-        if (health <= 0)
-        {
-            health = 0;
-            animator.SetBool("Death", true);
-        }
-
-        return health -= damage;
-    }
+		if (health < 1) {
+			isDead = true;
+		}
+	}
 }
