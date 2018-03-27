@@ -7,13 +7,6 @@ public class WeaponScript : MonoBehaviour {
 	private Animator animator;
 	private Animator player;
 
-    //audio
-	[SerializeField] private AudioClip m_ReloadSound;
-	[SerializeField] private AudioClip m_ShootSound;
-	[SerializeField] private AudioClip m_EmptyMag;
-	[SerializeField] private AudioClip m_EmptyMagReload;
-	[SerializeField] private AudioClip m_EquipPistol;
-    private AudioSource m_AudioSource;
 
     //Script varie
     private InventorySystem inventario;
@@ -44,16 +37,19 @@ public class WeaponScript : MonoBehaviour {
     public GameObject bullet_impact;
     public GameObject bullet_impact_generic;
 
+    private PlaySound playsound;
+
     // Use this for initialization
     void Start () {
 		animator = GetComponent<Animator>();
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-		m_AudioSource = GetComponent<AudioSource>();
 
 		inventario = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
 		hudsystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HUDSystem>();
 
         tpsCam = GameObject.Find("Camera").GetComponent<Camera>();
+
+        playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
 
     }
 
@@ -84,7 +80,7 @@ public class WeaponScript : MonoBehaviour {
 
 			//Se il caricatore è vuoto
 			if (leftMagAmmo == 0) {
-				PlayEmptyMag();
+				playsound.PlayEmptyMag();
 			}
             else {
 				animator.SetBool("Fire", true);
@@ -94,7 +90,7 @@ public class WeaponScript : MonoBehaviour {
                 Instantiate(fire_effect, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f,90f,0f)));
 
 
-                PlayShootSound();
+                playsound.PlayShootSound();
             }
             inventario.shot(index);
 
@@ -110,9 +106,9 @@ public class WeaponScript : MonoBehaviour {
 
 			//Cambio la ricarica in base ai colpi nel caricatore
 			if (leftMagAmmo == 0) {
-				PlayEmptyMagReload ();
+                playsound.PlayEmptyMagReload ();
 			} else {
-				PlayReloadSound ();
+                playsound.PlayReloadSound ();
 			}
 			inventario.reloadWeapon(index);
 		} else {
@@ -135,8 +131,12 @@ public class WeaponScript : MonoBehaviour {
 
     private void RaycastShot()
     {
+        Vector3 rayOrigin;
+        Vector3 direction;
 
-        Vector3 rayOrigin = tpsCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0)); //centro della camera
+        rayOrigin = tpsCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0)); //centro della camera
+        direction = tpsCam.transform.forward;
+        
         RaycastHit hit; //variabile per la memorizazzione delle info sull'oggetto colpito
 
         //cast del ray: rayOrigin: 
@@ -144,7 +144,8 @@ public class WeaponScript : MonoBehaviour {
         //-direzione del ray (il forward della camera
         //-info sull'oggetto colpito
         //-gittata raggio
-        if (Physics.Raycast(rayOrigin, tpsCam.transform.forward, out hit, weaponRange))
+
+        if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange))
         {
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
@@ -176,28 +177,5 @@ public class WeaponScript : MonoBehaviour {
     }
 
 
-	private void PlayReloadSound() {
-		m_AudioSource.clip = m_ReloadSound;
-		m_AudioSource.Play ();
-	}
-
-	private void PlayShootSound() {
-		m_AudioSource.clip = m_ShootSound;
-		m_AudioSource.Play ();
-	}
-
-	private void PlayEmptyMag() {
-		m_AudioSource.clip = m_EmptyMag;
-		m_AudioSource.Play ();
-	}
-
-	private void PlayEmptyMagReload() {
-		m_AudioSource.clip = m_EmptyMagReload;
-		m_AudioSource.Play ();
-	}
-
-	public void PlayEquipPistolSound() {
-		m_AudioSource.clip = m_EquipPistol;
-		m_AudioSource.Play ();
-	}
+	
 }

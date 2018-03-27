@@ -54,12 +54,6 @@ public class InventorySystem : MonoBehaviour {
 		if (this.getMappa()) {
 			hudScript.hudMinimap ();
 		}
-
-		/*if ((getWeapon (0) || getWeapon (1) || getWeapon (2)) && noWeapon) {
-			hudScript.hudShots (true);
-			noWeapon = false;
-		}
-        */
     }
 
 	//Funzione per subire danni

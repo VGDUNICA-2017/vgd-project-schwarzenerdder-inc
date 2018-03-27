@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Pickup : MonoBehaviour {
 
     private Text testo;
+    private Text take;
     public GameObject fin;
     private Animator animator;
     public bool flag;
@@ -18,7 +19,9 @@ public class Pickup : MonoBehaviour {
     // Use this for initialization
     void Start() {
         testo = GameObject.Find("MessageBox").GetComponent<Text>();
+        take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
         testo.enabled = false;
+        take.enabled = false;
         flag = false;
         animator = fin.GetComponent<Animator>();
         hudsystem = fin.GetComponent<HUDSystem>();
@@ -45,15 +48,18 @@ public class Pickup : MonoBehaviour {
     }
 
     public void OnTriggerStay(Collider other) {
-        if (Input.GetButton("Open Door") && other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)")) {
+        if (Input.GetButtonDown("Open Door") && other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)")) {
             if (gameObject.name.Equals("la Torcia")) {
                 EquipTorch();
                 //animator.SetTrigger("isTaken"); 
                 testo.enabled = false;
 				inventario.setTorcia (true);
-                fin.GetComponent<PlayerController>().getTorch = true;
+                fin.GetComponent<SwitchWeapon>().getTorch = true;
                 Destroy(GameObject.Find("MuroInvisibile1"));
-                Destroy(gameObject);
+
+                take.enabled = true;
+                take.text = "Hai raccolto la torcia";
+                StartCoroutine(DisableAfterSomeSeconds());
             }
 
             if(gameObject.name.Equals("P226")) {
@@ -61,18 +67,30 @@ public class Pickup : MonoBehaviour {
                 //animator.SetTrigger("isTaken");
                 testo.enabled = false;
 				inventario.startAmmo (0);
-                fin.GetComponent<PlayerController>().getPistol = true;
-                Destroy(gameObject);
+                fin.GetComponent<SwitchWeapon>().getPistol = true;
+
+                take.enabled = true;
+                take.text = "Hai raccolto la P226";
+                StartCoroutine(DisableAfterSomeSeconds());
             }
   
 
             if (gameObject.CompareTag("Ammo_9mm"))
             {
-                munizioni_ammobox=inventario.ammoPickup(munizioni_ammobox, 0, arma_attuale);
+
+                take.enabled = true;
+                take.text = "Hai raccolto " + munizioni_ammobox + " colpi da 9mm";
+                StartCoroutine(DisableAfterSomeSeconds());
+                gameObject.GetComponent<Renderer>().enabled = false;
+
+                munizioni_ammobox =inventario.ammoPickup(munizioni_ammobox, 0, arma_attuale);
+
+                
 
                 if (munizioni_ammobox == 0){
                     testo.enabled = false;
                     munizioni_ammobox = 8;
+
                     Destroy(gameObject);
                 }
 
@@ -83,7 +101,10 @@ public class Pickup : MonoBehaviour {
                 if (inventario.medkitPickup())
                 {
                     testo.enabled = false;
-                    Destroy(gameObject);
+
+                    take.enabled = true;
+                    take.text = "Hai raccolto un kit medico";
+                    StartCoroutine(DisableAfterSomeSeconds());
                 }
             }
         }
@@ -103,5 +124,14 @@ public class Pickup : MonoBehaviour {
     public void EquipPistol() {
         animator.SetBool("Torch", false);
         animator.SetBool("Pistol", true);
+    }
+
+    IEnumerator DisableAfterSomeSeconds()
+    {
+        yield return new WaitForSeconds(2f);
+       
+        take.enabled = false;
+        testo.enabled = false;
+        Destroy(gameObject);
     }
 }

@@ -70,6 +70,7 @@ public class HintTasto : MonoBehaviour {
             {
                 testo.text = "Premi \"F\" per accendere e spegnere la torcia";
                 testo.enabled = true;
+                GetComponent<AudioSource>().Play();
             }
         }
 
@@ -78,10 +79,6 @@ public class HintTasto : MonoBehaviour {
             testo.text = "Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo";
             testo.enabled = true;
         }
-
-
-
-
     }
 
         public void OnTriggerExit(Collider other)

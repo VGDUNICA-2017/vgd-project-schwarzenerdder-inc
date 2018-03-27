@@ -8,10 +8,13 @@ public class KeyScript : MonoBehaviour
 
 
     public bool key = false;
+    private Text take;
+
+
     // Use this for initialization
     void Start()
     {
-
+        take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -26,11 +29,14 @@ public class KeyScript : MonoBehaviour
         // e disattivo le cesoie
         if (other.CompareTag("Player") && Input.GetButton("Open Door") && gameObject.CompareTag("Cutter"))
         {
-            Debug.Log("sono in un log");
             key = true;
             GameObject.Find("chain").GetComponent<KeyScript>().key = true;
             GameObject.FindGameObjectWithTag("Cutter").GetComponent<HintTasto>().testo.enabled = false;
-            gameObject.SetActive(false);
+
+            take.enabled = true;
+            take.text = "Hai raccolto le cesoie";
+            StartCoroutine(DisableAfterSomeSeconds());
+            
 
 
         }
@@ -58,5 +64,42 @@ public class KeyScript : MonoBehaviour
                 }
             }
         }
+
+
+        //chiave per aprire le porte bloccate
+        if (other.gameObject.CompareTag("Player") && Input.GetButtonDown("Open Door"))
+        {
+            if (GetComponent<KeyScript>().key == false)
+            {
+                //TODO IMPEDIRE DI APRIRE LA PORTA E DARE MESSAGGIO DI ERRORE
+            }
+            else
+            {
+                //DARE MESSAGGIO DI PORTA SBLOCCATA, E AGGIUNGERE SCRIPT DOOR DI SILVIO (OCCHIO AL COLLIDER TRIGGER)
+            }
+         }
+        
+
+        if (other.CompareTag("Player") && Input.GetButton("Open Door") && gameObject.CompareTag("Key"))
+        {
+            key = true;
+            GameObject.FindGameObjectWithTag("Key").GetComponent<KeyScript>().key = true;
+            GameObject.FindGameObjectWithTag("Cutter").GetComponent<HintTasto>().testo.enabled = false;
+
+            take.enabled = true;
+            take.text = "Hai raccolto le chiavi";
+            StartCoroutine(DisableAfterSomeSeconds());
+
+
+
+        }
+    }
+   
+    IEnumerator DisableAfterSomeSeconds()
+    {
+        yield return new WaitForSeconds(2f);
+
+        take.enabled = false;
+        Destroy(gameObject);
     }
 }
