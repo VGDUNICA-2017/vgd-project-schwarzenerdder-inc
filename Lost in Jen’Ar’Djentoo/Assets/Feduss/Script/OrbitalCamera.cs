@@ -8,16 +8,14 @@ public class OrbitalCamera : MonoBehaviour {
     private int start_fov = 60;
     private int end_fov = 35;
 
-    //temp
-    private Vector3 start_pos = new Vector3(1.5f, 3.43f, -3f);
-    private Vector3 start_angles = new Vector3();
+    private Vector3 follow_pos; //posizione default della camera quando il player si sposta (orbital camera only)
+
     private float posX;
     public float Velocità_Y = 1.0f; //Velocità di spostamento verticale
-    private float Spostamento_Y = 0.0f;
+    public float Velocità_X = 1.0f; //Velocità di spostamento orizzontale
 
-    public float Velocità_X;
+    private float Spostamento_Y = 0.0f; 
     private float Spostamento_X;
-    private Vector3 offset;
 
     private Animator animator;
 
@@ -25,7 +23,7 @@ public class OrbitalCamera : MonoBehaviour {
 
     public bool autoaim = false; //debug
 
-    private VerticalRotation vr;
+    public bool orbitalCamera = false; //true= camera alla resident evil 6
 
     // Use this for initialization
     void Start () {
@@ -34,9 +32,7 @@ public class OrbitalCamera : MonoBehaviour {
 
         MainCamera = GameObject.Find("Camera");
 
-        vr=GetComponent<VerticalRotation>();
-
-        offset = transform.position - MainCamera.transform.position;
+        follow_pos = MainCamera.transform.localPosition;
 
 	}
 	
@@ -68,57 +64,63 @@ public class OrbitalCamera : MonoBehaviour {
             if (posX > 60.0f) posX = 60.0f;
         }
 
-        //MainCamera.transform.localPosition = start_pos;
-        //MainCamera.transform.localEulerAngles = start_angles;
+        //camera orbitale
+        if (orbitalCamera)
+        {
 
-        if ((Input.GetAxis("Vertical") == 0.0) && (Input.GetAxis("Horizontal") == 0.0))
-        {
-            print("fermo" + offset);
-            MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
-            
-            MainCamera.transform.RotateAround(transform.localPosition, Vector3.up, Velocità_X * Input.GetAxis("Mouse X"));
-        }
-        else
-        {
-            if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
+            if ((Input.GetAxis("Vertical") == 0.0) && (Input.GetAxis("Horizontal") == 0.0) && !Input.GetButton("Aim"))
             {
-                print("mira");
-                vr.RotazioneVerticale(MainCamera.transform, 1);
 
+                //MainCamera.transform.SetParent(null); //rendo il transform della camera indipendente
+                
+                //resetto il fov (esso cambia quando miri)
+                MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
+
+                //unione della rotazione verticale con la rotazione intorno al player
+                MainCamera.transform.RotateAround(transform.localPosition, Vector3.up, Velocità_X * Input.GetAxis("Mouse X"));
+                MainCamera.transform.localEulerAngles = new Vector3(posX, MainCamera.transform.localEulerAngles.y, 0.0f);
+
+            }
+            else
+            {
+                if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
+                {
+
+                    transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
+                    MainCamera.transform.localEulerAngles = new Vector3(posX, 0.0f, 0.0f);
+                    MainCamera.transform.localPosition = follow_pos;
+                    MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime * 5);
+
+                }
+                else
+                {
+                    transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
+                    MainCamera.transform.localEulerAngles = new Vector3(posX, 0.0f, 0.0f);
+                    MainCamera.transform.localPosition = follow_pos;
+                    
+
+                }
+            }
+        }
+        else //camera standard
+        {
+            MainCamera.transform.SetParent(GameObject.Find("Eyes").transform);
+            transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
+            MainCamera.transform.localEulerAngles = new Vector3(posX, 0.0f, 0.0f);
+
+            if (animator.GetBool("isAiming"))
+            {
                 MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime * 5);
             }
             else
             {
-                print("movimento");
-                MainCamera.transform.position = transform.position - offset;
-
-                transform.eulerAngles = MainCamera.transform.forward;
-                transform.localEulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
-                MainCamera.transform.eulerAngles = transform.forward;
-                //MainCamera.transform.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
-
-
-
+                MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
             }
         }
+
+
+
         
-
-
-        /*if ((Input.GetAxis("Vertical") == 0.0) && (Input.GetAxis("Horizontal") == 0.0))
-        {
-
-            print("we");
-
-            //Ricavo l'angolo di rotazione orizzontale in base allo spostamento del mouse
-            Spostamento_X = Velocità_X * Input.GetAxis("Mouse X");
-
-            MainCamera.transform.RotateAround(transform.localPosition, Vector3.up, Spostamento_X);
-        }
-        else
-        {
-            RotazioneVerticale(MainCamera.transform, Velocità_Y / fattore_rallentamento);
-
-
-        }*/
+        
     }
 }

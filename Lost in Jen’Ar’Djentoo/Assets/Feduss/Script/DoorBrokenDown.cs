@@ -38,6 +38,7 @@ public class DoorBrokenDown : MonoBehaviour {
                     i++;
                     Debug.Log(i);
                 }
+                i++;
             }
             if (i == 3)
             {
