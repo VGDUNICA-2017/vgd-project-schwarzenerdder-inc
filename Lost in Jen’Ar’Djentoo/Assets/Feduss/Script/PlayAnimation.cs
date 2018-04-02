@@ -12,7 +12,8 @@ public class PlayAnimation : MonoBehaviour {
 
     //Transform della pistola (utile per quando si mira)
     Vector3 pistol_start_angles = new Vector3(78.55801f, -77.943f, -77.22501f);
-    Vector3 pistol_end_angles = new Vector3(66.12701f, -10.069f, -6.337f);
+    //Vector3 pistol_end_angles = new Vector3(66.12701f, -10.069f, -6.337f);
+    Vector3 pistol_end_angles = new Vector3(70.579f, -49.945f, -36.22f);
 
     Vector3 pistol_start_pos = new Vector3(0.2576f, -0.0756f, 0.1487f);
     Vector3 pistol_end_pos = new Vector3(0.275f, -0.048f, 0.183f);
@@ -90,7 +91,7 @@ public class PlayAnimation : MonoBehaviour {
 
         //MIRA
         //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo
-        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
+        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("WeaponLess") &&!animator.GetBool("Torch") && !animator.GetBool("Axe") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
         {
             animator.SetBool("isAiming", true);
 
@@ -122,7 +123,14 @@ public class PlayAnimation : MonoBehaviour {
             playsound.PlayJumpSound();
         }
 
-        //turn
+        //attacco con ascia
+        if(Input.GetButtonDown("Fire1") && animator.GetBool("Axe"))
+        {
+            animator.SetTrigger("Attack");
+        }
+
+
+       /* //turn
         if (Input.GetAxis("Horizontal") > 0)
         {
             animator.SetFloat("isTurningMouse", 1);
@@ -132,6 +140,6 @@ public class PlayAnimation : MonoBehaviour {
         if (Input.GetAxis("Horizontal") < 0)
         {
             animator.SetFloat("isTurningMouse", -1);
-        }
+        }*/
     }
 }

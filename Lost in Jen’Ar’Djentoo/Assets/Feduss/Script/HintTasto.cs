@@ -79,6 +79,12 @@ public class HintTasto : MonoBehaviour {
             testo.text = "Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo";
             testo.enabled = true;
         }
+
+        if (gameObject.CompareTag("Axe"))
+        {
+            testo.text = "Premi \"E\" per raccogliere l'ascia";
+            testo.enabled = true;
+        }
     }
 
         public void OnTriggerExit(Collider other)

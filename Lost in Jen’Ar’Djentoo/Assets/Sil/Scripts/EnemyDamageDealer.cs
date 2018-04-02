@@ -28,6 +28,7 @@ public class EnemyDamageDealer : MonoBehaviour {
 			if (enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
 				if (!damageDealt) {
 					other.GetComponent<InventorySystem> ().takeDamage (15);
+                    other.GetComponent<Animator>().SetTrigger("Hit");
 					damageDealt = true;
 				}
 			}

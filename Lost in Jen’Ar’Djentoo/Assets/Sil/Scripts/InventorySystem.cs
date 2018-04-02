@@ -20,6 +20,7 @@ public class InventorySystem : MonoBehaviour {
 	private int[] maxInvAmmo = new int[] {40, 20, 120};
 
 	//Riferimenti oggetti
+	private bool ascia;
 	private bool torcia;
 	private bool mappa;
 	private bool cesoie;
@@ -47,6 +48,7 @@ public class InventorySystem : MonoBehaviour {
 		setTorcia (false);
 		setMappa (false);
 		setCesoie (false);
+		setAscia (false);
 	}
 
 	// Update is called once per frame
@@ -54,22 +56,23 @@ public class InventorySystem : MonoBehaviour {
 		if (this.getMappa()) {
 			hudScript.hudMinimap ();
 		}
-    }
+
+		if ((getWeapon (0) || getWeapon (1) || getWeapon (2)) && noWeapon) {
+			hudScript.hudShots (true);
+			noWeapon = false;
+		} 
+	}
 
 	//Funzione per subire danni
 	public void takeDamage(int damage) {
 		currentHealth -= damage;
 
-        if (currentHealth < 0)
-        {
-            isDead = true;
-            currentHealth = 0;
-        }
-
-        hudScript.getDamage ();
+		hudScript.getDamage ();
 		hudScript.radialHealthSet (currentHealth, fullHealth);
 
-		
+		if (currentHealth < 1) {
+			isDead = true;
+		}
 	}
 
 	//Funzione per curare danni
@@ -218,6 +221,14 @@ public class InventorySystem : MonoBehaviour {
 	}
 
 	//Goditi un Togo. Togo è un piacere che puoi goderti sempre u.u
+
+	//Setter e Getter ascia
+	public void setAscia (bool state) {
+		this.ascia = state;
+	}
+	public bool getAscia () {
+		return this.ascia;
+	}
 
 	//Setter e Getter torcia
 	public void setTorcia (bool state) {

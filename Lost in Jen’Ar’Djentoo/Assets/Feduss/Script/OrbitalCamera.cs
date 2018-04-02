@@ -9,6 +9,7 @@ public class OrbitalCamera : MonoBehaviour {
     private int end_fov = 35;
 
     private Vector3 follow_pos; //posizione default della camera quando il player si sposta (orbital camera only)
+    private Vector3 temp_pos;
 
     private float posX;
     public float Velocità_Y = 1.0f; //Velocità di spostamento verticale
@@ -76,14 +77,27 @@ public class OrbitalCamera : MonoBehaviour {
                 //resetto il fov (esso cambia quando miri)
                 MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
 
-                //unione della rotazione verticale con la rotazione intorno al player
-                MainCamera.transform.RotateAround(transform.localPosition, Vector3.up, Velocità_X * Input.GetAxis("Mouse X"));
-                MainCamera.transform.localEulerAngles = new Vector3(posX, MainCamera.transform.localEulerAngles.y, 0.0f);
+                //WIP: sporadicamente, capita che, passando da un'animazione all'altra, quando ti fermi, la posizione della camera vada dove vuole...quindi, se non ruoto la visuale, continuo a resettarla
+                if(false)//Velocità_X * Input.GetAxis("Mouse X")==0)
+                {
+                    MainCamera.transform.localPosition = temp_pos;
+                    MainCamera.transform.localEulerAngles = new Vector3(posX, MainCamera.transform.localEulerAngles.y, 0.0f);
+                }
+                else
+                {
+                    //unione della rotazione verticale con la rotazione intorno al player
+                    MainCamera.transform.RotateAround(transform.localPosition, Vector3.up, Velocità_X * Input.GetAxis("Mouse X"));
+                    MainCamera.transform.localEulerAngles = new Vector3(posX, MainCamera.transform.localEulerAngles.y, 0.0f);
+
+                    temp_pos = MainCamera.transform.localPosition;
+                }
+
+                
 
             }
             else
             {
-                if (autoaim || Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
+                if (autoaim || (Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading")))
                 {
 
                     transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
@@ -94,6 +108,8 @@ public class OrbitalCamera : MonoBehaviour {
                 }
                 else
                 {
+                    //resetto il fov (esso cambia quando miri)
+                    MainCamera.GetComponent<Camera>().fieldOfView = Mathf.Lerp(MainCamera.GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
                     transform.eulerAngles = new Vector3(0.0f, Spostamento_X, 0.0f);
                     MainCamera.transform.localEulerAngles = new Vector3(posX, 0.0f, 0.0f);
                     MainCamera.transform.localPosition = follow_pos;

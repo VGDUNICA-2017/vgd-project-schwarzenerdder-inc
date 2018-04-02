@@ -62,8 +62,19 @@ public class Pickup : MonoBehaviour {
                 StartCoroutine(DisableAfterSomeSeconds());
             }
 
+            if (gameObject.name.Equals("l'ascia"))
+            {
+                EquipAxe();
+                testo.enabled = false;
+                //inventario.setAxe(true);
+                fin.GetComponent<SwitchWeapon>().getAxe = true;
+                take.enabled = true;
+                take.text = "Hai raccolto l'ascia";
+                StartCoroutine(DisableAfterSomeSeconds());
+            }
+
             if(gameObject.name.Equals("P226")) {
-                EquipPistol();
+                //EquipPistol();
                 //animator.SetTrigger("isTaken");
                 testo.enabled = false;
 				inventario.startAmmo (0);
@@ -119,6 +130,12 @@ public class Pickup : MonoBehaviour {
     public void EquipTorch() {
         animator.SetBool("Torch", true);
         animator.SetBool("WeaponLess", false);
+    }
+
+    public void EquipAxe()
+    {
+        animator.SetBool("Torch", false);
+        animator.SetBool("Axe", true);
     }
 
     public void EquipPistol() {

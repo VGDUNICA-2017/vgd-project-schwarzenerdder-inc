@@ -24,6 +24,7 @@ TagManager:
   - Ammo_smg
   - FirstAid
   - Luce
+  - Axe
   layers:
   - Default
   - TransparentFX
