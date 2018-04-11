@@ -66,7 +66,6 @@ public class KeyScript : MonoBehaviour
    
     IEnumerator DisableAfterSomeSeconds()
     {
-        gameObject.SetActive(false);
 
         yield return new WaitForSeconds(2f);
 

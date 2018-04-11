@@ -57,7 +57,7 @@ public class PlayAnimation : MonoBehaviour {
         }
 
         //Se corre
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && (Input.GetAxis("Vertical") != 0.0) || (Input.GetAxis("Horizontal") != 0.0))
         {
             animator.SetBool("isRunning", true);
             playsound.PlayFootStepAudio(2);

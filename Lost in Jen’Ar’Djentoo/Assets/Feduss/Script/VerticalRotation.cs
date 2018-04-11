@@ -44,7 +44,7 @@ public class VerticalRotation : MonoBehaviour {
         /////////////////
         //ROTAZIONE VERTICALE DI BRACCIA E TESTA
 
-        RotazioneVerticale(testa.transform, Velocità_Y / fattore_rallentamento);
+        //RotazioneVerticale(testa.transform, Velocità_Y / fattore_rallentamento);
         RotazioneVerticale(braccio_dx.transform, Velocità_Y);
         RotazioneVerticale(braccio_sx.transform, Velocità_Y);
     }
