@@ -12,10 +12,6 @@ public class EnemyDamageDealer : MonoBehaviour {
 		damageDealt = false;
 	}
 
-	void Update () {
-
-	}
-
 	void FixedUpdate () {
 		if (!enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
 			damageDealt = false;
@@ -28,7 +24,6 @@ public class EnemyDamageDealer : MonoBehaviour {
 			if (enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
 				if (!damageDealt) {
 					other.GetComponent<InventorySystem> ().takeDamage (15);
-                    other.GetComponent<Animator>().SetTrigger("Hit");
 					damageDealt = true;
 				}
 			}

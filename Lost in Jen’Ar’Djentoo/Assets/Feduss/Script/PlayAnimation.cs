@@ -91,11 +91,11 @@ public class PlayAnimation : MonoBehaviour {
 
         //MIRA
         //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo
-        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("WeaponLess") &&!animator.GetBool("Torch") && !animator.GetBool("Axe") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
+        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("WeaponLess") &&!animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
         {
             animator.SetBool("isAiming", true);
 
-            hudsystem.hudReticle(true); //attivo il reticolo di mirz
+            hudsystem.hudReticle(true); //attivo il reticolo di mira
 
             pistola_imp.transform.localPosition = pistol_end_pos;
             pistola_imp.transform.localEulerAngles = pistol_end_angles;
@@ -109,7 +109,7 @@ public class PlayAnimation : MonoBehaviour {
             pistola_imp.transform.localPosition = pistol_start_pos;
             pistola_imp.transform.localEulerAngles = pistol_start_angles;
 
-            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning")) hudsystem.hudReticle(false);
+            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning") && !animator.GetBool("Axe")) hudsystem.hudReticle(false);
             else hudsystem.hudReticle(false);
 
             

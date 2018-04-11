@@ -41,23 +41,18 @@ public class KeyScript : MonoBehaviour
 
         }
 
-        //Se spezzo la catena quando ho le cesoie, le aggiungo alcuni componenti per rendere l'effetto più realistico
+        //Se spezzo la catena quando ho le cesoie e apro la recinzione
         if (gameObject.name.Equals("chain"))
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                if (key && Input.GetButton("Open Door"))
+                if (key && Input.GetButtonDown("Open Door"))
                 {
                     gameObject.AddComponent<Rigidbody>();
                     gameObject.AddComponent<BoxCollider>();
                     GameObject.Find("chain").GetComponent<HintTasto>().testo.enabled = false;
 
-                    //Sblocco la recinzione
-                    JointLimits limits = GameObject.FindGameObjectWithTag("Recinzione").GetComponent<HingeJoint>().limits;
-                    limits.max = 90;                  
-                
-                    GameObject.FindGameObjectWithTag("Recinzione").GetComponent<HingeJoint>().limits = limits;
-                    Debug.Log("Limite max rotazione recinzione: " + GameObject.FindGameObjectWithTag("Recinzione").GetComponent<HingeJoint>().limits.max);
+                    GameObject.FindGameObjectWithTag("Recinzione").GetComponent<Animator>().SetBool("Open", true);
 
                     Destroy(GameObject.Find("chain"), 2f);
 
@@ -66,37 +61,13 @@ public class KeyScript : MonoBehaviour
         }
 
 
-        //chiave per aprire le porte bloccate
-        if (other.gameObject.CompareTag("Player") && Input.GetButtonDown("Open Door"))
-        {
-            if (GetComponent<KeyScript>().key == false)
-            {
-                //TODO IMPEDIRE DI APRIRE LA PORTA E DARE MESSAGGIO DI ERRORE
-            }
-            else
-            {
-                //DARE MESSAGGIO DI PORTA SBLOCCATA, E AGGIUNGERE SCRIPT DOOR DI SILVIO (OCCHIO AL COLLIDER TRIGGER)
-            }
-         }
         
-
-        if (other.CompareTag("Player") && Input.GetButton("Open Door") && gameObject.CompareTag("Key"))
-        {
-            key = true;
-            GameObject.FindGameObjectWithTag("Key").GetComponent<KeyScript>().key = true;
-            GameObject.FindGameObjectWithTag("Cutter").GetComponent<HintTasto>().testo.enabled = false;
-
-            take.enabled = true;
-            take.text = "Hai raccolto le chiavi";
-            StartCoroutine(DisableAfterSomeSeconds());
-
-
-
-        }
     }
    
     IEnumerator DisableAfterSomeSeconds()
     {
+        gameObject.SetActive(false);
+
         yield return new WaitForSeconds(2f);
 
         take.enabled = false;

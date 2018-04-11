@@ -87,12 +87,14 @@ public class WeaponScript : MonoBehaviour {
         if (player.GetBool("Pistol"))
         {
             FireGun();
+            weaponRange = 100f;
         }
 
         //Se il giocatore sta impugnando l'ascia
         if (player.GetBool("Axe"))
         {
             Axehit();
+            weaponRange = 2f;
         }
 	}
 

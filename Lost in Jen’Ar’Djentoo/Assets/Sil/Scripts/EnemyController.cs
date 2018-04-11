@@ -13,18 +13,19 @@ public class EnemyController : MonoBehaviour {
 	private NavMeshAgent agent;
 
 	//Variabili di controllo sulla posizione
-	private float currentDistance;
+	public float distance;
 	private float angle;
 	private bool rayHit;
 
 	//Variabili di supporto
 	private Vector3 startPosition;
-	public bool backToStart;
-	public bool canRoar;
+	private bool backToStart;
+	private bool canRoar;
+	private bool randomAttack;
 	private float startDistance;
 	private const int MaxHealth = 100;
 	public int health;
-	public bool deathCall;
+	private bool deathCall;
 	public LayerMask mask;
 
 	//Elementi da settare
@@ -39,12 +40,13 @@ public class EnemyController : MonoBehaviour {
 		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 		playerSpotPoint = playerTransform.Find ("SpotPoint").transform;
 
-		currentDistance = spotDistance + 1.0f;
+		distance = spotDistance + 1.0f;
 		backToStart = false;
 		startPosition = this.transform.position;
 		startDistance = 0.0f;
 
 		canRoar = true;
+		randomAttack = true;
 
 		health = MaxHealth;
 		if (health < 1) {
@@ -59,7 +61,7 @@ public class EnemyController : MonoBehaviour {
 		//Check sulla vita del nemico
 		if (health > 0) {//Se il nemico è vivo
 			//Calcolo nuovi dati di posizione
-			currentDistance = Vector3.Distance (this.transform.position, playerTransform.position);
+			distance = Vector3.Distance (this.transform.position, playerTransform.position);
 
 			//Codice dell'angolo copiato online. Dura a spiegarlo :D
 			Vector3 target = playerTransform.position - this.transform.position;
@@ -86,14 +88,14 @@ public class EnemyController : MonoBehaviour {
 //			}
 //			print("Roar: "+canRoar+";Back: "+backToStart);
 			//Definizione azione
-			if ((currentDistance <= spotDistance) && 						//Se il player è entro la distanza di visione,
+			if ((distance <= spotDistance) && 						//Se il player è entro la distanza di visione,
 				(angle <= spotAngle) && 									// entro l'angolo di visione,
 				rayHit && 													// il ray ha colpito qualcosa
 				(hittedElement.collider.gameObject.CompareTag ("Player") ||	// e quel qualcosa è il player
 				 hittedElement.collider.gameObject.name.Equals("la Torcia (Impugnata)"))) {//o un suo oggetto
 
 				//Il player è nel cono di visione
-				if (currentDistance >= attackDistance) {//Se il player è oltre la soglia di attacco
+				if (distance >= attackDistance) {//Se il player è oltre la soglia di attacco
 					movingAction ();
 //					print ("M");
 				} else {
@@ -117,6 +119,12 @@ public class EnemyController : MonoBehaviour {
 		} else {
 			//Se il nemico non è vivo
 			deathAction ();
+		}
+	}
+
+	public void FixedUpdate () {
+		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
+			randomAttack = true;
 		}
 	}
 
@@ -178,9 +186,13 @@ public class EnemyController : MonoBehaviour {
 
 	public void attackAction() {
 		//Attacco
+		if (randomAttack) {
+			//animator.SetFloat ("Range", -1.0f);
+			animator.SetFloat ("Range", (float)Random.Range (-1, 1));
+			randomAttack = false;
+		}
 		this.transform.LookAt(playerTransform.position);
 		agent.enabled = false;
-		animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 		animator.SetFloat ("Speed", 0.0f);
 		animator.SetBool ("Attack", true);
 	}
@@ -198,11 +210,17 @@ public class EnemyController : MonoBehaviour {
 	public void takeDamage(int damage) {
 		this.health -= damage;
 
-		animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
-		animator.SetTrigger ("Hit");
+		if (health < 0) {
+			this.health = 0;
+		}
 
-		if (health < 1) {
-			deathCall = true;
+		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying")) {
+			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
+			animator.SetTrigger ("Hit");
+
+			if (health == 0) {
+				deathCall = true;
+			}
 		}
 	}
 }

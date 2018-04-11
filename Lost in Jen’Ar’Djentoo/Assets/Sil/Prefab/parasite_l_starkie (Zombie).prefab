@@ -2056,10 +2056,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vision: {fileID: 1678994026353592}
-  backToStart: 0
-  canRoar: 0
+  distance: 0
   health: 0
-  deathCall: 0
   mask:
     serializedVersion: 2
     m_Bits: 4294967039

@@ -7,7 +7,7 @@ public class Pickup : MonoBehaviour {
 
     private Text testo;
     private Text take;
-    public GameObject fin;
+    private GameObject fin;
     private Animator animator;
     public bool flag;
     private HUDSystem hudsystem;
@@ -20,6 +20,7 @@ public class Pickup : MonoBehaviour {
     void Start() {
         testo = GameObject.Find("MessageBox").GetComponent<Text>();
         take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
+        fin = GameObject.FindGameObjectWithTag("Player");
         testo.enabled = false;
         take.enabled = false;
         flag = false;
