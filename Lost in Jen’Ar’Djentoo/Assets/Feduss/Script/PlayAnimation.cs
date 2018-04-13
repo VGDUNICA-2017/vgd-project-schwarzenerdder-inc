@@ -109,7 +109,7 @@ public class PlayAnimation : MonoBehaviour {
             pistola_imp.transform.localPosition = pistol_start_pos;
             pistola_imp.transform.localEulerAngles = pistol_start_angles;
 
-            if (animator.GetBool("Pistol") && !animator.GetBool("isRunning") && !animator.GetBool("Axe")) hudsystem.hudReticle(false);
+            if (animator.GetBool("Axe")) hudsystem.hudReticle(true);
             else hudsystem.hudReticle(false);
 
             
@@ -123,23 +123,5 @@ public class PlayAnimation : MonoBehaviour {
             playsound.PlayJumpSound();
         }
 
-        //attacco con ascia
-        if(Input.GetButtonDown("Fire1") && animator.GetBool("Axe"))
-        {
-            animator.SetTrigger("Attack");
-        }
-
-
-       /* //turn
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            animator.SetFloat("isTurningMouse", 1);
-        }
-
-        //turn
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            animator.SetFloat("isTurningMouse", -1);
-        }*/
     }
 }

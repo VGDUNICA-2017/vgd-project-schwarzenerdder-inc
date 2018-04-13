@@ -25,6 +25,7 @@ TagManager:
   - FirstAid
   - Luce
   - Axe
+  - Enemy_part
   layers:
   - Default
   - TransparentFX

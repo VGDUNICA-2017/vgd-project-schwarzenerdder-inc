@@ -75,6 +75,7 @@ public class SwitchWeapon : MonoBehaviour {
             if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
             //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
             //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+
             animator.SetBool("Pistol", true);
         }
 

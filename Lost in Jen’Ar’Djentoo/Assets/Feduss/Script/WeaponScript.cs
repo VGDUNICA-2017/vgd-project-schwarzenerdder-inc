@@ -39,6 +39,8 @@ public class WeaponScript : MonoBehaviour {
 
     private PlaySound playsound;
 
+    public bool attack_flag = false;
+
     // Use this for initialization
     void Start () {
 		animator = GetComponent<Animator>();
@@ -47,7 +49,7 @@ public class WeaponScript : MonoBehaviour {
 		inventario = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
 		hudsystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HUDSystem>();
 
-        tpsCam = GameObject.Find("Camera").GetComponent<Camera>();
+        tpsCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
 
@@ -94,7 +96,7 @@ public class WeaponScript : MonoBehaviour {
         if (player.GetBool("Axe"))
         {
             Axehit();
-            weaponRange = 2f;
+            weaponRange = 10f;
         }
 	}
 
@@ -176,7 +178,14 @@ public class WeaponScript : MonoBehaviour {
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            player.SetTrigger("Attack");
+            //RaycastShot();
+        }
+
+        if (attack_flag)
+        {
             RaycastShot();
+            attack_flag = false;
         }
     }
 
@@ -198,7 +207,7 @@ public class WeaponScript : MonoBehaviour {
 
         if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange))
         {
-            if (hit.collider.gameObject.CompareTag("Enemy"))
+            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part"))
             {
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
@@ -216,17 +225,19 @@ public class WeaponScript : MonoBehaviour {
                 }
                 else
                 {
-                    Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
-                    Debug.Log("terreno");
+                    if (!gameObject.CompareTag("Axe"))
+                    {
+                        Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+                    }
                 }
 
 
 
         }
+
+   
         
 
     }
 
-
-	
 }
