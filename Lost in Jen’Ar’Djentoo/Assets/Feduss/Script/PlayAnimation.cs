@@ -10,19 +10,11 @@ public class PlayAnimation : MonoBehaviour {
     private PlaySound playsound; //script del player
     private GameObject pistola_imp; //arma impugnata dal player
 
-    //Transform della pistola (utile per quando si mira)
-    Vector3 pistol_start_angles = new Vector3(78.55801f, -77.943f, -77.22501f);
-    //Vector3 pistol_end_angles = new Vector3(66.12701f, -10.069f, -6.337f);
-    Vector3 pistol_end_angles = new Vector3(70.579f, -49.945f, -36.22f);
-
-    Vector3 pistol_start_pos = new Vector3(0.2576f, -0.0756f, 0.1487f);
-    Vector3 pistol_end_pos = new Vector3(0.275f, -0.048f, 0.183f);
-
     // Use this for initialization
     void Start () {
 		
         animator=GetComponent<Animator>();
-        hudsystem = GetComponent<HUDSystem>();
+        hudsystem = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
         playsound = GetComponent<PlaySound>();
         pistola_imp = GameObject.Find("P226 (Impugnata)");
 
@@ -95,10 +87,7 @@ public class PlayAnimation : MonoBehaviour {
         {
             animator.SetBool("isAiming", true);
 
-            hudsystem.hudReticle(true); //attivo il reticolo di mira
-
-            pistola_imp.transform.localPosition = pistol_end_pos;
-            pistola_imp.transform.localEulerAngles = pistol_end_angles;
+            hudsystem.reticleEnabler(true); //attivo il reticolo di mira 
 
             
 
@@ -106,11 +95,9 @@ public class PlayAnimation : MonoBehaviour {
         else
         {
             animator.SetBool("isAiming", false);
-            pistola_imp.transform.localPosition = pistol_start_pos;
-            pistola_imp.transform.localEulerAngles = pistol_start_angles;
 
-            if (animator.GetBool("Axe")) hudsystem.hudReticle(true);
-            else hudsystem.hudReticle(false);
+            if (animator.GetBool("Axe") || animator.GetBool("Pistol")) hudsystem.reticleEnabler(true);
+            else hudsystem.reticleEnabler(false);
 
             
 

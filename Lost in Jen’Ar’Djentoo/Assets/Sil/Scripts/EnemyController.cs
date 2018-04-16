@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour {
 		agent = this.GetComponent<NavMeshAgent> ();
 
 		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
-		playerSpotPoint = playerTransform.Find ("SpotPoint").transform;
+		playerSpotPoint = GameObject.Find ("SpotPoint").transform;
 
 		distance = spotDistance + 1.0f;
 		backToStart = false;

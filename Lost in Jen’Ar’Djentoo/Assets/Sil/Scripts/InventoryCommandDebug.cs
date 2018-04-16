@@ -102,10 +102,10 @@ public class InventoryCommandDebug : MonoBehaviour {
 
 		//Reticolo
 		if (Input.GetKeyDown(KeyCode.C)) {
-			interfaccia.hudReticle (true);
+			interfaccia.reticleEnabler (true);
 		}
 		if (Input.GetKeyDown(KeyCode.V)) {
-			interfaccia.hudReticle (false);
+			interfaccia.reticleEnabler (false);
 		}
 
 		//Minimappa

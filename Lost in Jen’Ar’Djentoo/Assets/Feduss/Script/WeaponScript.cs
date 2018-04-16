@@ -47,7 +47,7 @@ public class WeaponScript : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
 
 		inventario = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
-		hudsystem = GameObject.FindGameObjectWithTag("Player").GetComponent<HUDSystem>();
+		hudsystem = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 
         tpsCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
@@ -62,7 +62,7 @@ public class WeaponScript : MonoBehaviour {
 			//imposto l'index dell'arma (serve per l'inventario)
 			index = 0;
             //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
-			hudsystem.hudShots(true);
+			hudsystem.hudShotsEnabler(true);
 
             //Salvo quella che sarà la parentela del proiettile con l'arma
             start_bullet = GameObject.Find("Start_Bullet").transform;
@@ -76,10 +76,10 @@ public class WeaponScript : MonoBehaviour {
 
         if (player.GetBool("Axe"))
         {
-            hudsystem.hudShots(false);
+            hudsystem.hudShotsEnabler(false);
             gunDamage = 30;
         }
-        else hudsystem.hudShots(false);
+        else hudsystem.hudShotsEnabler(false);
 
         //Setto le munizioni nel caricatore e di riserva con quanto vi è nell'inventario
         leftMagAmmo = inventario.ammoLeft(index);
@@ -104,7 +104,7 @@ public class WeaponScript : MonoBehaviour {
     {
         //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
         if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(1).IsName("Reload") &&
-            (!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !player.GetCurrentAnimatorStateInfo(1).IsName("Idle") && !animator.IsInTransition(0) && !player.GetBool("isRunning") && !player.GetBool("isCrouching")))
+            (!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !animator.IsInTransition(0) && !player.GetBool("isRunning") && !player.GetBool("isCrouching")))
         {
 
             //Se il caricatore è vuoto
@@ -114,7 +114,7 @@ public class WeaponScript : MonoBehaviour {
             }
             else
             {
-                animator.SetBool("Fire", true);
+                if (!gameObject.CompareTag("Axe"))  animator.SetBool("Fire", true);
 
                 RaycastShot();
 
@@ -128,7 +128,7 @@ public class WeaponScript : MonoBehaviour {
         }
         else
         {
-            animator.SetBool("Fire", false);
+            if(!gameObject.CompareTag("Axe")) animator.SetBool("Fire", false);
         }
 
         if (Input.GetButton("Reload") && !(animator.GetCurrentAnimatorStateInfo(0).IsName("Reload")) &&

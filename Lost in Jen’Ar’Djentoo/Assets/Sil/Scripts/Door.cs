@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Door : MonoBehaviour {
-	public Text messageBox;
+	private HUDSystem hud;
 	private bool inRange;
 	private bool isOpened;
 	private bool moveDoor;
@@ -19,9 +19,9 @@ public class Door : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        messageBox = GameObject.Find("MessageBox").GetComponent<Text>();
-        isOpened = false;
-		messageBox.enabled = false;
+		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
+		isOpened = false;
+		hud.centralBoxEnabler (false);
 		inRange = false;
 	}
 
@@ -34,7 +34,7 @@ public class Door : MonoBehaviour {
 
 		//La porta è chiusa e richiede di aprirsi
 		if (!(isOpened) && (moveDoor)) {
-			messageBox.enabled = false;
+			hud.centralBoxEnabler (false);
 			currentY = transform.eulerAngles.y;
 
 			currentY = Mathf.LerpAngle(currentY, openDoorY, Time.deltaTime);
@@ -56,7 +56,7 @@ public class Door : MonoBehaviour {
 
 		//La porta è aperta e richiede di chiudersi
 		if ((isOpened) && (moveDoor)) {
-			messageBox.enabled = false;
+			hud.centralBoxEnabler (false);
 			currentY = transform.eulerAngles.y;
 
 			currentY = Mathf.LerpAngle(currentY, closeDoorY, Time.deltaTime);
@@ -91,14 +91,14 @@ public class Door : MonoBehaviour {
 			if (!(isOpened)) {
 				//Se la porta non è in movimento
 				if (!(moveDoor)) {
-					messageBox.text = "Premi E per aprire la porta";
-					messageBox.enabled = true;
+					hud.centralBoxText ("Premi E per aprire la porta");
+					hud.centralBoxEnabler (true);
 				}
 			} else {
 				//Se la porta non è in movimento
 				if (!(moveDoor)) {
-					messageBox.text = "Premi E per chiudere la porta";
-					messageBox.enabled = true;
+					hud.centralBoxText ("Premi E per chiudere la porta");
+					hud.centralBoxEnabler (true);
 				}
 			}
 		}
@@ -107,7 +107,7 @@ public class Door : MonoBehaviour {
 	public void OnTriggerExit (Collider other) {
 		if (other.gameObject.CompareTag ("Player")) {
 			inRange = false;
-			messageBox.enabled = false;
+			hud.centralBoxEnabler (false);
 		}
 	}
 }

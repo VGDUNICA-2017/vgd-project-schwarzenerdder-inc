@@ -15,13 +15,20 @@ public class FpsCamera : MonoBehaviour {
     private float posX; //Variabile dove salvo la rotazione verticale delle braccia e della testa (vedi lateupdate)
     private float posY;
 
-    Quaternion rotation; 
+    Quaternion rotation;
+
+    //Fov della camera (utile per quando si mira)
+    private int start_fov = 60;
+    private int end_fov = 35;
+
+    private Animator animator;
 
     // Use this for initialization
     void Start () {
 
         player = GameObject.FindGameObjectWithTag("Player");
         rotation = transform.rotation; //sovrascrivo l'attuale rotazione della camera (serve per rendere la sua rotazione indipendente da quella del genitore)
+        animator = player.GetComponent<Animator>();
 
     }
 	
@@ -50,6 +57,19 @@ public class FpsCamera : MonoBehaviour {
         }
 
         rotation = Quaternion.Euler(new Vector3(posX, posY, 0f)); //salvo la nuova rotazione della camera in base al movimento del mouse 
+
+        if ((Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading")))
+        {
+            GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime * 5);
+
+        }
+        else
+        {
+            //resetto il fov (esso cambia quando miri)
+            GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, start_fov, Time.deltaTime * 5);
+
+
+        }
 
     }
 

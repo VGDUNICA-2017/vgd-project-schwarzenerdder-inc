@@ -30,7 +30,8 @@ public class InventorySystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		hudScript = gameObject.GetComponent<HUDSystem> ();
+		//hudScript = gameObject.GetComponent<HUDSystem> ();
+		hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 
 		//Vita default
 		currentHealth = fullHealth;
@@ -54,11 +55,11 @@ public class InventorySystem : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (this.getMappa()) {
-			hudScript.hudMinimap ();
+			hudScript.minimapEnabler (true);
 		}
 
 		if ((getWeapon (0) || getWeapon (1) || getWeapon (2)) && noWeapon) {
-			hudScript.hudShots (true);
+			hudScript.hudShotsEnabler (true);
 			noWeapon = false;
 		} 
 	}
@@ -144,7 +145,7 @@ public class InventorySystem : MonoBehaviour {
 		this.ammo [indexArma] = magCapacity[indexArma];
 		this.invAmmo [indexArma] = magCapacity[indexArma];
 		hudScript.reloadWeapon (this.ammo [indexArma], this.invAmmo [indexArma]);
-		hudScript.hudReticle (true);
+		hudScript.reticleEnabler (true);
 	}
 
 	//Funzione di sparo

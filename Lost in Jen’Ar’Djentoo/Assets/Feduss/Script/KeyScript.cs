@@ -8,13 +8,15 @@ public class KeyScript : MonoBehaviour
 
 
     public bool key = false;
-    private Text take;
+    //private Text take;
+	private HUDSystem hud;
 
 
     // Use this for initialization
     void Start()
     {
-        take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
+		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
+        //take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -31,10 +33,13 @@ public class KeyScript : MonoBehaviour
         {
             key = true;
             GameObject.Find("chain").GetComponent<KeyScript>().key = true;
-            GameObject.FindGameObjectWithTag("Cutter").GetComponent<HintTasto>().testo.enabled = false;
+			hud.centralBoxEnabler (false);
+			//GameObject.FindGameObjectWithTag("Cutter").GetComponent<HintTasto>().testo.enabled = false;
 
-            take.enabled = true;
-            take.text = "Hai raccolto le cesoie";
+			hud.sideBoxEnabler (true);
+			//take.enabled = true;
+			hud.sideBoxText("Hai raccolto le cesoie");
+			//take.text = "Hai raccolto le cesoie";
             StartCoroutine(DisableAfterSomeSeconds());
             
 
@@ -50,7 +55,8 @@ public class KeyScript : MonoBehaviour
                 {
                     gameObject.AddComponent<Rigidbody>();
                     gameObject.AddComponent<BoxCollider>();
-                    GameObject.Find("chain").GetComponent<HintTasto>().testo.enabled = false;
+					hud.centralBoxEnabler (false);
+                    //GameObject.Find("chain").GetComponent<HintTasto>().testo.enabled = false;
 
                     GameObject.FindGameObjectWithTag("Recinzione").GetComponent<Animator>().SetBool("Open", true);
 
@@ -69,7 +75,8 @@ public class KeyScript : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        take.enabled = false;
+		hud.sideBoxEnabler (false);
+		//take.enabled = false;
         Destroy(gameObject);
     }
 }

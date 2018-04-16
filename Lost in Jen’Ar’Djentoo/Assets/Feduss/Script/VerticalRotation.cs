@@ -18,10 +18,8 @@ public class VerticalRotation : MonoBehaviour {
     private Animator animator;
 
     //Rotazione della torcia (cambia quando ti accovacci)
-    private Vector3 torcia_start_angles = new Vector3(0.005f, -45f, -75f);
-    private Vector3 torcia_end_angles = new Vector3(0.005f, -45f, -50f);
-
-    public float pos_dx_noAim = -15f; //offset per la posizione orizzontale del braccio dx quando non miri
+    private Vector3 torcia_start_angles = new Vector3(5.206f, -21.583f, -92.46301f);
+    private Vector3 torcia_end_angles = new Vector3(12.544f, -19.5f, -72.632f);
 
     // Use this for initialization
     void Start () {
@@ -42,9 +40,7 @@ public class VerticalRotation : MonoBehaviour {
     private void LateUpdate()
     {
         /////////////////
-        //ROTAZIONE VERTICALE DI BRACCIA E TESTA
-
-        //RotazioneVerticale(testa.transform, Velocità_Y / fattore_rallentamento);
+        //ROTAZIONE VERTICALE DELLE BRACCIA 
         RotazioneVerticale(braccio_dx.transform, Velocità_Y);
         RotazioneVerticale(braccio_sx.transform, Velocità_Y);
     }
@@ -79,16 +75,15 @@ public class VerticalRotation : MonoBehaviour {
         }
 
         //Aggiusto l'offset iniziale della rotazione verticale quando è accovacciato
-        if ( animator.GetBool("Torch") && !parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("isCrouching") && !(parte_corpo.gameObject.CompareTag("Testa") && !animator.GetBool("isAiming")))
+        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("isCrouching") && animator.GetBool("Torch"))
         {
-            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y + pos_dx_noAim, 0f);
-            
+            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
             torcia_imp.transform.localEulerAngles = torcia_end_angles;
         }
 
         //offset del braccio sx quando hai la la torcia
-        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("Torch") && !animator.GetBool("isAiming") && !animator.GetBool("Axe"))
-        {
+        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("Torch") && !animator.GetBool("isCrouching"))
+        {   
             parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
             torcia_imp.transform.localEulerAngles = torcia_start_angles;
         }

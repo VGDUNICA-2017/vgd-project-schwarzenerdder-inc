@@ -47,6 +47,14 @@ public class HUDSystem : MonoBehaviour {
 	private bool moving;
 	private bool aiming;
 
+	//Supporti di testo
+	public Text centralMessageBox;
+	public Text sideMessageBox;
+
+	//Supporti per la barra del boss
+	public Slider bossHealth;
+	public Text BossName;
+
 	// Use this for initialization
 	void Start () {
 		//Recupero elementi HUD
@@ -253,18 +261,64 @@ public class HUDSystem : MonoBehaviour {
 		aiming = state;
 	}
 
-	//Attiva HUD armi
-	public void hudShots (bool state) {
+	//Attiva/disattiva HUD armi
+	public void hudShotsEnabler (bool state) {
 		shotsUI.SetActive (state);
 	}
 
-	//Attiva minimappa
-	public void hudMinimap () {
-		minimapSet.SetActive (true);
+	//Attiva/disattiva minimappa
+	public void minimapEnabler (bool state) {
+		minimapSet.SetActive (state);
 	}
 
 	//Attiva/disttiva mirino
-	public void hudReticle (bool state) {
+	public void reticleEnabler (bool state) {
 		reticle.SetActive (state);
+	}
+
+	//Attiva/disattiva box centrale di testo
+	public void centralBoxEnabler (bool state) {
+		centralMessageBox.enabled = state;
+	}
+
+	//Setter testo box centrale
+	public void centralBoxText (string testo) {
+		centralMessageBox.text = testo;
+	}
+
+	//Attiva/disattiva box laterale di testo
+	public void sideBoxEnabler (bool state) {
+		sideMessageBox.enabled = state;
+	}
+
+	//Setter testo box laterale
+	public void sideBoxText (string testo) {
+		sideMessageBox.text = testo;
+	}
+
+	//Attiva/disattiva barra della vita del boss
+	public void bossBarEnabler (bool state) {
+		bossHealth.enabled = state;
+	}
+
+	//Setter vita barra del boss
+	public void bossBarSetter (int maxHealth, int currentHealth) {
+		if (currentHealth < 0) {
+			currentHealth = 0;
+		}
+
+		if (currentHealth > maxHealth) {
+			currentHealth = maxHealth;
+		}
+
+		bossHealth.minValue = 0;
+		bossHealth.maxValue = maxHealth;
+
+		bossHealth.value = currentHealth;
+	}
+
+	//Setter nome del boss
+	public void bossNameSetter (string name) {
+		BossName.text = name;
 	}
 }

@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Pickup : MonoBehaviour {
 
-    private Text testo;
-    private Text take;
+    //private Text testo;
+    //private Text take;
     private GameObject fin;
     private Animator animator;
+	private HUDSystem hud;
     public bool flag;
-    private HUDSystem hudsystem;
     private InventorySystem inventario;
 
     int arma_attuale=-1;
@@ -18,14 +18,16 @@ public class Pickup : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        testo = GameObject.Find("MessageBox").GetComponent<Text>();
-        take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
+		hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
+        //testo = GameObject.Find("MessageBox").GetComponent<Text>();
+        //take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
         fin = GameObject.FindGameObjectWithTag("Player");
-        testo.enabled = false;
-        take.enabled = false;
+		hud.centralBoxEnabler (false);
+        //testo.enabled = false;
+		hud.sideBoxEnabler(false);
+        //take.enabled = false;
         flag = false;
         animator = fin.GetComponent<Animator>();
-        hudsystem = fin.GetComponent<HUDSystem>();
         inventario = fin.GetComponent<InventorySystem>();
 
     }
@@ -42,8 +44,10 @@ public class Pickup : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)"))
         {
-            testo.text = "Premi \"E\" per raccogliere "+gameObject.name;
-            testo.enabled = true;
+			hud.centralBoxText ("Premi \"E\" per raccogliere " + gameObject.name);
+            //testo.text = "Premi \"E\" per raccogliere "+gameObject.name;
+			hud.centralBoxEnabler (true);
+			//testo.enabled = true;
         }
 
     }
@@ -52,37 +56,46 @@ public class Pickup : MonoBehaviour {
         if (Input.GetButtonDown("Open Door") && other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)")) {
             if (gameObject.name.Equals("la Torcia")) {
                 EquipTorch();
-                //animator.SetTrigger("isTaken"); 
-                testo.enabled = false;
+                //animator.SetTrigger("isTaken");
+				hud.centralBoxEnabler(false);
+                //testo.enabled = false;
 				inventario.setTorcia (true);
                 fin.GetComponent<SwitchWeapon>().getTorch = true;
                 Destroy(GameObject.Find("MuroInvisibile1"));
 
-                take.enabled = true;
-                take.text = "Hai raccolto la torcia";
+				hud.sideBoxEnabler (true);
+				//take.enabled = true;
+				hud.sideBoxText("Hai raccolto la torcia");
+				//take.text = "Hai raccolto la torcia";
                 StartCoroutine(DisableAfterSomeSeconds());
             }
 
             if (gameObject.name.Equals("l'ascia"))
             {
                 EquipAxe();
-                testo.enabled = false;
+				hud.centralBoxEnabler(false);
+				//testo.enabled = false;
                 //inventario.setAxe(true);
                 fin.GetComponent<SwitchWeapon>().getAxe = true;
-                take.enabled = true;
-                take.text = "Hai raccolto l'ascia";
+				hud.sideBoxEnabler (true);
+				//take.enabled = true;
+				hud.sideBoxText("Hai raccolto l'ascia");
+                //take.text = "Hai raccolto l'ascia";
                 StartCoroutine(DisableAfterSomeSeconds());
             }
 
             if(gameObject.name.Equals("P226")) {
                 //EquipPistol();
                 //animator.SetTrigger("isTaken");
-                testo.enabled = false;
+				hud.centralBoxEnabler(false);
+                //testo.enabled = false;
 				inventario.startAmmo (0);
                 fin.GetComponent<SwitchWeapon>().getPistol = true;
 
-                take.enabled = true;
-                take.text = "Hai raccolto la P226";
+				hud.sideBoxEnabler (true);
+				//take.enabled = true;
+				hud.sideBoxText("Hai raccolto la P226");
+                //take.text = "Hai raccolto la P226";
                 StartCoroutine(DisableAfterSomeSeconds());
             }
   
@@ -90,8 +103,10 @@ public class Pickup : MonoBehaviour {
             if (gameObject.CompareTag("Ammo_9mm"))
             {
 
-                take.enabled = true;
-                take.text = "Hai raccolto " + munizioni_ammobox + " colpi da 9mm";
+				hud.sideBoxEnabler (true);
+				//take.enabled = true;
+				hud.sideBoxText("Hai raccolto " + munizioni_ammobox + " colpi da 9mm");
+                //take.text = "Hai raccolto " + munizioni_ammobox + " colpi da 9mm";
                 StartCoroutine(DisableAfterSomeSeconds());
                 gameObject.GetComponent<Renderer>().enabled = false;
 
@@ -100,7 +115,8 @@ public class Pickup : MonoBehaviour {
                 
 
                 if (munizioni_ammobox == 0){
-                    testo.enabled = false;
+					hud.centralBoxEnabler (false);
+                    //testo.enabled = false;
                     munizioni_ammobox = 8;
 
                     Destroy(gameObject);
@@ -112,10 +128,13 @@ public class Pickup : MonoBehaviour {
             {
                 if (inventario.medkitPickup())
                 {
-                    testo.enabled = false;
+					hud.centralBoxEnabler (false);
+					//testo.enabled = false;
 
-                    take.enabled = true;
-                    take.text = "Hai raccolto un kit medico";
+					hud.sideBoxEnabler (true);
+					//take.enabled = true;
+					hud.sideBoxText("Hai raccolto un kit medico");
+                    //take.text = "Hai raccolto un kit medico";
                     StartCoroutine(DisableAfterSomeSeconds());
                 }
             }
@@ -124,7 +143,8 @@ public class Pickup : MonoBehaviour {
 
     public void OnTriggerExit(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
-           testo.enabled = false;
+			hud.centralBoxEnabler (false);
+			//testo.enabled = false;
         }
     }
 
@@ -148,8 +168,10 @@ public class Pickup : MonoBehaviour {
     {
         yield return new WaitForSeconds(2f);
        
-        take.enabled = false;
-        testo.enabled = false;
+		hud.centralBoxEnabler (false);
+        //take.enabled = false;
+		hud.sideBoxEnabler (false);
+        //testo.enabled = false;
         Destroy(gameObject);
     }
 }

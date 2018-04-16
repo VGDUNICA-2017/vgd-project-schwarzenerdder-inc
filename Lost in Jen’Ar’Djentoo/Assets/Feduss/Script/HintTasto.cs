@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class HintTasto : MonoBehaviour {
 
-    public Text testo;
-
+    //public Text testo;
+	private HUDSystem hud;
     private KeyScript access;
 
     public void Start()
     {
         access = GameObject.FindGameObjectWithTag("Cutter").GetComponent<KeyScript>();
-        testo = GameObject.Find("MessageBox").GetComponent<Text>();
+		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
+        //testo = GameObject.Find("MessageBox").GetComponent<Text>();
     }
 
 
@@ -22,8 +23,10 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                testo.text = "Premi \"Left Ctrl\" per abbassarti";
-                testo.enabled = true;
+				hud.centralBoxText ("Premi \"Left Ctrl\" per abbassarti");
+				//testo.text = "Premi \"Left Ctrl\" per abbassarti";
+				hud.centralBoxEnabler(true);
+				//testo.enabled = true;
             }
         }
 
@@ -31,9 +34,15 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                if (!access.key) testo.text = "Ti servono delle cesoie per spezzare il lucchetto";
-                else testo.text = "Premi \"E\" per spezzare il lucchetto";
-                testo.enabled = true;
+				if (!access.key) {
+					hud.centralBoxText ("Ti servono delle cesoie per spezzare il lucchetto");
+					//testo.text = "Ti servono delle cesoie per spezzare il lucchetto";
+				} else {
+					hud.centralBoxText ("Premi \"E\" per spezzare il lucchetto");
+					//testo.text = "Premi \"E\" per spezzare il lucchetto";
+				}
+				hud.centralBoxEnabler (true);
+				//testo.enabled = true;
             }
         }
 
@@ -41,8 +50,10 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                testo.text = "Premi \"E\" per raccogliere le cesoie";
-                testo.enabled = true;
+				hud.centralBoxText ("Premi \"E\" per raccogliere le cesoie");
+                //testo.text = "Premi \"E\" per raccogliere le cesoie";
+				hud.centralBoxEnabler (true);
+                //testo.enabled = true;
             }
         }
 
@@ -50,8 +61,10 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                testo.text = "Premi \"Left Shit\" per correre";
-                testo.enabled = true;
+				hud.centralBoxText ("Premi \"Left Shit\" per correre");
+				//testo.text = "Premi \"Left Shit\" per correre";
+				hud.centralBoxEnabler (true);
+				//testo.enabled = true;
             }
         }
 
@@ -59,8 +72,10 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                testo.text = "Premi \"W\" per avanzare";
-                testo.enabled = true;
+				hud.centralBoxText ("Premi \"W\" per avanzare");
+                //testo.text = "Premi \"W\" per avanzare";
+				hud.centralBoxEnabler (true);
+				//testo.enabled = true;
             }
         }
 
@@ -68,22 +83,28 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                testo.text = "Premi \"F\" per accendere e spegnere la torcia";
-                testo.enabled = true;
+				hud.centralBoxText ("Premi \"F\" per accendere e spegnere la torcia");
+                //testo.text = "Premi \"F\" per accendere e spegnere la torcia";
+				hud.centralBoxEnabler (true);
+				//testo.enabled = true;
                 GetComponent<AudioSource>().Play();
             }
         }
 
         if (gameObject.name.Equals("KitmedicoHint"))
         {
-            testo.text = "Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo";
-            testo.enabled = true;
+			hud.centralBoxText ("Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo");
+            //testo.text = "Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo";
+			hud.centralBoxEnabler (true);
+			//testo.enabled = true;
         }
 
         if (gameObject.CompareTag("Axe"))
         {
-            testo.text = "Premi \"E\" per raccogliere l'ascia";
-            testo.enabled = true;
+			hud.centralBoxText ("Premi \"E\" per raccogliere l'ascia");
+            //testo.text = "Premi \"E\" per raccogliere l'ascia";
+			hud.centralBoxEnabler (true);
+			//testo.enabled = true;
         }
     }
 
@@ -91,7 +112,8 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                testo.enabled = false;
+				hud.centralBoxEnabler (false);
+				//testo.enabled = false;
             }
 
         }
