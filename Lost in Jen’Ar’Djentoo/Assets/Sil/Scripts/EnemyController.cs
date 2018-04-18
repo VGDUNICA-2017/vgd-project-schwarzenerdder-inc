@@ -12,7 +12,8 @@ public class EnemyController : MonoBehaviour {
 	public GameObject vision;
 	private NavMeshAgent agent;
 
-	//Variabili di controllo sulla posizione
+    //Variabili di controllo sulla posizione
+    public bool debug;
 	public float distance;
 	private float angle;
 	private bool rayHit;
@@ -28,10 +29,13 @@ public class EnemyController : MonoBehaviour {
 	private bool deathCall;
 	public LayerMask mask;
 
+
 	//Elementi da settare
 	public float spotDistance = 20.0f;
 	public float attackDistance = 5.0f;
 	public float spotAngle = 60.0f;
+
+    private PlayEnemySound playsound;
 
 	void Start () {
 		animator = this.GetComponent<Animator> ();
@@ -47,6 +51,7 @@ public class EnemyController : MonoBehaviour {
 
 		canRoar = true;
 		randomAttack = true;
+        debug = false;
 
 		health = MaxHealth;
 		if (health < 1) {
@@ -54,7 +59,9 @@ public class EnemyController : MonoBehaviour {
 		} else {
 			deathCall = false;
 		}
-	}
+
+        playsound = GetComponent<PlayEnemySound>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -70,29 +77,28 @@ public class EnemyController : MonoBehaviour {
 			RaycastHit hittedElement;
 			vision.transform.LookAt (playerSpotPoint);
 			rayHit = Physics.Raycast (vision.transform.position, vision.transform.forward, out hittedElement, spotDistance, mask);
-
-//			print ("Angolo: " + angle);
-//			print ("Hit: " + rayHit);
-//			if(rayHit) {print ("Colpito: " + hittedElement.collider);}
-//			Debug.DrawRay (vision.transform.position, vision.transform.forward * spotDistance, Color.green);
-//			if (rayHit) {
-//				print ("Distance: " + (currentDistance <= spotDistance) +
-//				"; Angle: " + (angle <= spotAngle) +
-//				";Ray: " + rayHit +
-//				";Compare: " + (hittedElement.collider.gameObject.CompareTag ("Player") || hittedElement.collider.gameObject.name.Equals("la Torcia (Impugnata)")) +
-//				"\nHitted: " + hittedElement.collider);
-//			} else {
-//				print ("Distance: " + (currentDistance <= spotDistance) +
-//				"; Angle: " + (angle <= spotAngle) +
-//				";Ray: " + rayHit);
-//			}
-//			print("Roar: "+canRoar+";Back: "+backToStart);
-			//Definizione azione
-			if ((distance <= spotDistance) && 						//Se il player è entro la distanza di visione,
+            if (debug) {
+                Debug.DrawRay (vision.transform.position, vision.transform.forward * spotDistance, Color.green);
+                if (rayHit) {
+                	print ("Distance: " + (distance <= spotDistance) +
+                	"; Angle: " + (angle <= spotAngle) +
+                ";Ray: " + rayHit +
+                	";Compare: " + (hittedElement.collider.gameObject.CompareTag ("Player") || hittedElement.collider.gameObject.name.Equals("la Torcia (Impugnata)")) +
+                	"\nHitted: " + hittedElement.collider);
+                } else {
+                	print ("Distance: " + (distance <= spotDistance) +
+                	"; Angle: " + (angle <= spotAngle) +
+                	";Ray: " + rayHit);
+                }
+                //			print("Roar: "+canRoar+";Back: "+backToStart);
+            }
+            //Definizione azione
+            if ((distance <= spotDistance) && 						//Se il player è entro la distanza di visione,
 				(angle <= spotAngle) && 									// entro l'angolo di visione,
 				rayHit && 													// il ray ha colpito qualcosa
 				(hittedElement.collider.gameObject.CompareTag ("Player") ||	// e quel qualcosa è il player
-				 hittedElement.collider.gameObject.name.Equals("la Torcia (Impugnata)"))) {//o un suo oggetto
+				 hittedElement.collider.gameObject.name.Equals("la Torcia (Impugnata)") || 
+                 hittedElement.collider.gameObject.name.Equals("l'ascia (Impugnata)"))) {//o un suo oggetto
 
 				//Il player è nel cono di visione
 				if (distance >= attackDistance) {//Se il player è oltre la soglia di attacco
@@ -164,6 +170,7 @@ public class EnemyController : MonoBehaviour {
 		//Ruggito
 		if (canRoar) {
 			animator.SetBool ("Spotted", true);
+            playsound.PlayRoarSound();
 			canRoar = false;
 		} else {
 			animator.SetBool ("Spotted", false);
@@ -195,11 +202,13 @@ public class EnemyController : MonoBehaviour {
 		agent.enabled = false;
 		animator.SetFloat ("Speed", 0.0f);
 		animator.SetBool ("Attack", true);
+        playsound.PlayEnemyAttackSound();
 	}
 
 	public void deathAction() {
 		//Se il nemico non è ancora in fase di morte, attiva tale animazione
 		if (deathCall) {
+            playsound.PlayEnemyDeath();
 			animator.SetTrigger ("Death");
 			animator.SetFloat ("Speed", 0.0f);
 			agent.enabled = false;
@@ -217,6 +226,7 @@ public class EnemyController : MonoBehaviour {
 		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying")) {
 			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 			animator.SetTrigger ("Hit");
+            playsound.PlayEnemyHitSound();
 
 			if (health == 0) {
 				deathCall = true;

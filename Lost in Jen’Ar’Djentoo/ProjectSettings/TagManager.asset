@@ -26,6 +26,13 @@ TagManager:
   - Luce
   - Axe
   - Enemy_part
+  - HUD
+  - BrokenLight
+  - BrokenLamp
+  - AxeEnemySpawn
+  - PistolEnemySpawn
+  - CutterEnemySpawn
+  - ChainEnemySpawn
   layers:
   - Default
   - TransparentFX

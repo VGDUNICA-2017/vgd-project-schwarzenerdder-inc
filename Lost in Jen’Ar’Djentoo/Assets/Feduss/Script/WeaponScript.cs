@@ -73,13 +73,14 @@ public class WeaponScript : MonoBehaviour {
             Destroy(GameObject.Find("P69mm"), 1f);
 
         }
+        else hudsystem.hudShotsEnabler(false);
 
         if (player.GetBool("Axe"))
         {
             hudsystem.hudShotsEnabler(false);
             gunDamage = 30;
         }
-        else hudsystem.hudShotsEnabler(false);
+        
 
         //Setto le munizioni nel caricatore e di riserva con quanto vi è nell'inventario
         leftMagAmmo = inventario.ammoLeft(index);
@@ -185,6 +186,7 @@ public class WeaponScript : MonoBehaviour {
         if (attack_flag)
         {
             RaycastShot();
+            playsound.PlayAxeAttackSound();
             attack_flag = false;
         }
     }

@@ -8,15 +8,21 @@ public class KeyScript : MonoBehaviour
 
 
     public bool key = false;
-    //private Text take;
 	private HUDSystem hud;
 
-
+    private GameObject ChainSpawn;
+    private GameObject CutterSpawn;
     // Use this for initialization
     void Start()
     {
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
-        //take = GameObject.Find("MessageBoxTake").GetComponent<Text>();
+
+        ChainSpawn=GameObject.FindGameObjectWithTag("ChainEnemySpawn");
+        CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
+
+        
+
+
     }
 
     // Update is called once per frame
@@ -34,12 +40,9 @@ public class KeyScript : MonoBehaviour
             key = true;
             GameObject.Find("chain").GetComponent<KeyScript>().key = true;
 			hud.centralBoxEnabler (false);
-			//GameObject.FindGameObjectWithTag("Cutter").GetComponent<HintTasto>().testo.enabled = false;
-
 			hud.sideBoxEnabler (true);
-			//take.enabled = true;
 			hud.sideBoxText("Hai raccolto le cesoie");
-			//take.text = "Hai raccolto le cesoie";
+            CutterSpawn.SetActive(true);
             StartCoroutine(DisableAfterSomeSeconds());
             
 
@@ -56,10 +59,9 @@ public class KeyScript : MonoBehaviour
                     gameObject.AddComponent<Rigidbody>();
                     gameObject.AddComponent<BoxCollider>();
 					hud.centralBoxEnabler (false);
-                    //GameObject.Find("chain").GetComponent<HintTasto>().testo.enabled = false;
 
                     GameObject.FindGameObjectWithTag("Recinzione").GetComponent<Animator>().SetBool("Open", true);
-
+                    ChainSpawn.SetActive(true);
                     Destroy(GameObject.Find("chain"), 2f);
 
                 }
@@ -76,7 +78,6 @@ public class KeyScript : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
 		hud.sideBoxEnabler (false);
-		//take.enabled = false;
         Destroy(gameObject);
     }
 }

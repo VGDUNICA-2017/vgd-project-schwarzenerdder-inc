@@ -44,17 +44,10 @@ public class FpsCamera : MonoBehaviour {
         posX += Spostamento_Y; //rotazione verticale
         posY += Spostamento_X; //rotazione orizzontale
 
-        //limito la rotazione verticale della camera in base all'animazone corrente
-        if (player.GetComponent<Animator>().GetBool("Pistol"))
-        {
-            if (posX < -15.0f) posX = -15.0f;
-            if (posX > 20.0f) posX = 20.0f;
-        }
-        else
-        {
-            if (posX < -45.0f) posX = -45.0f;
-            if (posX > 60.0f) posX = 60.0f;
-        }
+        
+        if (posX < -45.0f) posX = -45.0f;
+        if (posX > 60.0f) posX = 60.0f;
+        
 
         rotation = Quaternion.Euler(new Vector3(posX, posY, 0f)); //salvo la nuova rotazione della camera in base al movimento del mouse 
 

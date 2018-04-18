@@ -16,6 +16,11 @@ public class PlaySound : MonoBehaviour {
     [SerializeField] private AudioClip m_EmptyMagReload;
     [SerializeField] private AudioClip m_EquipPistol;
 
+    [SerializeField] private AudioClip m_AxeAttack;
+    [SerializeField] private AudioClip m_PlayerHit;
+    [SerializeField] private AudioClip m_Spotted;
+    [SerializeField] private AudioClip m_PlayerDeath;
+
     private AudioSource m_AudioSource;
 
     // Use this for initialization
@@ -89,5 +94,43 @@ public class PlaySound : MonoBehaviour {
     {
         m_AudioSource.clip = m_EquipPistol;
         m_AudioSource.Play();
+    }
+
+    public void PlayAxeAttackSound()
+    {
+        if (m_AudioSource.isPlaying != true)
+        {
+            m_AudioSource.clip = m_AxeAttack;
+            m_AudioSource.Play();
+        }
+    }
+
+    public void PlayPlayerHitSound()
+    {
+        if (m_AudioSource.isPlaying != true)
+        {
+            m_AudioSource.clip = m_PlayerHit;
+            m_AudioSource.Play();
+        }
+    }
+
+    public void PlaySpottedSong()
+    {
+        if (m_AudioSource.isPlaying != true)
+        {
+            m_AudioSource.clip = m_Spotted;
+            m_AudioSource.Play();
+        }
+    }
+
+   
+
+    public void PlayPlayerDeath()
+    {
+        if (m_AudioSource.isPlaying != true)
+        {
+            m_AudioSource.clip = m_PlayerDeath;
+            m_AudioSource.Play();
+        }
     }
 }

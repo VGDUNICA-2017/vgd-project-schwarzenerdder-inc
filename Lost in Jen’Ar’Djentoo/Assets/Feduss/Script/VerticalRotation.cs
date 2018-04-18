@@ -21,6 +21,8 @@ public class VerticalRotation : MonoBehaviour {
     private Vector3 torcia_start_angles = new Vector3(5.206f, -21.583f, -92.46301f);
     private Vector3 torcia_end_angles = new Vector3(12.544f, -19.5f, -72.632f);
 
+    public float offset_pistola;
+
     // Use this for initialization
     void Start () {
 
@@ -52,24 +54,24 @@ public class VerticalRotation : MonoBehaviour {
         posX += Spostamento_Y;
 
 
-        if (animator.GetBool("Pistol"))
+       /* if (animator.GetBool("Pistol"))
         {
             if (posX < -15.0f) posX = -15.0f;
             if (posX > 20.0f) posX = 20.0f;
         }
-        else
-        {
-            if (posX < -45.0f) posX = -45.0f;
-            if (posX > 60.0f) posX = 60.0f;
-        }
+        else*/
+        //{
+        if (posX < -45.0f) posX = -45.0f;
+        if (posX > 60.0f) posX = 60.0f;
+        //}
 
         if (animator.GetBool("WeaponLess") && parte_corpo.gameObject.CompareTag("Testa"))
         {
             parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
         }
 
-        //Offset per le braccia (quando hai la pistola e sta mirando)
-        if ((animator.GetBool("Pistol") && (animator.GetBool("isAiming") || animator.GetBool("isFiring")) || (animator.GetBool("Pistol")) && parte_corpo.name.Equals("Camera")))
+        //Offset per le braccia (quando hai la pistola
+        if (animator.GetBool("Pistol"))
         {
             parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
         }
@@ -77,7 +79,7 @@ public class VerticalRotation : MonoBehaviour {
         //Aggiusto l'offset iniziale della rotazione verticale quando è accovacciato
         if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("isCrouching") && animator.GetBool("Torch"))
         {
-            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
+            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y + offset_pistola, 0f);
             torcia_imp.transform.localEulerAngles = torcia_end_angles;
         }
 

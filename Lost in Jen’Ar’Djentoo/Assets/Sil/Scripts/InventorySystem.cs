@@ -28,6 +28,8 @@ public class InventorySystem : MonoBehaviour {
 	//Altri riferimenti
 	private bool noWeapon = true;
 
+    private PlaySound playsound;
+
 	// Use this for initialization
 	void Start () {
 		//hudScript = gameObject.GetComponent<HUDSystem> ();
@@ -50,7 +52,9 @@ public class InventorySystem : MonoBehaviour {
 		setMappa (false);
 		setCesoie (false);
 		setAscia (false);
-	}
+
+        playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -70,9 +74,11 @@ public class InventorySystem : MonoBehaviour {
 
 		hudScript.getDamage ();
 		hudScript.radialHealthSet (currentHealth, fullHealth);
+        playsound.PlayPlayerHitSound();
 
 		if (currentHealth < 1) {
 			isDead = true;
+            playsound.PlayPlayerDeath();
 		}
 	}
 

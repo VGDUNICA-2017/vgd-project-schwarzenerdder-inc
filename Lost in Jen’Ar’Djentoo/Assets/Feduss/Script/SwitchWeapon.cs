@@ -46,57 +46,62 @@ public class SwitchWeapon : MonoBehaviour {
         // if (animator.GetBool("Smg")) getSmg = true;
         // if (animator.GetBool("Shotgun")) getShotgun = true;
 
-        //Torcia
-        if (Input.GetKeyDown("1") && getTorch)
+        if (!animator.IsInTransition(0))
         {
-            if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
-            if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
-            //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-            //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+            //Torcia
+            if (Input.GetKeyDown("1") && getTorch)
+            {
+                if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
+                if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+                //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
+                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
 
-            animator.SetBool("Torch", true);
-        }
+                animator.SetBool("Torch", true);
+            }
 
-        //Ascia
-        if (Input.GetKeyDown("2") && getAxe)
-        {
-            if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
-            if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
-            //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-            //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+            //Ascia
+            if (Input.GetKeyDown("2") && getAxe)
+            {
+                if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+                if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+                //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
+                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
 
-            animator.SetBool("Axe", true);
-        }
+                animator.SetBool("Axe", true);
+            }
 
-        //Pistola
-        if (Input.GetKeyDown("3") && getPistol)
-        {
-            if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
-            if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
-            //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-            //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+            //Pistola
+            if (Input.GetKeyDown("3") && getPistol)
+            {
+                if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
+                if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+                //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
+                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
 
-            animator.SetBool("Pistol", true);
-        }
+                animator.SetBool("Pistol", true);
+            }
 
-        //Shotgun
-        if (Input.GetKeyDown("5") && getShotgun)
-        {
-            if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
-            if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
-            if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
-            //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
-            //animator.SetBool("Shotgun", true);
-        }
+            //Smg
+            if (Input.GetKeyDown("4") && getSmg)
+            {
+                if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
+                if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+                if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+                //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
+                //animator.SetBool("Smg", true);
+            }
 
-        //Smg
-        if (Input.GetKeyDown("4") && getSmg)
-        {
-            if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
-            if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
-            if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
-            //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-            //animator.SetBool("Smg", true);
+            //Shotgun
+            if (Input.GetKeyDown("5") && getShotgun)
+            {
+                if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
+                if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+                if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+                //animator.SetBool("Shotgun", true);
+            }
+
+            
         }
 
 
