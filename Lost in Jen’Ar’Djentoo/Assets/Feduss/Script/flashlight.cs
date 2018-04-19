@@ -8,21 +8,20 @@ public class flashlight : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //torcia = GameObject.Find("Luce").GetComponent<Light>();
-        torcia.intensity = 10;
+        torcia.intensity = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetButtonDown("Torcia")) {
-            if (torcia.intensity == 10)
+        if (Input.GetButtonDown("Torcia") && GetComponent<SwitchWeapon>().getTorch) {
+            if (torcia.intensity == 1)
             {
                 torcia.intensity = 0;
             }
             else
             {
-                torcia.intensity = 10;
+                torcia.intensity = 1;
             }
         }
 

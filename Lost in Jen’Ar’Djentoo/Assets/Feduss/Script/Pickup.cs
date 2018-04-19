@@ -36,6 +36,7 @@ public class Pickup : MonoBehaviour {
         ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
         CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
 
+        
 
 
     }
@@ -50,20 +51,17 @@ public class Pickup : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)"))
+        if (other.gameObject.CompareTag("Player"))
         {
 			hud.centralBoxText ("Premi \"E\" per raccogliere " + gameObject.name);
 			hud.centralBoxEnabler (true);
-            AxeSpawn.SetActive(false);
-            PistolSpawn.SetActive(false);
-            ChainSpawn.SetActive(false);
-            CutterSpawn.SetActive(false);
+            
         }
 
     }
 
     public void OnTriggerStay(Collider other) {
-        if (Input.GetButtonDown("Open Door") && other.gameObject.CompareTag("Player") && !other.gameObject.name.Equals("la Torcia (Impugnata)")) {
+        if (Input.GetButtonDown("Open Door")) {
             if (gameObject.name.Equals("la Torcia")) {
                 EquipTorch();
 				hud.centralBoxEnabler(false);
@@ -72,6 +70,12 @@ public class Pickup : MonoBehaviour {
                 Destroy(GameObject.Find("MuroInvisibile1"));
 				hud.sideBoxEnabler (true);
 				hud.sideBoxText("Hai raccolto la torcia");
+
+                AxeSpawn.SetActive(false);
+                PistolSpawn.SetActive(false);
+                ChainSpawn.SetActive(false);
+                CutterSpawn.SetActive(false);
+
                 StartCoroutine(DisableAfterSomeSeconds());
             }
 
@@ -104,7 +108,6 @@ public class Pickup : MonoBehaviour {
 				hud.sideBoxEnabler (true);
 				hud.sideBoxText("Hai raccolto " + munizioni_ammobox + " colpi da 9mm");
                 StartCoroutine(DisableAfterSomeSeconds());
-                gameObject.GetComponent<Renderer>().enabled = false;
                 munizioni_ammobox =inventario.ammoPickup(munizioni_ammobox, 0, arma_attuale);
 
                 

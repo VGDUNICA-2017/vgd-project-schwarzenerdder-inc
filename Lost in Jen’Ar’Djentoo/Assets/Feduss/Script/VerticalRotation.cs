@@ -30,7 +30,6 @@ public class VerticalRotation : MonoBehaviour {
         braccio_sx = GameObject.FindGameObjectWithTag("Braccio_sx");
         braccio_dx = GameObject.FindGameObjectWithTag("Braccio_dx");
         animator = GetComponent<Animator>();
-        torcia_imp = GameObject.Find("la Torcia (Impugnata)");
 
     }
 	
@@ -53,17 +52,9 @@ public class VerticalRotation : MonoBehaviour {
 
         posX += Spostamento_Y;
 
-
-       /* if (animator.GetBool("Pistol"))
-        {
-            if (posX < -15.0f) posX = -15.0f;
-            if (posX > 20.0f) posX = 20.0f;
-        }
-        else*/
-        //{
         if (posX < -45.0f) posX = -45.0f;
         if (posX > 60.0f) posX = 60.0f;
-        //}
+        
 
         if (animator.GetBool("WeaponLess") && parte_corpo.gameObject.CompareTag("Testa"))
         {
@@ -80,14 +71,14 @@ public class VerticalRotation : MonoBehaviour {
         if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("isCrouching") && animator.GetBool("Torch"))
         {
             parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y + offset_pistola, 0f);
-            torcia_imp.transform.localEulerAngles = torcia_end_angles;
+            //torcia_imp.transform.localEulerAngles = torcia_end_angles;
         }
 
         //offset del braccio sx quando hai la la torcia
         if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("Torch") && !animator.GetBool("isCrouching"))
         {   
             parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
-            torcia_imp.transform.localEulerAngles = torcia_start_angles;
+            //torcia_imp.transform.localEulerAngles = torcia_start_angles;
         }
 
 

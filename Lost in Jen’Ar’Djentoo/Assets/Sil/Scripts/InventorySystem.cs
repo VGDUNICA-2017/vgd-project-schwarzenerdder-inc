@@ -124,6 +124,7 @@ public class InventorySystem : MonoBehaviour {
 	//Funzione di raccolta medkit. Rende la risposta a "ho raccolto il medKit?"
 	public bool medkitPickup () {
 		if (medKits < 3) {
+            Debug.Log(medKits);
 			medKits++;
 			hudScript.medKitSet (medKits);
 			return true;

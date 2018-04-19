@@ -22,7 +22,7 @@ public class PlayAnimation : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         PlayAnimations();
 
