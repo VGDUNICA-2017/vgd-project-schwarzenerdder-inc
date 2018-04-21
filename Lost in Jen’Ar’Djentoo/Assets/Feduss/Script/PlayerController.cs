@@ -10,14 +10,13 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //Cursor.visible = false;
         axe = GameObject.Find("l'ascia (Impugnata)");
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+        Cursor.visible = false;
     }
 
     public void ActiveMeleeAttack()

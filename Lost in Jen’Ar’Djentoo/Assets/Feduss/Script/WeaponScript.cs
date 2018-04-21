@@ -56,6 +56,7 @@ public class WeaponScript : MonoBehaviour {
     }
 
 	public void Update() {
+
 		//se il giocatore ha la pistola
 		if (player.GetBool("Pistol")) {
 

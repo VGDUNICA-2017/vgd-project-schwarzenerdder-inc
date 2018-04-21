@@ -214,7 +214,13 @@ public class EnemyController : MonoBehaviour {
 			agent.enabled = false;
 			deathCall = false;
 		}
-	}
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dying") &&
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3.0f)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 	public void takeDamage(int damage) {
 		this.health -= damage;
@@ -234,25 +240,3 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 }
-
-//public void OnTriggerEnter(Collider other) {
-//	if (other.gameObject.CompareTag("Braccio_sx") || other.gameObject.CompareTag("Braccio_dx")) {
-//		if (enemy.GetCurrentAnimatorStateInfo(0).IsName("Attacking") && flag_damage) {
-//			inventory.takeDamage(15);
-//			flag_damage = false;
-//
-//			if (inventory.getStatus()) {
-//				animator.SetTrigger("Death");
-//			}
-//		}
-//	}
-//
-//	if (other.gameObject.CompareTag("Braccio_sx") && other.gameObject.CompareTag("Braccio_dx")) {
-//		if (enemy.GetCurrentAnimatorStateInfo(0).IsName("Attacking") && flag_damage) {
-//			inventory.takeDamage(30);
-//			flag_damage = false;
-//
-//			if (inventory.getStatus()) animator.SetTrigger("Death");
-//		}
-//	}
-//}
