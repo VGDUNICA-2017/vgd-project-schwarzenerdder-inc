@@ -16,6 +16,7 @@ public class LoadGame : MonoBehaviour {
 	}
 
     public void onClick() {
-        SceneManager.LoadScene("ProvaF", LoadSceneMode.Single);
+        Destroy(GameObject.Find("Music"));
+        SceneManager.LoadScene("ScenaInnevataF (incompleta)", LoadSceneMode.Single);
     }
 }
