@@ -9,6 +9,7 @@ public class Boss1Controller : MonoBehaviour {
 	private Animator animator;
 	private Transform playerTransform;
 	private NavMeshAgent agent;
+	private PlayEnemySound playsound;
 
     //Variabili di controllo sulla posizione
     public bool debug;
@@ -20,11 +21,8 @@ public class Boss1Controller : MonoBehaviour {
 	public int health;
 	private bool deathCall;
 
-
 	//Elementi da settare
-	public float attackDistance = 5.0f;
-
-    private PlayEnemySound playsound;
+	public float attackDistance = 4.0f;
 
 	void Start () {
 		animator = this.GetComponent<Animator> ();
@@ -42,27 +40,26 @@ public class Boss1Controller : MonoBehaviour {
 			deathCall = false;
 		}
 
-        playsound = GetComponent<PlayEnemySound>();
+        //playsound = GetComponent<PlayEnemySound>();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		//Check sulla vita del nemico
 		if (health > 0) {//Se il nemico è vivo
 			//Calcolo nuovi dati di posizione
 			distance = Vector3.Distance (this.transform.position, playerTransform.position);
 
-			//Codice dell'angolo copiato online. Dura a spiegarlo :D
-			Vector3 target = playerTransform.position - this.transform.position;
-
-
-			//Il player è nel cono di visione
-			if (distance >= attackDistance) {//Se il player è oltre la soglia di attacco
+			//Se il player è oltre la soglia di attacco
+			if (distance >= attackDistance) {
 				movingAction ();
-//					print ("M");
+//				print ("M");
 			} else {
+				if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
+					randomAttack = true;
+				}
 				attackAction ();
-//					print ("A"); 
+//				print ("A"); 
 			}
 		} else {
 			//Se il nemico non è vivo
@@ -70,17 +67,10 @@ public class Boss1Controller : MonoBehaviour {
 		}
 	}
 
-	public void FixedUpdate () {
-		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
-			randomAttack = true;
-		}
-	}
-
 	public void movingAction() {
-
 		//Se il nemico si trova nello stato di moving, allora l'agent viene attivato
 		//In qualunque altro stato, è inattivo
-		//Questo previene il movimento durante attacco e ruggito
+		//Questo previene il movimento durante le altre azioni
 		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Moving")) {
 			animator.SetFloat ("Speed", 1.0f);
 			animator.SetBool ("Attack", false);
@@ -99,17 +89,18 @@ public class Boss1Controller : MonoBehaviour {
 			animator.SetFloat ("Range", (float)Random.Range (-1, 1));
 			randomAttack = false;
 		}
+
 		this.transform.LookAt(playerTransform.position);
 		agent.enabled = false;
 		animator.SetFloat ("Speed", 0.0f);
 		animator.SetBool ("Attack", true);
-        playsound.PlayEnemyAttackSound();
+        //playsound.PlayEnemyAttackSound();
 	}
 
 	public void deathAction() {
 		//Se il nemico non è ancora in fase di morte, attiva tale animazione
 		if (deathCall) {
-            playsound.PlayEnemyDeath();
+            //playsound.PlayEnemyDeath();
 			animator.SetTrigger ("Death");
 			animator.SetFloat ("Speed", 0.0f);
 			agent.enabled = false;
@@ -117,8 +108,7 @@ public class Boss1Controller : MonoBehaviour {
 		}
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dying") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3.0f)
-        {
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3.0f) {
             Destroy(gameObject);
         }
     }
@@ -133,7 +123,7 @@ public class Boss1Controller : MonoBehaviour {
 		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying")) {
 			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 			animator.SetTrigger ("Hit");
-            playsound.PlayEnemyHitSound();
+            //playsound.PlayEnemyHitSound();
 
 			if (health == 0) {
 				deathCall = true;

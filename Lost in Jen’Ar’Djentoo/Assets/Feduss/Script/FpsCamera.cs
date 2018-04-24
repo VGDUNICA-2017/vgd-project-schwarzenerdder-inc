@@ -51,7 +51,7 @@ public class FpsCamera : MonoBehaviour {
 
         rotation = Quaternion.Euler(new Vector3(posX, posY, 0f)); //salvo la nuova rotazione della camera in base al movimento del mouse 
 
-        if ((Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading")))
+        if ((Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("Axe") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading")))
         {
             GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, end_fov, Time.deltaTime * 5);
 

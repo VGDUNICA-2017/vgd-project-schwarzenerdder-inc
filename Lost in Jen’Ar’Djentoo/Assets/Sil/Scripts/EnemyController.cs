@@ -29,10 +29,9 @@ public class EnemyController : MonoBehaviour {
 	private bool deathCall;
 	public LayerMask mask;
 
-
 	//Elementi da settare
 	public float spotDistance = 20.0f;
-	public float attackDistance = 5.0f;
+	public float attackDistance = 3.0f;
 	public float spotAngle = 60.0f;
 
     private PlayEnemySound playsound;
@@ -65,7 +64,7 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Check sulla vita del nemico
+        //Check sulla vita del nemico
 		if (health > 0) {//Se il nemico è vivo
 			//Calcolo nuovi dati di posizione
 			distance = Vector3.Distance (this.transform.position, playerTransform.position);
@@ -123,8 +122,9 @@ public class EnemyController : MonoBehaviour {
 				}
 			}
 		} else {
-			//Se il nemico non è vivo
-			deathAction ();
+            //Se il nemico non è vivo
+            print("gg xd lol 2");
+            deathAction ();
 		}
 	}
 
@@ -193,7 +193,8 @@ public class EnemyController : MonoBehaviour {
 
 	public void attackAction() {
 		//Attacco
-		if (randomAttack) {
+		//print("Flag: " + randomAttack + "; Anim: " + animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking"));
+		if (randomAttack && animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking")) {
 			//animator.SetFloat ("Range", -1.0f);
 			animator.SetFloat ("Range", (float)Random.Range (-1, 1));
 			randomAttack = false;
@@ -206,7 +207,8 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	public void deathAction() {
-		//Se il nemico non è ancora in fase di morte, attiva tale animazione
+        //Se il nemico non è ancora in fase di morte, attiva tale animazione
+        print("flag: " + deathCall);
 		if (deathCall) {
             playsound.PlayEnemyDeath();
 			animator.SetTrigger ("Death");
@@ -216,8 +218,7 @@ public class EnemyController : MonoBehaviour {
 		}
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dying") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3.0f)
-        {
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3.0f) {
             Destroy(gameObject);
         }
     }
@@ -234,7 +235,7 @@ public class EnemyController : MonoBehaviour {
 			animator.SetTrigger ("Hit");
             playsound.PlayEnemyHitSound();
 
-			if (health == 0) {
+			if (health <= 0) {
 				deathCall = true;
 			}
 		}

@@ -52,34 +52,21 @@ public class VerticalRotation : MonoBehaviour {
 
         posX += Spostamento_Y;
 
-        if (posX < -45.0f) posX = -45.0f;
-        if (posX > 60.0f) posX = 60.0f;
+        //Specifico gli angoli massimo e minimo di rotazione, normalizzando quelli che superano tali limiti
+        if (posX < -45.0f) posX = -35.0f;
+        if (posX > 60.0f) posX = 50.0f;
+
+        //Rotazione verticale delle braccia a seconda dell'arma impugnata
+        if ((animator.GetBool("Pistol") || animator.GetBool("Smg"))/* && parte_corpo.gameObject.CompareTag("Braccio_dx")*/)
+        {
+            parte_corpo.localEulerAngles = new Vector3(posX, parte_corpo.localEulerAngles.y, parte_corpo.localEulerAngles.z);
+        }
+        if (animator.GetBool("Axe") && parte_corpo.gameObject.CompareTag("Braccio_sx"))
+        {
+            parte_corpo.localEulerAngles = new Vector3(posX, parte_corpo.localEulerAngles.y, parte_corpo.localEulerAngles.z);
+        }
+
         
-
-        if (animator.GetBool("WeaponLess") && parte_corpo.gameObject.CompareTag("Testa"))
-        {
-            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
-        }
-
-        //Offset per le braccia (quando hai la pistola
-        if (animator.GetBool("Pistol"))
-        {
-            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
-        }
-
-        //Aggiusto l'offset iniziale della rotazione verticale quando è accovacciato
-        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("isCrouching") && animator.GetBool("Torch"))
-        {
-            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y + offset_pistola, 0f);
-            //torcia_imp.transform.localEulerAngles = torcia_end_angles;
-        }
-
-        //offset del braccio sx quando hai la la torcia
-        if (!parte_corpo.gameObject.CompareTag("Braccio_dx") && animator.GetBool("Torch") && !animator.GetBool("isCrouching"))
-        {   
-            parte_corpo.localEulerAngles = new Vector3(posX, transform.rotation.y, 0f);
-            //torcia_imp.transform.localEulerAngles = torcia_start_angles;
-        }
 
 
     }

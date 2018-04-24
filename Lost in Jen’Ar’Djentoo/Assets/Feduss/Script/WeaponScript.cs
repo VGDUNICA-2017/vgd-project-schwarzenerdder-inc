@@ -57,29 +57,50 @@ public class WeaponScript : MonoBehaviour {
 
 	public void Update() {
 
-		//se il giocatore ha la pistola
-		if (player.GetBool("Pistol")) {
-
-			//imposto l'index dell'arma (serve per l'inventario)
-			index = 0;
-            //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
-			hudsystem.hudShotsEnabler(true);
-
-            //Salvo quella che sarà la parentela del proiettile con l'arma
-            start_bullet = GameObject.Find("Start_Bullet").transform;
-
-            gunDamage = 15;
-
-            //Distruggo il proiettile già presente nell'arma
-            Destroy(GameObject.Find("P69mm"), 1f);
-
-        }
-        else hudsystem.hudShotsEnabler(false);
 
         if (player.GetBool("Axe"))
         {
             hudsystem.hudShotsEnabler(false);
             gunDamage = 30;
+        }
+        else
+        {
+            //se il giocatore ha la pistola
+            if (player.GetBool("Pistol"))
+            {
+
+                //imposto l'index dell'arma (serve per l'inventario)
+                index = 0;
+                //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
+                hudsystem.hudShotsEnabler(true);
+
+                //Salvo quella che sarà la parentela del proiettile con l'arma
+                start_bullet = GameObject.Find("Start_Bullet").transform;
+
+                gunDamage = 15;
+
+                //Distruggo il proiettile già presente nell'arma
+                Destroy(GameObject.Find("P69mm"), 1f);
+
+            }
+
+            //se il giocatore ha la pistola
+            if (player.GetBool("Smg"))
+            {
+
+                //imposto l'index dell'arma (serve per l'inventario)
+                index = 2;
+                //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
+                hudsystem.hudShotsEnabler(true);
+
+                //Salvo quella che sarà la parentela del proiettile con l'arma
+                start_bullet = GameObject.Find("Start_Bullet").transform;
+
+                gunDamage = 8;
+
+            }
+
+
         }
         
 
@@ -88,7 +109,7 @@ public class WeaponScript : MonoBehaviour {
 		leftInvAmmo = inventario.ammoInvLeft(index);
 
         //Se il giocatore sta impugnando un'arma da fuoco
-        if (player.GetBool("Pistol"))
+        if (player.GetBool("Pistol") || player.GetBool("Smg"))
         {
             FireGun();
             weaponRange = 100f;
@@ -98,7 +119,7 @@ public class WeaponScript : MonoBehaviour {
         if (player.GetBool("Axe"))
         {
             Axehit();
-            weaponRange = 10f;
+            weaponRange = 5f;
         }
 	}
 
@@ -210,29 +231,28 @@ public class WeaponScript : MonoBehaviour {
 
         if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange))
         {
-            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part"))
+            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss"))
             {
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
-                Debug.Log("nemico");
                 //Gli infliggo danno
-
-                hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
+                if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Boss")) hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
+                else hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
             }
             else //danno bonus se lo colpisce all testa
                 if (hit.collider.gameObject.CompareTag("Testa"))
+            {
+                //Istanzio il sangue sul nemico
+                Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
+                hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);
+            }
+            else
+            {
+                if (!gameObject.CompareTag("Axe"))
                 {
-                    //Istanzio il sangue sul nemico
-                    Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
-                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);
+                    Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
                 }
-                else
-                {
-                    if (!gameObject.CompareTag("Axe"))
-                    {
-                        Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
-                    }
-                }
+            }
 
 
 

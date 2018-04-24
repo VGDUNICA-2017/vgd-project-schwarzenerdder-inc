@@ -62,9 +62,10 @@ public class HUDSystem : MonoBehaviour {
 		invAmmoText = shotsUI.transform.Find ("ShotsInventory").transform.GetComponent<Text> ();
 
 		//Disabilitazion elementi HUD
-		shotsUI.SetActive (false);
-		minimapSet.SetActive (false);
-		reticle.SetActive (false);
+		hudShotsEnabler (false);
+		minimapEnabler (false);
+		reticleEnabler (false);
+		bossBarEnabler (false);
 
 		//Recupero transform
 		reticleTransform = (RectTransform)reticle.transform;

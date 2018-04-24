@@ -155,7 +155,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4654037583315572}
-  - component: {fileID: 135557022456692888}
+  - component: {fileID: 136295286795742922}
   - component: {fileID: 114579472441601906}
   m_Layer: 8
   m_Name: RightHand
@@ -247,7 +247,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4606972275433702}
-  - component: {fileID: 135889829058208952}
+  - component: {fileID: 136387787479679878}
   - component: {fileID: 114502196545484812}
   m_Layer: 8
   m_Name: LeftHand
@@ -985,8 +985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4854077522557342}
   - component: {fileID: 95651557429497044}
-  - component: {fileID: 54921251500825598}
-  - component: {fileID: 136781843538707284}
+  - component: {fileID: 143428319114554584}
   - component: {fileID: 114110970041816202}
   - component: {fileID: 114119524232081886}
   - component: {fileID: 195817164480419384}
@@ -1864,7 +1863,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955315528287920}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 445.7422, y: 29.994507, z: 126.948105}
+  m_LocalPosition: {x: 100, y: 0, z: 175}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4125127405255608}
@@ -2014,21 +2013,6 @@ Transform:
   m_Father: {fileID: 4965440867234504}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54921251500825598
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955315528287920}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: Infinity
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
 --- !u!82 &82574440088457280
 AudioSource:
   m_ObjectHideFlags: 1
@@ -2179,25 +2163,26 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1102508090146178}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e8826922670b984fa93a7d3de55ce51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135557022456692888
-SphereCollider:
+--- !u!136 &136295286795742922
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1102508090146178}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
+  m_Enabled: 1
   m_Radius: 0.2
-  m_Center: {x: 0.14, y: 0, z: 0}
---- !u!135 &135889829058208952
-SphereCollider:
+  m_Height: 0.5
+  m_Direction: 0
+  m_Center: {x: 0.1, y: 0, z: 0}
+--- !u!136 &136387787479679878
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -2205,22 +2190,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.2
-  m_Center: {x: -0.14, y: 0, z: 0}
---- !u!136 &136781843538707284
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955315528287920}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 2.0169685
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.93, z: 0}
+  m_Height: 0.5
+  m_Direction: 0
+  m_Center: {x: -0.1, y: 0, z: 0}
 --- !u!137 &137068350578378898
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2332,6 +2305,23 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00014019012, y: -0.13339466, z: 0.0020104498}
     m_Extent: {x: 1.1224717, y: 1.014343, z: 0.26887834}
   m_DirtyAABB: 0
+--- !u!143 &143428319114554584
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1955315528287920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.82
+  m_Radius: 0.35
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!195 &195817164480419384
 NavMeshAgent:
   m_ObjectHideFlags: 1

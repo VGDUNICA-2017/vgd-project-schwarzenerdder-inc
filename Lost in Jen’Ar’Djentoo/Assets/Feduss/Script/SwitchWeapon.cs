@@ -15,6 +15,7 @@ public class SwitchWeapon : MonoBehaviour {
     
     private GameObject ascia_imp;
     private GameObject pistola_imp;
+    private GameObject smg_imp;
 
 
     // Use this for initialization
@@ -22,8 +23,8 @@ public class SwitchWeapon : MonoBehaviour {
         animator = GetComponent<Animator>();
         pistola_imp = GameObject.Find("P226 (Impugnata)");
         ascia_imp = GameObject.Find("l'ascia (Impugnata)");
+        smg_imp = GameObject.Find("MP5 (Impugnato)");
 
-        
     }
 	
 	// Update is called once per frame
@@ -41,21 +42,11 @@ public class SwitchWeapon : MonoBehaviour {
         //Debug
         if (animator.GetBool("Pistol")) getPistol = true;
         if (animator.GetBool("Axe")) getAxe = true;
-        // if (animator.GetBool("Smg")) getSmg = true;
+        if (animator.GetBool("Smg")) getSmg = true;
         // if (animator.GetBool("Shotgun")) getShotgun = true;
 
         if (!animator.IsInTransition(0))
         {
-            /*//Torcia
-            if (Input.GetKeyDown("1") && getTorch)
-            {
-                if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
-                if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
-                //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
-
-                animator.SetBool("Torch", true);
-            }*/
 
             //Ascia
             if (Input.GetKeyDown("1") && getAxe)
@@ -63,7 +54,7 @@ public class SwitchWeapon : MonoBehaviour {
                 if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
                 if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
                 //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+                if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
 
                 animator.SetBool("Axe", true);
             }
@@ -74,7 +65,7 @@ public class SwitchWeapon : MonoBehaviour {
                 if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
                 if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
                 //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+                if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
 
                 animator.SetBool("Pistol", true);
             }
@@ -86,7 +77,7 @@ public class SwitchWeapon : MonoBehaviour {
                 if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
                 if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
                 //if (animator.GetBool("Shotgun")) animator.SetBool("Shotgun", false);
-                //animator.SetBool("Smg", true);
+                animator.SetBool("Smg", true);
             }
 
             //Shotgun
@@ -95,7 +86,7 @@ public class SwitchWeapon : MonoBehaviour {
                 if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
                 if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
                 if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
-                //if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+                if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
                 //animator.SetBool("Shotgun", true);
             }
 
@@ -120,6 +111,10 @@ public class SwitchWeapon : MonoBehaviour {
         //PISTOLA
         if (!animator.GetBool("Pistol") && pistola_imp != null) pistola_imp.SetActive(false);
         else if (pistola_imp != null) pistola_imp.SetActive(true);
+
+        //SMG
+        if (!animator.GetBool("Smg") && smg_imp != null) smg_imp.SetActive(false);
+        else if (smg_imp != null) smg_imp.SetActive(true);
 
     }
 }

@@ -66,6 +66,8 @@ public class PlayAnimation : MonoBehaviour {
         if (Input.GetButton("Crouch"))
         {
             animator.SetBool("isCrouching", true);
+
+            //Modifico il collider quando si accovaccia
             GetComponent<CharacterController>().height = 3.3f;
             GetComponent<CharacterController>().center = new Vector3(0f, 1.1f, 0f);
 
@@ -83,32 +85,22 @@ public class PlayAnimation : MonoBehaviour {
 
         //MIRA
         //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo
-        if (autoaim || Input.GetButton("Aim") && !animator.GetBool("WeaponLess") &&!animator.GetBool("Torch") && !animator.GetBool("isCrouching") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
+        if (Input.GetButton("Aim") && !animator.GetBool("WeaponLess") && !animator.GetBool("Torch") && !animator.GetBool("isRunning") && !animator.GetBool("isReloading"))
         {
             animator.SetBool("isAiming", true);
 
-            hudsystem.reticleEnabler(true); //attivo il reticolo di mira 
 
-            
 
         }
         else
         {
             animator.SetBool("isAiming", false);
-
-            if (animator.GetBool("Axe") || animator.GetBool("Pistol")) hudsystem.reticleEnabler(true);
-            else hudsystem.reticleEnabler(false);
-
-            
-
         }
 
-        //salto
-        if (Input.GetButtonDown("Jump"))
-        {
-            animator.SetTrigger("isJumping");
-            playsound.PlayJumpSound();
-        }
+        //Attivo o disattivo il reticolo di mira in base all'arma
+        if (animator.GetBool("Pistol") || animator.GetBool("Smg")) hudsystem.reticleEnabler(true);
+        else hudsystem.reticleEnabler(false);
+
 
     }
 }
