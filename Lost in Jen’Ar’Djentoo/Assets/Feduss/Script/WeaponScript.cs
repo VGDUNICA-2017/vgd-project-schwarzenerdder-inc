@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour {
 
-	private Animator animator;
 	private Animator player;
 
 
@@ -41,9 +40,11 @@ public class WeaponScript : MonoBehaviour {
 
     public bool attack_flag = false;
 
+    public LayerMask lm;
+
     // Use this for initialization
     void Start () {
-		animator = GetComponent<Animator>();
+
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
 
 		inventario = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
@@ -126,8 +127,8 @@ public class WeaponScript : MonoBehaviour {
     public void FireGun()
     {
         //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
-        if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(1).IsName("Reload") &&
-            (!animator.GetCurrentAnimatorStateInfo(0).IsName("Fire") && !animator.IsInTransition(0) && !player.GetBool("isRunning")))
+        if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload") &&
+            (!player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !player.IsInTransition(1) && !player.GetBool("Run")))
         {
 
             //Se il caricatore è vuoto
@@ -137,11 +138,12 @@ public class WeaponScript : MonoBehaviour {
             }
             else
             {
-                if (!gameObject.CompareTag("Axe"))  animator.SetBool("Fire", true);
+                if (!gameObject.CompareTag("Axe"))  player.SetBool("Fire", true);
 
                 RaycastShot();
 
-                Instantiate(fire_effect, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, 90f, 0f)));
+                //Instanzio la fiammata dell'arma con una specifica posizione e rotazione
+                Instantiate(fire_effect, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(90f, 0f, 90f)));
 
 
                 playsound.PlayShootSound();
@@ -151,15 +153,14 @@ public class WeaponScript : MonoBehaviour {
         }
         else
         {
-            if(!gameObject.CompareTag("Axe")) animator.SetBool("Fire", false);
+            if(!gameObject.CompareTag("Axe")) player.SetBool("Fire", false);
         }
 
-        if (Input.GetButton("Reload") && !(animator.GetCurrentAnimatorStateInfo(0).IsName("Reload")) &&
+        if (Input.GetButton("Reload") && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") &&
             leftInvAmmo > 0)
         {
 
-            animator.SetBool("Reload", true);
-            player.SetBool("isReloading", true);
+            player.SetBool("Reload", true);
 
             //Cambio la ricarica in base ai colpi nel caricatore
             if (leftMagAmmo == 0)
@@ -174,27 +175,26 @@ public class WeaponScript : MonoBehaviour {
         }
         else
         {
-            animator.SetBool("Reload", false);
-            player.SetBool("isReloading", false);
+            player.SetBool("Reload", false);
         }
 
-        if (leftMagAmmo == 0)
+        /*if (leftMagAmmo == 0)
         {
-            animator.SetBool("OutOfAmmo", true);
+            player.SetBool("OutOfAmmo", true);
         }
         else
         {
-            animator.SetBool("OutOfAmmo", false);
+            player.SetBool("OutOfAmmo", false);
         }
 
         if (leftInvAmmo == 0)
         {
-            animator.SetBool("OutOfInvAmmo", true);
+            player.SetBool("OutOfInvAmmo", true);
         }
         else
         {
-            animator.SetBool("OutOfInvAmmo", false);
-        }
+            player.SetBool("OutOfInvAmmo", false);
+        }*/
     }
 
     public void Axehit()
@@ -202,7 +202,7 @@ public class WeaponScript : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
             player.SetTrigger("Attack");
-            //RaycastShot();
+            RaycastShot();
         }
 
         if (attack_flag)
@@ -229,33 +229,34 @@ public class WeaponScript : MonoBehaviour {
         //-info sull'oggetto colpito
         //-gittata raggio
 
-        if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange))
+        if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange, lm))
         {
+            print(hit.collider.gameObject.name);
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss"))
             {
+
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
                 //Gli infliggo danno
                 if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Boss")) hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
                 else hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
             }
-            else //danno bonus se lo colpisce all testa
-                if (hit.collider.gameObject.CompareTag("Testa"))
-            {
-                //Istanzio il sangue sul nemico
-                Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
-                hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);
-            }
             else
-            {
-                if (!gameObject.CompareTag("Axe"))
+            { //danno bonus se lo colpisce all testa
+                if (hit.collider.gameObject.CompareTag("Testa"))
                 {
-                    Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+                    //Istanzio il sangue sul nemico
+                    Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
+                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);
+                }
+                else
+                {
+                    if (!gameObject.CompareTag("Axe"))
+                    {
+                        Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+                    }
                 }
             }
-
-
-
         }
 
    

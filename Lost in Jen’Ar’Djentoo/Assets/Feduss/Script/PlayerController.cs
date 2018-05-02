@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        axe = GameObject.Find("l'ascia (Impugnata)");
+        //axe = GameObject.Find("l'ascia (Impugnata)");
         mouselook.lockCursor=true;
         Cursor.visible = false;
     }

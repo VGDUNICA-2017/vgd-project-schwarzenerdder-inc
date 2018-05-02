@@ -124,6 +124,7 @@ public class InventorySystem : MonoBehaviour {
 	//Funzione di raccolta medkit. Rende la risposta a "ho raccolto il medKit?"
 	public bool medkitPickup () {
 		if (medKits < 3) {
+            Debug.Log(medKits);
 			medKits++;
 			hudScript.medKitSet (medKits);
 			return true;
@@ -150,12 +151,13 @@ public class InventorySystem : MonoBehaviour {
 		setWeapon (true, indexArma);
 		this.ammo [indexArma] = magCapacity[indexArma];
 		this.invAmmo [indexArma] += magCapacity[indexArma];
-        if (this.invAmmo [indexArma] > this.maxInvAmmo [indexArma]) {
+
+		if (this.invAmmo [indexArma] > this.maxInvAmmo [indexArma]) {
 			this.invAmmo [indexArma] = this.maxInvAmmo [indexArma];
 		}
 
 		hudScript.reloadWeapon (this.ammo [indexArma], this.invAmmo [indexArma]);
-		hudScript.reticleEnabler (true);
+		//hudScript.reticleEnabler (true);
 	}
 
 	//Funzione di sparo

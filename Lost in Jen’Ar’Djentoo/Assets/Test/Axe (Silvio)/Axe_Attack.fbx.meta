@@ -1,0 +1,280 @@
+fileFormatVersion: 2
+guid: f77d7a788eeeb3e4a986faa16edb8f75
+timeCreated: 1525281190
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Axe_Small_LOD0
+    100004: broke's css
+    100006: Camera
+    100008: camera-center-point
+    100010: camera_controller
+    100012: camera_controller_end
+    100014: camera_target
+    100016: camera_target 1
+    100018: camera_target_end
+    100020: Hands
+    100022: l_armtwist_1
+    100024: l_armtwist_2
+    100026: l_armtwist_2_end
+    100028: l_armtwist_3
+    100030: l_armtwist_3_end
+    100032: l_armtwist_4
+    100034: l_forearm
+    100036: l_IK
+    100038: l_IK_end
+    100040: l_index_low
+    100042: l_index_mid
+    100044: l_index_tip
+    100046: l_index_tip_end
+    100048: l_middle_low
+    100050: l_middle_mid
+    100052: l_middle_tip
+    100054: l_middle_tip_end
+    100056: l_pinky_low
+    100058: l_pinky_mid
+    100060: l_pinky_tip
+    100062: l_pinky_tip_end
+    100064: l_pole
+    100066: l_pole_end
+    100068: l_ring_low
+    100070: l_ring_mid
+    100072: l_ring_tip
+    100074: l_ring_tip_end
+    100076: l_thumb_low
+    100078: l_thumb_mid
+    100080: l_thumb_tip
+    100082: l_thumb_tip_end
+    100084: l_upperarm
+    100086: l_wrist
+    100088: non-ts css
+    100090: r_armtwist_1
+    100092: r_armtwist_2
+    100094: r_armtwist_2_end
+    100096: r_armtwist_3
+    100098: r_armtwist_3_end
+    100100: r_armtwist_4
+    100102: r_armtwist_4_end
+    100104: r_forearm
+    100106: r_IK
+    100108: r_IK_end
+    100110: r_index_low
+    100112: r_index_mid
+    100114: r_index_tip
+    100116: r_index_tip_end
+    100118: r_middle_low
+    100120: r_middle_mid
+    100122: r_middle_tip
+    100124: r_middle_tip_end
+    100126: r_pinky_low
+    100128: r_pinky_mid
+    100130: r_pinky_tip
+    100132: r_pinky_tip_end
+    100134: r_pole
+    100136: r_pole_end
+    100138: r_ring_low
+    100140: r_ring_mid
+    100142: r_ring_tip
+    100144: r_ring_tip_end
+    100146: r_thumb_low
+    100148: r_thumb_mid
+    100150: r_thumb_tip
+    100152: r_thumb_tip_end
+    100154: r_upperarm
+    100156: r_wrist
+    100158: root
+    100160: Sun.000
+    100162: Sun.001
+    100164: Sun.003
+    100166: watch
+    100168: watch_end
+    400000: //RootNode
+    400002: Axe_Small_LOD0
+    400004: broke's css
+    400006: Camera
+    400008: camera-center-point
+    400010: camera_controller
+    400012: camera_controller_end
+    400014: camera_target
+    400016: camera_target 1
+    400018: camera_target_end
+    400020: Hands
+    400022: l_armtwist_1
+    400024: l_armtwist_2
+    400026: l_armtwist_2_end
+    400028: l_armtwist_3
+    400030: l_armtwist_3_end
+    400032: l_armtwist_4
+    400034: l_forearm
+    400036: l_IK
+    400038: l_IK_end
+    400040: l_index_low
+    400042: l_index_mid
+    400044: l_index_tip
+    400046: l_index_tip_end
+    400048: l_middle_low
+    400050: l_middle_mid
+    400052: l_middle_tip
+    400054: l_middle_tip_end
+    400056: l_pinky_low
+    400058: l_pinky_mid
+    400060: l_pinky_tip
+    400062: l_pinky_tip_end
+    400064: l_pole
+    400066: l_pole_end
+    400068: l_ring_low
+    400070: l_ring_mid
+    400072: l_ring_tip
+    400074: l_ring_tip_end
+    400076: l_thumb_low
+    400078: l_thumb_mid
+    400080: l_thumb_tip
+    400082: l_thumb_tip_end
+    400084: l_upperarm
+    400086: l_wrist
+    400088: non-ts css
+    400090: r_armtwist_1
+    400092: r_armtwist_2
+    400094: r_armtwist_2_end
+    400096: r_armtwist_3
+    400098: r_armtwist_3_end
+    400100: r_armtwist_4
+    400102: r_armtwist_4_end
+    400104: r_forearm
+    400106: r_IK
+    400108: r_IK_end
+    400110: r_index_low
+    400112: r_index_mid
+    400114: r_index_tip
+    400116: r_index_tip_end
+    400118: r_middle_low
+    400120: r_middle_mid
+    400122: r_middle_tip
+    400124: r_middle_tip_end
+    400126: r_pinky_low
+    400128: r_pinky_mid
+    400130: r_pinky_tip
+    400132: r_pinky_tip_end
+    400134: r_pole
+    400136: r_pole_end
+    400138: r_ring_low
+    400140: r_ring_mid
+    400142: r_ring_tip
+    400144: r_ring_tip_end
+    400146: r_thumb_low
+    400148: r_thumb_mid
+    400150: r_thumb_tip
+    400152: r_thumb_tip_end
+    400154: r_upperarm
+    400156: r_wrist
+    400158: root
+    400160: Sun.000
+    400162: Sun.001
+    400164: Sun.003
+    400166: watch
+    400168: watch_end
+    2000000: Camera
+    2100000: shadeless
+    2100002: t_phoenix
+    2100004: v_hands
+    2100006: Axe_Small_Material
+    2300000: Axe_Small_LOD0
+    2300002: camera-center-point
+    2300004: camera_target
+    3300000: Axe_Small_LOD0
+    3300002: camera-center-point
+    3300004: camera_target
+    4300000: camera-center-point
+    4300002: camera_target
+    4300004: broke's css
+    4300006: non-ts css
+    4300008: Axe_Small_LOD0
+    7400000: Hands
+    9500000: //RootNode
+    10800000: Sun.000
+    10800002: Sun.001
+    10800004: Sun.003
+    13700000: broke's css
+    13700002: non-ts css
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

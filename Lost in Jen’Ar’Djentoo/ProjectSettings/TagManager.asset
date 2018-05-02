@@ -33,6 +33,10 @@ TagManager:
   - PistolEnemySpawn
   - CutterEnemySpawn
   - ChainEnemySpawn
+  - Boss
+  - Hands
+  - HR1
+  - HR2
   layers:
   - Default
   - TransparentFX
@@ -42,7 +46,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Hands (Fin)
   - 
   - 
   - 

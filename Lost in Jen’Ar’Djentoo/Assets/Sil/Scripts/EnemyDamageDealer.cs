@@ -6,6 +6,7 @@ public class EnemyDamageDealer : MonoBehaviour {
 
 	private Animator enemyAnimator;
 	private bool damageDealt;
+	public int damage;
 
 	void Start () {
 		enemyAnimator = this.GetComponentInParent<Animator> ();
@@ -23,7 +24,7 @@ public class EnemyDamageDealer : MonoBehaviour {
 		if (other.gameObject.CompareTag("Player")) {
 			if (enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
 				if (!damageDealt) {
-					other.GetComponent<InventorySystem> ().takeDamage (15);
+					other.GetComponent<InventorySystem> ().takeDamage (damage);
 					damageDealt = true;
 				}
 			}

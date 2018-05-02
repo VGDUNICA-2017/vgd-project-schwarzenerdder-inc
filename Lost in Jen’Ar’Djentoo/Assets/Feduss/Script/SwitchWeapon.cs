@@ -17,13 +17,20 @@ public class SwitchWeapon : MonoBehaviour {
     private GameObject pistola_imp;
     private GameObject smg_imp;
 
+    private GameObject texture_braccio1;
+    private GameObject texture_braccio2;
+
+
 
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
         pistola_imp = GameObject.Find("P226 (Impugnata)");
         ascia_imp = GameObject.Find("l'ascia (Impugnata)");
-        smg_imp = GameObject.Find("MP5 (Impugnato)");
+        //smg_imp = GameObject.Find("MP5 (Impugnato)");
+
+        texture_braccio1=GameObject.FindGameObjectWithTag("HR1");
+        texture_braccio2=GameObject.FindGameObjectWithTag("HR2");
 
     }
 	
@@ -34,12 +41,22 @@ public class SwitchWeapon : MonoBehaviour {
 
         SetActive();
 
+        //Quando è senza armi equipaggiate, disattivo le texture delle braccia
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("NoWeapon")){
+            texture_braccio1.SetActive(false);
+            texture_braccio2.SetActive(false);
+        }
+        else
+        {
+            texture_braccio1.SetActive(true);
+            texture_braccio2.SetActive(true);
+        }
+
 	}
 
     //Da completare man mano che inseriremo le altre armi
     private void SwitchWeapons()
     {
-        //Debug
         if (animator.GetBool("Pistol")) getPistol = true;
         if (animator.GetBool("Axe")) getAxe = true;
         if (animator.GetBool("Smg")) getSmg = true;

@@ -830,6 +830,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4928588808621970}
+  - component: {fileID: 136885344851451330}
+  - component: {fileID: 114703513830275978}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -860,6 +862,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4474082096556082}
+  - component: {fileID: 136589477883679568}
+  - component: {fileID: 114135421944799390}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -945,7 +949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1908136623463926
 GameObject:
   m_ObjectHideFlags: 1
@@ -2000,6 +2004,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114135421944799390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838921904544000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8826922670b984fa93a7d3de55ce51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 30
 --- !u!114 &114248238251901354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2014,7 +2030,45 @@ MonoBehaviour:
   debug: 0
   distance: 0
   health: 0
-  attackDistance: 5
+  attackDistance: 4
+--- !u!114 &114703513830275978
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829919554067710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8826922670b984fa93a7d3de55ce51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 30
+--- !u!136 &136589477883679568
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838921904544000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 0.6
+  m_Direction: 0
+  m_Center: {x: -0.1, y: 0, z: 0}
+--- !u!136 &136885344851451330
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829919554067710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 0.6
+  m_Direction: 0
+  m_Center: {x: 0.1, y: 0, z: 0}
 --- !u!137 &137063676401626624
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2151,7 +2205,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1903396975654806}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

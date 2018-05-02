@@ -52,6 +52,7 @@ public class HUDSystem : MonoBehaviour {
 	public Text sideMessageBox;
 
 	//Supporti per la barra del boss
+	public GameObject bossBar;
 	public Slider bossHealth;
 	public Text BossName;
 
@@ -299,7 +300,7 @@ public class HUDSystem : MonoBehaviour {
 
 	//Attiva/disattiva barra della vita del boss
 	public void bossBarEnabler (bool state) {
-		bossHealth.enabled = state;
+		bossBar.SetActive (state);
 	}
 
 	//Setter vita barra del boss

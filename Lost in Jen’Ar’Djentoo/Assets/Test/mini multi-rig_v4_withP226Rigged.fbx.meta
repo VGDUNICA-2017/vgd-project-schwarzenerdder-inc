@@ -1,0 +1,294 @@
+fileFormatVersion: 2
+guid: 9d4fe6a958ef58047875b9920207bab1
+timeCreated: 1525197657
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature (P226)
+    100002: broke's css
+    100004: camera_controller
+    100006: camera_controller_end
+    100008: camera_target
+    100010: camera_target_end
+    100012: Controll
+    100014: Hands
+    100016: l_armtwist_1
+    100018: l_armtwist_2
+    100020: l_armtwist_2_end
+    100022: l_armtwist_3
+    100024: l_armtwist_3_end
+    100026: l_armtwist_4
+    100028: l_forearm
+    100030: l_IK
+    100032: l_IK_end
+    100034: l_index_low
+    100036: l_index_mid
+    100038: l_index_tip
+    100040: l_index_tip_end
+    100042: l_middle_low
+    100044: l_middle_mid
+    100046: l_middle_tip
+    100048: l_middle_tip_end
+    100050: l_pinky_low
+    100052: l_pinky_mid
+    100054: l_pinky_tip
+    100056: l_pinky_tip_end
+    100058: l_pole
+    100060: l_pole_end
+    100062: l_ring_low
+    100064: l_ring_mid
+    100066: l_ring_tip
+    100068: l_ring_tip_end
+    100070: l_thumb_low
+    100072: l_thumb_mid
+    100074: l_thumb_tip
+    100076: l_thumb_tip_end
+    100078: l_upperarm
+    100080: l_wrist
+    100082: //RootNode
+    100084: non-ts css
+    100086: P226
+    100088: P69mmSpent
+    100090: P69mmSpent_end
+    100092: P6Mag
+    100094: P6Mag_end
+    100096: P6Slide
+    100098: P6Slide_end
+    100100: P6Trigger
+    100102: P6Trigger_end
+    100104: r_armtwist_1
+    100106: r_armtwist_2
+    100108: r_armtwist_2_end
+    100110: r_armtwist_3
+    100112: r_armtwist_3_end
+    100114: r_armtwist_4
+    100116: r_armtwist_4_end
+    100118: r_forearm
+    100120: r_IK
+    100122: r_IK_end
+    100124: r_index_low
+    100126: r_index_mid
+    100128: r_index_tip
+    100130: r_index_tip_end
+    100132: r_middle_low
+    100134: r_middle_mid
+    100136: r_middle_tip
+    100138: r_middle_tip_end
+    100140: r_pinky_low
+    100142: r_pinky_mid
+    100144: r_pinky_tip
+    100146: r_pinky_tip_end
+    100148: r_pole
+    100150: r_pole_end
+    100152: r_ring_low
+    100154: r_ring_mid
+    100156: r_ring_tip
+    100158: r_ring_tip_end
+    100160: r_thumb_low
+    100162: r_thumb_mid
+    100164: r_thumb_tip
+    100166: r_thumb_tip_end
+    100168: r_upperarm
+    100170: r_wrist
+    100172: root
+    100174: watch
+    100176: watch_end
+    400000: Armature (P226)
+    400002: broke's css
+    400004: camera_controller
+    400006: camera_controller_end
+    400008: camera_target
+    400010: camera_target_end
+    400012: Controll
+    400014: Hands
+    400016: l_armtwist_1
+    400018: l_armtwist_2
+    400020: l_armtwist_2_end
+    400022: l_armtwist_3
+    400024: l_armtwist_3_end
+    400026: l_armtwist_4
+    400028: l_forearm
+    400030: l_IK
+    400032: l_IK_end
+    400034: l_index_low
+    400036: l_index_mid
+    400038: l_index_tip
+    400040: l_index_tip_end
+    400042: l_middle_low
+    400044: l_middle_mid
+    400046: l_middle_tip
+    400048: l_middle_tip_end
+    400050: l_pinky_low
+    400052: l_pinky_mid
+    400054: l_pinky_tip
+    400056: l_pinky_tip_end
+    400058: l_pole
+    400060: l_pole_end
+    400062: l_ring_low
+    400064: l_ring_mid
+    400066: l_ring_tip
+    400068: l_ring_tip_end
+    400070: l_thumb_low
+    400072: l_thumb_mid
+    400074: l_thumb_tip
+    400076: l_thumb_tip_end
+    400078: l_upperarm
+    400080: l_wrist
+    400082: //RootNode
+    400084: non-ts css
+    400086: P226
+    400088: P69mmSpent
+    400090: P69mmSpent_end
+    400092: P6Mag
+    400094: P6Mag_end
+    400096: P6Slide
+    400098: P6Slide_end
+    400100: P6Trigger
+    400102: P6Trigger_end
+    400104: r_armtwist_1
+    400106: r_armtwist_2
+    400108: r_armtwist_2_end
+    400110: r_armtwist_3
+    400112: r_armtwist_3_end
+    400114: r_armtwist_4
+    400116: r_armtwist_4_end
+    400118: r_forearm
+    400120: r_IK
+    400122: r_IK_end
+    400124: r_index_low
+    400126: r_index_mid
+    400128: r_index_tip
+    400130: r_index_tip_end
+    400132: r_middle_low
+    400134: r_middle_mid
+    400136: r_middle_tip
+    400138: r_middle_tip_end
+    400140: r_pinky_low
+    400142: r_pinky_mid
+    400144: r_pinky_tip
+    400146: r_pinky_tip_end
+    400148: r_pole
+    400150: r_pole_end
+    400152: r_ring_low
+    400154: r_ring_mid
+    400156: r_ring_tip
+    400158: r_ring_tip_end
+    400160: r_thumb_low
+    400162: r_thumb_mid
+    400164: r_thumb_tip
+    400166: r_thumb_tip_end
+    400168: r_upperarm
+    400170: r_wrist
+    400172: root
+    400174: watch
+    400176: watch_end
+    2100000: t_phoenix
+    2100002: v_hands
+    2100004: mat
+    4300000: broke's css
+    4300002: non-ts css
+    4300004: P226
+    7400000: Hands|ArmatureAction
+    7400002: Hands|origin
+    7400004: Hands|P69mmAction
+    7400006: Hands|P69mmSpentAction
+    7400008: Hands|P6BodyAction
+    7400010: Hands|P6MagAction
+    7400012: Hands|P6SaftyAction
+    7400014: Hands|P6SlideAction
+    7400016: Hands|P6SlideLocAction
+    7400018: Hands|P6TriggerAction
+    7400020: Armature (P226)|ArmatureAction
+    7400022: Armature (P226)|P69mmAction
+    7400024: Armature (P226)|P69mmSpentAction
+    7400026: Armature (P226)|P6BodyAction
+    7400028: Armature (P226)|P6MagAction
+    7400030: Armature (P226)|P6SaftyAction
+    7400032: Armature (P226)|P6SlideAction
+    7400034: Armature (P226)|P6SlideLocAction
+    7400036: Armature (P226)|P6TriggerAction
+    9500000: //RootNode
+    13700000: broke's css
+    13700002: non-ts css
+    13700004: P226
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
