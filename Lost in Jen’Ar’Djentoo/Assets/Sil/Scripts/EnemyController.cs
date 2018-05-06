@@ -86,8 +86,8 @@ public class EnemyController : MonoBehaviour {
                 if (rayHit) {
                 	print ("Distance: " + (distance <= spotDistance) +
                 	"; Angle: " + (angle <= spotAngle) +
-                ";Ray: " + rayHit +
-                	";Compare: " + (hittedElement.collider.gameObject.CompareTag ("Player") || hittedElement.collider.gameObject.name.Equals("la Torcia (Impugnata)")) +
+                	"; Ray: " + rayHit +
+					"; Compare: " + (hittedElement.collider.gameObject.CompareTag ("Player") || hittedElement.collider.gameObject.name.Equals("l'ascia (Impugnata)")) +
                 	"\nHitted: " + hittedElement.collider);
                 } else {
                 	print ("Distance: " + (distance <= spotDistance) +

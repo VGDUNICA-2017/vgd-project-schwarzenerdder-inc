@@ -36,7 +36,7 @@ public class Moving : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         move();
@@ -61,7 +61,7 @@ public class Moving : MonoBehaviour
 
         // applico la gravità
 
-        moveDirection.y += Physics.gravity.y * Time.deltaTime;
+        moveDirection.y += Physics.gravity.y;
 
         //muovo il character controller
 
@@ -94,8 +94,8 @@ public class Moving : MonoBehaviour
 
 
         //Aggiorno la rotazione del player
-        //GameObject.FindGameObjectWithTag("Hands").transform.localEulerAngles = new Vector3(posX-90f, posY, 0f);
-        transform.localEulerAngles = new Vector3(posX, posY, 0f);
+        GameObject.FindGameObjectWithTag("Hands").transform.localEulerAngles = new Vector3(posX-90f, posY, 0f);
+        GameObject.FindGameObjectWithTag("MainCamera").transform.localEulerAngles = new Vector3(posX, posY, 0f);
 
         //Se mira, cambio il fov (non puoi mirare se hai la torcia o l'ascia, o stai correndo o ricaricando)
         if ((Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("Axe") && !animator.GetBool("Run") && !animator.GetBool("Reload")))

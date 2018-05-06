@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class FireFxScript : MonoBehaviour {
 
+    private Vector3 rot;
+
 	// Use this for initialization
 	void Start () {
 
-        transform.parent = GameObject.Find("P226 (Impugnata)").transform;
-        Destroy(gameObject, 0.15f);
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
-	}
+        rot= GameObject.FindGameObjectWithTag("Hands").transform.localEulerAngles;
+        rot.y += 90f;
+        transform.localEulerAngles = rot;
+
+
+    }
 }

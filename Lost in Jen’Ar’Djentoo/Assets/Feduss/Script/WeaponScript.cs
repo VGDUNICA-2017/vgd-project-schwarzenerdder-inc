@@ -19,9 +19,6 @@ public class WeaponScript : MonoBehaviour {
     //Effetto dello sparo
     public GameObject fire_effect;
 
-    //start_bullet=posizione iniziale di istanza del proiettile
-    private Transform start_bullet;
-
     //RAYCAST
     private int gunDamage = 20; //danno dell'arma
     public float fireRate = .25f; //tempo tra uno sparo e l'altro..nel nostro caso, determinerà la durante dell'animazione di sparo (più è alto, più sparera velocemente)
@@ -37,8 +34,6 @@ public class WeaponScript : MonoBehaviour {
     public GameObject bullet_impact_generic;
 
     private PlaySound playsound;
-
-    public bool attack_flag = false;
 
     public LayerMask lm;
 
@@ -75,10 +70,7 @@ public class WeaponScript : MonoBehaviour {
                 //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
                 hudsystem.hudShotsEnabler(true);
 
-                //Salvo quella che sarà la parentela del proiettile con l'arma
-                start_bullet = GameObject.Find("Start_Bullet").transform;
-
-                gunDamage = 15;
+                gunDamage = 20;
 
                 //Distruggo il proiettile già presente nell'arma
                 Destroy(GameObject.Find("P69mm"), 1f);
@@ -93,9 +85,6 @@ public class WeaponScript : MonoBehaviour {
                 index = 2;
                 //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
                 hudsystem.hudShotsEnabler(true);
-
-                //Salvo quella che sarà la parentela del proiettile con l'arma
-                start_bullet = GameObject.Find("Start_Bullet").transform;
 
                 gunDamage = 8;
 
@@ -126,6 +115,7 @@ public class WeaponScript : MonoBehaviour {
 
     public void FireGun()
     {
+
         //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
         if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload") &&
             (!player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !player.IsInTransition(1) && !player.GetBool("Run")))
@@ -142,10 +132,7 @@ public class WeaponScript : MonoBehaviour {
 
                 RaycastShot();
 
-                //Instanzio la fiammata dell'arma con una specifica posizione e rotazione
-                Instantiate(fire_effect, start_bullet.transform.position, Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(90f, 0f, 90f)));
-
-
+                fire_effect.GetComponent<ParticleSystem>().Play();
                 playsound.PlayShootSound();
             }
             inventario.shot(index);
@@ -153,7 +140,12 @@ public class WeaponScript : MonoBehaviour {
         }
         else
         {
-            if(!gameObject.CompareTag("Axe")) player.SetBool("Fire", false);
+            if (!gameObject.CompareTag("Axe"))
+            {
+                player.SetBool("Fire", false);
+                fire_effect.GetComponent<ParticleSystem>().Stop();
+
+            }
         }
 
         if (Input.GetButton("Reload") && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") &&
@@ -171,45 +163,32 @@ public class WeaponScript : MonoBehaviour {
             {
                 playsound.PlayReloadSound();
             }
-            inventario.reloadWeapon(index);
+            
         }
         else
         {
             player.SetBool("Reload", false);
         }
 
-        /*if (leftMagAmmo == 0)
+        if (leftMagAmmo == 0)
         {
-            player.SetBool("OutOfAmmo", true);
+            player.SetFloat("OutofAmmo", 1f);
         }
         else
         {
-            player.SetBool("OutOfAmmo", false);
+            if(!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload"))) player.SetFloat("OutofAmmo", 0f);
         }
-
-        if (leftInvAmmo == 0)
-        {
-            player.SetBool("OutOfInvAmmo", true);
-        }
-        else
-        {
-            player.SetBool("OutOfInvAmmo", false);
-        }*/
     }
 
     public void Axehit()
     {
-        if (Input.GetButtonDown("Fire1"))
+
+
+        if (Input.GetButtonDown("Fire1") && !(player.GetCurrentAnimatorStateInfo(1).IsName("MeleeAttack")) && !player.IsInTransition(1) && !player.GetBool("Run"))
         {
             player.SetTrigger("Attack");
             RaycastShot();
-        }
-
-        if (attack_flag)
-        {
-            RaycastShot();
             playsound.PlayAxeAttackSound();
-            attack_flag = false;
         }
     }
 
@@ -231,7 +210,8 @@ public class WeaponScript : MonoBehaviour {
 
         if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange, lm))
         {
-            print(hit.collider.gameObject.name);
+            print(hit.collider.name);
+
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss"))
             {
 
@@ -264,4 +244,5 @@ public class WeaponScript : MonoBehaviour {
 
     }
 
+    
 }
