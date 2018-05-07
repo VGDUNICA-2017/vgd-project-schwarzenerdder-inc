@@ -57,7 +57,7 @@ public class WeaponScript : MonoBehaviour {
         if (player.GetBool("Axe"))
         {
             hudsystem.hudShotsEnabler(false);
-            gunDamage = 30;
+            gunDamage = 20;
         }
         else
         {
@@ -67,7 +67,7 @@ public class WeaponScript : MonoBehaviour {
 
                 //imposto l'index dell'arma (serve per l'inventario)
                 index = 0;
-                //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
+                //attivo l'hud della pistola
                 hudsystem.hudShotsEnabler(true);
 
                 gunDamage = 20;
@@ -83,7 +83,7 @@ public class WeaponScript : MonoBehaviour {
 
                 //imposto l'index dell'arma (serve per l'inventario)
                 index = 2;
-                //attivo l'hud della pistola (WIP, perchè serve solo quando raccogli la prima arma, che è la pistola)
+                //attivo l'hud della pistola
                 hudsystem.hudShotsEnabler(true);
 
                 gunDamage = 8;
@@ -99,9 +99,17 @@ public class WeaponScript : MonoBehaviour {
 		leftInvAmmo = inventario.ammoInvLeft(index);
 
         //Se il giocatore sta impugnando un'arma da fuoco
-        if (player.GetBool("Pistol") || player.GetBool("Smg"))
+        if (player.GetBool("Pistol"))
         {
-            FireGun();
+            PistolFire();
+            Reload();
+            weaponRange = 100f;
+        }
+
+        if (player.GetBool("Smg"))
+        {
+            SmgFire();
+            Reload();
             weaponRange = 100f;
         }
 
@@ -113,12 +121,47 @@ public class WeaponScript : MonoBehaviour {
         }
 	}
 
-    public void FireGun()
+    public void Reload()
+    {
+        if (Input.GetButton("Reload") && (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) || !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg"))) &&
+            (!player.GetCurrentAnimatorStateInfo(1).IsName("Fire") || !(player.GetCurrentAnimatorStateInfo(1).IsName("Fire Smg"))) &&
+            leftInvAmmo > 0)
+        {
+
+            player.SetBool("Reload", true);
+
+            //Cambio la ricarica in base ai colpi nel caricatore
+            if (leftMagAmmo == 0)
+            {
+                playsound.PlayEmptyMagReload();
+            }
+            else
+            {
+                playsound.PlayReloadSound();
+            }
+
+        }
+        else
+        {
+            player.SetBool("Reload", false);
+        }
+
+        if (leftMagAmmo == 0)
+        {
+            player.SetFloat("OutofAmmo", 1f);
+        }
+        else
+        {
+            if (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) || !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg"))) player.SetFloat("OutofAmmo", 0f);
+        }
+    }
+
+    public void PistolFire()
     {
 
         //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
         if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload") &&
-            (!player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !player.IsInTransition(1) && !player.GetBool("Run")))
+            !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && (!player.IsInTransition(1) && !player.GetBool("Run")))
         {
 
             //Se il caricatore è vuoto
@@ -148,36 +191,45 @@ public class WeaponScript : MonoBehaviour {
             }
         }
 
-        if (Input.GetButton("Reload") && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") &&
-            leftInvAmmo > 0)
+        
+    }
+
+    public void SmgFire()
+    {
+
+        //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
+        if (Input.GetButton("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg") &&
+            !player.GetCurrentAnimatorStateInfo(1).IsName("AutoFire_Smg") && !player.IsInTransition(1) && !player.GetBool("Run"))
         {
 
-            player.SetBool("Reload", true);
-
-            //Cambio la ricarica in base ai colpi nel caricatore
+            //Se il caricatore è vuoto
             if (leftMagAmmo == 0)
             {
-                playsound.PlayEmptyMagReload();
+                playsound.PlayEmptyMag();
             }
             else
             {
-                playsound.PlayReloadSound();
+                if (!gameObject.CompareTag("Axe")) player.SetBool("AutomaticFire", true);
+
+                RaycastShot();
+
+                fire_effect.GetComponent<ParticleSystem>().Play();
+                playsound.PlayShootSound();
             }
-            
+            inventario.shot(index);
+
         }
         else
         {
-            player.SetBool("Reload", false);
+            if (!gameObject.CompareTag("Axe"))
+            {
+                player.SetBool("AutomaticFire", false);
+                fire_effect.GetComponent<ParticleSystem>().Stop();
+
+            }
         }
 
-        if (leftMagAmmo == 0)
-        {
-            player.SetFloat("OutofAmmo", 1f);
-        }
-        else
-        {
-            if(!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload"))) player.SetFloat("OutofAmmo", 0f);
-        }
+
     }
 
     public void Axehit()

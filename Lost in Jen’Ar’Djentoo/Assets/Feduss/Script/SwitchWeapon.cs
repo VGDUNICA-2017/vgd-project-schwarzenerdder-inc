@@ -27,7 +27,7 @@ public class SwitchWeapon : MonoBehaviour {
         animator = GetComponent<Animator>();
         pistola_imp = GameObject.Find("P226 (Impugnata)");
         ascia_imp = GameObject.Find("l'ascia (Impugnata)");
-        //smg_imp = GameObject.Find("MP5 (Impugnato)");
+        smg_imp = GameObject.Find("MP5 (Impugnato)");
 
         texture_braccio1=GameObject.FindGameObjectWithTag("HR1");
         texture_braccio2=GameObject.FindGameObjectWithTag("HR2");

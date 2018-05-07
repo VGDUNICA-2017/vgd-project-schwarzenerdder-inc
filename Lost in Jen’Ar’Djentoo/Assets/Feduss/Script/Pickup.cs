@@ -113,7 +113,7 @@ public class Pickup : MonoBehaviour {
             {
                 EquipSmg();
                 hud.centralBoxEnabler(false);
-                inventario.startAmmo(0);
+                inventario.startAmmo(2);
                 fin.GetComponent<SwitchWeapon>().getSmg = true;
                 hud.sideBoxEnabler(true);
                 hud.sideBoxText("Hai raccolto l'MP5");
