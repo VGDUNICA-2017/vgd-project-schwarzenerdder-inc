@@ -87,22 +87,25 @@ public class EnemyController : MonoBehaviour {
                 	print ("Distance: " + (distance <= spotDistance) +
                 	"; Angle: " + (angle <= spotAngle) +
                 	"; Ray: " + rayHit +
-					"; Compare: " + (hittedElement.collider.gameObject.CompareTag ("Player") || hittedElement.collider.gameObject.name.Equals("l'ascia (Impugnata)")) +
+					"; Compare: " + (hittedElement.collider.gameObject.CompareTag ("Player") ||
+							hittedElement.collider.gameObject.name.Equals("l'ascia (Impugnata)") ||
+							hittedElement.collider.gameObject.CompareTag("Hands")) +
                 	"\nHitted: " + hittedElement.collider);
                 } else {
                 	print ("Distance: " + (distance <= spotDistance) +
                 	"; Angle: " + (angle <= spotAngle) +
-                	";Ray: " + rayHit);
+                	"; Ray: " + rayHit);
                 }
             }
 
 			//Flag di posizione
 			lastVisible = isPlayerVisible;
-			isPlayerVisible = (distance <= spotDistance) && 										//Se il player è entro la distanza di visione,
-			                        (angle <= spotAngle) && 												// entro l'angolo di visione,
-			                        rayHit && 																// il ray ha colpito qualcosa
-			                        (hittedElement.collider.gameObject.CompareTag ("Player") ||				// e quel qualcosa è il player
-			                        hittedElement.collider.gameObject.name.Equals ("l'ascia (Impugnata)"));	//o un suo oggetto
+			isPlayerVisible = (distance <= spotDistance) && 								//Se il player è entro la distanza di visione,
+					(angle <= spotAngle) && 												// entro l'angolo di visione,
+					rayHit && 																// il ray ha colpito qualcosa
+					(hittedElement.collider.gameObject.CompareTag ("Player") ||				// e quel qualcosa è il player
+					hittedElement.collider.gameObject.CompareTag ("Hands") ||				//o un suo componente
+					hittedElement.collider.gameObject.name.Equals ("l'ascia (Impugnata)"));
 
 			//Definizione azione
 			if (isPlayerVisible) {

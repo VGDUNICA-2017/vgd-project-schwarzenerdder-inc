@@ -296,5 +296,11 @@ public class WeaponScript : MonoBehaviour {
 
     }
 
-    
+    public void SetActive()
+    {
+        GetComponentInParent<SwitchWeapon>().SetActive();
+    }
+
+
+
 }

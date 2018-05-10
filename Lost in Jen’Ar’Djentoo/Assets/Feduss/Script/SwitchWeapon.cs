@@ -32,14 +32,14 @@ public class SwitchWeapon : MonoBehaviour {
         texture_braccio1=GameObject.FindGameObjectWithTag("HR1");
         texture_braccio2=GameObject.FindGameObjectWithTag("HR2");
 
+        SetActive();
+
     }
 	
 	// Update is called once per frame
 	void Update () {
 
         SwitchWeapons();
-
-        SetActive();
 
         //Quando è senza armi equipaggiate, disattivo le texture delle braccia
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("NoWeapon")){
@@ -116,22 +116,20 @@ public class SwitchWeapon : MonoBehaviour {
     //ATTIVAZIONE ARMI O ELEMENTI DELL'HUD (da completare con le altre armi)
     public void SetActive()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("NoWeapon"))
+        {
+            //ASCIA
+            if (!animator.GetBool("Axe") && ascia_imp != null) ascia_imp.SetActive(false);
+            else if (ascia_imp != null) ascia_imp.SetActive(true);
 
-        /*//TORCIA
-        if (!animator.GetBool("Torch") && torcia_imp != null) torcia_imp.SetActive(false);
-        else if (torcia_imp != null) torcia_imp.SetActive(true);*/
+            //PISTOLA
+            if (!animator.GetBool("Pistol") && pistola_imp != null) pistola_imp.SetActive(false);
+            else if (pistola_imp != null) pistola_imp.SetActive(true);
 
-        //ASCIA
-        if (!animator.GetBool("Axe") && ascia_imp != null) ascia_imp.SetActive(false);
-        else if (ascia_imp != null) ascia_imp.SetActive(true);
-
-        //PISTOLA
-        if (!animator.GetBool("Pistol") && pistola_imp != null) pistola_imp.SetActive(false);
-        else if (pistola_imp != null) pistola_imp.SetActive(true);
-
-        //SMG
-        if (!animator.GetBool("Smg") && smg_imp != null) smg_imp.SetActive(false);
-        else if (smg_imp != null) smg_imp.SetActive(true);
+            //SMG
+            if (!animator.GetBool("Smg") && smg_imp != null) smg_imp.SetActive(false);
+            else if (smg_imp != null) smg_imp.SetActive(true);
+        }
 
     }
 }
