@@ -37,9 +37,13 @@ public class PlayerController : MonoBehaviour
         inventario.useMedKit();
     }
 
-    public void reload(int i)
+    public void reload(int index)
     {
-        print("bello st'o isssv");
-        inventario.reloadWeapon(i);
+        inventario.reloadWeapon(index);
+    }
+
+    public void shot(int index)
+    {
+        inventario.shot(index);
     }
 }

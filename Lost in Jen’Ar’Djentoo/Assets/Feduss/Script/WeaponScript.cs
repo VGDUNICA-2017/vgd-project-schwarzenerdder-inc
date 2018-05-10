@@ -123,8 +123,8 @@ public class WeaponScript : MonoBehaviour {
 
     public void Reload()
     {
-        if (Input.GetButton("Reload") && (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) || !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg"))) &&
-            (!player.GetCurrentAnimatorStateInfo(1).IsName("Fire") || !(player.GetCurrentAnimatorStateInfo(1).IsName("Fire Smg"))) &&
+        if (Input.GetButton("Reload") && (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg"))) &&
+            (!player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !(player.GetCurrentAnimatorStateInfo(1).IsName("Fire_Smg"))) &&
             leftInvAmmo > 0)
         {
 
@@ -198,8 +198,8 @@ public class WeaponScript : MonoBehaviour {
     {
 
         //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
-        if (Input.GetButton("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg") &&
-            !player.GetCurrentAnimatorStateInfo(1).IsName("AutoFire_Smg") && !player.IsInTransition(1) && !player.GetBool("Run"))
+        if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg") && !player.IsInTransition(1) && !player.GetBool("Run") 
+            && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire_Smg"))
         {
 
             //Se il caricatore è vuoto
@@ -209,19 +209,20 @@ public class WeaponScript : MonoBehaviour {
             }
             else
             {
-                if (!gameObject.CompareTag("Axe")) player.SetBool("AutomaticFire", true);
+                player.SetBool("AutomaticFire", true);
 
                 RaycastShot();
 
                 fire_effect.GetComponent<ParticleSystem>().Play();
                 playsound.PlayShootSound();
+                
             }
-            inventario.shot(index);
+            
 
         }
         else
         {
-            if (!gameObject.CompareTag("Axe"))
+            if (!Input.GetButton("Fire1"))
             {
                 player.SetBool("AutomaticFire", false);
                 fire_effect.GetComponent<ParticleSystem>().Stop();
