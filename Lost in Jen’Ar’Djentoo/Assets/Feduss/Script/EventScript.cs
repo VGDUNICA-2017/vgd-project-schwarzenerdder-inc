@@ -7,14 +7,14 @@ public class EventScript : MonoBehaviour {
     private GameObject shutter1;
     private GameObject boss_door1;
     private GameObject boss1;
-    private bool onetime = true;
+    public bool onetime = true;
     private bool boss_death = false;
 
 	// Use this for initialization
 	void Start () {
         shutter1 = GameObject.FindGameObjectWithTag("Serranda");
         boss_door1 = GameObject.Find("door_2");
-        boss1 = GameObject.Find("Boss 1");
+        boss1 = GameObject.FindGameObjectWithTag("MiniBoss");
         if(boss1!=null) boss1.SetActive(false);
 
 
@@ -41,9 +41,12 @@ public class EventScript : MonoBehaviour {
             onetime = false;
             boss1.SetActive(true);
         }
-        else if (!boss1.activeInHierarchy)
+        else if (boss1 != null)
         {
-            boss_door1.GetComponent<Animator>().SetTrigger("Boss dies");
+            if (!boss1.activeInHierarchy)
+            {
+                boss_door1.GetComponent<Animator>().SetTrigger("Boss dies");
+            }
         }
     }
 }

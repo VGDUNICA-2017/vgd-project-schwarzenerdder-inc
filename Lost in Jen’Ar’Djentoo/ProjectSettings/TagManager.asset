@@ -37,6 +37,7 @@ TagManager:
   - Hands
   - HR1
   - HR2
+  - MiniBoss
   layers:
   - Default
   - TransparentFX
