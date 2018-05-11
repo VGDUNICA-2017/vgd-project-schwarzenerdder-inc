@@ -152,7 +152,7 @@ public class WeaponScript : MonoBehaviour {
         }
         else
         {
-            if (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) || !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg"))) player.SetFloat("OutofAmmo", 0f);
+            if (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg"))) player.SetFloat("OutofAmmo", 0f);
         }
     }
 

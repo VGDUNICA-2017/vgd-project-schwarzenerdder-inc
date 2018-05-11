@@ -96,6 +96,10 @@ ModelImporter:
     100176: root
     100178: watch
     100180: watch_end
+    100182: Camera
+    100184: Sun.000
+    100186: Sun.001
+    100188: Sun.003
     400000: Armature (P226)
     400002: broke's css
     400004: camera-center-point
@@ -187,6 +191,11 @@ ModelImporter:
     400176: root
     400178: watch
     400180: watch_end
+    400182: Camera
+    400184: Sun.000
+    400186: Sun.001
+    400188: Sun.003
+    2000000: Camera
     2100000: t_phoenix
     2100002: v_hands
     2100004: mat.002
@@ -202,6 +211,9 @@ ModelImporter:
     4300008: camera_target
     7400000: Hands
     9500000: //RootNode
+    10800000: Sun.000
+    10800002: Sun.001
+    10800004: Sun.003
     13700000: broke's css
     13700002: non-ts css
     13700004: P226

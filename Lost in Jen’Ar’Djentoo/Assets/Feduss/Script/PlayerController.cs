@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     public void reload(int index)
     {
+
         inventario.reloadWeapon(index);
     }
 
