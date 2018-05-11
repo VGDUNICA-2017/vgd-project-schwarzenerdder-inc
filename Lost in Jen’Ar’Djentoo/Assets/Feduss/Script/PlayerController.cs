@@ -7,24 +7,26 @@ public class PlayerController : MonoBehaviour
 {
 
 
-    MouseLook mouselook= new MouseLook();
+    MouseLook mouselook = new MouseLook();
     private GameObject axe;
     private InventorySystem inventario;
+    private GameObject smg_imp;
 
     // Use this for initialization
     void Start()
     {
         //axe = GameObject.Find("l'ascia (Impugnata)");
-        mouselook.lockCursor=true;
+        mouselook.lockCursor = true;
         Cursor.visible = false;
         inventario = GetComponent<InventorySystem>();
+        smg_imp = GameObject.Find("MP5 (Impugnato)");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+
+
 
         if (Input.GetKeyDown("k"))
         {
@@ -43,8 +45,12 @@ public class PlayerController : MonoBehaviour
         inventario.reloadWeapon(index);
     }
 
-    public void shot(int index)
+    //Funzione chiamata all'inizio dell'animazione di sparo dell'mp5...funge da intermediaria, perchè le funzioni richiamabili durante un'animazione sono solo quelle presenti nelle script di ciò che viene animato,
+    //cioè, in questo caso, le braccia  
+    public void event_shot_smg()
     {
-        inventario.shot(index);
+        inventario.shot(2); //Scalo le munizioni
+        smg_imp.GetComponent<WeaponScript>().RaycastShot();
     }
+
 }

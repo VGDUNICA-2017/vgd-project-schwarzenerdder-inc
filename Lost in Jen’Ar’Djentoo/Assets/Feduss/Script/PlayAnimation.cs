@@ -71,58 +71,7 @@ public class PlayAnimation : MonoBehaviour {
 
         }
 
-
-        //Se si accovaccia, aggiorno il collider (da problemi)
-        /*if (Input.GetButton("Crouch"))
-        {
-            animator.SetBool("Crouch", true);
-
-            
-
-            //Modifico il collider quando si accovaccia
-            GetComponent<CharacterController>().height = 80f;
-            GetComponent<CharacterController>().center = new Vector3(0f, -29f, 7f);
-
-            if ((transform.position.y - crouch_pos) > 0.1f)
-            {
-                //Accovacciamento in corso
-                transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, crouch_pos, Time.deltaTime * crouch_speed), transform.position.z);
-            }
-            else
-            {
-                //Fine dell'accovacciamento
-                transform.position = new Vector3(transform.position.x, crouch_pos, transform.position.z);
-
-            }
-
-
-        }
-        else
-        {
-            //Di default non è accovacciato
-            animator.SetBool("Crouch", false);
-
-            if ((stand_pos - transform.position.y) > 0.1f)
-            {
-                //Rialzamento in corso
-                transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, stand_pos, Time.deltaTime * crouch_speed),
-         transform.position.z);
-            }
-            else
-            {
-                //Posizione normale
-                transform.position = new Vector3(transform.position.x, stand_pos, transform.position.z);
-
-                stand_pos = transform.position.y;
-                crouch_pos = stand_pos - crouch_offset;
-            }
-
-            GetComponent<CharacterController>().height = 100f;
-            GetComponent<CharacterController>().center = new Vector3(0f, -39, 7f);
-
-
-        }
-        */
+        
 
         //MIRA
         //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo

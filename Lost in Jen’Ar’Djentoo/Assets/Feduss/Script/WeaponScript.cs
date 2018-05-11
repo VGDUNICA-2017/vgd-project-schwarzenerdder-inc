@@ -37,6 +37,8 @@ public class WeaponScript : MonoBehaviour {
 
     public LayerMask lm;
 
+    public bool one = true;
+
     // Use this for initialization
     void Start () {
 
@@ -70,10 +72,7 @@ public class WeaponScript : MonoBehaviour {
                 //attivo l'hud della pistola
                 hudsystem.hudShotsEnabler(true);
 
-                gunDamage = 20;
-
-                //Distruggo il proiettile già presente nell'arma
-                Destroy(GameObject.Find("P69mm"), 1f);
+                gunDamage = 25;
 
             }
 
@@ -123,14 +122,15 @@ public class WeaponScript : MonoBehaviour {
 
     public void Reload()
     {
-        if (Input.GetButton("Reload") && (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg"))) &&
-            (!player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !(player.GetCurrentAnimatorStateInfo(1).IsName("Fire_Smg"))) &&
+        //Può ricaricare se preme R, se non sta già ricaricando o sparando e se ha abbastanza colpi di riserva
+        if (Input.GetButton("Reload") && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg")) &&
+            !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !(player.GetCurrentAnimatorStateInfo(1).IsName("Fire_Smg")) &&
             leftInvAmmo > 0)
         {
-
+            //Avvio l'animazione
             player.SetBool("Reload", true);
 
-            //Cambio la ricarica in base ai colpi nel caricatore
+            //Cambio il suono della ricarica in base ai colpi nel caricatore
             if (leftMagAmmo == 0)
             {
                 playsound.PlayEmptyMagReload();
@@ -143,15 +143,18 @@ public class WeaponScript : MonoBehaviour {
         }
         else
         {
+            //Esco dall'animazione
             player.SetBool("Reload", false);
         }
 
         if (leftMagAmmo == 0)
         {
+            //Setto lo switch dell'animazione di ricarica
             player.SetFloat("OutofAmmo", 1f);
         }
         else
         {
+            //Resetto lo switch dopo la ricarica da outOfAmmo
             if (!(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg"))) player.SetFloat("OutofAmmo", 0f);
         }
     }
@@ -171,64 +174,76 @@ public class WeaponScript : MonoBehaviour {
             }
             else
             {
-                if (!gameObject.CompareTag("Axe"))  player.SetBool("Fire", true);
+                player.SetTrigger("Fire"); //avvio l'animazione di sparo
 
-                RaycastShot();
+                RaycastShot(); //Richiamo la funzione che gestisce il raycast
 
-                fire_effect.GetComponent<ParticleSystem>().Play();
+                fire_effect.GetComponent<ParticleSystem>().Play(); //WIP
+
                 playsound.PlayShootSound();
+                
             }
-            inventario.shot(index);
+            inventario.shot(index); //Scalo un colpo
+
 
         }
         else
         {
-            if (!gameObject.CompareTag("Axe"))
-            {
-                player.SetBool("Fire", false);
-                fire_effect.GetComponent<ParticleSystem>().Stop();
-
-            }
+            fire_effect.GetComponent<ParticleSystem>().Stop(); //WIP
         }
 
         
     }
 
     public void SmgFire()
-    {
+    {   
 
         //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
-        if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload Smg") && !player.IsInTransition(1) && !player.GetBool("Run") 
-            && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire_Smg"))
+        if (Input.GetButton("Fire1") &&  !player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg") && !player.IsInTransition(1) && !player.GetBool("Run"))
         {
 
-            //Se il caricatore è vuoto
-            if (leftMagAmmo == 0)
+            //Se ha ancora colpi nel caricatore, allora spara normalmente
+            if (leftMagAmmo > 0)
             {
-                playsound.PlayEmptyMag();
+                player.SetBool("AutomaticFire", true); //Avvio l'animazione
+                fire_effect.GetComponent<ParticleSystem>().Play(); //WIP
+                                                                   //playsound.PlayShootSound();
+
+
+                //RaycastShot();
+                //inventario.shot(index);
             }
             else
             {
-                player.SetBool("AutomaticFire", true);
-
-                RaycastShot();
-
-                fire_effect.GetComponent<ParticleSystem>().Play();
-                playsound.PlayShootSound();
-                
+                //Altrimenti, per una sola volta (one):
+                if (one)
+                {
+                    print("we");
+                    //Se il caricatore è vuoto
+                    playsound.PlayEmptyMag();
+                    inventario.shot(index); //Serve per far pulsare di rosso lo 0 dei colpi nel caricatore
+                    player.SetBool("AutomaticFire", false); //Esco dall'animazione
+                    one = false; //La imposto su false per non entrare più in questo if sino al prossimo reset di one
+                }
             }
-            
 
+
+           
+            
         }
         else
         {
-            if (!Input.GetButton("Fire1"))
+            //Quando rilascio il pulsante di sparo, esco dall'animazione e resetto one
+            if (Input.GetButtonUp("Fire1") || leftMagAmmo==0)
             {
                 player.SetBool("AutomaticFire", false);
-                fire_effect.GetComponent<ParticleSystem>().Stop();
-
+                one = true;    
             }
         }
+
+        
+        
+        
 
 
     }
@@ -236,17 +251,20 @@ public class WeaponScript : MonoBehaviour {
     public void Axehit()
     {
 
-
+        //Posso colpo con l'ascia se premo il tasto sinistro del mouse, se non sto già attaccando o correndo
         if (Input.GetButtonDown("Fire1") && !(player.GetCurrentAnimatorStateInfo(1).IsName("MeleeAttack")) && !player.IsInTransition(1) && !player.GetBool("Run"))
         {
-            player.SetTrigger("Attack");
-            RaycastShot();
+            player.SetTrigger("Attack"); //Avvio l'animazione
+            RaycastShot(); //Richiamo la funzione che gestisce il raycast
             playsound.PlayAxeAttackSound();
         }
     }
 
-    private void RaycastShot()
+    public void RaycastShot()
     {
+
+        //Funzione in parte scritta seguendo il tutorial di unity sui raycast
+
         Vector3 rayOrigin;
         Vector3 direction;
 
@@ -265,17 +283,18 @@ public class WeaponScript : MonoBehaviour {
         {
             print(hit.collider.name);
 
+            //Se colpisco il nemico (Enemy_part=mani del nemico)) o il boss
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss"))
             {
 
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
-                //Gli infliggo danno
+                //Gli infliggo danno (l'else gestisce il danno se colpisco il nemico nelle mani, cioè enemy_part)
                 if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Boss")) hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
                 else hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
             }
             else
-            { //danno bonus se lo colpisce all testa
+            { //danno bonus se lo colpisce all testa (WIP, manca un collider che gestisca la testa)
                 if (hit.collider.gameObject.CompareTag("Testa"))
                 {
                     //Istanzio il sangue sul nemico
@@ -284,6 +303,7 @@ public class WeaponScript : MonoBehaviour {
                 }
                 else
                 {
+                    //Se colpisco qualcosa diverso da un nemico, istanzio un diverso effetto particellare (ma non se colpisco con l'ascia)
                     if (!gameObject.CompareTag("Axe"))
                     {
                         Instantiate(bullet_impact_generic, hit.point, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
