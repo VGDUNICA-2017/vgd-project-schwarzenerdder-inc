@@ -21,11 +21,8 @@ public class BossDamageDealer : MonoBehaviour {
 	}
 
     public void OnTriggerEnter(Collider other) {
-        print("collision");
         if (other.gameObject.CompareTag("Player")) {
-            print("player");
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Swiping") || anim.GetCurrentAnimatorStateInfo(0).IsName("Jump Attack")) {
-                print("animation");
                 if (!damageDealt) {
                     print("bool");
                     other.GetComponent<InventorySystem>().takeDamage(15);

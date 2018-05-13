@@ -51,7 +51,7 @@ public class PlayAnimation : MonoBehaviour {
         if ((Input.GetAxis("Vertical") != 0.0) || (Input.GetAxis("Horizontal") != 0.0))
         {
             hudsystem.movingState(true);
-            if (!animator.GetBool("Run")) playsound.PlayFootStepAudio(1);
+            if (!animator.GetBool("Run")) playsound.PlayFootStepAudioSnow(1);
         }
         else
         {
@@ -62,7 +62,7 @@ public class PlayAnimation : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftShift) && ((Input.GetAxis("Vertical") != 0.0) || (Input.GetAxis("Horizontal") != 0.0)))
         {
             animator.SetBool("Run", true);
-            playsound.PlayFootStepAudio(2);
+            playsound.PlayFootStepAudioSnow(2);
         }
         else
         {

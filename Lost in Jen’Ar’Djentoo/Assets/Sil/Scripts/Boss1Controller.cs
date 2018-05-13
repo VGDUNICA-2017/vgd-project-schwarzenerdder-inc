@@ -17,7 +17,7 @@ public class Boss1Controller : MonoBehaviour {
 
 	//Variabili di supporto
 	private bool randomAttack;
-	private const int MaxHealth = 1000;
+	private const int MaxHealth = 300;
 	public int health;
 	private bool deathCall;
 
@@ -108,7 +108,7 @@ public class Boss1Controller : MonoBehaviour {
 		}
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dying") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3.0f) {
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f) {
             Destroy(gameObject);
         }
     }

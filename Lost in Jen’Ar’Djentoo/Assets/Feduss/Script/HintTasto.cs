@@ -108,13 +108,18 @@ public class HintTasto : MonoBehaviour {
         }
     }
 
-        public void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-				hud.centralBoxEnabler (false);
-				//testo.enabled = false;
-            }
-
+            hud.centralBoxEnabler(false);
+            //testo.enabled = false;
         }
+
+        //Distruggo i gameobject dei consigli sui comandi quando il player esce dal loro trigger
+        if (gameObject.CompareTag("Serranda") || gameObject.name.Equals("Corsa") || gameObject.name.Equals("Camminata") || gameObject.name.Equals("TorciaHint"))   
+        {
+            Destroy(gameObject);
+        }
+    }
 }

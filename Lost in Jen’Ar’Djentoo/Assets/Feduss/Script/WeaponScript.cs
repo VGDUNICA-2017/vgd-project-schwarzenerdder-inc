@@ -39,6 +39,13 @@ public class WeaponScript : MonoBehaviour {
 
     public bool one = true;
 
+    //audio
+    [SerializeField] private AudioClip m_ReloadSound;
+    [SerializeField] private AudioClip m_ShootSound;
+    [SerializeField] private AudioClip m_EmptyMag;
+    [SerializeField] private AudioClip m_EmptyMagReload;
+    [SerializeField] private AudioClip m_EquipPistol;
+
     // Use this for initialization
     void Start () {
 
@@ -133,11 +140,11 @@ public class WeaponScript : MonoBehaviour {
             //Cambio il suono della ricarica in base ai colpi nel caricatore
             if (leftMagAmmo == 0)
             {
-                playsound.PlayEmptyMagReload();
+                playsound.PlayEmptyMagReload(m_EmptyMagReload);
             }
             else
             {
-                playsound.PlayReloadSound();
+                playsound.PlayReloadSound(m_ReloadSound);
             }
 
         }
@@ -170,7 +177,7 @@ public class WeaponScript : MonoBehaviour {
             //Se il caricatore è vuoto
             if (leftMagAmmo == 0)
             {
-                playsound.PlayEmptyMag();
+                playsound.PlayEmptyMag(m_EmptyMag);
             }
             else
             {
@@ -180,7 +187,7 @@ public class WeaponScript : MonoBehaviour {
 
                 fire_effect.GetComponent<ParticleSystem>().Play(); //WIP
 
-                playsound.PlayShootSound();
+                playsound.PlayShootSound(m_ShootSound);
                 
             }
             inventario.shot(index); //Scalo un colpo
@@ -208,10 +215,8 @@ public class WeaponScript : MonoBehaviour {
                 player.SetBool("AutomaticFire", true); //Avvio l'animazione
                 fire_effect.GetComponent<ParticleSystem>().Play(); //WIP
                                                                    //playsound.PlayShootSound();
+                playsound.PlayShootSound(m_ShootSound);//da vedere se è corretto inserirlo qui!
 
-
-                //RaycastShot();
-                //inventario.shot(index);
             }
             else
             {
@@ -220,7 +225,7 @@ public class WeaponScript : MonoBehaviour {
                 {
                     print("we");
                     //Se il caricatore è vuoto
-                    playsound.PlayEmptyMag();
+                    playsound.PlayEmptyMag(m_EmptyMag);
                     inventario.shot(index); //Serve per far pulsare di rosso lo 0 dei colpi nel caricatore
                     player.SetBool("AutomaticFire", false); //Esco dall'animazione
                     one = false; //La imposto su false per non entrare più in questo if sino al prossimo reset di one
@@ -256,7 +261,7 @@ public class WeaponScript : MonoBehaviour {
         {
             player.SetTrigger("Attack"); //Avvio l'animazione
             RaycastShot(); //Richiamo la funzione che gestisce il raycast
-            playsound.PlayAxeAttackSound();
+            playsound.PlayAxeAttackSound(m_ShootSound);
         }
     }
 
@@ -284,14 +289,23 @@ public class WeaponScript : MonoBehaviour {
             print(hit.collider.name);
 
             //Se colpisco il nemico (Enemy_part=mani del nemico)) o il boss
-            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss"))
+            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss") || hit.collider.gameObject.CompareTag("MiniBoss"))
             {
 
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
                 //Gli infliggo danno (l'else gestisce il danno se colpisco il nemico nelle mani, cioè enemy_part)
-                if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Boss")) hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
-                else hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
+                if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Boss"))
+                {
+                    hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
+                }
+                else if (hit.collider.gameObject.CompareTag("MiniBoss")) {
+                        hit.collider.gameObject.GetComponent<Boss1Controller>().takeDamage(gunDamage);
+                }
+                     else
+                     {
+                        hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
+                     }
             }
             else
             { //danno bonus se lo colpisce all testa (WIP, manca un collider che gestisca la testa)

@@ -17,6 +17,6 @@ public class LoadGame : MonoBehaviour {
 
     public void onClick() {
         Destroy(GameObject.Find("Music"));
-        SceneManager.LoadScene("ScenaInnevataF (incompleta)", LoadSceneMode.Single);
+        SceneManager.LoadScene("Scena 1 - Il massiccio", LoadSceneMode.Single);
     }
 }

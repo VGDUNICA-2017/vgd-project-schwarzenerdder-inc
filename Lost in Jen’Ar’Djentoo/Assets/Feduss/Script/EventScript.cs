@@ -23,8 +23,14 @@ public class EventScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        //Se ho sconfitto il miniboss, apro la porta di uscita dalla zona
+        if (boss1 != null && boss1.GetComponent<Boss1Controller>().health == 0)
+        {
+            boss_door1.GetComponent<Animator>().SetTrigger("Boss dies");
+        }
+
+    }
 
     public void OnTriggerEnter(Collider other)
     {
@@ -34,19 +40,13 @@ public class EventScript : MonoBehaviour {
             shutter1.GetComponent<Animator>().SetTrigger("Close");
         }
 
-        // Chiusura/apertura porta boss
+        //Chiudo la porta quando mi ci avvicino ad essa (è la porta di uscita dalla mini boss fight)
         if (other.CompareTag("Player") && gameObject.name.Equals("boss_door") && onetime)
         {
             boss_door1.GetComponent<Animator>().SetTrigger("Close");
             onetime = false;
             boss1.SetActive(true);
         }
-        else if (boss1 != null)
-        {
-            if (!boss1.activeInHierarchy)
-            {
-                boss_door1.GetComponent<Animator>().SetTrigger("Boss dies");
-            }
-        }
+
     }
 }

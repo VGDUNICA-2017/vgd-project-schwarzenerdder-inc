@@ -23,35 +23,26 @@ public class DoorBrokenDown : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
-        if (flag)
-        {
-            flag = false;
-
-            int i = 0;
-            while (i < 3)
-            {
-                if (!audio_source.isPlaying)
-                {
-                    audio_source.clip = doorKick;
-                    audio_source.Play();
-                    i++;
-                    Debug.Log(i);
-                }
-                i++;
-            }
-            if (i == 3)
-            {
-                rb.AddForce(Vector3.forward * force, ForceMode.Impulse);
-                audio_source.clip = doorBrokenDown;
-                audio_source.Play();
-            }
-
-            
-        }
-
-
     }
+
+        
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+
+            //Da sistemare (deve riprodurre il suono del calcio per 2/3 volte e poi buttare giù la porta (con un altro suono)
+            audio_source.clip = doorKick;
+            audio_source.Play();
+
+            audio_source.clip = doorBrokenDown;
+            audio_source.Play();
+            rb.AddForce(Vector3.right * force, ForceMode.Impulse);
+            Destroy(gameObject, 5);
+        }
+    }
+
 
 }
 
