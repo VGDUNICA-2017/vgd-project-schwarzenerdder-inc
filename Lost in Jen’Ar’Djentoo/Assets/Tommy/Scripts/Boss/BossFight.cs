@@ -22,7 +22,9 @@ public class BossFight : MonoBehaviour {
         if (other.gameObject.CompareTag("Player")) {
             (GameObject.Find("Jen'ni")).GetComponent<NavMeshAgent>().enabled = true;
             fightStarted = true;
-            //hud.hudMinimap(false);
+            hud.bossBarEnabler(true);
+            hud.bossNameSetter("Jen'ni");
+            hud.bossBarSetter(500, 500);
         }
             
 

@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 114579472441601906}
   m_Layer: 2
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Enemy_part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 114502196545484812}
   m_Layer: 2
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: Enemy_part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -986,10 +986,10 @@ GameObject:
   - component: {fileID: 4854077522557342}
   - component: {fileID: 95651557429497044}
   - component: {fileID: 143428319114554584}
-  - component: {fileID: 114110970041816202}
   - component: {fileID: 114119524232081886}
   - component: {fileID: 195817164480419384}
   - component: {fileID: 82574440088457280}
+  - component: {fileID: 114696675859051882}
   m_Layer: 0
   m_Name: parasite_l_starkie (Zombie)
   m_TagString: Enemy
@@ -2110,27 +2110,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114110970041816202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955315528287920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a686d84681446d94cb08b7e8f3ecf471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vision: {fileID: 1678994026353592}
-  debug: 1
-  distance: 0
-  health: 0
-  mask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  spotDistance: 20
-  attackDistance: 3
-  spotAngle: 60
 --- !u!114 &114119524232081886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2170,6 +2149,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 15
+--- !u!114 &114696675859051882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1955315528287920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb8d6740c4249840acce81cbd8faf3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vision: {fileID: 1678994026353592}
+  debug: 0
+  distance: 0
+  health: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  spotDistance: 20
+  attackDistance: 3
+  spotAngle: 60
 --- !u!136 &136295286795742922
 CapsuleCollider:
   m_ObjectHideFlags: 1

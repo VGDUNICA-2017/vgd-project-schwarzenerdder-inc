@@ -12,11 +12,20 @@ public class EnemyController : MonoBehaviour {
 	public GameObject vision;
 	private NavMeshAgent agent;
 
+	//Debugging modes
+	//-1 = disabilitato
+	//0 = tutte
+	//1 = debug del raycast
+	//2 = debug degli stati
+	//3 = debug sui flag
+	public int debug;
+
     //Variabili di controllo sulla posizione
-    public bool debug;
 	public float distance;
 	private float angle;
 	private bool rayHit;
+	private bool isPlayerVisible;
+	private bool shortRange;
 
 	//Variabili di supporto
 	private Vector3 startPosition;
@@ -25,13 +34,14 @@ public class EnemyController : MonoBehaviour {
 	private bool backToStart;
 	private bool canRoar;
 	private bool randomAttack;
-	private bool isPlayerVisible;
 	private bool lastVisible;
 	private float startDistance;
 	private const int MaxHealth = 100;
 	public int health;
 	private bool deathCall;
 	public LayerMask mask;
+	private float rotateY;
+	private bool hitRotate;
 
 	//Elementi da settare
 	public float spotDistance = 20.0f;
@@ -57,7 +67,8 @@ public class EnemyController : MonoBehaviour {
 		tracking = false;
 		canRoar = true;
 		randomAttack = true;
-        debug = false;
+
+        debug = -1;
 
 		health = MaxHealth;
 		if (health <= 1) {
@@ -81,10 +92,10 @@ public class EnemyController : MonoBehaviour {
 			vision.transform.LookAt (playerSpotPoint);
 			rayHit = Physics.Raycast (vision.transform.position, vision.transform.forward, out hittedElement, spotDistance, mask);
 
-            if (debug) {
+			if ((debug == 0) || (debug == 1)) {
                 Debug.DrawRay (vision.transform.position, vision.transform.forward * spotDistance, Color.green);
                 if (rayHit) {
-                	print ("Distance: " + (distance <= spotDistance) +
+					print ("Distance: " + (distance <= spotDistance) + "/" + (distance <= (spotDistance / 2.0f)) +
                 	"; Angle: " + (angle <= spotAngle) +
                 	"; Ray: " + rayHit +
 					"; Compare: " + (hittedElement.collider.gameObject.CompareTag ("Player") ||
@@ -92,11 +103,23 @@ public class EnemyController : MonoBehaviour {
 							hittedElement.collider.gameObject.CompareTag("Hands")) +
                 	"\nHitted: " + hittedElement.collider);
                 } else {
-                	print ("Distance: " + (distance <= spotDistance) +
+					print ("Distance: " + (distance <= spotDistance) + "/" + (distance <= (spotDistance / 2.0f)) +
                 	"; Angle: " + (angle <= spotAngle) +
                 	"; Ray: " + rayHit);
                 }
             }
+
+			if ((debug == 0) || (debug == 3)) {
+				print ("Ruggito: " + canRoar + "; Ritorno: " + backToStart);
+			}
+
+			//Se l'enemy è vivo e nello stato di movimento, attiva l'agent
+			//Questo evita movimenti indesiderati
+			if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Moving") && (animator.GetFloat("Speed") > 0.0f)) {
+				agent.enabled = true;
+			} else {
+				agent.enabled = false;
+			}
 
 			//Flag di posizione
 			lastVisible = isPlayerVisible;
@@ -104,39 +127,69 @@ public class EnemyController : MonoBehaviour {
 					(angle <= spotAngle) && 												// entro l'angolo di visione,
 					rayHit && 																// il ray ha colpito qualcosa
 					(hittedElement.collider.gameObject.CompareTag ("Player") ||				// e quel qualcosa è il player
-					hittedElement.collider.gameObject.CompareTag ("Hands") ||				//o un suo componente
+					hittedElement.collider.gameObject.CompareTag ("Hands") ||				//o un suo collider
 					hittedElement.collider.gameObject.name.Equals ("l'ascia (Impugnata)"));
 
+			//Contro flag: se entro metà della distanza, ed ancora in visione (raycast), se ne frega dell'angolo
+			shortRange = (distance <= (spotDistance / 2.0f)) && 
+				rayHit && 
+				(hittedElement.collider.gameObject.CompareTag ("Player") ||	 
+				hittedElement.collider.gameObject.CompareTag ("Hands") || 
+				hittedElement.collider.gameObject.name.Equals ("l'ascia (Impugnata)"));
+			
+			//Se il nemico è stato colpito, devegirarsi verso il player
+			if (hitRotate) {
+				rotateToPlayer ();
+			}
+
 			//Definizione azione
-			if (isPlayerVisible) {
-				
+			if (isPlayerVisible || shortRange) {
+
+				//Ultima posizione vista del player
+				lastPlayerPosition = playerTransform.position;
+
 				//Il player è nel cono di visione
 				if (distance >= attackDistance) {//Se il player è oltre la soglia di attacco
 					movingAction ();
-//					print ("M");
+					if ((debug == 0) || (debug == 2)) {
+						print ("M");
+					}
 				} else {
 					attackAction ();
-//					print ("A");
+					if ((debug == 0) || (debug == 2)) {
+						print ("A");
+					}
 				}
 			} else {
 
 				//Il player non è al momento in vista
 				if (lastVisible || tracking) {
 					trackingAction ();
-//					print ("T");
+					if ((debug == 0) || (debug == 2)) {
+						print ("T");
+					}
 				} else {
 					canRoar = true;
 					startDistance = Vector3.Distance (this.transform.position, startPosition);
-					if (startDistance > 0.8f) {
+
+					if (startDistance > 1.6f) {
 						returnAction ();
-//						print ("R");
+						if ((debug == 0) || (debug == 2)) {
+							print ("R");
+						}
 					} else {
 						idleAction ();
-//						print ("I");
+						if ((debug == 0) || (debug == 2)) {
+							print ("I");
+						}
 					}
 				}
 			}
 		} else {
+			if ((debug == 0) || (debug == 2)) {
+				print ("D");
+			}
+
 			//Se il nemico non è vivo
 			deathAction ();
 		}
@@ -151,7 +204,6 @@ public class EnemyController : MonoBehaviour {
 
 	//Funzione di idle
 	public void idleAction () {
-		agent.enabled = false;
 		animator.SetFloat ("Speed", 0.0f);
 		backToStart = false;
 	}
@@ -168,18 +220,18 @@ public class EnemyController : MonoBehaviour {
 		/* Controllo sullo stato dell'animator
 		 * Durante l'animazione "PlayerLost", il nemico non si deve muovere
 		 */
-		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("PlayerLost")) {
-			agent.enabled = false;
-		} else {
+		if (!(animator.GetCurrentAnimatorStateInfo (0).IsName ("PlayerLost"))) {
 			//Sistema di ritorno
 			if (startDistance >= 3.0f) {
-				agent.enabled = true;
-				agent.SetDestination (startPosition);
+				if (agent.enabled) {
+					agent.SetDestination (startPosition);
+				}
 				animator.SetFloat ("Speed", 1.0f);
 
 			} else if (startDistance < 3.0f && startDistance >= 0.5f) {
-				agent.enabled = true;
-				agent.SetDestination (startPosition);
+				if (agent.enabled) {
+					agent.SetDestination (startPosition);
+				}
 				animator.SetFloat ("Speed", Mathf.Lerp (animator.GetFloat ("Speed"), 0.0f, Time.deltaTime));
 
 			} else if (startDistance < 0.5f) {
@@ -193,11 +245,10 @@ public class EnemyController : MonoBehaviour {
 	public void movingAction () {
 		//Ruggito
 		if (canRoar) {
-			animator.SetBool ("Spotted", true);
+			animator.SetTrigger ("Spotted");
             playsound.PlayRoarSound();
 			canRoar = false;
-		} else {
-			animator.SetBool ("Spotted", false);
+			backToStart = false;
 		}
 
 		/* Se il nemico si trova nello stato di moving, allora l'agent viene attivato
@@ -208,11 +259,7 @@ public class EnemyController : MonoBehaviour {
 			animator.SetFloat ("Speed", 1.0f);
 			animator.SetBool ("Attack", false);
 			agent.enabled = true;
-			lastPlayerPosition = playerTransform.position;
 			agent.SetDestination (lastPlayerPosition);
-
-		} else {
-			agent.enabled = false;
 		}
 	}
 
@@ -220,19 +267,13 @@ public class EnemyController : MonoBehaviour {
 	public void trackingAction () {
 		float trackDistance = Vector3.Distance (this.transform.position, lastPlayerPosition);
 
-		if (trackDistance >= 3.0f) {
+		if (trackDistance >= 1.5f) {
 			tracking = true;
 			agent.enabled = true;
 			agent.SetDestination (lastPlayerPosition);
 			animator.SetFloat ("Speed", 1.0f);
 
-		} else if (trackDistance < 3.0f && trackDistance >= 0.5f) {
-			tracking = false;
-			agent.enabled = true;
-			agent.SetDestination (lastPlayerPosition);
-			animator.SetFloat ("Speed", Mathf.Lerp (animator.GetFloat ("Speed"), 0.0f, Time.deltaTime));
-
-		} else if (trackDistance < 0.5f) {
+		} else if (trackDistance < 1.5f) {
 			tracking = false;
 			agent.enabled = false;
 			animator.SetFloat ("Speed", 0.0f);
@@ -251,7 +292,6 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		this.transform.LookAt(playerTransform.position);
-		agent.enabled = false;
 		animator.SetFloat ("Speed", 0.0f);
 		animator.SetBool ("Attack", true);
         playsound.PlayEnemyAttackSound();
@@ -264,7 +304,6 @@ public class EnemyController : MonoBehaviour {
             playsound.PlayEnemyDeath();
 			animator.SetTrigger ("Death");
 			animator.SetFloat ("Speed", 0.0f);
-			agent.enabled = false;
 			deathCall = false;
 		}
 
@@ -279,14 +318,43 @@ public class EnemyController : MonoBehaviour {
 	public void takeDamage(int damage) {
 		this.health -= damage;
 
-		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying")) {
+		if ((debug == 0) || (debug == 2)) {
+			print ("H");
+		}
+
+		//Se viene colpito mentre non sta vedendo il player, innesca la rotazione
+		if ((!isPlayerVisible) && (!shortRange)) {
+			hitRotate = true;
+			rotateY = vision.transform.eulerAngles.y;
+
+			//Reset del flag del ruggito
+			canRoar = true;
+		}
+
+		if (health > 0) {
 			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 			animator.SetTrigger ("Hit");
             playsound.PlayEnemyHitSound();
+		} else {
+			deathCall = true;
+		}
+	}
 
-			if (health <= 0) {
-				deathCall = true;
-			}
+	//Funzione per la rotazione del nemico sul posto
+	public void rotateToPlayer () {
+		Vector3 newVision = transform.rotation.eulerAngles;
+
+		newVision.y = Mathf.LerpAngle (newVision.y, rotateY, Time.deltaTime);
+
+		transform.rotation = Quaternion.Euler(newVision);
+
+		if ((debug == 0) || (debug == 4)) {
+			print ("HitRotate: " + hitRotate +  "; RotateY: " + rotateY +
+			"\nVettore: " + newVision.x + "/" + newVision.y + "/" + newVision.z);
+		}
+
+		if (Mathf.Abs (Mathf.Abs (transform.eulerAngles.y) - Mathf.Abs (rotateY)) < 10.0f) {
+			hitRotate = false;
 		}
 	}
 }

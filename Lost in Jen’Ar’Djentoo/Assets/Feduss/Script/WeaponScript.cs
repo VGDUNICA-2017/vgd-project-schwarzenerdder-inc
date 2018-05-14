@@ -295,17 +295,22 @@ public class WeaponScript : MonoBehaviour {
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
                 //Gli infliggo danno (l'else gestisce il danno se colpisco il nemico nelle mani, cioè enemy_part)
-                if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Boss"))
+                if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
                 }
                 else if (hit.collider.gameObject.CompareTag("MiniBoss")) {
                         hit.collider.gameObject.GetComponent<Boss1Controller>().takeDamage(gunDamage);
                 }
-                     else
+                     else if (hit.collider.gameObject.CompareTag("Boss"))
                      {
-                        hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
+                            hit.collider.gameObject.GetComponent<BossHealth>().TakeDamage(gunDamage);
                      }
+                else
+                {
+                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
+                }
+                     
             }
             else
             { //danno bonus se lo colpisce all testa (WIP, manca un collider che gestisca la testa)

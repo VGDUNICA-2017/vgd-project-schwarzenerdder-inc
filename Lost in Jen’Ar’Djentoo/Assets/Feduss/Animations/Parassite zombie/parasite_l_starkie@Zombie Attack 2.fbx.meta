@@ -170,7 +170,7 @@ ModelImporter:
       name: Zombie Attack 2
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 270
+      lastFrame: 200
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

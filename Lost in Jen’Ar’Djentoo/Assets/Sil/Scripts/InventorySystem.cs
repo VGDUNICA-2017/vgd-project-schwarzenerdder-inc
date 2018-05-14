@@ -8,7 +8,7 @@ public class InventorySystem : MonoBehaviour {
 
 	//Riferimenti vita
 	private const int fullHealth = 100;
-	private int currentHealth;
+	public int currentHealth;
 	private bool isDead;
 	private int medKits;
 
@@ -71,6 +71,8 @@ public class InventorySystem : MonoBehaviour {
 	//Funzione per subire danni
 	public void takeDamage(int damage) {
 		currentHealth -= damage;
+
+		print ("Danno: " + damage + "; Vita: " + currentHealth);
 
 		hudScript.getDamage ();
 		hudScript.radialHealthSet (currentHealth, fullHealth);
