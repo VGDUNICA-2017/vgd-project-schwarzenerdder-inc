@@ -335,7 +335,7 @@ public class EnemyController : MonoBehaviour {
 			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 			animator.SetTrigger ("Hit");
             playsound.PlayEnemyHitSound();
-		} else {
+		} else if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dying")) {
 			deathCall = true;
 		}
 	}

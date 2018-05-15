@@ -38,6 +38,8 @@ TagManager:
   - HR1
   - HR2
   - MiniBoss
+  - SmgEnemySpawn
+  - FinalKey
   layers:
   - Default
   - TransparentFX

@@ -117,7 +117,7 @@ public class HintTasto : MonoBehaviour {
         }
 
         //Distruggo i gameobject dei consigli sui comandi quando il player esce dal loro trigger
-        if (gameObject.CompareTag("Serranda") || gameObject.name.Equals("Corsa") || gameObject.name.Equals("Camminata") || gameObject.name.Equals("TorciaHint"))   
+        if (!gameObject.CompareTag("Serranda") || gameObject.name.Equals("Corsa") || gameObject.name.Equals("Camminata") || gameObject.name.Equals("TorciaHint"))   
         {
             Destroy(gameObject);
         }

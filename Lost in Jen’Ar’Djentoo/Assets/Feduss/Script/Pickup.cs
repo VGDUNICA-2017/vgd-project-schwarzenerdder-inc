@@ -7,38 +7,44 @@ public class Pickup : MonoBehaviour {
 
     //private Text testo;
     //private Text take;
-    private GameObject fin;
+    private GameObject player;
     private Animator animator;
 	private HUDSystem hud;
-    public bool flag;
     private InventorySystem inventario;
 
-    int arma_attuale=-1;
-    int munizioni_ammobox=-1; //numero di colpi presenti in un ammobox
+    private int arma_attuale=-1;
+    private int munizioni_ammobox=-1; //numero di colpi presenti in un ammobox
+    public int start_ammo=-1; //numero di colpi presenti inizialmente nell'ammobox
+
 
     private GameObject AxeSpawn;
     private GameObject PistolSpawn;
     private GameObject ChainSpawn;
     private GameObject CutterSpawn;
     private GameObject SmgSpawn;
-
-    private bool dontenter = false;
+    private Misc misc;
+    private bool onetime = true;
 
     // Use this for initialization
     void Start() {
 		hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
-        fin = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
 		hud.centralBoxEnabler (false);
 		hud.sideBoxEnabler(false);
-        flag = false;
-        animator = fin.GetComponent<Animator>();
-        inventario = fin.GetComponent<InventorySystem>();
+        animator = player.GetComponent<Animator>();
+        inventario = player.GetComponent<InventorySystem>();
 
         AxeSpawn=GameObject.FindGameObjectWithTag("AxeEnemySpawn");
         PistolSpawn=GameObject.FindGameObjectWithTag("PistolEnemySpawn");
         ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
         CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
-        //SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
+        SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
+
+        munizioni_ammobox = start_ammo;
+
+        misc = player.GetComponent<Misc>();
+
+
 
 
 
@@ -48,11 +54,9 @@ public class Pickup : MonoBehaviour {
 
     private void Update()
     {
-        //Da completare con le altre armi
-        if (gameObject.CompareTag("Ammo_9mm")) munizioni_ammobox = 8;
-
-        //Da completare con le altre armi
         if (animator.GetBool("Pistol")) arma_attuale = 0;
+        //if (animator.GetBool("Shotgun")) arma_attuale = 1;
+        if (animator.GetBool("Smg")) arma_attuale = 2;
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -67,11 +71,12 @@ public class Pickup : MonoBehaviour {
 
     public void OnTriggerStay(Collider other) {
         if (Input.GetButtonDown("Open Door") && other.gameObject.CompareTag("Player")) {
-            if (gameObject.name.Equals("la Torcia")) {
+            if (gameObject.name.Equals("la Torcia") && onetime) {
+                onetime = false;
                 EquipTorch();
 				hud.centralBoxEnabler(false);
 				inventario.setTorcia (true);
-                fin.GetComponent<SwitchWeapon>().getTorch = true;
+                player.GetComponent<SwitchWeapon>().getTorch = true;
                 Destroy(GameObject.Find("MuroInvisibile1"));
 				hud.sideBoxEnabler (true);
 				hud.sideBoxText("Hai raccolto la torcia");
@@ -81,77 +86,89 @@ public class Pickup : MonoBehaviour {
                 ChainSpawn.SetActive(false);
                 CutterSpawn.SetActive(false);
 
-                StartCoroutine(DisableAfterSomeSeconds());
+                misc.supportFunction(gameObject);
             }
 
-            if (gameObject.name.Equals("l'ascia"))
+            if (gameObject.name.Equals("l'ascia") && onetime)
             {
+                onetime = false;
                 EquipAxe();
 				hud.centralBoxEnabler(false);
                 inventario.setAscia(true);
-                fin.GetComponent<SwitchWeapon>().getAxe = true;
+                player.GetComponent<SwitchWeapon>().getAxe = true;
 				hud.sideBoxEnabler (true);
 				hud.sideBoxText("Hai raccolto l'ascia");
                 AxeSpawn.SetActive(true);
-                StartCoroutine(DisableAfterSomeSeconds());
+                misc.supportFunction(gameObject);
             }
 
-            if(gameObject.name.Equals("P226") && !dontenter) {
+            if(gameObject.name.Equals("P226") && onetime) {
+                onetime = false;
                 EquipPistol();
 				hud.centralBoxEnabler(false);
 				inventario.startAmmo (0);
-                fin.GetComponent<SwitchWeapon>().getPistol = true;
+                player.GetComponent<SwitchWeapon>().getPistol = true;
 				hud.sideBoxEnabler (true);
 				hud.sideBoxText("Hai raccolto la P226");
                 PistolSpawn.SetActive(true);
-                dontenter = true;
-                StartCoroutine(DisableAfterSomeSeconds());
+                misc.supportFunction(gameObject);
                 
             }
 
-            if (gameObject.name.Equals("MP5") && !dontenter)
+            if (gameObject.name.Equals("MP5") && onetime)
             {
+                onetime = false;
                 EquipSmg();
                 hud.centralBoxEnabler(false);
                 inventario.startAmmo(2);
-                fin.GetComponent<SwitchWeapon>().getSmg = true;
+                player.GetComponent<SwitchWeapon>().getSmg = true;
                 hud.sideBoxEnabler(true);
                 hud.sideBoxText("Hai raccolto l'MP5");
                 SmgSpawn.SetActive(true);
-                dontenter = true;
-                StartCoroutine(DisableAfterSomeSeconds());
+                misc.supportFunction(gameObject);
             }
 
 
-                if (gameObject.CompareTag("Ammo_9mm") && !dontenter)
+            if ((gameObject.CompareTag("Ammo_9mm") || gameObject.CompareTag("Ammo_smg")) && onetime)
             {
 				hud.sideBoxEnabler (true);
-				hud.sideBoxText("Hai raccolto " + munizioni_ammobox + " colpi da 9mm");
-                dontenter = true;
-                munizioni_ammobox = inventario.ammoPickup(munizioni_ammobox, 0, arma_attuale);
-                StartCoroutine(DisableAfterSomeSeconds());
+                if (gameObject.CompareTag("Ammo_9mm"))
+                {
+                    hud.sideBoxText("Hai raccolto " + munizioni_ammobox + " colpi per la pistola");
+                    munizioni_ammobox = inventario.ammoPickup(munizioni_ammobox, 0, arma_attuale);
+                }
+                if (gameObject.CompareTag("Ammo_smg"))
+                {
+                    hud.sideBoxText("Hai raccolto " + munizioni_ammobox + " colpi per l'mp5");
+                    munizioni_ammobox = inventario.ammoPickup(munizioni_ammobox, 2, arma_attuale);
+                }
+                onetime = false;
+                
+                
 
                 
 
                 if (munizioni_ammobox == 0){
 					hud.centralBoxEnabler (false);
-                    munizioni_ammobox = 8;
-                    Destroy(gameObject);
+                    munizioni_ammobox = start_ammo;
+                    misc.supportFunction(gameObject);
                 }
 
             }
 
-            if (gameObject.CompareTag("FirstAid") && !dontenter)
+            if (gameObject.CompareTag("FirstAid") && onetime)
             {
                 if (inventario.medkitPickup())
                 {
 					hud.centralBoxEnabler (false);
 					hud.sideBoxEnabler (true);
 					hud.sideBoxText("Hai raccolto un kit medico");
-                    dontenter = true;
-                    StartCoroutine(DisableAfterSomeSeconds());
+                    misc.supportFunction(gameObject);
+                    onetime = false;
                 }
             }
+
+            
         }
     }
 
@@ -186,13 +203,5 @@ public class Pickup : MonoBehaviour {
             animator.SetBool("Smg", true);
         }
 
-        IEnumerator DisableAfterSomeSeconds()
-    {
-        yield return new WaitForSeconds(2f);
-       
-		hud.centralBoxEnabler (false);
-		hud.sideBoxEnabler (false);
-        dontenter = false;
-        Destroy(gameObject);
-    }
+    
 }

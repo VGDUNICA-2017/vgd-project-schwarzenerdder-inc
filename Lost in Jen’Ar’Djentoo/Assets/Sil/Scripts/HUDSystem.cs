@@ -56,8 +56,15 @@ public class HUDSystem : MonoBehaviour {
 	public Slider bossHealth;
 	public Text BossName;
 
+	//Supporti per il death screen
+	public Text deathBox;
+	private bool death;
+	private Color deathScreenColor = new Color (1.0f, 1.0f, 1.0f, 0.4f);
+
 	// Use this for initialization
 	void Start () {
+		screenDamage.color = Color.clear;
+
 		//Recupero elementi HUD
 		ammoText = shotsUI.transform.Find ("ShotsLeft").transform.GetComponent<Text> ();
 		invAmmoText = shotsUI.transform.Find ("ShotsInventory").transform.GetComponent<Text> ();
@@ -80,12 +87,15 @@ public class HUDSystem : MonoBehaviour {
 		noAmmo = false;
 		moving = false;
 		aiming = false;
+		death = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//Flash dello schermo dopo il danno. True = frame del danno
-		if (damaged) {
+		if (death) {
+			deathWork ();
+		} else if (damaged) {
 			screenDamage.color = flashColor;
 			damaged = false;
 		} else {
@@ -146,6 +156,10 @@ public class HUDSystem : MonoBehaviour {
 					Mathf.Lerp (reticleTransform.rect.width, StayingSize, 0.2f), 
 					Mathf.Lerp (reticleTransform.rect.height, StayingSize, 0.2f));
 			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			deathScreenTrigger ();
 		}
 	}
 
@@ -322,5 +336,33 @@ public class HUDSystem : MonoBehaviour {
 	//Setter nome del boss
 	public void bossNameSetter (string name) {
 		BossName.text = name;
+	}
+
+	//Attivazione death screen
+	public void deathScreenTrigger () {
+		screenDamage.color = new Color (1.0f, 1.0f, 1.0f, 0.0f);
+
+		deathBox.enabled = true;
+		deathBox.fontSize = 1;
+		
+		death = true;
+	}
+
+	private void deathWork () {
+		hudShotsEnabler (false);
+		minimapEnabler (false);
+		reticleEnabler (false);
+
+		if (Mathf.Abs (screenDamage.color.a - deathScreenColor.a) > 2.0f) {
+			screenDamage.color = Color.Lerp (screenDamage.color, deathScreenColor, Time.deltaTime);
+		} else {
+			screenDamage.color = deathScreenColor;
+		}
+
+		if (Mathf.Abs (deathBox.fontSize - 60) > 2) {
+			deathBox.fontSize = (int) Mathf.Lerp (deathBox.fontSize, 120, Time.deltaTime);
+		} else {
+			deathBox.fontSize = 60;
+		}
 	}
 }

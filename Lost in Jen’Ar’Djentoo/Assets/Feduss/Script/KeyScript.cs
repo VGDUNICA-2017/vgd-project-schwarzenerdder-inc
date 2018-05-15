@@ -12,15 +12,18 @@ public class KeyScript : MonoBehaviour
 
     private GameObject ChainSpawn;
     private GameObject CutterSpawn;
+    private Misc misc;
+    private GameObject player;
+
     // Use this for initialization
     void Start()
     {
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
-
+        player = GameObject.FindGameObjectWithTag("Player");
         ChainSpawn=GameObject.FindGameObjectWithTag("ChainEnemySpawn");
         CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
+        misc = player.GetComponent<Misc>();
 
-        
 
 
     }
@@ -43,8 +46,8 @@ public class KeyScript : MonoBehaviour
 			hud.sideBoxEnabler (true);
 			hud.sideBoxText("Hai raccolto le cesoie");
             CutterSpawn.SetActive(true);
-            StartCoroutine(DisableAfterSomeSeconds());
-            
+            misc.supportFunction(gameObject);
+
 
 
         }
@@ -72,12 +75,4 @@ public class KeyScript : MonoBehaviour
         
     }
    
-    IEnumerator DisableAfterSomeSeconds()
-    {
-
-        yield return new WaitForSeconds(2f);
-
-		hud.sideBoxEnabler (false);
-        Destroy(gameObject);
-    }
 }

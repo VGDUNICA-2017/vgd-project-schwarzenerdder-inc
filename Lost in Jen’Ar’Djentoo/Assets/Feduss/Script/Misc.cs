@@ -18,6 +18,8 @@ public class Misc : MonoBehaviour
 
     private CharacterController cc;
 
+    private HUDSystem hud;
+
     // Use this for initialization
     void Start()
     {
@@ -27,6 +29,7 @@ public class Misc : MonoBehaviour
         inventario = GetComponent<InventorySystem>();
         smg_imp = GameObject.Find("MP5 (Impugnato)");
         cc = GetComponent<CharacterController>();
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
     }
 
     // Update is called once per frame
@@ -107,6 +110,23 @@ public class Misc : MonoBehaviour
             cc.center = center;
 
         }
+        
+    }
+
+    public void supportFunction(GameObject g)
+    {
+        StartCoroutine(DisableAfterSomeSeconds(g));
+    }
+
+
+    IEnumerator DisableAfterSomeSeconds(GameObject g)
+    {
+        Destroy(g);
+
+        yield return new WaitForSeconds(2f);
+
+        hud.centralBoxEnabler(false);
+        hud.sideBoxEnabler(false);
         
     }
 

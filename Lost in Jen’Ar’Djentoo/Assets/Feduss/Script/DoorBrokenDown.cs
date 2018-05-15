@@ -31,15 +31,13 @@ public class DoorBrokenDown : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
-
-            //Da sistemare (deve riprodurre il suono del calcio per 2/3 volte e poi buttare giù la porta (con un altro suono)
             audio_source.clip = doorKick;
             audio_source.Play();
 
             audio_source.clip = doorBrokenDown;
             audio_source.Play();
             rb.AddForce(Vector3.right * force, ForceMode.Impulse);
-            Destroy(gameObject, 5);
+            //Destroy(gameObject, 5);
         }
     }
 

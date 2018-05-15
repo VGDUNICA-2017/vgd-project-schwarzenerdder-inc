@@ -24,13 +24,19 @@ public class Boss1Controller : MonoBehaviour {
 	//Elementi da settare
 	public float attackDistance = 4.0f;
 
-	void Start () {
+    private HUDSystem hud;
+
+    private int attack_num = 0;
+
+
+    void Start () {
 		animator = this.GetComponent<Animator> ();
 		agent = this.GetComponent<NavMeshAgent> ();
 
 		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 
-		randomAttack = true;
+        randomAttack = true;
         debug = false;
 
 		health = MaxHealth;
@@ -40,11 +46,16 @@ public class Boss1Controller : MonoBehaviour {
 			deathCall = false;
 		}
 
-        //playsound = GetComponent<PlayEnemySound>();
+        playsound = GetComponent<PlayEnemySound>();
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    private void Update()
+    {
+        hud.bossBarSetter(MaxHealth, health);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
 		//Check sulla vita del nemico
 		if (health > 0) {//Se il nemico è vivo
 			//Calcolo nuovi dati di posizione
@@ -116,11 +127,13 @@ public class Boss1Controller : MonoBehaviour {
 	public void takeDamage(int damage) {
 		this.health -= damage;
 
+        attack_num++;
+
 		if (health < 0) {
 			this.health = 0;
 		}
 
-		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying")) {
+		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying") && attack_num%3==0) {
 			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 			animator.SetTrigger ("Hit");
             //playsound.PlayEnemyHitSound();

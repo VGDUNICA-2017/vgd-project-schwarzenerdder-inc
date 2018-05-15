@@ -66,6 +66,11 @@ public class InventorySystem : MonoBehaviour {
 			hudScript.hudShotsEnabler (true);
 			noWeapon = false;
 		} 
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            print("Inv: " + invAmmo[0] + "/" + invAmmo[1] + "/" + invAmmo[2]);
+        }
 	}
 
 	//Funzione per subire danni
@@ -159,7 +164,8 @@ public class InventorySystem : MonoBehaviour {
 		}
 
 		hudScript.reloadWeapon (this.ammo [indexArma], this.invAmmo [indexArma]);
-		//hudScript.reticleEnabler (true);
+
+        print("Ammo: " + invAmmo[indexArma]);
 	}
 
 	//Funzione di sparo

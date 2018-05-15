@@ -6,17 +6,27 @@ public class EventScript : MonoBehaviour {
 
     private GameObject shutter1;
     private GameObject boss_door1;
-    private GameObject boss1;
-    public bool onetime = true;
-    private bool boss_death = false;
+    public static GameObject boss1;
+    private HUDSystem hud;
+    public static bool boss_defeated;
+    public static bool boss_is_active;
 
 	// Use this for initialization
 	void Start () {
         shutter1 = GameObject.FindGameObjectWithTag("Serranda");
         boss_door1 = GameObject.Find("door_2");
-        boss1 = GameObject.FindGameObjectWithTag("MiniBoss");
-        if(boss1!=null) boss1.SetActive(false);
 
+        if (gameObject.name.Equals("boss_door"))
+        {
+            boss1 = GameObject.FindGameObjectWithTag("MiniBoss");
+            boss1.SetActive(false);
+        }
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
+        boss_defeated = false;
+        boss_is_active = false;
+        
+
+        
 
 
     }
@@ -24,10 +34,10 @@ public class EventScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //Se ho sconfitto il miniboss, apro la porta di uscita dalla zona
-        if (boss1 != null && boss1.GetComponent<Boss1Controller>().health == 0)
+        if (boss1!=null && boss_is_active && boss1.GetComponent<Boss1Controller>().health == 0)
         {
-            boss_door1.GetComponent<Animator>().SetTrigger("Boss dies");
+            boss_defeated = true;
+            hud.bossBarEnabler(false);
         }
 
     }
@@ -40,12 +50,28 @@ public class EventScript : MonoBehaviour {
             shutter1.GetComponent<Animator>().SetTrigger("Close");
         }
 
+        //Se il boss tocca la zona dove atterra, succede quanto segue:
+        if (other.gameObject.CompareTag("MiniBoss") && gameObject.name.Equals("Miniboss_spawn"))
+        {
+            boss_is_active = true;
+            Destroy(gameObject);
+        }
+
         //Chiudo la porta quando mi ci avvicino ad essa (è la porta di uscita dalla mini boss fight)
-        if (other.CompareTag("Player") && gameObject.name.Equals("boss_door") && onetime)
+        if (other.CompareTag("Player") && gameObject.name.Equals("boss_door") && !boss_is_active)
         {
             boss_door1.GetComponent<Animator>().SetTrigger("Close");
-            onetime = false;
             boss1.SetActive(true);
+            hud.bossBarEnabler(true);
+            hud.bossNameSetter("Puglisi");
+        }
+        else
+        {
+            //Se ho sconfitto il miniboss, apro la porta di uscita dalla zona
+            if (boss_defeated)
+            {
+                boss_door1.GetComponent<Animator>().SetTrigger("Boss dies");
+            }
         }
 
     }

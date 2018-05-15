@@ -1818,6 +1818,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114228678237334058, guid: 0898cacf5ced8524d87a40955b60f887,
+        type: 2}
+      propertyPath: m_FootstepSounds_Snow.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114228678237334058, guid: 0898cacf5ced8524d87a40955b60f887,
+        type: 2}
+      propertyPath: m_FootstepSounds_Indoor.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4656871619969266, guid: 0898cacf5ced8524d87a40955b60f887, type: 2}
       propertyPath: m_LocalPosition.x
       value: 100.908485

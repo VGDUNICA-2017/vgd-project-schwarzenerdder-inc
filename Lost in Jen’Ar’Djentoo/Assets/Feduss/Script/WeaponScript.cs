@@ -123,7 +123,7 @@ public class WeaponScript : MonoBehaviour {
         if (player.GetBool("Axe"))
         {
             Axehit();
-            weaponRange = 5f;
+            weaponRange = 2.5f;
         }
 	}
 
@@ -306,10 +306,16 @@ public class WeaponScript : MonoBehaviour {
                      {
                             hit.collider.gameObject.GetComponent<BossHealth>().TakeDamage(gunDamage);
                      }
-                else
-                {
-                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
-                }
+                            else
+                            {
+                                if (hit.collider.gameObject.GetComponentInParent<EnemyController>()!=null) {
+                                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
+                                }
+                                else
+                                {
+                                    hit.collider.gameObject.GetComponentInParent<Boss1Controller>().takeDamage(gunDamage);
+                                }
+                            }
                      
             }
             else
