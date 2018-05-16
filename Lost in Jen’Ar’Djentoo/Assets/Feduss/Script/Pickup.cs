@@ -85,6 +85,7 @@ public class Pickup : MonoBehaviour {
                 PistolSpawn.SetActive(false);
                 ChainSpawn.SetActive(false);
                 CutterSpawn.SetActive(false);
+                SmgSpawn.SetActive(false);
 
                 misc.supportFunction(gameObject);
             }
@@ -117,6 +118,7 @@ public class Pickup : MonoBehaviour {
 
             if (gameObject.name.Equals("MP5") && onetime)
             {
+                
                 onetime = false;
                 EquipSmg();
                 hud.centralBoxEnabler(false);
@@ -124,7 +126,9 @@ public class Pickup : MonoBehaviour {
                 player.GetComponent<SwitchWeapon>().getSmg = true;
                 hud.sideBoxEnabler(true);
                 hud.sideBoxText("Hai raccolto l'MP5");
-                SmgSpawn.SetActive(true);
+                
+                //SmgSpawn.SetActive(true);
+
                 misc.supportFunction(gameObject);
             }
 

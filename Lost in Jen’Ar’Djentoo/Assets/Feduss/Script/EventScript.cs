@@ -33,7 +33,7 @@ public class EventScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        print(boss1 + "/" + boss_defeated + "/" + boss_is_active);
         if (boss1!=null && boss_is_active && boss1.GetComponent<Boss1Controller>().health == 0)
         {
             boss_defeated = true;

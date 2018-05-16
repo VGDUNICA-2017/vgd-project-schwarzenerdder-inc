@@ -40,6 +40,7 @@ TagManager:
   - MiniBoss
   - SmgEnemySpawn
   - FinalKey
+  - FinalDoor
   layers:
   - Default
   - TransparentFX

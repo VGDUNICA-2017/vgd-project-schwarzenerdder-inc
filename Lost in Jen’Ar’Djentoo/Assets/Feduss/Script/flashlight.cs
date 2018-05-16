@@ -15,13 +15,13 @@ public class flashlight : MonoBehaviour {
 	void Update () {
 
         if (Input.GetButtonDown("Torcia") && GetComponent<SwitchWeapon>().getTorch) {
-            if (torcia.intensity == 1)
+            if (torcia.intensity == 2.5f)
             {
                 torcia.intensity = 0;
             }
             else
             {
-                torcia.intensity = 1;
+                torcia.intensity = 2.5f;
             }
         }
 

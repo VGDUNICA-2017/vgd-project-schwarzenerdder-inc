@@ -5,9 +5,6 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Misc : MonoBehaviour
 {
-
-
-    MouseLook mouselook = new MouseLook();
     private GameObject axe;
     private InventorySystem inventario;
     private GameObject smg_imp;
@@ -24,8 +21,6 @@ public class Misc : MonoBehaviour
     void Start()
     {
         //axe = GameObject.Find("l'ascia (Impugnata)");
-        mouselook.lockCursor = true;
-        Cursor.visible = false;
         inventario = GetComponent<InventorySystem>();
         smg_imp = GameObject.Find("MP5 (Impugnato)");
         cc = GetComponent<CharacterController>();
@@ -37,7 +32,10 @@ public class Misc : MonoBehaviour
     {
         useMedkit();
         crouch();
-        
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     public void useMedkit()
@@ -115,12 +113,15 @@ public class Misc : MonoBehaviour
 
     public void supportFunction(GameObject g)
     {
+        print("we1");
         StartCoroutine(DisableAfterSomeSeconds(g));
     }
 
 
     IEnumerator DisableAfterSomeSeconds(GameObject g)
     {
+        print("we2");
+
         Destroy(g);
 
         yield return new WaitForSeconds(2f);

@@ -164,8 +164,7 @@ public class InventorySystem : MonoBehaviour {
 		}
 
 		hudScript.reloadWeapon (this.ammo [indexArma], this.invAmmo [indexArma]);
-
-        print("Ammo: " + invAmmo[indexArma]);
+        
 	}
 
 	//Funzione di sparo

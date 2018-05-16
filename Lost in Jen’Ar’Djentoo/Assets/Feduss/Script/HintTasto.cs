@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HintTasto : MonoBehaviour {
-
-    //public Text testo;
+    
 	private HUDSystem hud;
-    private KeyScript access;
+    private KeyScript access_cutter;
+    private KeyScript access_key;
 
     public void Start()
     {
-        access = GameObject.FindGameObjectWithTag("Cutter").GetComponent<KeyScript>();
+        access_cutter = GameObject.FindGameObjectWithTag("Cutter").GetComponent<KeyScript>();
+        access_key = GameObject.FindGameObjectWithTag("FinalKey").GetComponent<KeyScript>();
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
-        //testo = GameObject.Find("MessageBox").GetComponent<Text>();
     }
 
 
@@ -24,9 +24,7 @@ public class HintTasto : MonoBehaviour {
             if (other.gameObject.CompareTag("Player"))
             {
 				hud.centralBoxText ("Premi \"Left Ctrl\" per abbassarti");
-				//testo.text = "Premi \"Left Ctrl\" per abbassarti";
 				hud.centralBoxEnabler(true);
-				//testo.enabled = true;
             }
         }
 
@@ -34,15 +32,28 @@ public class HintTasto : MonoBehaviour {
         {
             if (other.gameObject.CompareTag("Player"))
             {
-				if (!access.key) {
+				if (!access_cutter.key) {
 					hud.centralBoxText ("Ti servono delle cesoie per spezzare il lucchetto");
-					//testo.text = "Ti servono delle cesoie per spezzare il lucchetto";
 				} else {
 					hud.centralBoxText ("Premi \"E\" per spezzare il lucchetto");
-					//testo.text = "Premi \"E\" per spezzare il lucchetto";
 				}
 				hud.centralBoxEnabler (true);
-				//testo.enabled = true;
+            }
+        }
+
+        if (gameObject.CompareTag("FinalDoor"))
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                if (!access_key.key)
+                {
+                    hud.centralBoxText("Ti serve una chiave per procedere");
+                }
+                else
+                {
+                    hud.centralBoxText("Premi \"E\" per usare la chiave");
+                }
+                hud.centralBoxEnabler(true);
             }
         }
 
@@ -51,9 +62,16 @@ public class HintTasto : MonoBehaviour {
             if (other.gameObject.CompareTag("Player"))
             {
 				hud.centralBoxText ("Premi \"E\" per raccogliere le cesoie");
-                //testo.text = "Premi \"E\" per raccogliere le cesoie";
 				hud.centralBoxEnabler (true);
-                //testo.enabled = true;
+            }
+        }
+
+        if (gameObject.CompareTag("FinalKey"))
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+				hud.centralBoxText ("Premi \"E\" per raccogliere le chiavi");
+				hud.centralBoxEnabler (true);
             }
         }
 
@@ -117,7 +135,7 @@ public class HintTasto : MonoBehaviour {
         }
 
         //Distruggo i gameobject dei consigli sui comandi quando il player esce dal loro trigger
-        if (!gameObject.CompareTag("Serranda") || gameObject.name.Equals("Corsa") || gameObject.name.Equals("Camminata") || gameObject.name.Equals("TorciaHint"))   
+        if (gameObject.name.Equals("Corsa") || gameObject.name.Equals("Camminata") || gameObject.name.Equals("TorciaHint"))   
         {
             Destroy(gameObject);
         }
