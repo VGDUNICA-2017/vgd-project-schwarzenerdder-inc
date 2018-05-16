@@ -7,6 +7,7 @@ public class BossFight : MonoBehaviour {
 
     private HUDSystem hud;
     public bool fightStarted = false;
+    private bool onetime = true;
 
 	// Use this for initialization
 	void Start () {
@@ -19,12 +20,13 @@ public class BossFight : MonoBehaviour {
 	}
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Player")) {
+        if (other.gameObject.CompareTag("Player") && onetime) {
             (GameObject.Find("Jen'ni")).GetComponent<NavMeshAgent>().enabled = true;
             fightStarted = true;
             hud.bossBarEnabler(true);
             hud.bossNameSetter("Jen'ni");
             hud.bossBarSetter(500, 500);
+            onetime = false;
         }
             
 

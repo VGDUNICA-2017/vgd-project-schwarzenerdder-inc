@@ -90,10 +90,10 @@ public class KeyScript : MonoBehaviour
                 if (key && Input.GetButtonDown("Open Door") && onetime)
                 {
 					hud.centralBoxEnabler (false);
-                    gameObject.AddComponent<Door>();
-                    gameObject.GetComponent<Door>().closeDoorY = 180f;
-                    gameObject.GetComponent<Door>().openDoorY = 45f;
+                    gameObject.AddComponent<Rigidbody>();
+                    gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * -15f, ForceMode.Impulse);
                     onetime = false;
+                    Destroy(gameObject, 3f);
 
                 }
             }

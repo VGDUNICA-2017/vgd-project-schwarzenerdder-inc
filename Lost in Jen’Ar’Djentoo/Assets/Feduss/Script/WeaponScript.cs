@@ -322,6 +322,7 @@ public class WeaponScript : MonoBehaviour {
             { //danno bonus se lo colpisce all testa (WIP, manca un collider che gestisca la testa)
                 if (hit.collider.gameObject.CompareTag("Testa"))
                 {
+                    print("HEADSHOTTTT!");
                     //Istanzio il sangue sul nemico
                     Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
                     hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);

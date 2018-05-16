@@ -113,15 +113,12 @@ public class Misc : MonoBehaviour
 
     public void supportFunction(GameObject g)
     {
-        print("we1");
         StartCoroutine(DisableAfterSomeSeconds(g));
     }
 
 
     IEnumerator DisableAfterSomeSeconds(GameObject g)
     {
-        print("we2");
-
         Destroy(g);
 
         yield return new WaitForSeconds(2f);

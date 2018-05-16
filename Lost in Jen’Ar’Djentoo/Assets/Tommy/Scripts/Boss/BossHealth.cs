@@ -38,6 +38,8 @@ public class BossHealth : MonoBehaviour {
     void Death() {
         isDead = true;
         capsuleCollider.isTrigger = true;
+        GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated");
+        hud.bossBarEnabler(false);
         anim.SetTrigger("Die");
     }
 }
