@@ -17,6 +17,8 @@ public class Misc : MonoBehaviour
 
     private HUDSystem hud;
 
+    private bool onetime = true;
+
     // Use this for initialization
     void Start()
     {
@@ -32,6 +34,10 @@ public class Misc : MonoBehaviour
     {
         useMedkit();
         crouch();
+        if (inventario.getStatus() && onetime) {
+            onetime = false;
+            death();
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -116,7 +122,6 @@ public class Misc : MonoBehaviour
         StartCoroutine(DisableAfterSomeSeconds(g));
     }
 
-
     IEnumerator DisableAfterSomeSeconds(GameObject g)
     {
         Destroy(g);
@@ -126,6 +131,17 @@ public class Misc : MonoBehaviour
         hud.centralBoxEnabler(false);
         hud.sideBoxEnabler(false);
         
+    }
+
+    public void death()
+    {
+        hud.deathScreenTrigger();
+        Destroy(gameObject.GetComponent<Moving>());
+        Destroy(gameObject.GetComponent<flashlight>());
+        Destroy(gameObject.GetComponent<SwitchWeapon>());
+        Destroy(gameObject.GetComponent<PlayAnimation>());
+        gameObject.GetComponent<CharacterController>().height = 0f;
+        GetComponent<Animator>().SetTrigger("Death");
     }
 
 }

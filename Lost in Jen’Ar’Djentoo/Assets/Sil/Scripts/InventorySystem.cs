@@ -26,9 +26,9 @@ public class InventorySystem : MonoBehaviour {
 	private bool cesoie;
 
 	//Altri riferimenti
-	private bool noWeapon = true;
-
     private PlaySound playsound;
+
+	PlayerData data;
 
 	// Use this for initialization
 	void Start () {
@@ -62,14 +62,34 @@ public class InventorySystem : MonoBehaviour {
 			hudScript.minimapEnabler (true);
 		}
 
-		if ((getWeapon (0) || getWeapon (1) || getWeapon (2)) && noWeapon) {
-			hudScript.hudShotsEnabler (true);
-			noWeapon = false;
-		} 
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			data = SavePlayer ();
+			print ("SAVED");
+		}
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            print("Inv: " + invAmmo[0] + "/" + invAmmo[1] + "/" + invAmmo[2]);
+		if (Input.GetKeyDown (KeyCode.X)) {
+			LoadPlayer (data);
+			print ("LOADED");
+		}
+
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			if (data != null) {
+				print ("From savedata\n" +
+				"Pos: " + data.posX + "/" + data.posY + "/" + data.posZ + "\n" +
+				"Vita: " + data.health + "; Meds: " + data.medKits + "\n" +
+				"Flag armi: " + data.flagPistol + "/" + data.flagShotgun + "/" + data.flagSMG + "\n" +
+				"Canna: " + data.ammoPistol + "/" + data.ammoShotgun + "/" + data.ammoSMG + "\n" +
+				"Riserva: " + data.invPistol + "/" + data.invShotgun + "/" + data.invSMG + "\n" +
+				"Torcia: " + data.torcia + "; Ascia: " + data.ascia + "; Cesoie: " + data.cesoie + "; Mappa: " + data.mappa);
+			}
+
+			print("From inventory\n" +
+				"Pos: " + transform.position.x + "/" + transform.position.y + "/" + transform.position.z + "\n" +
+				"Vita: " + getHealth() + "; Meds: " + medKitsLeft() + "\n" +
+				"Flag armi: " + getWeapon(0) + "/" + getWeapon(1) + "/" + getWeapon(2) + "\n" +
+				"Canna: " + ammoLeft(0) + "/" + ammoLeft(1) + "/" + ammoLeft(2) + "\n" +
+				"Riserva: " + ammoInvLeft(0) + "/" + ammoInvLeft(1) + "/" + ammoInvLeft(2) + "\n" +
+				"Torcia: " + getTorcia() + "; Ascia: " + getAscia() + "; Cesoie: " + getCesoie() + "; Mappa: " + getMappa());
         }
 	}
 
@@ -273,4 +293,92 @@ public class InventorySystem : MonoBehaviour {
 	public bool getCesoie () {
 		return this.cesoie;
 	}
+
+	//SaveData del Player
+	public PlayerData SavePlayer () {
+		PlayerData data	= new PlayerData ();
+
+		data.posX = transform.position.x;
+		data.posY = transform.position.y;
+		data.posZ = transform.position.z;
+
+		data.health = currentHealth;
+		data.medKits = medKits;
+
+		data.flagPistol = weapons[0];
+		data.flagShotgun = weapons[1];
+		data.flagSMG = weapons[2];
+
+		data.ammoPistol = ammo[0];
+		data.ammoShotgun = ammo[1];
+		data.ammoSMG = ammo[2];
+
+		data.invPistol = invAmmo[0];
+		data.invShotgun = invAmmo[1];
+		data.invSMG = invAmmo[2];
+
+		data.torcia = torcia;
+		data.ascia = ascia;
+		data.cesoie = cesoie;
+		data.mappa = mappa;
+
+		return data;
+	}
+
+	public void LoadPlayer (PlayerData data) {
+		transform.position = new Vector3 (data.posX, data.posY, data.posZ);
+
+		this.currentHealth = data.health;
+		this.medKits = data.medKits;
+
+		setWeapon (data.flagPistol, 0);
+		setWeapon (data.flagShotgun, 1);
+		setWeapon (data.flagSMG, 2);
+
+		ammo [0] = data.ammoPistol;
+		ammo [1] = data.ammoShotgun;
+		ammo [2] = data.ammoSMG;
+
+		invAmmo[0] = data.invPistol;
+		invAmmo[1] = data.invShotgun;
+		invAmmo[2] = data.invSMG;
+
+		setTorcia (data.torcia);
+		setAscia (data.ascia);
+		setCesoie (data.cesoie);
+		setMappa (data.mappa);
+	}
+}
+
+[System.Serializable]
+public class PlayerData {
+	//Posizione
+	public float posX;
+	public float posY;
+	public float posZ;
+
+	//Vita e vite
+	public int health;
+	public int medKits;
+
+	//Pistola
+	public bool flagPistol;
+	public int ammoPistol;
+	public int invPistol;
+
+	//Shotgun
+	public bool flagShotgun;
+	public int ammoShotgun;
+	public int invShotgun;
+
+	//SMG
+	public bool flagSMG;
+	public int ammoSMG;
+	public int invSMG;
+
+	//Inventario
+	public bool torcia;
+	public bool ascia;
+	public bool cesoie;
+	public bool mappa;
 }

@@ -158,9 +158,9 @@ public class HUDSystem : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			deathScreenTrigger ();
-		}
+		
+		
+		
 	}
 
 	//Gestore del radiale di vita
