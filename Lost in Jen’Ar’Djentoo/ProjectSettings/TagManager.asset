@@ -41,6 +41,7 @@ TagManager:
   - SmgEnemySpawn
   - FinalKey
   - FinalDoor
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

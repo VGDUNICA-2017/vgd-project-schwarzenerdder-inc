@@ -12,7 +12,7 @@ public class InventorySystem : MonoBehaviour {
 	private bool isDead;
 	private int medKits;
 
-    //Riferimenti armi (pistola = index 0; fucile a pompa = index 1; SMG = index 2)
+	//Riferimenti armi (pistola = index 0; fucile a pompa (non implementato)= index 1; SMG = index 2)
     private int[] ammo = new int[] {0, 0, 0};
     private int[] invAmmo = new int[] {0, 0, 0};
 	private bool[] weapons = new bool[] {false, false, false};
@@ -62,35 +62,35 @@ public class InventorySystem : MonoBehaviour {
 			hudScript.minimapEnabler (true);
 		}
 
-		if (Input.GetKeyDown (KeyCode.Z)) {
-			data = SavePlayer ();
-			print ("SAVED");
-		}
-
-		if (Input.GetKeyDown (KeyCode.X)) {
-			LoadPlayer (data);
-			print ("LOADED");
-		}
-
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			if (data != null) {
-				print ("From savedata\n" +
-				"Pos: " + data.posX + "/" + data.posY + "/" + data.posZ + "\n" +
-				"Vita: " + data.health + "; Meds: " + data.medKits + "\n" +
-				"Flag armi: " + data.flagPistol + "/" + data.flagShotgun + "/" + data.flagSMG + "\n" +
-				"Canna: " + data.ammoPistol + "/" + data.ammoShotgun + "/" + data.ammoSMG + "\n" +
-				"Riserva: " + data.invPistol + "/" + data.invShotgun + "/" + data.invSMG + "\n" +
-				"Torcia: " + data.torcia + "; Ascia: " + data.ascia + "; Cesoie: " + data.cesoie + "; Mappa: " + data.mappa);
-			}
-
-			print("From inventory\n" +
-				"Pos: " + transform.position.x + "/" + transform.position.y + "/" + transform.position.z + "\n" +
-				"Vita: " + getHealth() + "; Meds: " + medKitsLeft() + "\n" +
-				"Flag armi: " + getWeapon(0) + "/" + getWeapon(1) + "/" + getWeapon(2) + "\n" +
-				"Canna: " + ammoLeft(0) + "/" + ammoLeft(1) + "/" + ammoLeft(2) + "\n" +
-				"Riserva: " + ammoInvLeft(0) + "/" + ammoInvLeft(1) + "/" + ammoInvLeft(2) + "\n" +
-				"Torcia: " + getTorcia() + "; Ascia: " + getAscia() + "; Cesoie: " + getCesoie() + "; Mappa: " + getMappa());
-        }
+//		if (Input.GetKeyDown (KeyCode.Z)) {
+//			data = SavePlayer ();
+//			print ("SAVED");
+//		}
+//
+//		if (Input.GetKeyDown (KeyCode.X)) {
+//			LoadPlayer (data);
+//			print ("LOADED");
+//		}
+//
+//		if (Input.GetKeyDown (KeyCode.Q)) {
+//			if (data != null) {
+//				print ("From savedata\n" +
+//				"Pos: " + data.posX + "/" + data.posY + "/" + data.posZ + "\n" +
+//				"Vita: " + data.health + "; Meds: " + data.medKits + "\n" +
+//				"Flag armi: " + data.flagPistol + "/" + data.flagShotgun + "/" + data.flagSMG + "\n" +
+//				"Canna: " + data.ammoPistol + "/" + data.ammoShotgun + "/" + data.ammoSMG + "\n" +
+//				"Riserva: " + data.invPistol + "/" + data.invShotgun + "/" + data.invSMG + "\n" +
+//				"Torcia: " + data.torcia + "; Ascia: " + data.ascia + "; Cesoie: " + data.cesoie + "; Mappa: " + data.mappa);
+//			}
+//
+//			print("From inventory\n" +
+//				"Pos: " + transform.position.x + "/" + transform.position.y + "/" + transform.position.z + "\n" +
+//				"Vita: " + getHealth() + "; Meds: " + medKitsLeft() + "\n" +
+//				"Flag armi: " + getWeapon(0) + "/" + getWeapon(1) + "/" + getWeapon(2) + "\n" +
+//				"Canna: " + ammoLeft(0) + "/" + ammoLeft(1) + "/" + ammoLeft(2) + "\n" +
+//				"Riserva: " + ammoInvLeft(0) + "/" + ammoInvLeft(1) + "/" + ammoInvLeft(2) + "\n" +
+//				"Torcia: " + getTorcia() + "; Ascia: " + getAscia() + "; Cesoie: " + getCesoie() + "; Mappa: " + getMappa());
+//        }
 	}
 
 	//Funzione per subire danni
@@ -306,15 +306,12 @@ public class InventorySystem : MonoBehaviour {
 		data.medKits = medKits;
 
 		data.flagPistol = weapons[0];
-		data.flagShotgun = weapons[1];
 		data.flagSMG = weapons[2];
 
 		data.ammoPistol = ammo[0];
-		data.ammoShotgun = ammo[1];
 		data.ammoSMG = ammo[2];
 
 		data.invPistol = invAmmo[0];
-		data.invShotgun = invAmmo[1];
 		data.invSMG = invAmmo[2];
 
 		data.torcia = torcia;
@@ -332,15 +329,15 @@ public class InventorySystem : MonoBehaviour {
 		this.medKits = data.medKits;
 
 		setWeapon (data.flagPistol, 0);
-		setWeapon (data.flagShotgun, 1);
+		setWeapon (false, 1);
 		setWeapon (data.flagSMG, 2);
 
 		ammo [0] = data.ammoPistol;
-		ammo [1] = data.ammoShotgun;
+		ammo [1] = 0;
 		ammo [2] = data.ammoSMG;
 
 		invAmmo[0] = data.invPistol;
-		invAmmo[1] = data.invShotgun;
+		invAmmo[1] = 0;
 		invAmmo[2] = data.invSMG;
 
 		setTorcia (data.torcia);
@@ -365,11 +362,6 @@ public class PlayerData {
 	public bool flagPistol;
 	public int ammoPistol;
 	public int invPistol;
-
-	//Shotgun
-	public bool flagShotgun;
-	public int ammoShotgun;
-	public int invShotgun;
 
 	//SMG
 	public bool flagSMG;

@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour {
 	private bool tracking;
 	private bool backToStart;
 	private bool canRoar;
-	private bool randomAttack;
+//	private bool randomAttack;
 	private bool lastVisible;
 	private float startDistance;
 	private const int MaxHealth = 100;
@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour {
 		isPlayerVisible = false;
 		tracking = false;
 		canRoar = true;
-		randomAttack = true;
+//		randomAttack = true;
 
         debug = -1;
 
@@ -195,12 +195,12 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 		
-	public void FixedUpdate () {
-		//Reset del flag per scegliere l'animazione di attacco
-		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
-			randomAttack = true;
-		}
-	}
+//	public void FixedUpdate () {
+//		//Reset del flag per scegliere l'animazione di attacco
+//		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
+//			randomAttack = true;
+//		}
+//	}
 
 	//Funzione di idle
 	public void idleAction () {
@@ -286,10 +286,12 @@ public class EnemyController : MonoBehaviour {
 	//Funzione di attacco
 	public void attackAction() {
 		//Un solo frame di random.range per attacco
-		if (randomAttack && animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking")) {
-			animator.SetFloat ("Range", (float)Random.Range (-1, 1));
-			randomAttack = false;
-		}
+		animator.SetFloat ("Range", -1.0f);
+
+//		if (randomAttack && animator.GetCurrentAnimatorStateInfo(0).IsName("Attacking")) {
+//			//animator.SetFloat ("Range", (float)Random.Range (-1, 1));
+//			randomAttack = false;
+//		}
 
 		this.transform.LookAt(playerTransform.position);
 		animator.SetFloat ("Speed", 0.0f);
@@ -299,6 +301,8 @@ public class EnemyController : MonoBehaviour {
 
 	//Funzione di morte
 	public void deathAction() {
+		agent.enabled = false;
+
 		//Se il nemico non è ancora in fase di morte, attiva tale animazione
 		if (deathCall) {
             playsound.PlayEnemyDeath();

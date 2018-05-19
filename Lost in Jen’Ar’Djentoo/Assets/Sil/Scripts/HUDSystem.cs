@@ -157,10 +157,6 @@ public class HUDSystem : MonoBehaviour {
 					Mathf.Lerp (reticleTransform.rect.height, StayingSize, 0.2f));
 			}
 		}
-
-		
-		
-		
 	}
 
 	//Gestore del radiale di vita

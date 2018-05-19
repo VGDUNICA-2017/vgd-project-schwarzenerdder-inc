@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyDamageDealer : MonoBehaviour {
 
 	private Animator enemyAnimator;
-	private bool damageDealt;
+	public bool damageDealt;
 	public int damage;
 
 	void Start () {

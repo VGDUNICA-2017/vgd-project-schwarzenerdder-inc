@@ -8,13 +8,7 @@ public class PlayAnimation : MonoBehaviour {
     private HUDSystem hudsystem; //script del player
     public bool autoaim = false; //debug per mirare senza premere il tasto dx del mouse
     private PlaySound playsound; //script del player
-    private GameObject pistola_imp; //arma impugnata dal player
-
-    private float crouch_pos;
-    private float stand_pos;
-
-    public float crouch_speed;
-    public float crouch_offset;
+    
 
     // Use this for initialization
     void Start () {
@@ -22,12 +16,6 @@ public class PlayAnimation : MonoBehaviour {
         animator=GetComponent<Animator>();
         hudsystem = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
         playsound = GetComponent<PlaySound>();
-        pistola_imp = GameObject.Find("P226 (Impugnata)");
-
-
-        stand_pos = transform.position.y;
-        crouch_pos = stand_pos - crouch_offset;
-
     }
 
 

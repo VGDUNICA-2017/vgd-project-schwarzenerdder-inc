@@ -17,7 +17,7 @@ public class WeaponScript : MonoBehaviour {
 	private int index;
 
     //Effetto dello sparo
-    public GameObject fire_effect;
+    public ParticleSystem fire_effect;
 
     //RAYCAST
     private int gunDamage = 20; //danno dell'arma
@@ -185,7 +185,7 @@ public class WeaponScript : MonoBehaviour {
 
                 RaycastShot(); //Richiamo la funzione che gestisce il raycast
 
-                fire_effect.GetComponent<ParticleSystem>().Play(); //WIP
+                
 
                 playsound.PlayShootSound(m_ShootSound);
                 
@@ -194,10 +194,7 @@ public class WeaponScript : MonoBehaviour {
 
 
         }
-        else
-        {
-            fire_effect.GetComponent<ParticleSystem>().Stop(); //WIP
-        }
+
 
         
     }
@@ -213,8 +210,6 @@ public class WeaponScript : MonoBehaviour {
             if (leftMagAmmo > 0)
             {
                 player.SetBool("AutomaticFire", true); //Avvio l'animazione
-                fire_effect.GetComponent<ParticleSystem>().Play(); //WIP
-                                                                   //playsound.PlayShootSound();
                 playsound.PlayShootSound(m_ShootSound);//da vedere se è corretto inserirlo qui!
 
             }
@@ -267,6 +262,8 @@ public class WeaponScript : MonoBehaviour {
 
     public void RaycastShot()
     {
+
+        fire_effect.Play();
 
         //Funzione in parte scritta seguendo il tutorial di unity sui raycast
 

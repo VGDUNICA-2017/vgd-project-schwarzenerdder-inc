@@ -72,11 +72,8 @@ public class SaveAndLoad : MonoBehaviour {
         GameObject pistola = GameObject.Find("P226");
         data.weapons.Add(pistola);
 
-        GameObject Smg = GameObject.Find("MP5");
-        data.weapons.Add(pistola);
-
-        /*GameObject shotgun = GameObject.Find("???");
-        data.weapons.Add(shotgun);*/
+        GameObject smg = GameObject.Find("MP5");
+        data.weapons.Add(smg);
 
         GameObject final_key = GameObject.FindGameObjectWithTag("Final_Key");
         data.key_objects.Add(final_key);
@@ -117,16 +114,16 @@ class SceneData
 {
     public PlayerData pdata;
 
-    public ArrayList enemyList;
+    public List<GameObject> enemyList;
     public GameObject miniBoss;
-    public ArrayList boss_lv1;
+    public List<GameObject> boss_lv1;
 
-    public ArrayList kit;
-    public ArrayList ammo_9mm;
-    public ArrayList ammo_smg;
-    public ArrayList weapons;
+    public List<GameObject> kit;
+    public List<GameObject> ammo_9mm;
+    public List<GameObject> ammo_smg;
+    public List<GameObject> weapons;
 
-    public ArrayList key_objects;
-    public ArrayList events;
-    public ArrayList doors;
+    public List<GameObject> key_objects;
+    public List<GameObject> events;
+    public List<GameObject> doors;
 }

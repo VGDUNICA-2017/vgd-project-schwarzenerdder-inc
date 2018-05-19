@@ -55,7 +55,6 @@ public class Pickup : MonoBehaviour {
     private void Update()
     {
         if (animator.GetBool("Pistol")) arma_attuale = 0;
-        //if (animator.GetBool("Shotgun")) arma_attuale = 1;
         if (animator.GetBool("Smg")) arma_attuale = 2;
     }
 
@@ -92,42 +91,61 @@ public class Pickup : MonoBehaviour {
 
             if (gameObject.name.Equals("l'ascia") && onetime)
             {
+                if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+                if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+                if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+
+                animator.SetBool("Axe", true);
+
                 onetime = false;
-                EquipAxe();
 				hud.centralBoxEnabler(false);
                 inventario.setAscia(true);
                 player.GetComponent<SwitchWeapon>().getAxe = true;
 				hud.sideBoxEnabler (true);
-				hud.sideBoxText("Hai raccolto l'ascia");
+				hud.sideBoxText("Hai raccolto l'ascia (Tasto 1)");
                 AxeSpawn.SetActive(true);
+                print("we");
                 misc.supportFunction(gameObject);
             }
 
             if(gameObject.name.Equals("P226") && onetime) {
+
+                //Equipaggio l'arma appena raccolta
+                if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
+                if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+                if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
+
+                inventario.changeWeaponHUD(0);
+                animator.SetBool("Pistol", true);
+
                 onetime = false;
-                EquipPistol();
 				hud.centralBoxEnabler(false);
 				inventario.startAmmo (0);
                 player.GetComponent<SwitchWeapon>().getPistol = true;
 				hud.sideBoxEnabler (true);
-				hud.sideBoxText("Hai raccolto la P226");
+				hud.sideBoxText("Hai raccolto la P226 (Tasto 2)");
                 PistolSpawn.SetActive(true);
+
                 misc.supportFunction(gameObject);
                 
             }
 
             if (gameObject.name.Equals("MP5") && onetime)
             {
-                
+                if (animator.GetBool("Axe")) animator.SetBool("Axe", false);
+                if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
+                if (animator.GetBool("Pistol")) animator.SetBool("Pistol", false);
+
+                inventario.changeWeaponHUD(2);
+                animator.SetBool("Smg", true);
+
                 onetime = false;
-                EquipSmg();
                 hud.centralBoxEnabler(false);
                 inventario.startAmmo(2);
                 player.GetComponent<SwitchWeapon>().getSmg = true;
                 hud.sideBoxEnabler(true);
-                hud.sideBoxText("Hai raccolto l'MP5");
-                
-                //SmgSpawn.SetActive(true);
+                hud.sideBoxText("Hai raccolto l'MP5 (Tasto 3)");
+                SmgSpawn.SetActive(true);
 
                 misc.supportFunction(gameObject);
             }
@@ -184,28 +202,7 @@ public class Pickup : MonoBehaviour {
 
     public void EquipTorch() {
         animator.SetBool("Torch", true);
-        animator.SetBool("WeaponLess", false);
     }
-
-    public void EquipAxe()
-    {
-        animator.SetBool("Torch", false);
-        animator.SetBool("Axe", true);
-    }
-
-    public void EquipPistol() {
-        animator.SetBool("Torch", false);
-        animator.SetBool("Axe", false);
-        animator.SetBool("Pistol", true);
-    }
-
-    public void EquipSmg()
-    {
-            animator.SetBool("Torch", false);
-            animator.SetBool("Axe", false);
-            animator.SetBool("Pistol", false);
-            animator.SetBool("Smg", true);
-        }
 
     
 }

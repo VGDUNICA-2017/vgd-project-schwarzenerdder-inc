@@ -5,19 +5,21 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Misc : MonoBehaviour
 {
-    private GameObject axe;
     private InventorySystem inventario;
-    private GameObject smg_imp;
-
     public bool crouching = false;
     private Vector3 crouchPosition = new Vector3();
     private Vector3 standPosition = new Vector3();
+    private Vector3 deathposition = new Vector3();
 
     private CharacterController cc;
 
     private HUDSystem hud;
 
     private bool onetime = true;
+
+    private GameObject ascia_imp;
+    private GameObject pistola_imp;
+    private GameObject smg_imp;
 
     // Use this for initialization
     void Start()
@@ -27,6 +29,10 @@ public class Misc : MonoBehaviour
         smg_imp = GameObject.Find("MP5 (Impugnato)");
         cc = GetComponent<CharacterController>();
         hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
+
+        pistola_imp = GameObject.Find("P226 (Impugnata)");
+        ascia_imp = GameObject.Find("l'ascia (Impugnata)");
+        smg_imp = GameObject.Find("MP5 (Impugnato)");
     }
 
     // Update is called once per frame
@@ -35,8 +41,9 @@ public class Misc : MonoBehaviour
         useMedkit();
         crouch();
         if (inventario.getStatus() && onetime) {
+
             onetime = false;
-            death();
+            death();            
         }
 
         Cursor.visible = false;
@@ -135,13 +142,29 @@ public class Misc : MonoBehaviour
 
     public void death()
     {
-        hud.deathScreenTrigger();
+        print("livep: " + transform.position);
+        deathposition = transform.position;
+        deathposition.y -= 3f;
+        print("deathp: " + deathposition);
+        gameObject.transform.position = Vector3.Lerp(transform.position, deathposition, Time.deltaTime*20f);
+
         Destroy(gameObject.GetComponent<Moving>());
         Destroy(gameObject.GetComponent<flashlight>());
         Destroy(gameObject.GetComponent<SwitchWeapon>());
+
+        if(ascia_imp!=null) ascia_imp.SetActive(false);
+        if(pistola_imp!=null) pistola_imp.SetActive(false);
+        if(smg_imp!=null) smg_imp.SetActive(false);
+
         Destroy(gameObject.GetComponent<PlayAnimation>());
-        gameObject.GetComponent<CharacterController>().height = 0f;
+
+        GameObject.FindGameObjectWithTag("Hands").transform.eulerAngles = new Vector3(-90f, 0f, 0f);
+        GameObject.FindGameObjectWithTag("MainCamera").transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        
         GetComponent<Animator>().SetTrigger("Death");
+
+        hud.deathScreenTrigger();
+
     }
 
 }
