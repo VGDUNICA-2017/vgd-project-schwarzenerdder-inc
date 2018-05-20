@@ -62,7 +62,7 @@ public class EventScript : MonoBehaviour {
             boss_door1.GetComponent<Animator>().SetTrigger("Close");
             boss1.SetActive(true);
             hud.bossBarEnabler(true);
-            hud.bossNameSetter("Puglisi");
+            hud.bossNameSetter("Gente Mala");
         }
         else
         {

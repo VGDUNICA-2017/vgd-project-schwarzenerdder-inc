@@ -123,7 +123,7 @@ public class WeaponScript : MonoBehaviour {
         if (player.GetBool("Axe"))
         {
             Axehit();
-            weaponRange = 2.5f;
+            weaponRange = 3f;
         }
 	}
 
@@ -263,7 +263,7 @@ public class WeaponScript : MonoBehaviour {
     public void RaycastShot()
     {
 
-        fire_effect.Play();
+        if(!player.GetBool("Axe")) fire_effect.Play();
 
         //Funzione in parte scritta seguendo il tutorial di unity sui raycast
 
@@ -283,7 +283,6 @@ public class WeaponScript : MonoBehaviour {
 
         if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange, lm))
         {
-            print(hit.collider.name);
 
             //Se colpisco il nemico (Enemy_part=mani del nemico)) o il boss
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss") || hit.collider.gameObject.CompareTag("MiniBoss"))

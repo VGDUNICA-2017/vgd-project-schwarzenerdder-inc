@@ -104,7 +104,6 @@ public class Pickup : MonoBehaviour {
 				hud.sideBoxEnabler (true);
 				hud.sideBoxText("Hai raccolto l'ascia (Tasto 1)");
                 AxeSpawn.SetActive(true);
-                print("we");
                 misc.supportFunction(gameObject);
             }
 

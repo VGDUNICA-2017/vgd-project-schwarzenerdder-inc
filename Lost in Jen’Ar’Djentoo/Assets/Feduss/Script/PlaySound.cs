@@ -44,6 +44,22 @@ public class PlaySound : MonoBehaviour {
         }
     }
 
+    public void PlayFootStepAudioIndoor(int speed)
+    {
+        if (m_AudioSource.isPlaying != true)
+        {
+            // pick & play a random footstep sound from the array,
+            // excluding sound at index 0
+            m_AudioSource.pitch = speed;
+            int n = Random.Range(1, m_FootstepSounds_Indoor.Length);
+            m_AudioSource.clip = m_FootstepSounds_Indoor[n];
+            m_AudioSource.PlayOneShot(m_AudioSource.clip);
+            // move picked sound to index 0 so it's not picked next time
+            m_FootstepSounds_Indoor[n] = m_FootstepSounds_Indoor[0];
+            m_FootstepSounds_Indoor[0] = m_AudioSource.clip;
+        }
+    }
+
     public void PlayReloadSound(AudioClip ac)
     {
         m_AudioSource.clip = ac;

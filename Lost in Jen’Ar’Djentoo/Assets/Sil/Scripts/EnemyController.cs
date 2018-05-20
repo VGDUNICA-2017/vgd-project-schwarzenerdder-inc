@@ -50,7 +50,9 @@ public class EnemyController : MonoBehaviour {
 
     private PlayEnemySound playsound;
 
-	void Start () {
+    private int attack_num = 0;
+
+    void Start () {
 		animator = this.GetComponent<Animator> ();
 		agent = this.GetComponent<NavMeshAgent> ();
 		playsound = this.GetComponent<PlayEnemySound> ();
@@ -321,6 +323,7 @@ public class EnemyController : MonoBehaviour {
 	//Funzione per subire danno
 	public void takeDamage(int damage) {
 		this.health -= damage;
+        attack_num++;
 
 		if ((debug == 0) || (debug == 2)) {
 			print ("H");
@@ -335,7 +338,7 @@ public class EnemyController : MonoBehaviour {
 			canRoar = true;
 		}
 
-		if (health > 0) {
+		if (health > 0 && attack_num % 2 == 0) {
 			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 			animator.SetTrigger ("Hit");
             playsound.PlayEnemyHitSound();

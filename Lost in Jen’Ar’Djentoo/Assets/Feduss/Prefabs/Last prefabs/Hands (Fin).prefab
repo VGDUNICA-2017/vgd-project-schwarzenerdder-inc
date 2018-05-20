@@ -2788,7 +2788,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1726314064559116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 405.3, y: -0.3, z: 119.6}
+  m_LocalPosition: {x: 441.6, y: 30.37, z: 129.8}
   m_LocalScale: {x: 0.05270716, y: 0.05270716, z: 0.05270716}
   m_Children:
   - {fileID: 4604000986915136}
@@ -3789,17 +3789,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FootstepSounds_Indoor:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
+  - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
+  - {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
+  - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
   m_FootstepSounds_Snow:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 9c41ac41117eaa148a76bccb57ea30f5, type: 3}
+  - {fileID: 8300000, guid: e0c8cd84682debf4283b23f915cfbd38, type: 3}
+  - {fileID: 8300000, guid: b012d22e5c7b2784389faf2121274ec9, type: 3}
+  - {fileID: 8300000, guid: d4841e699c05b4a4c8573ee8428daecf, type: 3}
+  - {fileID: 8300000, guid: e2cb069505d1dd945890496794596355, type: 3}
   m_PlayerHit: {fileID: 8300000, guid: 5d5769d96d919cf418461d4229ffdd4d, type: 3}
   m_Spotted: {fileID: 8300000, guid: 3463b99594ef2054799aab49648b10bd, type: 3}
   m_PlayerDeath: {fileID: 8300000, guid: 1f3fb0f2eae67374eb54080f438c934e, type: 3}
@@ -3893,7 +3892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3724af4d0c17cd34d9d317f026592847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoaim: 0
+  snow: 0
 --- !u!114 &114871634848761066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3974,10 +3973,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967039
   one: 1
-  m_ReloadSound: {fileID: 0}
-  m_ShootSound: {fileID: 0}
-  m_EmptyMag: {fileID: 0}
-  m_EmptyMagReload: {fileID: 0}
+  m_ReloadSound: {fileID: 8300000, guid: d65637ecb154425488b19b6b53a9f203, type: 3}
+  m_ShootSound: {fileID: 8300000, guid: 5364f576965b8d249a3fc048ec42abf8, type: 3}
+  m_EmptyMag: {fileID: 8300000, guid: 7fcc2ff367dafbc429c6d98747018ca7, type: 3}
+  m_EmptyMagReload: {fileID: 8300000, guid: 790d960de715f4643943d392d05779f4, type: 3}
   m_EquipPistol: {fileID: 0}
 --- !u!124 &124296590497930592
 Behaviour:
@@ -4377,7 +4376,7 @@ CharacterController:
   m_Height: 100
   m_Radius: 12.5
   m_SlopeLimit: 45
-  m_StepOffset: 1
+  m_StepOffset: 0.6
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 39.74, z: 7}

@@ -21,6 +21,8 @@ public class Misc : MonoBehaviour
     private GameObject pistola_imp;
     private GameObject smg_imp;
 
+    private PlayAnimation pa;
+
     // Use this for initialization
     void Start()
     {
@@ -165,6 +167,20 @@ public class Misc : MonoBehaviour
 
         hud.deathScreenTrigger();
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print(collision.gameObject.name + collision.gameObject.tag);
+        //Setto snow (la variabile che indica se sei a contatto col terreno innevato) a secondo della collisione con il terreno o no
+        if (collision.gameObject.CompareTag("Terreno"))
+        {
+            pa.snow = true;
+        }
+        else
+        {
+            pa.snow = false;
+        }
     }
 
 }

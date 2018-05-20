@@ -6,8 +6,9 @@ public class PlayAnimation : MonoBehaviour {
 
     private Animator animator; // animator del player
     private HUDSystem hudsystem; //script del player
-    public bool autoaim = false; //debug per mirare senza premere il tasto dx del mouse
     private PlaySound playsound; //script del player
+
+    public bool snow=true; //true=a contatto con il terreno innevato
     
 
     // Use this for initialization
@@ -39,7 +40,8 @@ public class PlayAnimation : MonoBehaviour {
         if ((Input.GetAxis("Vertical") != 0.0) || (Input.GetAxis("Horizontal") != 0.0))
         {
             hudsystem.movingState(true);
-            if (!animator.GetBool("Run")) playsound.PlayFootStepAudioSnow(1);
+            if (!animator.GetBool("Run") && snow) playsound.PlayFootStepAudioSnow(1);
+            else if (!animator.GetBool("Run") && !snow) playsound.PlayFootStepAudioIndoor(1);
         }
         else
         {
@@ -50,7 +52,8 @@ public class PlayAnimation : MonoBehaviour {
         if (Input.GetKey(KeyCode.LeftShift) && ((Input.GetAxis("Vertical") != 0.0) || (Input.GetAxis("Horizontal") != 0.0)))
         {
             animator.SetBool("Run", true);
-            playsound.PlayFootStepAudioSnow(2);
+            if (snow) playsound.PlayFootStepAudioSnow(2);
+            else if (!snow) playsound.PlayFootStepAudioIndoor(2);
         }
         else
         {
