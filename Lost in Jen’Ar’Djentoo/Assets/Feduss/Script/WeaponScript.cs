@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour {
 
-	private Animator player;
+
+    //Ho seguito il seguente tutorial ---> https://www.youtube.com/watch?v=THnivyG0Mvo per impostare il rateo di fuoco e l'effetto particellare dello sparo
+    //Ho seguito il tutorial di unity per impostare il raycast (per lo sparo)
+
+    private Animator player;
 
 
     //Script varie
@@ -21,7 +25,8 @@ public class WeaponScript : MonoBehaviour {
 
     //RAYCAST
     private int gunDamage = 20; //danno dell'arma
-    public float fireRate = .25f; //tempo tra uno sparo e l'altro..nel nostro caso, determinerà la durante dell'animazione di sparo (più è alto, più sparera velocemente)
+    public float fireRate = 4f; //tempo tra uno sparo e l'altro
+    public float nextFire = 0f;
 
     public float weaponRange = 50f; //gittata dell'arma
     public float hitForce = 100f; //forza impressa dal colpo durante la collisione
@@ -105,18 +110,10 @@ public class WeaponScript : MonoBehaviour {
 		leftInvAmmo = inventario.ammoInvLeft(index);
 
         //Se il giocatore sta impugnando un'arma da fuoco
-        if (player.GetBool("Pistol"))
+        if (player.GetBool("Pistol") || player.GetBool("Smg"))
         {
-            PistolFire();
+            Shot();
             Reload();
-            weaponRange = 100f;
-        }
-
-        if (player.GetBool("Smg"))
-        {
-            SmgFire();
-            Reload();
-            weaponRange = 100f;
         }
 
         //Se il giocatore sta impugnando l'ascia
@@ -132,7 +129,7 @@ public class WeaponScript : MonoBehaviour {
         //Può ricaricare se preme R, se non sta già ricaricando o sparando e se ha abbastanza colpi di riserva
         if (Input.GetButton("Reload") && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg")) &&
             !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !(player.GetCurrentAnimatorStateInfo(1).IsName("Fire_Smg")) &&
-            leftInvAmmo > 0)
+            leftInvAmmo > 0 && leftMagAmmo!=inventario.maxAmmo(index))
         {
             //Avvio l'animazione
             player.SetBool("Reload", true);
@@ -166,13 +163,13 @@ public class WeaponScript : MonoBehaviour {
         }
     }
 
-    public void PistolFire()
+    public void Shot()
     {
 
-        //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
-        if (Input.GetButtonDown("Fire1") && !player.GetCurrentAnimatorStateInfo(0).IsName("Reload") &&
-            !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && (!player.IsInTransition(1) && !player.GetBool("Run")))
+        //Spara se preme il tasto sinistro del mouse e se è passato il tempo minimo tra uno sparo e l'altro
+        if (Input.GetButton("Fire1") && Time.time >= nextFire)
         {
+            nextFire = Time.time + 1f/fireRate; //Spara ogni 1/fireRate secondi
 
             //Se il caricatore è vuoto
             if (leftMagAmmo == 0)
@@ -197,55 +194,6 @@ public class WeaponScript : MonoBehaviour {
 
 
         
-    }
-
-    public void SmgFire()
-    {   
-
-        //Spara se preme il tasto sinistro del mouse, se non sta già sparando, se non sta ricaricando e se non sta correndo
-        if (Input.GetButton("Fire1") &&  !player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg") && !player.IsInTransition(1) && !player.GetBool("Run"))
-        {
-
-            //Se ha ancora colpi nel caricatore, allora spara normalmente
-            if (leftMagAmmo > 0)
-            {
-                player.SetBool("AutomaticFire", true); //Avvio l'animazione
-                playsound.PlayShootSound(m_ShootSound);//da vedere se è corretto inserirlo qui!
-
-            }
-            else
-            {
-                //Altrimenti, per una sola volta (one):
-                if (one)
-                {
-                    print("we");
-                    //Se il caricatore è vuoto
-                    playsound.PlayEmptyMag(m_EmptyMag);
-                    inventario.shot(index); //Serve per far pulsare di rosso lo 0 dei colpi nel caricatore
-                    player.SetBool("AutomaticFire", false); //Esco dall'animazione
-                    one = false; //La imposto su false per non entrare più in questo if sino al prossimo reset di one
-                }
-            }
-
-
-           
-            
-        }
-        else
-        {
-            //Quando rilascio il pulsante di sparo, esco dall'animazione e resetto one
-            if (Input.GetButtonUp("Fire1") || leftMagAmmo==0)
-            {
-                player.SetBool("AutomaticFire", false);
-                one = true;    
-            }
-        }
-
-        
-        
-        
-
-
     }
 
     public void Axehit()
@@ -287,7 +235,7 @@ public class WeaponScript : MonoBehaviour {
             //Se colpisco il nemico (Enemy_part=mani del nemico)) o il boss
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss") || hit.collider.gameObject.CompareTag("MiniBoss"))
             {
-
+                print(hit.collider.name);
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
                 //Gli infliggo danno (l'else gestisce il danno se colpisco il nemico nelle mani, cioè enemy_part)

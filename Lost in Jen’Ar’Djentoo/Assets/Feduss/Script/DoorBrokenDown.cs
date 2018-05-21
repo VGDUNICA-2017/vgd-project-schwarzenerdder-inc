@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DoorBrokenDown : MonoBehaviour {
 
-    private Rigidbody rb;
     public float force;
     public bool flag = false;
+    public bool forward = false; //bool che serve per orientare la forza applicata al rigidbody del gameobject
 
     private AudioSource audio_source;
     public AudioClip doorKick;
@@ -15,7 +15,6 @@ public class DoorBrokenDown : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        rb = GetComponent<Rigidbody>();
         audio_source = GetComponent<AudioSource>();
 
 	}
@@ -36,8 +35,19 @@ public class DoorBrokenDown : MonoBehaviour {
 
             audio_source.clip = doorBrokenDown;
             audio_source.Play();
-            rb.AddForce(Vector3.right * force, ForceMode.Impulse);
-            //Destroy(gameObject, 5);
+            gameObject.AddComponent<Rigidbody>();
+
+            if(forward) GetComponent<Rigidbody>().AddForce(Vector3.forward * force, ForceMode.Impulse);
+            else GetComponent<Rigidbody>().AddForce(Vector3.right * force, ForceMode.Impulse);
+
+            foreach (BoxCollider collider in gameObject.GetComponents<BoxCollider>())
+            {
+                if (collider.isTrigger)
+                {
+                    Destroy(collider);
+                }
+            }
+            //Destroy(gameObject.GetComponent<Rigidbody>());
         }
     }
 

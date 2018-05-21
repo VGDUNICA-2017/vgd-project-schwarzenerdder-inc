@@ -91,9 +91,18 @@ public class KeyScript : MonoBehaviour
                 {
 					hud.centralBoxEnabler (false);
                     gameObject.AddComponent<Rigidbody>();
-                    gameObject.GetComponent<Rigidbody>().AddForce(Vector3.back * -15f, ForceMode.Impulse);
+                    gameObject.GetComponent<Rigidbody>().AddForce(Vector3.forward * 15f, ForceMode.Impulse);
                     onetime = false;
-                    Destroy(gameObject, 3f);
+
+                    foreach (BoxCollider collider in gameObject.GetComponents<BoxCollider>())
+                    {
+                        if (collider.isTrigger)
+                        {
+                            Destroy(collider);
+                        }
+                    }
+
+                    //Destroy(gameObject.GetComponent<Rigidbody>());
 
                 }
             }

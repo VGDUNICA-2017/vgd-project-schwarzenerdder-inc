@@ -172,6 +172,12 @@ public class InventorySystem : MonoBehaviour {
 		return invAmmo [indexArma];
 	}
 
+    //Getter munizioni massime nel caricatore
+    public int maxAmmo(int indexArma)
+    {
+        return magCapacity[indexArma];
+    }
+
 	//Funzione di inizializzazione arma
 	//Setta che l'arma è in inventario, con un caricatore pieno e uno di scorta
 	public void startAmmo (int indexArma) {
