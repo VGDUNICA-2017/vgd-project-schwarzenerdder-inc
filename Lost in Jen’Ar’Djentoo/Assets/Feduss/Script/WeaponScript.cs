@@ -137,11 +137,11 @@ public class WeaponScript : MonoBehaviour {
             //Cambio il suono della ricarica in base ai colpi nel caricatore
             if (leftMagAmmo == 0)
             {
-                playsound.PlayEmptyMagReload(m_EmptyMagReload);
+                playsound.PlayEmptyMagReload(m_EmptyMagReload, GetComponent<AudioSource>());
             }
             else
             {
-                playsound.PlayReloadSound(m_ReloadSound);
+                playsound.PlayReloadSound(m_ReloadSound, GetComponent<AudioSource>());
             }
 
         }
@@ -167,29 +167,34 @@ public class WeaponScript : MonoBehaviour {
     {
 
         //Spara se preme il tasto sinistro del mouse e se è passato il tempo minimo tra uno sparo e l'altro
-        if (Input.GetButton("Fire1") && Time.time >= nextFire)
+        if (Input.GetButton("Fire1") && Time.time >= nextFire 
+            && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire")) //Serve per riprodurre correttamente (per ogni sparo) l'animazione della pistola (per quella del mitra non serve)
         {
             nextFire = Time.time + 1f/fireRate; //Spara ogni 1/fireRate secondi
 
             //Se il caricatore è vuoto
             if (leftMagAmmo == 0)
             {
-                playsound.PlayEmptyMag(m_EmptyMag);
+                playsound.PlayEmptyMag(m_EmptyMag, GetComponent<AudioSource>());
             }
             else
             {
-                player.SetTrigger("Fire"); //avvio l'animazione di sparo
+                player.SetBool("Fire", true); //avvio l'animazione di sparo
 
                 RaycastShot(); //Richiamo la funzione che gestisce il raycast
 
+                playsound.PlayShootSound(m_ShootSound, GetComponent<AudioSource>());
                 
 
-                playsound.PlayShootSound(m_ShootSound);
-                
             }
             inventario.shot(index); //Scalo un colpo
+            
 
 
+        }
+        else if(Input.GetButtonUp("Fire1"))
+        {
+            player.SetBool("Fire", false);
         }
 
 
@@ -204,14 +209,15 @@ public class WeaponScript : MonoBehaviour {
         {
             player.SetTrigger("Attack"); //Avvio l'animazione
             RaycastShot(); //Richiamo la funzione che gestisce il raycast
-            playsound.PlayAxeAttackSound(m_ShootSound);
+            playsound.PlayAxeAttackSound(m_ShootSound, GetComponent<AudioSource>());
         }
     }
 
     public void RaycastShot()
     {
+        
 
-        if(!player.GetBool("Axe")) fire_effect.Play();
+        if (!player.GetBool("Axe")) fire_effect.Play();
 
         //Funzione in parte scritta seguendo il tutorial di unity sui raycast
 
@@ -264,7 +270,7 @@ public class WeaponScript : MonoBehaviour {
             }
             else
             { //danno bonus se lo colpisce all testa (WIP, manca un collider che gestisca la testa)
-                if (hit.collider.gameObject.CompareTag("Testa"))
+                if (hit.collider.gameObject.CompareTag("Testa") && !gameObject.CompareTag("Axe"))
                 {
                     print("HEADSHOTTTT!");
                     //Istanzio il sangue sul nemico

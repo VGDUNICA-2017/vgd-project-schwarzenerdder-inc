@@ -8,11 +8,16 @@ public class SaveAndLoad : MonoBehaviour {
 
     private InventorySystem isys;
     private GameObject player;
+    private HUDSystem hud;
+    private Misc misc;
 
 	// Use this for initialization
 	void Start () {
-        isys = player.GetComponent<InventorySystem>();
-	}
+        isys = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        misc = player.GetComponent<Misc>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -21,6 +26,8 @@ public class SaveAndLoad : MonoBehaviour {
 
     public void Save()
     {
+
+        print("Salvataggio start");
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gameDir.dat");
 
@@ -29,7 +36,7 @@ public class SaveAndLoad : MonoBehaviour {
         
         //Per ogni nemico con tag Enemy
         foreach (GameObject nemico in GameObject.FindGameObjectsWithTag("Enemy")){
-
+            print(data + "|" + data.enemyList);
             data.enemyList.Add(nemico); //Li salvo in una lista
         }
 
@@ -75,7 +82,7 @@ public class SaveAndLoad : MonoBehaviour {
         GameObject smg = GameObject.Find("MP5");
         data.weapons.Add(smg);
 
-        GameObject final_key = GameObject.FindGameObjectWithTag("Final_Key");
+        GameObject final_key = GameObject.FindGameObjectWithTag("FinalKey");
         data.key_objects.Add(final_key);
 
         GameObject cutter = GameObject.FindGameObjectWithTag("Cutter");
@@ -99,6 +106,9 @@ public class SaveAndLoad : MonoBehaviour {
         data.doors.Add(porta_preboss_lv1);
 
         formatter.Serialize(file, data);
+
+        print("Salvataggio end");
+
         file.Close();
      
     }
@@ -107,23 +117,35 @@ public class SaveAndLoad : MonoBehaviour {
     {
         //isys.LoadPlayer();
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            print("Salvataggio");
+            hud.sideBoxEnabler(true);
+            hud.sideBoxText("Checkpoint raggiunto!");
+            Save();
+            misc.supportFunction(gameObject);
+            
+        }
+    }
 }
 
 [System.Serializable]
 class SceneData
 {
     public PlayerData pdata;
+    public List<GameObject> enemyList = new List<GameObject>();
+    public GameObject miniBoss=null;
+    public List<GameObject> boss_lv1 = new List<GameObject>();
 
-    public List<GameObject> enemyList;
-    public GameObject miniBoss;
-    public List<GameObject> boss_lv1;
+    public List<GameObject> kit = new List<GameObject>();
+    public List<GameObject> ammo_9mm = new List<GameObject>();
+    public List<GameObject> ammo_smg = new List<GameObject>();
+    public List<GameObject> weapons = new List<GameObject>();
 
-    public List<GameObject> kit;
-    public List<GameObject> ammo_9mm;
-    public List<GameObject> ammo_smg;
-    public List<GameObject> weapons;
-
-    public List<GameObject> key_objects;
-    public List<GameObject> events;
-    public List<GameObject> doors;
+    public List<GameObject> key_objects = new List<GameObject>();
+    public List<GameObject> events = new List<GameObject>();
+    public List<GameObject> doors = new List<GameObject>();
 }

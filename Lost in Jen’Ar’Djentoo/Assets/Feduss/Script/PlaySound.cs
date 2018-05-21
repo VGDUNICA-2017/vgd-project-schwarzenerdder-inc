@@ -60,42 +60,43 @@ public class PlaySound : MonoBehaviour {
         }
     }
 
-    public void PlayReloadSound(AudioClip ac)
+    public void PlayReloadSound(AudioClip ac, AudioSource asource)
     {
-        m_AudioSource.clip = ac;
-        m_AudioSource.Play();
+        asource.clip = ac;
+        asource.Play();
     }
 
-    public void PlayShootSound(AudioClip ac)
+    public void PlayShootSound(AudioClip ac, AudioSource asource)
     {
-        m_AudioSource.clip = ac;
-        m_AudioSource.Play();
+        asource.clip = ac;
+        asource.Play();
+      
     }
 
-    public void PlayEmptyMag(AudioClip ac)
+    public void PlayEmptyMag(AudioClip ac, AudioSource asource)
     {
-        m_AudioSource.clip = ac;
-        m_AudioSource.Play();
+        asource.clip = ac;
+        asource.Play();
     }
 
-    public void PlayEmptyMagReload(AudioClip ac)
+    public void PlayEmptyMagReload(AudioClip ac, AudioSource asource)
     {
-        m_AudioSource.clip = ac;
-        m_AudioSource.Play();
+        asource.clip = ac;
+        asource.Play();
     }
 
-    public void PlayEquipPistolSound(AudioClip ac)
+    public void PlayEquipPistolSound(AudioClip ac, AudioSource asource)
     {
-        m_AudioSource.clip = ac;
-        m_AudioSource.Play();
+        asource.clip = ac;
+        asource.Play();
     }
 
-    public void PlayAxeAttackSound(AudioClip ac)
+    public void PlayAxeAttackSound(AudioClip ac, AudioSource asource)
     {
-        if (m_AudioSource.isPlaying != true)
+        if (asource.isPlaying != true)
         {
-            m_AudioSource.clip = ac;
-            m_AudioSource.Play();
+            asource.clip = ac;
+            asource.Play();
         }
     }
 

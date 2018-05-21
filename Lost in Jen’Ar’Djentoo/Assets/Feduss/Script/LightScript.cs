@@ -25,7 +25,7 @@ public class LightScript : MonoBehaviour {
         light.GetComponent<Light>().intensity = 0;
         lamp.SetActive(false);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         light.GetComponent<Light>().intensity = 10;
         lamp.SetActive(true);
