@@ -237,7 +237,7 @@ public class WeaponScript : MonoBehaviour {
 
         if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange, lm))
         {
-
+            print(hit.collider.name);
             //Se colpisco il nemico (Enemy_part=mani del nemico)) o il boss
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss") || hit.collider.gameObject.CompareTag("MiniBoss"))
             {

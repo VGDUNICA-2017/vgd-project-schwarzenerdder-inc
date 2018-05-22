@@ -21,7 +21,8 @@ public class SaveAndLoad : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        Load();
 	}
 
     public void Save()
@@ -29,20 +30,26 @@ public class SaveAndLoad : MonoBehaviour {
 
         print("Salvataggio start");
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gameDir.dat");
+        FileStream file = File.Create(Application.persistentDataPath + "/save.dat");
 
         SceneData data = new SceneData();
         data.pdata = isys.SavePlayer();
+        data.edata = new List<Enemy>();
+        
         
         //Per ogni nemico con tag Enemy
         foreach (GameObject nemico in GameObject.FindGameObjectsWithTag("Enemy")){
-            print(data + "|" + data.enemyList);
-            data.enemyList.Add(nemico); //Li salvo in una lista
+            if (nemico.activeInHierarchy)
+            {
+                data.edata.Add(SaveEnemy(nemico));
+
+            }
         }
 
         //Salvo il miniboss
         GameObject miniBoss = GameObject.FindGameObjectWithTag("MiniBoss");
-        data.miniBoss = miniBoss;
+        if(miniBoss!=null && miniBoss.activeInHierarchy) data.edata.Add(SaveEnemy(miniBoss));
+
 
         //Salvo i due boss (fine lv1 e fine lv2)
         foreach (GameObject boss in GameObject.FindGameObjectsWithTag("Boss"))
@@ -51,11 +58,11 @@ public class SaveAndLoad : MonoBehaviour {
             //Se sono attivi nella scena (cioè se sono spawnati e non sono morti)
             if (boss.activeInHierarchy)
             {
-                data.enemyList.Add(boss); //Li salvo in una lista
+                data.edata.Add(SaveEnemy(boss)); //Li salvo in una lista
             }
         }
 
-        foreach(GameObject kitmedico in GameObject.FindGameObjectsWithTag("FirstAid"))
+        /*foreach(GameObject kitmedico in GameObject.FindGameObjectsWithTag("FirstAid"))
         {
             data.kit.Add(kitmedico);
         }
@@ -103,11 +110,12 @@ public class SaveAndLoad : MonoBehaviour {
         }
 
         GameObject porta_preboss_lv1 = GameObject.FindGameObjectWithTag("FinalDoor");
-        data.doors.Add(porta_preboss_lv1);
+        data.doors.Add(porta_preboss_lv1);*/
 
         formatter.Serialize(file, data);
 
         print("Salvataggio end");
+        print(Application.persistentDataPath + "/gameData.dat");
 
         file.Close();
      
@@ -115,7 +123,62 @@ public class SaveAndLoad : MonoBehaviour {
 
     public void Load()
     {
-        //isys.LoadPlayer();
+        if(Input.GetKeyDown("l") && File.Exists(Application.persistentDataPath + "/save.dat") == null)
+        {
+            print("Salvataggio nullo");
+        }
+        if (Input.GetKeyDown("l") && File.Exists(Application.persistentDataPath + "/save.dat"))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
+
+            SceneData data = (SceneData)formatter.Deserialize(file);
+            file.Close();
+
+            isys.LoadPlayer(data.pdata);
+            LoadEnemy(data.edata);
+            
+
+        }
+    }
+
+    public void LoadEnemy(List<Enemy> edata)
+    {
+        foreach (Enemy nemico in edata)
+        {
+            GameObject tempEnemy = GameObject.Find(nemico.name);
+            tempEnemy.transform.localPosition = new Vector3(nemico.x, nemico.y, nemico.z);
+            if (tempEnemy.GetComponent<EnemyController>() != null)
+            {
+                tempEnemy.GetComponent<EnemyController>().health = nemico.health;
+                tempEnemy.GetComponent<EnemyController>().setFromLoad(new Vector3(nemico.startX, nemico.startY, nemico.startZ));
+            }
+            if (tempEnemy.GetComponent<Boss1Controller>() != null) tempEnemy.GetComponent<Boss1Controller>().health = nemico.health;
+            if (tempEnemy.GetComponent<BossHealth>() != null)      tempEnemy.GetComponent<BossHealth>().currentHealth = nemico.health;
+            
+
+            
+        }
+
+
+    }
+
+    public Enemy SaveEnemy(GameObject nemico)
+    {
+        Enemy tempEnemy = new Enemy();
+        tempEnemy.x = nemico.transform.position.x;
+        tempEnemy.y = nemico.transform.position.y;
+        tempEnemy.z = nemico.transform.position.z;
+        Vector3 startPos = new Vector3();
+        if (nemico.GetComponent<EnemyController>() != null)  startPos = nemico.GetComponent<EnemyController>().saveStartPos();
+        tempEnemy.startX = startPos.x;
+        tempEnemy.startY = startPos.y;
+        tempEnemy.startZ = startPos.z;
+        tempEnemy.name = nemico.gameObject.name;
+        if(nemico.GetComponent<EnemyController>()!=null )tempEnemy.health = nemico.GetComponent<EnemyController>().health;
+        if(nemico.GetComponent<Boss1Controller>()!=null )tempEnemy.health = nemico.GetComponent<Boss1Controller>().health;
+        if(nemico.GetComponent<BossHealth>()!=null )     tempEnemy.health = nemico.GetComponent<BossHealth>().currentHealth;
+        return tempEnemy;
     }
 
     public void OnTriggerEnter(Collider other)
@@ -136,16 +199,21 @@ public class SaveAndLoad : MonoBehaviour {
 class SceneData
 {
     public PlayerData pdata;
-    public List<GameObject> enemyList = new List<GameObject>();
-    public GameObject miniBoss=null;
-    public List<GameObject> boss_lv1 = new List<GameObject>();
+    public List<Enemy> edata;
+}
 
-    public List<GameObject> kit = new List<GameObject>();
-    public List<GameObject> ammo_9mm = new List<GameObject>();
-    public List<GameObject> ammo_smg = new List<GameObject>();
-    public List<GameObject> weapons = new List<GameObject>();
+[System.Serializable]
+public class Enemy
+{
 
-    public List<GameObject> key_objects = new List<GameObject>();
-    public List<GameObject> events = new List<GameObject>();
-    public List<GameObject> doors = new List<GameObject>();
+    public float x;
+    public float y;
+    public float z;
+    public string name;
+    public int health;
+
+    public float startX;
+    public float startY;
+    public float startZ;
+
 }

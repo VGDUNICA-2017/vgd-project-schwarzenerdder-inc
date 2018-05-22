@@ -9,12 +9,12 @@ public class EnemyDamageDealer : MonoBehaviour {
 	public int damage;
 
 	void Start () {
-		enemyAnimator = this.GetComponentInParent<Animator> ();
+		enemyAnimator = this.GetComponentInParent<Animator>();
 		damageDealt = false;
 	}
 
 	void FixedUpdate () {
-		if (!enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
+		if (!enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName("Attacking")) {
 			damageDealt = false;
 		}
 	}
@@ -22,9 +22,9 @@ public class EnemyDamageDealer : MonoBehaviour {
 	public void OnTriggerEnter (Collider other) {
 		
 		if (other.gameObject.CompareTag("Player")) {
-			if (enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Attacking")) {
+			if (enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName("Attacking")) {
 				if (!damageDealt) {
-					other.GetComponent<InventorySystem> ().takeDamage (damage);
+					other.GetComponent<InventorySystem>().takeDamage(damage);
 					damageDealt = true;
 				}
 			}

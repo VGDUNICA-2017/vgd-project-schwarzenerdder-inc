@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4816772269375116}
   - component: {fileID: 65795245407162784}
+  - component: {fileID: 114967270482913338}
   m_Layer: 0
   m_Name: Post-Boss
   m_TagString: Checkpoint
@@ -36,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4299469883774940}
   - component: {fileID: 65646330628808298}
+  - component: {fileID: 114103138404496856}
   m_Layer: 0
   m_Name: Pre-MiniBoss
   m_TagString: Checkpoint
@@ -52,6 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4122774695631930}
   - component: {fileID: 65434714338885218}
+  - component: {fileID: 114934926892154090}
   m_Layer: 0
   m_Name: Cesoie
   m_TagString: Checkpoint
@@ -68,6 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4354123051980232}
   - component: {fileID: 65726861992791560}
+  - component: {fileID: 114949114910223510}
   m_Layer: 0
   m_Name: Pre-Boss
   m_TagString: Checkpoint
@@ -83,7 +87,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4138482754112302}
-  - component: {fileID: 114226127691282004}
   m_Layer: 0
   m_Name: Checkpoints
   m_TagString: Untagged
@@ -100,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4175253042315568}
   - component: {fileID: 65745805162579428}
+  - component: {fileID: 114284883861317584}
   m_Layer: 0
   m_Name: Containers
   m_TagString: Checkpoint
@@ -116,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4001765730757368}
   - component: {fileID: 65644971143253040}
+  - component: {fileID: 114656768732760512}
   m_Layer: 0
   m_Name: Post-MiniBoss
   m_TagString: Checkpoint
@@ -292,12 +297,67 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 10, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114226127691282004
+--- !u!114 &114103138404496856
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1765710258877516}
+  m_GameObject: {fileID: 1611446153812730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114284883861317584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932735842975750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114656768732760512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985252888274436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114934926892154090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1675393560019438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114949114910223510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1738006576207484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114967270482913338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1315004063109830}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}

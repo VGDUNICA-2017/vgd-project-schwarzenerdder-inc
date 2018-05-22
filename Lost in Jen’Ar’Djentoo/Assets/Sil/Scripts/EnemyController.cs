@@ -29,7 +29,8 @@ public class EnemyController : MonoBehaviour {
 
 	//Variabili di supporto
 	private Vector3 startPosition;
-	private Vector3 lastPlayerPosition;
+    private Vector3 startLocalPosition;
+    private Vector3 lastPlayerPosition;
 	private bool tracking;
 	private bool backToStart;
 	private bool canRoar;
@@ -63,6 +64,7 @@ public class EnemyController : MonoBehaviour {
 		distance = spotDistance + 1.0f;
 		backToStart = false;
 		startPosition = this.transform.position;
+        startLocalPosition = this.transform.localPosition;
 		startDistance = 0.0f;
 
 		isPlayerVisible = false;
@@ -83,6 +85,9 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 		//Check sulla vita del nemico
 		if (health > 0) {
+
+            transform.localEulerAngles = new Vector3(0f, transform.localEulerAngles.y, 0f);
+
 			//Se il nemico è vivo, calcolo i nuovi dati di posizione
 			distance = Vector3.Distance (this.transform.position, playerTransform.position);
 
@@ -364,4 +369,13 @@ public class EnemyController : MonoBehaviour {
 			hitRotate = false;
 		}
 	}
+    
+    public void setFromLoad(Vector3 position)
+    {
+        startPosition = position;
+    }
+    public Vector3 saveStartPos()
+    {
+        return startLocalPosition;
+    }
 }
