@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadGame : MonoBehaviour {
+public class NewGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

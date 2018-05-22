@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 
-public class SaveAndLoad : MonoBehaviour {
+public class Save : MonoBehaviour {
 
     private InventorySystem isys;
     private GameObject player;
@@ -21,11 +22,9 @@ public class SaveAndLoad : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        Load();
 	}
 
-    public void Save()
+    public void Save_()
     {
 
         print("Salvataggio start");
@@ -121,48 +120,6 @@ public class SaveAndLoad : MonoBehaviour {
      
     }
 
-    public void Load()
-    {
-        if(Input.GetKeyDown("l") && File.Exists(Application.persistentDataPath + "/save.dat") == null)
-        {
-            print("Salvataggio nullo");
-        }
-        if (Input.GetKeyDown("l") && File.Exists(Application.persistentDataPath + "/save.dat"))
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
-
-            SceneData data = (SceneData)formatter.Deserialize(file);
-            file.Close();
-
-            isys.LoadPlayer(data.pdata);
-            LoadEnemy(data.edata);
-            
-
-        }
-    }
-
-    public void LoadEnemy(List<Enemy> edata)
-    {
-        foreach (Enemy nemico in edata)
-        {
-            GameObject tempEnemy = GameObject.Find(nemico.name);
-            tempEnemy.transform.localPosition = new Vector3(nemico.x, nemico.y, nemico.z);
-            if (tempEnemy.GetComponent<EnemyController>() != null)
-            {
-                tempEnemy.GetComponent<EnemyController>().health = nemico.health;
-                tempEnemy.GetComponent<EnemyController>().setFromLoad(new Vector3(nemico.startX, nemico.startY, nemico.startZ));
-            }
-            if (tempEnemy.GetComponent<Boss1Controller>() != null) tempEnemy.GetComponent<Boss1Controller>().health = nemico.health;
-            if (tempEnemy.GetComponent<BossHealth>() != null)      tempEnemy.GetComponent<BossHealth>().currentHealth = nemico.health;
-            
-
-            
-        }
-
-
-    }
-
     public Enemy SaveEnemy(GameObject nemico)
     {
         Enemy tempEnemy = new Enemy();
@@ -188,7 +145,7 @@ public class SaveAndLoad : MonoBehaviour {
             print("Salvataggio");
             hud.sideBoxEnabler(true);
             hud.sideBoxText("Checkpoint raggiunto!");
-            Save();
+            Save_();
             misc.supportFunction(gameObject);
             
         }
