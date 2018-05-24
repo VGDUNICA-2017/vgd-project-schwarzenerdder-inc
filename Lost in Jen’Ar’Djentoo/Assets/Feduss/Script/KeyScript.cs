@@ -15,6 +15,7 @@ public class KeyScript : MonoBehaviour
     private Misc misc;
     private GameObject player;
     private bool onetime=true;
+    public bool loaded = false;
 
     // Use this for initialization
     void Start()

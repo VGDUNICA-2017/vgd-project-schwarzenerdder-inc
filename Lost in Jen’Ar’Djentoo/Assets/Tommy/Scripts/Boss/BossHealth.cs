@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BossHealth : MonoBehaviour {
 
@@ -36,6 +37,7 @@ public class BossHealth : MonoBehaviour {
     }
 
     void Death() {
+        GameObject.Find("Jen'ni").GetComponent<NavMeshAgent>().enabled = false;
         isDead = true;
         capsuleCollider.isTrigger = true;
         GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated");

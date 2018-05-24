@@ -28,9 +28,8 @@ public class EnemyController : MonoBehaviour {
 	private bool shortRange;
 
 	//Variabili di supporto
-	private Vector3 startPosition;
-    private Vector3 startLocalPosition;
-    private Vector3 lastPlayerPosition;
+	[SerializeField]private Vector3 startPosition;
+	private Vector3 lastPlayerPosition;
 	private bool tracking;
 	private bool backToStart;
 	private bool canRoar;
@@ -52,6 +51,7 @@ public class EnemyController : MonoBehaviour {
     private PlayEnemySound playsound;
 
     private int attack_num = 0;
+    public bool loaded=false;
 
     void Start () {
 		animator = this.GetComponent<Animator> ();
@@ -64,7 +64,7 @@ public class EnemyController : MonoBehaviour {
 		distance = spotDistance + 1.0f;
 		backToStart = false;
 		startPosition = this.transform.position;
-        startLocalPosition = this.transform.localPosition;
+        //startLocalPosition = this.transform.localPosition;
 		startDistance = 0.0f;
 
 		isPlayerVisible = false;
@@ -86,6 +86,7 @@ public class EnemyController : MonoBehaviour {
 		//Check sulla vita del nemico
 		if (health > 0) {
 
+			//Stabilizzazione (nemico del cavolo, smetti di inclinarti!)
             transform.localEulerAngles = new Vector3(0f, transform.localEulerAngles.y, 0f);
 
 			//Se il nemico è vivo, calcolo i nuovi dati di posizione
@@ -274,13 +275,13 @@ public class EnemyController : MonoBehaviour {
 	public void trackingAction () {
 		float trackDistance = Vector3.Distance (this.transform.position, lastPlayerPosition);
 
-		if (trackDistance >= 1.5f) {
+		if (trackDistance >= 3.0f) {
 			tracking = true;
 			agent.enabled = true;
 			agent.SetDestination (lastPlayerPosition);
 			animator.SetFloat ("Speed", 1.0f);
 
-		} else if (trackDistance < 1.5f) {
+		} else if (trackDistance < 3.0f) {
 			tracking = false;
 			agent.enabled = false;
 			animator.SetFloat ("Speed", 0.0f);
@@ -370,12 +371,26 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
     
-    public void setFromLoad(Vector3 position)
-    {
-        startPosition = position;
+    public Enemy saveEnemy () {
+		Enemy tempEnemy = new Enemy();
+
+		tempEnemy.x = transform.position.x;
+		tempEnemy.y = transform.position.y;
+		tempEnemy.z = transform.position.z;
+
+		tempEnemy.startX = startPosition.x;
+		tempEnemy.startY = startPosition.y;
+		tempEnemy.startZ = startPosition.z;
+
+		tempEnemy.name = gameObject.name;
+		tempEnemy.health = health;
+
+		return tempEnemy;
     }
-    public Vector3 saveStartPos()
-    {
-        return startLocalPosition;
+
+    public void loadEnemy (Enemy data) {
+		transform.position = new Vector3 (data.x, data.y, data.z);
+		startPosition = new Vector3 (data.startX, data.startY, data.startZ);
+		this.health = data.health;
     }
 }

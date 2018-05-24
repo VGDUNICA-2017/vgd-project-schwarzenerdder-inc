@@ -3742,6 +3742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: -1
+  loaded: 0
 --- !u!114 &114241860939118676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3765,6 +3766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 6
+  loaded: 0
 --- !u!114 &114297613408431194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3777,6 +3779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  loaded: 0
 --- !u!114 &114360906475837714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3789,6 +3792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 4
+  loaded: 0
 --- !u!114 &114381081026218044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3801,6 +3805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 8
+  loaded: 0
 --- !u!114 &114441321129869062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3813,6 +3818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  loaded: 0
 --- !u!114 &114461107147388416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3825,6 +3831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  loaded: 0
 --- !u!114 &114479242389882606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3848,6 +3855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 5
+  loaded: 0
 --- !u!114 &114571976240180140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3871,6 +3879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  loaded: 0
 --- !u!114 &114647219896400738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3883,6 +3892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  loaded: 0
 --- !u!114 &114676436772065258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3895,6 +3905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 30
+  loaded: 0
 --- !u!114 &114885369446474180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3907,6 +3918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  loaded: 0
 --- !u!114 &114899569691404122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3919,6 +3931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  loaded: 0
 --- !u!114 &114962854851306418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3931,6 +3944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 8
+  loaded: 0
 --- !u!135 &135040191915291856
 SphereCollider:
   m_ObjectHideFlags: 1

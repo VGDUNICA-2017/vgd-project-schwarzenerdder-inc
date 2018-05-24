@@ -44,6 +44,11 @@ public class SwitchWeapon : MonoBehaviour {
 
         SwitchWeapons();
 
+        getTorch = inventario.getTorcia();
+        getAxe = inventario.getAscia();
+        getPistol = inventario.getWeapon(0);
+        getSmg = inventario.getWeapon(2);
+
         //Quando è senza armi equipaggiate, disattivo le texture delle braccia
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("NoWeapon")){
             texture_braccio1.SetActive(false);
@@ -59,9 +64,9 @@ public class SwitchWeapon : MonoBehaviour {
 
     private void SwitchWeapons()
     {
-        if (animator.GetBool("Pistol")) getPistol = true;
-        if (animator.GetBool("Axe")) getAxe = true;
-        if (animator.GetBool("Smg")) getSmg = true;
+        //if (animator.GetBool("Pistol")) getPistol = true;
+        //if (animator.GetBool("Axe")) getAxe = true;
+        //if (animator.GetBool("Smg")) getSmg = true;
 
         if (!animator.IsInTransition(0))
         {

@@ -1266,6 +1266,7 @@ GameObject:
   - component: {fileID: 143236389422749352}
   - component: {fileID: 33206498167538558}
   - component: {fileID: 23801067003975366}
+  - component: {fileID: 114956826477467680}
   m_Layer: 8
   m_Name: Hands (Fin)
   m_TagString: Player
@@ -2525,13 +2526,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601553572645244}
-  m_LocalRotation: {x: 0.7931816, y: 0.078988016, z: 0.047802612, w: 0.60194576}
-  m_LocalPosition: {x: -0.06798664, y: 0, z: -0.0056614783}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1464684, y: 0.1464686, z: 0.14646861}
   m_Children: []
   m_Father: {fileID: 4653505591886332}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4512850965741924
 Transform:
   m_ObjectHideFlags: 1
@@ -4182,6 +4183,18 @@ MonoBehaviour:
   m_EmptyMag: {fileID: 8300000, guid: 7fcc2ff367dafbc429c6d98747018ca7, type: 3}
   m_EmptyMagReload: {fileID: 8300000, guid: 790d960de715f4643943d392d05779f4, type: 3}
   m_EquipPistol: {fileID: 0}
+--- !u!114 &114956826477467680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1726314064559116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae5261d4c7db7b46b9d34f663b32ea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 0}
 --- !u!124 &124296590497930592
 Behaviour:
   m_ObjectHideFlags: 1
@@ -4580,7 +4593,7 @@ CharacterController:
   m_Height: 100
   m_Radius: 12.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.7
+  m_StepOffset: 0.8
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 39.74, z: 7}

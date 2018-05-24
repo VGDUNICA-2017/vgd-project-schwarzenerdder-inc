@@ -330,7 +330,7 @@ public class InventorySystem : MonoBehaviour {
 
 	public void LoadPlayer (PlayerData data) {
 		transform.position = new Vector3 (data.posX, data.posY, data.posZ);
-
+        
 		this.currentHealth = data.health;
 		this.medKits = data.medKits;
 

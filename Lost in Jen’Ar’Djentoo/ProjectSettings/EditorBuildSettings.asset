@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Feduss/Scenes/Scena 1 - Il massiccio.unity
-    guid: ce1495628d64ee24481eecc65f4c2920
-  - enabled: 1
     path: Assets/Tommy/Scenes/Menu.unity
     guid: 6de5ad19165299f42be4dde77cb5f865
+  - enabled: 1
+    path: Assets/Feduss/Scenes/Scena 1 - Il massiccio.unity
+    guid: ce1495628d64ee24481eecc65f4c2920
   - enabled: 1
     path: Assets/Tommy/Scenes/Options.unity
     guid: 27ca18ddda63af74192efcf52889f8f6

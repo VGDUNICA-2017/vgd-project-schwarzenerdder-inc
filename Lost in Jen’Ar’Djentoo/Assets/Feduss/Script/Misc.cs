@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
 
 public class Misc : MonoBehaviour
 {
@@ -167,9 +167,18 @@ public class Misc : MonoBehaviour
 
         hud.deathScreenTrigger();
 
+        StartCoroutine(afterDeath());
+
     }
 
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator afterDeath()
+    {
+        yield return new WaitForSeconds(2f);
+
+        GetComponent<Load>().Load_(SceneManager.GetActiveScene().name);
+    }
+
+    private void OnCollisionStay(Collision collision)
     {
         print(collision.gameObject.name + collision.gameObject.tag);
         //Setto snow (la variabile che indica se sei a contatto col terreno innevato) a secondo della collisione con il terreno o no

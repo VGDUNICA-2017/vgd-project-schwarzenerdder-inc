@@ -4793,7 +4793,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.07, y: 5.65, z: 12.63}
+  m_Size: {x: 7.07, y: 11.31, z: 12.63}
   m_Center: {x: 0.64, y: 2.33, z: 2.97}
 --- !u!95 &95185976874426614
 Animator:
@@ -4970,6 +4970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  loaded: 0
 --- !u!154 &154868751694524010
 TerrainCollider:
   m_ObjectHideFlags: 1

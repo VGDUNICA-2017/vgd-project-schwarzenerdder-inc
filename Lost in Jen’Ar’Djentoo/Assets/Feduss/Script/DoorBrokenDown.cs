@@ -24,6 +24,19 @@ public class DoorBrokenDown : MonoBehaviour {
 
     }
 
+    public void brokenOnLoading()
+    {
+        if (forward) GetComponent<Rigidbody>().AddForce(Vector3.forward * force, ForceMode.Impulse);
+        else GetComponent<Rigidbody>().AddForce(Vector3.right * force, ForceMode.Impulse);
+
+        foreach (BoxCollider collider in gameObject.GetComponents<BoxCollider>())
+        {
+            if (collider.isTrigger)
+            {
+                Destroy(collider);
+            }
+        }
+    }
         
 
     public void OnTriggerEnter(Collider other)

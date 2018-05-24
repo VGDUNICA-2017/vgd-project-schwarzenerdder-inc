@@ -114,13 +114,14 @@ public class WeaponScript : MonoBehaviour {
         {
             Shot();
             Reload();
+            weaponRange = 50f;
         }
 
         //Se il giocatore sta impugnando l'ascia
         if (player.GetBool("Axe"))
         {
             Axehit();
-            weaponRange = 3f;
+            weaponRange = 4f;
         }
 	}
 

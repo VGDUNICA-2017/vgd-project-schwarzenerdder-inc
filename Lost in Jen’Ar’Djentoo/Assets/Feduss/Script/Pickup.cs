@@ -25,6 +25,8 @@ public class Pickup : MonoBehaviour {
     private Misc misc;
     private bool onetime = true;
 
+    public bool loaded = false;
+
     // Use this for initialization
     void Start() {
 		hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
