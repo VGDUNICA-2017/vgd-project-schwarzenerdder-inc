@@ -8,7 +8,7 @@ public class PlayAnimation : MonoBehaviour {
     private HUDSystem hudsystem; //script del player
     private PlaySound playsound; //script del player
 
-    public bool snow=true; //true=a contatto con il terreno innevato
+    public static bool snow=true; //true=a contatto con il terreno innevato
     
 
     // Use this for initialization

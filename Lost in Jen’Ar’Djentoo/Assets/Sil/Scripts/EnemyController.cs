@@ -51,35 +51,44 @@ public class EnemyController : MonoBehaviour {
     private PlayEnemySound playsound;
 
     private int attack_num = 0;
-    public bool loaded=false;
+    public bool loaded = false;
 
     void Start () {
-		animator = this.GetComponent<Animator> ();
-		agent = this.GetComponent<NavMeshAgent> ();
-		playsound = this.GetComponent<PlayEnemySound> ();
+        
+            animator = this.GetComponent<Animator>();
+            agent = this.GetComponent<NavMeshAgent>();
+            playsound = this.GetComponent<PlayEnemySound>();
 
-		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
-		playerSpotPoint = GameObject.Find ("SpotPoint").transform;
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            playerSpotPoint = GameObject.Find("SpotPoint").transform;
 
-		distance = spotDistance + 1.0f;
-		backToStart = false;
-		startPosition = this.transform.position;
-        //startLocalPosition = this.transform.localPosition;
-		startDistance = 0.0f;
+            distance = spotDistance + 1.0f;
 
-		isPlayerVisible = false;
-		tracking = false;
-		canRoar = true;
-//		randomAttack = true;
+        if (Load.new_game == true)
+        {
+            startPosition = this.transform.position;
+            health = MaxHealth;
+        }
+            backToStart = false;
+            //startLocalPosition = this.transform.localPosition;
+            startDistance = 0.0f;
 
-        debug = -1;
+            isPlayerVisible = false;
+            tracking = false;
+            canRoar = true;
+            //		randomAttack = true;
 
-		health = MaxHealth;
-		if (health <= 1) {
-			deathCall = true;
-		} else {
-			deathCall = false;
-		}
+            debug = -1;
+
+            if (health <= 1)
+            {
+                deathCall = true;
+            }
+            else
+            {
+                deathCall = false;
+            }
+        
     }
 
 	void Update () {

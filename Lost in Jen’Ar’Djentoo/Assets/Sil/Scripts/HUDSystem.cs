@@ -361,4 +361,24 @@ public class HUDSystem : MonoBehaviour {
 			deathBox.fontSize = 60;
 		}
 	}
+
+	public void resumeHUD (int health, int maxHealth, int medkit, int arma, int ammo, int invAmmo) {
+		radialHealthSet (health, maxHealth);
+		medKitSet (medkit);
+
+		if ((arma == 1) || (arma == 2)) {
+			reticleEnabler (true);
+			hudShotsEnabler (true);
+			reloadWeapon (ammo, invAmmo);
+		} else {
+			reticleEnabler (false);
+			hudShotsEnabler (false);
+		}
+
+		centralBoxEnabler (false);
+		sideBoxEnabler (false);
+
+		minimapEnabler (false);
+		bossBarEnabler (false);
+	}
 }

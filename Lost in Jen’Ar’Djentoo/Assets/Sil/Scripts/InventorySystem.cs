@@ -32,65 +32,35 @@ public class InventorySystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//hudScript = gameObject.GetComponent<HUDSystem> ();
+        if (Load.new_game==true)
+        {
+            //Vita default
+            currentHealth = fullHealth;
+            medKits = 0;
+
+            //Armi default
+            setWeapon(false, 0);
+            setWeapon(false, 1);
+            setWeapon(false, 2);
+
+            //Oggetti default
+            setTorcia(false);
+            setMappa(false);
+            setCesoie(false);
+            setAscia(false);
+        }
+		
 		hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
-
-		//Vita default
-		currentHealth = fullHealth;
+		
 		isDead = false;
-		medKits = 0;
-		hudScript.radialHealthSet (currentHealth, fullHealth);
-		hudScript.medKitSet (medKits);
-
-		//Armi default
-		setWeapon (false, 0);
-		setWeapon (false, 1);
-		setWeapon (false, 2);
-
-		//Oggetti default
-		setTorcia (false);
-		setMappa (false);
-		setCesoie (false);
-		setAscia (false);
-
-        playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
+		hudScript.radialHealthSet(currentHealth, fullHealth);
+        hudScript.medKitSet(medKits);
+		playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
     }
 
 	// Update is called once per frame
 	void Update () {
-		if (this.getMappa()) {
-			hudScript.minimapEnabler (true);
-		}
 
-//		if (Input.GetKeyDown (KeyCode.Z)) {
-//			data = SavePlayer ();
-//			print ("SAVED");
-//		}
-//
-//		if (Input.GetKeyDown (KeyCode.X)) {
-//			LoadPlayer (data);
-//			print ("LOADED");
-//		}
-//
-//		if (Input.GetKeyDown (KeyCode.Q)) {
-//			if (data != null) {
-//				print ("From savedata\n" +
-//				"Pos: " + data.posX + "/" + data.posY + "/" + data.posZ + "\n" +
-//				"Vita: " + data.health + "; Meds: " + data.medKits + "\n" +
-//				"Flag armi: " + data.flagPistol + "/" + data.flagShotgun + "/" + data.flagSMG + "\n" +
-//				"Canna: " + data.ammoPistol + "/" + data.ammoShotgun + "/" + data.ammoSMG + "\n" +
-//				"Riserva: " + data.invPistol + "/" + data.invShotgun + "/" + data.invSMG + "\n" +
-//				"Torcia: " + data.torcia + "; Ascia: " + data.ascia + "; Cesoie: " + data.cesoie + "; Mappa: " + data.mappa);
-//			}
-//
-//			print("From inventory\n" +
-//				"Pos: " + transform.position.x + "/" + transform.position.y + "/" + transform.position.z + "\n" +
-//				"Vita: " + getHealth() + "; Meds: " + medKitsLeft() + "\n" +
-//				"Flag armi: " + getWeapon(0) + "/" + getWeapon(1) + "/" + getWeapon(2) + "\n" +
-//				"Canna: " + ammoLeft(0) + "/" + ammoLeft(1) + "/" + ammoLeft(2) + "\n" +
-//				"Riserva: " + ammoInvLeft(0) + "/" + ammoInvLeft(1) + "/" + ammoInvLeft(2) + "\n" +
-//				"Torcia: " + getTorcia() + "; Ascia: " + getAscia() + "; Cesoie: " + getCesoie() + "; Mappa: " + getMappa());
-//        }
 	}
 
 	//Funzione per subire danni
@@ -303,13 +273,17 @@ public class InventorySystem : MonoBehaviour {
 	//SaveData del Player
 	public PlayerData SavePlayer () {
 		PlayerData data	= new PlayerData ();
+		Animator anim = this.GetComponent<Animator> ();
 
 		data.posX = transform.position.x;
 		data.posY = transform.position.y;
 		data.posZ = transform.position.z;
+        data.angleY = transform.eulerAngles.y;
+
+		data.fromFile = true;
 
 		data.health = currentHealth;
-		data.medKits = medKits;
+		data.kit = medKits;
 
 		data.flagPistol = weapons[0];
 		data.flagSMG = weapons[2];
@@ -325,14 +299,38 @@ public class InventorySystem : MonoBehaviour {
 		data.cesoie = cesoie;
 		data.mappa = mappa;
 
+		if (anim.GetBool ("Axe")) {
+			data.armaAttiva = 0;
+		} else if (anim.GetBool ("Pistol")) {
+			data.armaAttiva = 1;
+		} else if (anim.GetBool ("Smg")) {
+			data.armaAttiva = 2;
+		} else {
+			data.armaAttiva = -1;
+		}
+
 		return data;
 	}
 
 	public void LoadPlayer (PlayerData data) {
-		transform.position = new Vector3 (data.posX, data.posY, data.posZ);
-        
+		Animator anim = this.GetComponent<Animator> ();
+        hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
+		
+        /*
+		print("OnLoad\n" +
+			"VitaXD: " + data.health + "; Med: " + data.kit + "\n" +
+			"Pistola: " + data.flagPistol + "; " + data.ammoPistol + "/" + data.invPistol + "\n" +
+			"SMG: " + data.flagSMG + "; " + data.ammoSMG + "/" + data.invSMG + "\n" +
+			"Torcia: " + data.torcia + "; Ascia: " + data.ascia + "; Cesoie: " + data.cesoie + "; Mappa: " + data.mappa);
+		*/
+		
+        if (data.fromFile) {
+			transform.position = new Vector3 (data.posX, data.posY, data.posZ);
+            transform.eulerAngles = new Vector3(0f, data.angleY, 0f);
+		}
+
 		this.currentHealth = data.health;
-		this.medKits = data.medKits;
+		this.medKits = data.kit;
 
 		setWeapon (data.flagPistol, 0);
 		setWeapon (false, 1);
@@ -350,6 +348,29 @@ public class InventorySystem : MonoBehaviour {
 		setAscia (data.ascia);
 		setCesoie (data.cesoie);
 		setMappa (data.mappa);
+
+		if (data.armaAttiva == 0) {
+			anim.SetBool ("Axe", true);
+			anim.SetBool ("Pistol", false);
+			anim.SetBool ("Smg", false);
+            print(hudScript);
+			hudScript.resumeHUD (currentHealth, fullHealth, medKits, data.armaAttiva, 0, 0);
+		} else if (data.armaAttiva == 1) {
+			anim.SetBool ("Axe", false);
+			anim.SetBool ("Pistol", true);
+			anim.SetBool ("Smg", false);
+			hudScript.resumeHUD (currentHealth, fullHealth, medKits, data.armaAttiva, ammo[0], invAmmo[0]);
+		} else if (data.armaAttiva == 2) {
+			anim.SetBool ("Axe", false);
+			anim.SetBool ("Pistol", false);
+			anim.SetBool ("Smg", true);
+			hudScript.resumeHUD (currentHealth, fullHealth, medKits, data.armaAttiva, ammo[2], invAmmo[2]);
+		} else {
+			anim.SetBool ("Axe", false);
+			anim.SetBool ("Pistol", false);
+			anim.SetBool ("Smg", false);
+			hudScript.resumeHUD (currentHealth, fullHealth, medKits, data.armaAttiva, 0, 0);
+		}
 	}
 }
 
@@ -359,10 +380,12 @@ public class PlayerData {
 	public float posX;
 	public float posY;
 	public float posZ;
+    public float angleY;
+	public bool fromFile;
 
 	//Vita e vite
 	public int health;
-	public int medKits;
+	public int kit;
 
 	//Pistola
 	public bool flagPistol;
@@ -379,4 +402,5 @@ public class PlayerData {
 	public bool ascia;
 	public bool cesoie;
 	public bool mappa;
+	public int armaAttiva;
 }

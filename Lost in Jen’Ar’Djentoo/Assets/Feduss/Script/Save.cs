@@ -13,7 +13,8 @@ public class Save : MonoBehaviour {
     private Misc misc;
 
     private Scene m_Scene;
-    
+    public bool loaded = false;
+
     private GameObject torcia;
     private GameObject ascia;
     private GameObject pistola;
@@ -21,8 +22,20 @@ public class Save : MonoBehaviour {
     private GameObject final_key;
     private GameObject cutter;
 
+    public GameObject AxeSpawn;
+    public GameObject PistolSpawn;
+    public GameObject ChainSpawn;
+    public GameObject CutterSpawn;
+    public GameObject SmgSpawn;
+
+    public static bool AxeSpawnActive = false;
+    public static bool PistolSpawnActive = false;
+    public static bool ChainSpawnActive = false;
+    public static bool CutterSpawnActive = false;
+    public static bool SmgSpawnActive = false;
+
     // Use this for initialization
-    void Start () {
+    void Start() {
         isys = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
         hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -30,25 +43,29 @@ public class Save : MonoBehaviour {
 
         m_Scene = SceneManager.GetActiveScene();
 
-        if (m_Scene.name.Equals("Scena 1 - Il massiccio"))
-        {
+        if (m_Scene.name.Equals("Scena 1 - Il massiccio") && Load.new_game) {
             torcia = GameObject.Find("la Torcia");
             ascia = GameObject.Find("l'ascia");
             pistola = GameObject.Find("P226");
             smg = GameObject.Find("MP5");
             final_key = GameObject.FindGameObjectWithTag("FinalKey");
             cutter = GameObject.FindGameObjectWithTag("Cutter");
+
+            AxeSpawn = GameObject.FindGameObjectWithTag("AxeEnemySpawn");
+            PistolSpawn = GameObject.FindGameObjectWithTag("PistolEnemySpawn");
+            ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
+            CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
+            SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
         }
 
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
-    public void Save_()
-    {
+    // Update is called once per frame
+    void Update() {
+    }
+
+    public void Save_() {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/save.dat");
 
@@ -56,38 +73,44 @@ public class Save : MonoBehaviour {
         data.pdata = isys.SavePlayer();
         data.edata = new List<Enemy>();
         data.idata = new List<string>();
+        data.check_data = new List<string>();
+        data.spawn = new Spawn();
         data.checkpoint_name = gameObject.name;
         data.scena_name = SceneManager.GetActiveScene().name;
-        
-        
-        
+        data.spawn.AxeSpawnActive = AxeSpawnActive;
+        data.spawn.ChainSpawnActive = ChainSpawnActive;
+        data.spawn.CutterSpawnActive = CutterSpawnActive;
+        data.spawn.PistolSpawnActive = PistolSpawnActive;
+        data.spawn.SmgSpawnActive = SmgSpawnActive;
+
+        foreach (GameObject checkpoint_scene in GameObject.FindGameObjectsWithTag("Checkpoint")) {
+            data.check_data.Add(checkpoint_scene.name);
+        }
+
         //Per ogni nemico con tag Enemy
-        foreach (GameObject nemico in GameObject.FindGameObjectsWithTag("Enemy")){
-            if (nemico.activeInHierarchy)
-            {
+        foreach (GameObject nemico in GameObject.FindGameObjectsWithTag("Enemy")) {
+
+            if (nemico.activeInHierarchy) {
                 data.edata.Add(nemico.GetComponent<EnemyController>().saveEnemy());
 
             }
         }
 
-        foreach(GameObject kitmedico in GameObject.FindGameObjectsWithTag("FirstAid"))
-        {
+        foreach (GameObject kitmedico in GameObject.FindGameObjectsWithTag("FirstAid")) {
             data.idata.Add(kitmedico.gameObject.name);
         }
 
-        foreach (GameObject ammo_9mm in GameObject.FindGameObjectsWithTag("Ammo_9mm"))
-        {
+        foreach (GameObject ammo_9mm in GameObject.FindGameObjectsWithTag("Ammo_9mm")) {
             data.idata.Add(ammo_9mm.gameObject.name);
         }
 
-        foreach (GameObject ammo_smg in GameObject.FindGameObjectsWithTag("Ammo_smg"))
-        {
+        foreach (GameObject ammo_smg in GameObject.FindGameObjectsWithTag("Ammo_smg")) {
             data.idata.Add(ammo_smg.gameObject.name);
         }
 
-        if(torcia!=null) data.idata.Add(torcia.gameObject.name);
+        if (torcia != null) data.idata.Add(torcia.gameObject.name);
 
-        if (ascia != null)  data.idata.Add(ascia.gameObject.name);
+        if (ascia != null) data.idata.Add(ascia.gameObject.name);
 
         if (pistola != null) data.idata.Add(pistola.gameObject.name);
 
@@ -104,21 +127,79 @@ public class Save : MonoBehaviour {
         misc.supportFunction(gameObject);
     }
 
-    
+    public void OnTriggerEnter(Collider other) {
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
+        if (other.gameObject.CompareTag("Player")) {
+            print(AxeSpawn);
+            if (!AxeSpawn.activeInHierarchy) {
+                AxeSpawn.SetActive(true);
+            }
+            else {
+                AxeSpawnActive = true;
+            }
+
+            if (!PistolSpawn.activeInHierarchy) {
+                PistolSpawn.SetActive(true);
+            }
+            else {
+                PistolSpawnActive = true;
+            }
+
+            if (!ChainSpawn.activeInHierarchy) {
+                ChainSpawn.SetActive(true);
+            }
+            else {
+                ChainSpawnActive = true;
+            }
+
+            if (!CutterSpawn.activeInHierarchy) {
+                CutterSpawn.SetActive(true);
+            }
+            else {
+                CutterSpawnActive = true;
+            }
+
+            if (!SmgSpawn.activeInHierarchy) {
+                SmgSpawn.SetActive(true);
+            }
+            else {
+                SmgSpawnActive = true;
+            }
+        }
+    }
+
+    public void OnTriggerExit(Collider other) {
+        if (other.gameObject.CompareTag("Player")) {
+            
             print("Salvataggio");
             hud.sideBoxEnabler(true);
             hud.sideBoxText("Checkpoint raggiunto!");
             Save_();
-            
-            
+
+            if (!AxeSpawnActive) {
+                AxeSpawn.SetActive(false);
+            }
+
+            if (!PistolSpawnActive) {
+                PistolSpawn.SetActive(false);
+            }
+
+            if (!ChainSpawnActive) {
+                ChainSpawn.SetActive(false);
+            }
+
+            if (!CutterSpawnActive) {
+                CutterSpawn.SetActive(false);
+            }
+
+            if (!SmgSpawnActive) {
+                SmgSpawn.SetActive(false);
+            }
+
+
+        }
         }
     }
-}
 
 [System.Serializable]
 class SceneData
@@ -126,6 +207,8 @@ class SceneData
     public PlayerData pdata;
     public List<Enemy> edata;
     public List<string> idata;
+    public List<string> check_data;
+    public Spawn spawn;
     public string checkpoint_name;
     public string scena_name;
 }
@@ -151,4 +234,14 @@ public class Enemy
 public class Events
 {
     public bool active;
+}
+
+
+[System.Serializable]
+public class Spawn {
+    public bool AxeSpawnActive;
+    public bool PistolSpawnActive;
+    public bool ChainSpawnActive;
+    public bool CutterSpawnActive;
+    public bool SmgSpawnActive;
 }

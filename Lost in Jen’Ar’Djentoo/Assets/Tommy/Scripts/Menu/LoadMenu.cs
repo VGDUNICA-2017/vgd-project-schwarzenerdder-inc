@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadMenu : MonoBehaviour {
 
+    public static bool isInGame = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -16,6 +18,12 @@ public class LoadMenu : MonoBehaviour {
 	}
 
     public void OnClick(){
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+
+        if(!isInGame) SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        else
+        {
+            isInGame = false;
+            SceneManager.UnloadSceneAsync("Options");
+        }
     }
 }

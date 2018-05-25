@@ -16,12 +16,14 @@ public class Load : MonoBehaviour {
     private HUDSystem hud;
     private Misc misc;
     private Scene m_Scene;
+    private string scene_name;
 
     public GameObject loadingScreen;
     public Slider slider;
     public Text loadingProgress;
     public GameObject premiper;
     public static bool new_game;
+    public GameObject loadButton;
 
     private GameObject torcia;
     private GameObject ascia;
@@ -31,9 +33,19 @@ public class Load : MonoBehaviour {
     private GameObject cutter;
     private GameObject boss_door1;
 
+    public GameObject AxeSpawn;
+    public GameObject PistolSpawn;
+    public GameObject ChainSpawn;
+    public GameObject CutterSpawn;
+    public GameObject SmgSpawn;
+
+
+
+
     // Use this for initialization
     void Start () {
         m_Scene = SceneManager.GetActiveScene();
+        
 
         if (m_Scene.name.Equals("Scena 1 - Il massiccio"))
         {
@@ -49,15 +61,22 @@ public class Load : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("l"))
+        if (loadButton != null)
         {
-            Load_("Scena 1 - Il massiccio");
+            //Se il file di salvataggio non esiste, oscuro leggermente il bottono e lo rendo non cliccabile
+            if (!File.Exists(Application.persistentDataPath + "/save.dat"))
+            {
+                loadButton.GetComponent<Button>().interactable = false;
+            }
+            else { 
+
+                loadButton.GetComponent<Button>().interactable = true;
+            }
         }
-	}
+    }
 
     public void OnLevelWasLoaded(int level)
     {
-        print(gameObject.name);
         if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio") && new_game==false)
         {
             torcia = GameObject.Find("la Torcia");
@@ -68,7 +87,8 @@ public class Load : MonoBehaviour {
             cutter = GameObject.FindGameObjectWithTag("Cutter");
             boss_door1 = GameObject.Find("door_2");
 
-            Load_("Scena 1 - Il massiccio");
+
+    Load_("Scena 1 - Il massiccio");
         }
 
         //if(gameObject.name.Equals("LoadingController")) Destroy(gameObject);
@@ -76,7 +96,6 @@ public class Load : MonoBehaviour {
 
     public void Load_(string scene_name)
     {
-        print(SceneManager.GetActiveScene().name);
         if (File.Exists(Application.persistentDataPath + "/save.dat") && scene_name.Equals("Scena 1 - Il massiccio"))
         {
             print(GameObject.FindGameObjectWithTag("Player").gameObject.name);
@@ -84,14 +103,63 @@ public class Load : MonoBehaviour {
             hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
             player = GameObject.FindGameObjectWithTag("Player");
             misc = player.GetComponent<Misc>();
+            AxeSpawn =GameObject.FindGameObjectWithTag("AxeEnemySpawn");
+            PistolSpawn = GameObject.FindGameObjectWithTag("PistolEnemySpawn"); ;
+            ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn"); ;
+            CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn"); ;
+            SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn"); ;
 
-            BinaryFormatter formatter = new BinaryFormatter();
+    BinaryFormatter formatter = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
 
             SceneData data = (SceneData)formatter.Deserialize(file);
             file.Close();
 
             isys.LoadPlayer(data.pdata);
+
+            Save.AxeSpawnActive = data.spawn.AxeSpawnActive;
+            if (data.spawn.AxeSpawnActive) {
+                AxeSpawn.SetActive(true);
+            }
+            else {
+                AxeSpawn.SetActive(false);
+            }
+
+            Save.PistolSpawnActive = data.spawn.PistolSpawnActive;
+            if (data.spawn.PistolSpawnActive) {
+                PistolSpawn.SetActive(true);
+                
+            }
+            else {
+                PistolSpawn.SetActive(false);
+            }
+
+            Save.ChainSpawnActive = data.spawn.ChainSpawnActive;
+            if (data.spawn.ChainSpawnActive) {
+                ChainSpawn.SetActive(true);
+            }
+            else {
+                ChainSpawn.SetActive(false);
+            }
+
+            Save.CutterSpawnActive = data.spawn.CutterSpawnActive;
+            if (data.spawn.CutterSpawnActive) {
+                CutterSpawn.SetActive(true);
+            }
+            else {
+                CutterSpawn.SetActive(false);
+            }
+
+            Save.CutterSpawnActive = data.spawn.CutterSpawnActive;
+            if (data.spawn.CutterSpawnActive) {
+                SmgSpawn.SetActive(true);
+            }
+            else {
+                SmgSpawn.SetActive(false);
+            }
+
+
+
 
             //Per ogni nemico nella scena (inizialmente sono tutti attivi, anche quelli da spawnare via script)
             foreach (GameObject nemico in GameObject.FindGameObjectsWithTag("Enemy")) { 
@@ -251,23 +319,45 @@ public class Load : MonoBehaviour {
                     }
                 }
             }
+            Destroy(GameObject.Find(data.checkpoint_name));
+            foreach(GameObject checkpoint_scena in GameObject.FindGameObjectsWithTag("Checkpoint")) {
+                foreach (string checkpoint_save in data.check_data) {
+                    if (checkpoint_scena.name.Equals(checkpoint_save)) {
+                        checkpoint_scena.GetComponent<Save>().loaded = true;
+                    }
+                }
+            }
+
+            foreach (GameObject checkpoint_scena in GameObject.FindGameObjectsWithTag("Checkpoint")) {
+                if (checkpoint_scena.GetComponent<Save>().loaded == false) {
+                    Destroy(checkpoint_scena);
+                }
+                else {
+                    checkpoint_scena.GetComponent<Save>().AxeSpawn = AxeSpawn;
+                    print(checkpoint_scena.GetComponent<Save>().AxeSpawn);
+                    checkpoint_scena.GetComponent<Save>().PistolSpawn = PistolSpawn;
+                    checkpoint_scena.GetComponent<Save>().ChainSpawn = ChainSpawn;
+                    checkpoint_scena.GetComponent<Save>().CutterSpawn = CutterSpawn;
+                    checkpoint_scena.GetComponent<Save>().SmgSpawn = SmgSpawn;
+                }
+
+            }
 
 
-
-        }
+            }
     }
 
     
     //Caricamento asincrono della scena indicata per mostrare la barra di caricamento (Il tutto dal menù principale)
     IEnumerator LoadAsync(string scene_name)
     {
-        
-        AsyncOperation operation = SceneManager.LoadSceneAsync(scene_name); //Caricamento asincrono della scena (mi restituisc un oggetto con info utili)
         loadingScreen.SetActive(true); //Abilito la barra di loading
-        foreach (GameObject bottone in GameObject.FindGameObjectsWithTag("BottoniMenu"))
-        {
+        foreach (GameObject bottone in GameObject.FindGameObjectsWithTag("BottoniMenu")) {
             bottone.SetActive(false);
         }
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(scene_name); //Caricamento asincrono della scena (mi restituisce un oggetto con info utili)
+        
         operation.allowSceneActivation = false; //Non permetto l'attivazione della scena quando il caricamento viene effettuato (Utile per far premere un tasto prima di attivarla..da implementare?)
 
         //Fino a quando la scena non è "pronta"
@@ -277,7 +367,7 @@ public class Load : MonoBehaviour {
             float progress = Mathf.Clamp01(operation.progress / .9f); //Serve per portare il valore di caricamento tra 0 e 1, anzichè tra 0 e 0.9 (i valori da 0.9 a 1 sono poco usati, e solo durante l'attivazione delle scene)
             slider.value = progress;
             loadingProgress.text = progress*100f + "%";
-
+            print(operation.progress);
             //Quando il caricamento è finito
             if (operation.progress == .9f && loadingProgress.text.Equals("100%"))
             {
@@ -285,6 +375,7 @@ public class Load : MonoBehaviour {
 
                 if (Input.GetButtonDown("Open Door"))
                 {
+                    premiper.GetComponent<Text>().text = "Attivazione scena...";
                     operation.allowSceneActivation = true;                    
                 }
                 yield return null;
@@ -297,17 +388,32 @@ public class Load : MonoBehaviour {
         //Se si trova nel menù principale, e preme il bottone di Load (il gameobject che contiene la script)
         if (gameObject.name.Equals("LoadingController"))
         {
+            
             Destroy(GameObject.Find("Music"));
 
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
+            if (EventSystem.current.currentSelectedGameObject.name.Equals("Load"))
+            {
+                new_game = false;
+                
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
 
-            SceneData data = (SceneData)formatter.Deserialize(file);
-            string scene_name = data.scena_name;
-            file.Close();
-            if (EventSystem.current.currentSelectedGameObject.name.Equals("Load")) new_game = false;
-            else new_game = true;
-            StartCoroutine(LoadAsync(scene_name));
+
+                SceneData data = (SceneData)formatter.Deserialize(file);
+                scene_name = data.scena_name;
+                file.Close();
+                StartCoroutine(LoadAsync(scene_name));
+                
+            }
+            else
+            {
+                new_game = true;
+                scene_name = "Scena 1 - Il massiccio";
+                StartCoroutine(LoadAsync(scene_name));
+            }
+            
+            
+            
         }
     }
 }

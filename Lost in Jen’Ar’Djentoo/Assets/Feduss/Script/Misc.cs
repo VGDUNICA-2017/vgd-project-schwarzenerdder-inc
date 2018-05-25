@@ -21,8 +21,6 @@ public class Misc : MonoBehaviour
     private GameObject pistola_imp;
     private GameObject smg_imp;
 
-    private PlayAnimation pa;
-
     // Use this for initialization
     void Start()
     {
@@ -48,8 +46,7 @@ public class Misc : MonoBehaviour
             death();            
         }
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        
 
     }
 
@@ -178,17 +175,15 @@ public class Misc : MonoBehaviour
         GetComponent<Load>().Load_(SceneManager.GetActiveScene().name);
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        print(collision.gameObject.name + collision.gameObject.tag);
+    void OnControllerColliderHit(ControllerColliderHit hit) {
         //Setto snow (la variabile che indica se sei a contatto col terreno innevato) a secondo della collisione con il terreno o no
-        if (collision.gameObject.CompareTag("Terreno"))
+        if (hit.gameObject.CompareTag("Terreno"))
         {
-            pa.snow = true;
+            PlayAnimation.snow = true;
         }
         else
         {
-            pa.snow = false;
+            PlayAnimation.snow = false;
         }
     }
 
