@@ -5,8 +5,7 @@ using UnityEngine;
 public class BossReloadAmmo : MonoBehaviour {
 
 	private HUDSystem hud;
-	private float nextUse;
-	public float cooldown;
+	private bool oneAndOnly = true;
 	// Use this for initialization
 	void Start () {
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem>();
@@ -18,15 +17,18 @@ public class BossReloadAmmo : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
-		if (other.gameObject.CompareTag ("Player")) {
+		if (other.gameObject.CompareTag ("Player") && oneAndOnly) {
 			hud.centralBoxText("Premi E per avere giusto una possibilità in più di battere quel bestione");
+			hud.centralBoxEnabler (true);
+		} else if (other.gameObject.CompareTag ("Player")) {
+			hud.centralBoxText("Ehi, non essere ingordo");
 			hud.centralBoxEnabler (true);
 		};
 	}
 
 	void OnTriggerStay (Collider other){
-		if (other.gameObject.CompareTag ("Player") && Input.GetButtonDown("Open Door") && Time.time > nextUse) {
-			nextUse = Time.time + cooldown;
+		if (other.gameObject.CompareTag ("Player") && Input.GetButtonDown("Open Door") && oneAndOnly) {
+			oneAndOnly = false;
 			InventorySystem inventory = other.GetComponent<InventorySystem> ();
 			int carriedWeapon;
 			Animator anim = other.gameObject.GetComponent<Animator>();

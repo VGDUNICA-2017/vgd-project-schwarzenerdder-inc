@@ -5,8 +5,7 @@ using UnityEngine;
 public class BossRestoreHealth : MonoBehaviour {
 
 	private HUDSystem hud;
-	private float nextUse;
-	public float cooldown;
+	private bool oneAndOnly = true;
 	// Use this for initialization
 	void Start () {
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem>();
@@ -18,17 +17,20 @@ public class BossRestoreHealth : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
-		if (other.gameObject.CompareTag ("Player")) {
-			hud.centralBoxText("Premi E per darti una rinfrescata. E occhio alle spalle!");
+		if (other.gameObject.CompareTag ("Player") && oneAndOnly) {
+			hud.centralBoxText("Premi E per darti una rinfrescata. Ma... chi è quella persona scusate?");
+			hud.centralBoxEnabler (true);
+		} else if (other.gameObject.CompareTag ("Player")) {
+			hud.centralBoxText("Ehi, non essere ingordo");
 			hud.centralBoxEnabler (true);
 		};
 	}
 
 	void OnTriggerStay (Collider other){
-		if (other.gameObject.CompareTag ("Player") && Input.GetButtonDown("Open Door") && Time.time > nextUse) {
-			nextUse = Time.time + cooldown;
+		if (other.gameObject.CompareTag ("Player") && Input.GetButtonDown("Open Door") && oneAndOnly) {
+			oneAndOnly = false;
 			InventorySystem inventory = other.GetComponent<InventorySystem> ();
-			inventory.healDamage(70);
+			inventory.healDamage(80);
 		}
 	}
 

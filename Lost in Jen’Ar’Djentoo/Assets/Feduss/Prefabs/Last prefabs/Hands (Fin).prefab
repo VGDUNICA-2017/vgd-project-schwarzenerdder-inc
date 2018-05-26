@@ -4095,7 +4095,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3724af4d0c17cd34d9d317f026592847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snow: 0
 --- !u!114 &114871634848761066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4195,6 +4194,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 0}
+  slider: {fileID: 0}
+  loadingProgress: {fileID: 0}
+  premiper: {fileID: 0}
+  loadButton: {fileID: 0}
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
 --- !u!124 &124296590497930592
 Behaviour:
   m_ObjectHideFlags: 1

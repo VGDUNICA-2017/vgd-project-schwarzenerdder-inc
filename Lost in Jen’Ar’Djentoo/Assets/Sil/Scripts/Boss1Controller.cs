@@ -96,8 +96,8 @@ public class Boss1Controller : MonoBehaviour {
 	public void attackAction() {
 		//Attacco
 		if (randomAttack) {
-			//animator.SetFloat ("Range", -1.0f);
-			animator.SetFloat ("Range", (float)Random.Range (-1, 1));
+			animator.SetFloat ("Range", 1.0f);
+			//animator.SetFloat ("Range", (float)Random.Range (-1, 1));
 			randomAttack = false;
 		}
 
@@ -129,16 +129,12 @@ public class Boss1Controller : MonoBehaviour {
 
         attack_num++;
 
-		if (health < 0) {
-			this.health = 0;
-		}
-
-		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying") && attack_num%3==0) {
+		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying") && ((attack_num % 3) == 0)) {
 			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
 			animator.SetTrigger ("Hit");
             //playsound.PlayEnemyHitSound();
 
-			if (health == 0) {
+			if (health <= 0) {
 				deathCall = true;
 			}
 		}

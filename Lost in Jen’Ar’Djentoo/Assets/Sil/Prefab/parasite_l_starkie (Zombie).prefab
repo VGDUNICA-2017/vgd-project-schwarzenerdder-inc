@@ -1862,7 +1862,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955315528287920}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 100, y: 0, z: 175}
+  m_LocalPosition: {x: 58.27, y: 44.64, z: 56.38}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4125127405255608}
@@ -2135,6 +2135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8826922670b984fa93a7d3de55ce51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageDealt: 0
   damage: 15
 --- !u!114 &114696675859051882
 MonoBehaviour:
@@ -2150,6 +2151,7 @@ MonoBehaviour:
   vision: {fileID: 1678994026353592}
   debug: 0
   distance: 0
+  startPosition: {x: 0, y: 0, z: 0}
   health: 0
   mask:
     serializedVersion: 2
@@ -2157,6 +2159,7 @@ MonoBehaviour:
   spotDistance: 20
   attackDistance: 3
   spotAngle: 60
+  loaded: 0
 --- !u!135 &135490889072162454
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -2306,7 +2309,7 @@ CharacterController:
   m_Height: 1.82
   m_Radius: 0.35
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.93, z: 0}

@@ -63,7 +63,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!1 &1042739853250478
 GameObject:
@@ -181,8 +181,8 @@ GameObject:
   m_Name: Barrels (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1073504236670106
 GameObject:
@@ -271,7 +271,7 @@ GameObject:
   m_Name: DoorRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1090033952538388
@@ -322,8 +322,8 @@ GameObject:
   m_Name: cabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1104437692464482
 GameObject:
@@ -408,8 +408,8 @@ GameObject:
   m_Name: SupportRods
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1125205903526962
 GameObject:
@@ -476,7 +476,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!1 &1149905891130600
 GameObject:
@@ -494,8 +494,8 @@ GameObject:
   m_Name: container_2 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1153695447617272
 GameObject:
@@ -530,8 +530,8 @@ GameObject:
   m_Name: CornerSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1167409628505802
 GameObject:
@@ -566,8 +566,8 @@ GameObject:
   m_Name: door1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1174617226490154
 GameObject:
@@ -601,8 +601,8 @@ GameObject:
   m_Name: container_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1177945883963700
 GameObject:
@@ -618,8 +618,8 @@ GameObject:
   m_Name: CornerSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1190304330759594
 GameObject:
@@ -635,8 +635,8 @@ GameObject:
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1193257029689784
 GameObject:
@@ -652,8 +652,8 @@ GameObject:
   m_Name: SupportRods
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1193612156086808
 GameObject:
@@ -667,7 +667,7 @@ GameObject:
   m_Name: DoorRightGrp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1194746055573358
@@ -684,8 +684,8 @@ GameObject:
   m_Name: door2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1195621325764238
 GameObject:
@@ -776,8 +776,8 @@ GameObject:
   m_Name: pallet_stack_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1250996722018544
 GameObject:
@@ -895,8 +895,8 @@ GameObject:
   m_Name: drawer2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1330894623516090
 GameObject:
@@ -910,7 +910,7 @@ GameObject:
   m_Name: DoorLeftGrp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1334224968617880
@@ -927,8 +927,8 @@ GameObject:
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1335977740701814
 GameObject:
@@ -944,8 +944,8 @@ GameObject:
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1342811449958520
 GameObject:
@@ -963,8 +963,8 @@ GameObject:
   m_Name: container_2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1357906274268544
 GameObject:
@@ -1015,8 +1015,8 @@ GameObject:
   m_Name: Mus_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1393961421679256
 GameObject:
@@ -1033,8 +1033,8 @@ GameObject:
   m_Name: Mus_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1404022655434076
 GameObject:
@@ -1121,8 +1121,8 @@ GameObject:
   m_Name: SupportRods
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1436386934791198
 GameObject:
@@ -1133,7 +1133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4635977698921346}
   - component: {fileID: 95296515034043392}
-  - component: {fileID: 64877288466321044}
+  - component: {fileID: 65793035125534016}
   m_Layer: 0
   m_Name: MetalCabinetOpen02 (2)
   m_TagString: Untagged
@@ -1171,8 +1171,8 @@ GameObject:
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1444369426006756
 GameObject:
@@ -1205,8 +1205,8 @@ GameObject:
   m_Name: door3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1445759794177890
 GameObject:
@@ -1276,7 +1276,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!1 &1472055136597334
 GameObject:
@@ -1310,8 +1310,8 @@ GameObject:
   m_Name: CornerSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1498750618804276
 GameObject:
@@ -1443,8 +1443,8 @@ GameObject:
   m_Name: pallet_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1546039911929256
 GameObject:
@@ -1460,8 +1460,8 @@ GameObject:
   m_Name: CornerSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1560586748584010
 GameObject:
@@ -1479,7 +1479,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1565927406243020
 GameObject:
@@ -1543,8 +1543,8 @@ GameObject:
   m_Name: test (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1620291620165256
 GameObject:
@@ -1561,8 +1561,8 @@ GameObject:
   m_Name: Barrels (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1624589230283194
 GameObject:
@@ -1579,8 +1579,8 @@ GameObject:
   m_Name: Barrels (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1627233264318208
 GameObject:
@@ -1668,8 +1668,8 @@ GameObject:
   m_Name: test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1641677757251662
 GameObject:
@@ -1700,8 +1700,8 @@ GameObject:
   m_Name: door4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1645030136385012
 GameObject:
@@ -1735,8 +1735,8 @@ GameObject:
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1652465465591812
 GameObject:
@@ -1805,8 +1805,8 @@ GameObject:
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1668681077320196
 GameObject:
@@ -1823,7 +1823,7 @@ GameObject:
   m_Name: DoorLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1670486267450180
@@ -1838,7 +1838,7 @@ GameObject:
   m_Name: DoorLeftGrp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1673951872133042
@@ -1873,8 +1873,8 @@ GameObject:
   m_Name: drawer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1685980339299658
 GameObject:
@@ -1905,7 +1905,7 @@ GameObject:
   m_Name: DoorRightGrp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1691788443175524
@@ -1938,8 +1938,8 @@ GameObject:
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1709651203036718
 GameObject:
@@ -1957,8 +1957,8 @@ GameObject:
   m_Name: pallet_stack_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1723324413774560
 GameObject:
@@ -1992,7 +1992,7 @@ GameObject:
   m_Name: HandleLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1748287827006484
@@ -2079,8 +2079,8 @@ GameObject:
   m_Name: CornerSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1767639833557860
 GameObject:
@@ -2153,8 +2153,8 @@ GameObject:
   m_Name: pallet_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1788956573222828
 GameObject:
@@ -2217,7 +2217,7 @@ GameObject:
   m_Name: HandleRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1817765863457816
@@ -2236,8 +2236,8 @@ GameObject:
   m_Name: container_2 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1835056233143930
 GameObject:
@@ -2290,8 +2290,8 @@ GameObject:
   m_Name: Shelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1846025940740982
 GameObject:
@@ -2318,7 +2318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4560791380475566}
   - component: {fileID: 95215269260040928}
-  - component: {fileID: 64946061989761794}
+  - component: {fileID: 65172314072742642}
   m_Layer: 0
   m_Name: MetalCabinetOpen02 (3)
   m_TagString: Untagged
@@ -2442,8 +2442,8 @@ GameObject:
   m_Name: container_2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1925201604661366
 GameObject:
@@ -2459,8 +2459,8 @@ GameObject:
   m_Name: CornerSupport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1928887865127234
 GameObject:
@@ -2476,8 +2476,8 @@ GameObject:
   m_Name: glass1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1938027158637586
 GameObject:
@@ -2509,8 +2509,8 @@ GameObject:
   m_Name: Barrels (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1949038566021734
 GameObject:
@@ -2544,8 +2544,8 @@ GameObject:
   m_Name: SupportRods
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1956273529048702
 GameObject:
@@ -2594,8 +2594,8 @@ GameObject:
   m_Name: Mus_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1986352529075656
 GameObject:
@@ -2630,8 +2630,8 @@ GameObject:
   m_Name: Mus_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1990372942255640
 GameObject:
@@ -2649,8 +2649,8 @@ GameObject:
   m_Name: container_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1992219329227268
 GameObject:
@@ -2684,8 +2684,8 @@ GameObject:
   m_Name: glass2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4008066371146440
 Transform:
@@ -4076,7 +4076,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988201575280736}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 101.38, y: 12.56, z: 393.42}
+  m_LocalPosition: {x: 98.05, y: 12.56, z: 393.42}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4053141150137870}
@@ -4297,7 +4297,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1444369426006756}
   m_LocalRotation: {x: 3.552714e-15, y: -0.00000005960465, z: 0.000000059604645, w: 1}
-  m_LocalPosition: {x: -0, y: -0.69177794, z: 0}
+  m_LocalPosition: {x: -0, y: -0.666, z: 0}
   m_LocalScale: {x: 0.53691065, y: 0.53691065, z: 0.53691065}
   m_Children: []
   m_Father: {fileID: 4638693640228136}
@@ -9597,20 +9597,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300006, guid: 15c6d1cc548f82746a3dc3259851f285, type: 3}
---- !u!64 &64877288466321044
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1436386934791198}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
 --- !u!64 &64907331575658618
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -9639,20 +9625,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 15c6d1cc548f82746a3dc3259851f285, type: 3}
---- !u!64 &64946061989761794
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1849026965893702}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
 --- !u!64 &64969059769994958
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -9841,6 +9813,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.27, y: 1, z: 1}
   m_Center: {x: -8.36, y: 4.07, z: -0.61}
+--- !u!65 &65172314072742642
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1849026965893702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.14, z: 0.54}
+  m_Center: {x: 0, y: 0.96, z: 0}
 --- !u!65 &65175982408496152
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -10153,6 +10137,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.06, z: 0.43}
   m_Center: {x: 0, y: 0.98, z: 0}
+--- !u!65 &65793035125534016
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1436386934791198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.14, z: 0.69}
+  m_Center: {x: 0, y: 0.96, z: 0}
 --- !u!65 &65814055399708330
 BoxCollider:
   m_ObjectHideFlags: 1

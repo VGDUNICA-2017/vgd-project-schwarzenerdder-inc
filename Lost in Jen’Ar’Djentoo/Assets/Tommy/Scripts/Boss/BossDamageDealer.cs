@@ -25,8 +25,8 @@ public class BossDamageDealer : MonoBehaviour {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Swiping") || anim.GetCurrentAnimatorStateInfo(0).IsName("Jump Attack")) {
                 if (!damageDealt) {
                     print("bool");
-                    other.GetComponent<InventorySystem>().takeDamage(30);
-                    //other.GetComponent<Animator>().SetTrigger("Hit");
+                    other.GetComponent<InventorySystem>().takeDamage(15);
+                    other.GetComponent<Animator>().SetTrigger("Hit");
                     damageDealt = true;
                 }
             }

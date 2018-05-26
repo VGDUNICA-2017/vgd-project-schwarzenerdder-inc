@@ -9,6 +9,9 @@ public class PauseMenu : MonoBehaviour {
 
     public static bool GameIsPaused=false;
     public GameObject PauseMenuUI;
+    public GameObject pistola;
+    public GameObject mitra;
+    public GameObject ascia;
 
     private void Start()
     {
@@ -41,6 +44,10 @@ public class PauseMenu : MonoBehaviour {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>().enabled = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<flashlight>().enabled = false;
+        pistola.GetComponent<WeaponScript>().enabled = false;
+        mitra.GetComponent<WeaponScript>().enabled = false;
+        ascia.GetComponent<WeaponScript>().enabled = false;
     }
 
     public void Resume()
@@ -52,6 +59,10 @@ public class PauseMenu : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         GetComponentInParent<HUDSystem>().centralBoxEnabler(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>().enabled = true;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<flashlight>().enabled = true;
+        pistola.GetComponent<WeaponScript>().enabled = true;
+        mitra.GetComponent<WeaponScript>().enabled = true;
+        ascia.GetComponent<WeaponScript>().enabled = true;
     }
 
     public void LoadMenu_()

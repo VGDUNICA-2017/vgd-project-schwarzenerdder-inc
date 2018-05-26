@@ -65,13 +65,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadCheck: 0
+  oneTime: 0
   pdata:
     posX: 0
     posY: 0
     posZ: 0
+    angleY: 0
     fromFile: 0
     health: 0
-    medKits: 0
+    kit: 0
     flagPistol: 0
     ammoPistol: 0
     invPistol: 0
@@ -82,3 +84,5 @@ MonoBehaviour:
     ascia: 0
     cesoie: 0
     mappa: 0
+    armaAttiva: 0
+  sceneName: Level_2

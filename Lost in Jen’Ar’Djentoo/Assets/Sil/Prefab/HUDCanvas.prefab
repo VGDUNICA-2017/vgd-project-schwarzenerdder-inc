@@ -2056,6 +2056,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseMenuUI: {fileID: 1456208259055780}
+  pistola: {fileID: 0}
+  mitra: {fileID: 0}
+  ascia: {fileID: 0}
 --- !u!114 &114805339508085358
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -177,6 +177,7 @@ public class Misc : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
         //Setto snow (la variabile che indica se sei a contatto col terreno innevato) a secondo della collisione con il terreno o no
+        print(hit.gameObject.tag);
         if (hit.gameObject.CompareTag("Terreno"))
         {
             PlayAnimation.snow = true;

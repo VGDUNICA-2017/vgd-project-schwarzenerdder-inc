@@ -408,6 +408,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loaded: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
 --- !u!114 &114284883861317584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,6 +425,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loaded: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
 --- !u!114 &114371370089870974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -519,6 +531,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loaded: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
 --- !u!114 &114694632501057746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -605,6 +623,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loaded: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
 --- !u!114 &114949114910223510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -616,6 +640,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loaded: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
 --- !u!114 &114967270482913338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -627,6 +657,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3949c45cc05024286356359e804d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loaded: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
 --- !u!222 &222109470151627992
 CanvasRenderer:
   m_ObjectHideFlags: 1
