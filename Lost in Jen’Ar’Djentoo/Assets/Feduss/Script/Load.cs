@@ -17,6 +17,7 @@ public class Load : MonoBehaviour {
     private Misc misc;
     private Scene m_Scene;
     private string scene_name;
+    public string descrizione;
 
     public GameObject loadingScreen;
     public Slider slider;
@@ -349,46 +350,53 @@ public class Load : MonoBehaviour {
 
     
     //Caricamento asincrono della scena indicata per mostrare la barra di caricamento (Il tutto dal menù principale)
-    IEnumerator LoadAsync(string scene_name)
+    public IEnumerator LoadAsync(string scene_name, Text loadingProgress, GameObject premiper, Slider slider)
     {
-        loadingScreen.SetActive(true); //Abilito la barra di loading
-        foreach (GameObject bottone in GameObject.FindGameObjectsWithTag("BottoniMenu")) {
-            bottone.SetActive(false);
-        }
-
+        print("we");
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene_name); //Caricamento asincrono della scena (mi restituisce un oggetto con info utili)
         
-        operation.allowSceneActivation = false; //Non permetto l'attivazione della scena quando il caricamento viene effettuato (Utile per far premere un tasto prima di attivarla..da implementare?)
+        operation.allowSceneActivation = false;
 
-        //Fino a quando la scena non è "pronta"
-        while (!operation.isDone)
-        {
-            //Calcolo e aggiorno il valore della barra di caricamento
-            float progress = Mathf.Clamp01(operation.progress / .9f); //Serve per portare il valore di caricamento tra 0 e 1, anzichè tra 0 e 0.9 (i valori da 0.9 a 1 sono poco usati, e solo durante l'attivazione delle scene)
+        if (scene_name.Equals("Scena 1 - Il massiccio")) {
+            descrizione = "Fin, un ex soldato congedato con onore dalla guerra in Iraq, vive a Pimentel con la moglie e si gode la pensione ma un giorno, " +
+                            "mentre è in viaggio(verso una località a noi ignota), una luce abbagliante lo investe...";
+        }
+        else {
+            descrizione = "descrizione livello 2";
+        }
+
+        while (!operation.isDone) {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
             slider.value = progress;
-            loadingProgress.text = progress*100f + "%";
-            print(operation.progress);
-            //Quando il caricamento è finito
-            if (operation.progress == .9f && loadingProgress.text.Equals("100%"))
-            {
-                premiper.SetActive(true);
+            loadingProgress.text = progress * 100f + "%";
 
-                if (Input.GetButtonDown("Open Door"))
-                {
+            premiper.SetActive(true);
+            premiper.GetComponent <Text>().text = descrizione;
+
+            if (operation.progress == .9f && loadingProgress.text.Equals("100%")) {
+                loadingProgress.text = "Premi E per giocare";
+
+                if (Input.GetButtonDown("Open Door")) {
+                    premiper.SetActive(true);
                     premiper.GetComponent<Text>().text = "Attivazione scena...";
-                    operation.allowSceneActivation = true;                    
+                    operation.allowSceneActivation = true;
                 }
-                yield return null;
             }
-        }               
-
+                yield return null;
+        }
+        
     }
 
     public void OnClick(){
         //Se si trova nel menù principale, e preme il bottone di Load (il gameobject che contiene la script)
         if (gameObject.name.Equals("LoadingController"))
         {
-            
+            //Disattivo i bottoni
+            foreach (GameObject bottone in GameObject.FindGameObjectsWithTag("BottoniMenu")) {
+                bottone.SetActive(false);
+            }
+            loadingScreen.SetActive(true); //Abilito la barra di loading
+
             Destroy(GameObject.Find("Music"));
 
             if (EventSystem.current.currentSelectedGameObject.name.Equals("Load"))
@@ -402,14 +410,15 @@ public class Load : MonoBehaviour {
                 SceneData data = (SceneData)formatter.Deserialize(file);
                 scene_name = data.scena_name;
                 file.Close();
-                StartCoroutine(LoadAsync(scene_name));
+                StartCoroutine(LoadAsync(scene_name, loadingProgress, premiper, slider));
                 
             }
             else
             {
                 new_game = true;
                 scene_name = "Scena 1 - Il massiccio";
-                StartCoroutine(LoadAsync(scene_name));
+
+                StartCoroutine(LoadAsync(scene_name, loadingProgress, premiper, slider));
             }
             
             

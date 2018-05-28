@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneChanger : MonoBehaviour {
 	public bool loadCheck;
@@ -9,10 +10,14 @@ public class SceneChanger : MonoBehaviour {
 	[SerializeField]private PlayerData pdata;
 	private HUDSystem hud;
 	public string sceneName;
+    public GameObject loadingScreen;
+    public Text loadingProgress;
+    public GameObject premiper;
+    public Slider slider;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		loadCheck = false;
 		oneTime = false;
 		hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
@@ -25,7 +30,9 @@ public class SceneChanger : MonoBehaviour {
 		}
 
 		if (loadCheck && Input.GetButton ("Open Door")) {
-			SceneManager.LoadScene (sceneName, LoadSceneMode.Single);
+            loadingScreen.SetActive(true);
+            StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<Load>().LoadAsync(sceneName, loadingProgress, premiper, slider));
+            
 			oneTime = true;
 		}
 
