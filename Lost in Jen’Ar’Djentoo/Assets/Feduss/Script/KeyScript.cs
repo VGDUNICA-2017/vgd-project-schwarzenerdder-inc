@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class KeyScript : MonoBehaviour
 {
 
-
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     public bool key = false;
 	private HUDSystem hud;
 
@@ -108,15 +110,6 @@ public class KeyScript : MonoBehaviour
                 }
             }
         }
-
-        if (other.CompareTag("Player") && Input.GetButton("Open Door") && gameObject.CompareTag("FinalKey"))
-        {
-
-        }
-
-
-
-
     }
    
 }

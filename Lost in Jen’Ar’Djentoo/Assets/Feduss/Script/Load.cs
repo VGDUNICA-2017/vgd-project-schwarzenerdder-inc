@@ -9,6 +9,9 @@ using UnityEngine.EventSystems;
 
 public class Load : MonoBehaviour {
 
+    /// <summary>
+    /// authors: feduss, silvio
+    /// </summary>
     //LoadingBar --> https://www.youtube.com/watch?v=YMj2qPq9CP8
 
     private InventorySystem isys;
@@ -97,6 +100,7 @@ public class Load : MonoBehaviour {
 
     public void Load_(string scene_name)
     {
+        
         if (File.Exists(Application.persistentDataPath + "/save.dat") && scene_name.Equals("Scena 1 - Il massiccio"))
         {
             print(GameObject.FindGameObjectWithTag("Player").gameObject.name);
@@ -352,7 +356,7 @@ public class Load : MonoBehaviour {
     //Caricamento asincrono della scena indicata per mostrare la barra di caricamento (Il tutto dal menù principale)
     public IEnumerator LoadAsync(string scene_name, Text loadingProgress, GameObject premiper, Slider slider)
     {
-        print("we");
+        print("async | new game:" + new_game);
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene_name); //Caricamento asincrono della scena (mi restituisce un oggetto con info utili)
         
         operation.allowSceneActivation = false;
@@ -416,6 +420,7 @@ public class Load : MonoBehaviour {
             else
             {
                 new_game = true;
+                print("new game");
                 scene_name = "Scena 1 - Il massiccio";
 
                 StartCoroutine(LoadAsync(scene_name, loadingProgress, premiper, slider));

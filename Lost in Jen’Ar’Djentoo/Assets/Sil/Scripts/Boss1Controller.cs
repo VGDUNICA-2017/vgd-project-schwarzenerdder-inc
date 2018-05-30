@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Boss1Controller : MonoBehaviour {
+	/// <summary>
+	/// author: silvio
+	/// </summary>
 
 	//Componeneti
 	private Animator animator;
 	private Transform playerTransform;
 	private NavMeshAgent agent;
 	private PlayEnemySound playsound;
+	private HUDSystem hud;
 
     //Variabili di controllo sulla posizione
     public bool debug;
@@ -20,18 +24,15 @@ public class Boss1Controller : MonoBehaviour {
 	private const int MaxHealth = 300;
 	public int health;
 	private bool deathCall;
+	private int attack_num = 0;
 
 	//Elementi da settare
 	public float attackDistance = 4.0f;
 
-    private HUDSystem hud;
-
-    private int attack_num = 0;
-
-
     void Start () {
 		animator = this.GetComponent<Animator> ();
 		agent = this.GetComponent<NavMeshAgent> ();
+		playsound = GetComponent<PlayEnemySound>();
 
 		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
         hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
@@ -45,16 +46,14 @@ public class Boss1Controller : MonoBehaviour {
 		} else {
 			deathCall = false;
 		}
-
-        playsound = GetComponent<PlayEnemySound>();
     }
 
-    private void Update()
-    {
+	//Aggiornamento continuo della barra di vita nell'hud
+    private void Update() {
+        print(deathCall);
         hud.bossBarSetter(MaxHealth, health);
     }
-
-    // Update is called once per frame
+	
     void FixedUpdate () {
 		//Check sulla vita del nemico
 		if (health > 0) {//Se il nemico è vivo
@@ -73,7 +72,8 @@ public class Boss1Controller : MonoBehaviour {
 //				print ("A"); 
 			}
 		} else {
-			//Se il nemico non è vivo
+            //Se il nemico non è vivo
+            print("chiamo deathaction");
 			deathAction ();
 		}
 	}
@@ -105,21 +105,23 @@ public class Boss1Controller : MonoBehaviour {
 		agent.enabled = false;
 		animator.SetFloat ("Speed", 0.0f);
 		animator.SetBool ("Attack", true);
-        //playsound.PlayEnemyAttackSound();
+        playsound.PlayEnemyAttackSound();
 	}
 
 	public void deathAction() {
 		//Se il nemico non è ancora in fase di morte, attiva tale animazione
 		if (deathCall) {
-            //playsound.PlayEnemyDeath();
+            print("we");
+            playsound.PlayEnemyDeath();
 			animator.SetTrigger ("Death");
 			animator.SetFloat ("Speed", 0.0f);
 			agent.enabled = false;
 			deathCall = false;
 		}
 
+		//Nello stato di morte, il nemico viene cancellato dopo un ciclo di animazione
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Dying") &&
-            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1.0f) {
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 3.0f) {
             Destroy(gameObject);
         }
     }
@@ -128,13 +130,21 @@ public class Boss1Controller : MonoBehaviour {
 		this.health -= damage;
 
         attack_num++;
+        print(health);
 
-		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying") && ((attack_num % 3) == 0)) {
-			animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
-			animator.SetTrigger ("Hit");
-            //playsound.PlayEnemyHitSound();
+		//Se il nemico è in stato di morte non deve applicare altre animazioni
+		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying")) {
 
+			//L'animazione di danno si attiva solo ogni 3 danni
+			if ((attack_num % 3) == 0) {
+				animator.SetFloat ("Range", Random.Range (-1.0f, 1.0f));
+				animator.SetTrigger ("Hit");
+		        playsound.PlayEnemyHitSound();
+			}
+
+			//Con la vita a zero o meno, avvia la fase di morte
 			if (health <= 0) {
+                print("morto");
 				deathCall = true;
 			}
 		}

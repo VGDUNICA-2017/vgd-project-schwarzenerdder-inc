@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EventScript : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     private GameObject shutter1;
     private GameObject boss_door1;
     public static GameObject boss1;

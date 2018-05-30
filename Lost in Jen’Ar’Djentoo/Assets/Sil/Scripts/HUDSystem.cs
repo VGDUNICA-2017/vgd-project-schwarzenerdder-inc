@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDSystem : MonoBehaviour {
+	/// <summary>
+	/// author: silvio
+	/// </summary>
+
 	//Supporti per il flash dello schermo
 	public Image screenDamage;
 	private bool damaged;
@@ -350,6 +354,7 @@ public class HUDSystem : MonoBehaviour {
 		death = true;
 	}
 
+	//Funzione per la schermata di morte
 	private void deathWork () {
 		hudShotsEnabler (false);
 		minimapEnabler (false);
@@ -368,6 +373,7 @@ public class HUDSystem : MonoBehaviour {
 		}
 	}
 
+	//Schermata durante i passaggi di livello
 	public void onLoadHUD () {
 		loadingScreen.SetActive(true);
 
@@ -381,6 +387,7 @@ public class HUDSystem : MonoBehaviour {
 		bossBarEnabler (false);
 	}
 
+	//Reset dell'HUD dopo il cambio di livello
 	public void resumeHUD (int health, int maxHealth, int medkit, int arma, int ammo, int invAmmo) {
 		radialHealthSet (health, maxHealth);
 		medKitSet (medkit);

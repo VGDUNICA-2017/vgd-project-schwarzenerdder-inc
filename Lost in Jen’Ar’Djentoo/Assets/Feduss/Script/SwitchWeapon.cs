@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SwitchWeapon : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     private Animator animator;
 
     //flag per il possesso delle armi
@@ -44,6 +47,7 @@ public class SwitchWeapon : MonoBehaviour {
 
         SwitchWeapons();
 
+        //Recupero il possesso di oggetti/armi dall'inventario
         getTorch = inventario.getTorcia();
         getAxe = inventario.getAscia();
         getPistol = inventario.getWeapon(0);
@@ -64,10 +68,7 @@ public class SwitchWeapon : MonoBehaviour {
 
     private void SwitchWeapons()
     {
-        //if (animator.GetBool("Pistol")) getPistol = true;
-        //if (animator.GetBool("Axe")) getAxe = true;
-        //if (animator.GetBool("Smg")) getSmg = true;
-
+        //Se non sta eseguendo altre animazioni del primo layer
         if (!animator.IsInTransition(0))
         {
 
@@ -88,7 +89,7 @@ public class SwitchWeapon : MonoBehaviour {
                 if (animator.GetBool("Torch")) animator.SetBool("Torch", false);
                 if (animator.GetBool("Smg")) animator.SetBool("Smg", false);
 
-                inventario.changeWeaponHUD(0);
+                inventario.changeWeaponHUD(0); //Aggiorno la parte dell'hud sulle munizioni in base all'arma equipaggiata
                 animator.SetBool("Pistol", true);
             }
 
@@ -108,7 +109,7 @@ public class SwitchWeapon : MonoBehaviour {
 
     }
 
-    //ATTIVAZIONE ARMI O ELEMENTI DELL'HUD (da completare con le altre armi)
+    //ATTIVAZIONE ARMI O ELEMENTI DELL'HUD
     public void SetActive()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("NoWeapon"))

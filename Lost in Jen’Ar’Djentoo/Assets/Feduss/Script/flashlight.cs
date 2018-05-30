@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class flashlight : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     public Light torcia;
 
 	// Use this for initialization

@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HintTasto : MonoBehaviour {
-    
-	private HUDSystem hud;
+
+    /// <summary>
+    /// author: feduss
+    /// </summary>
+    private HUDSystem hud;
     private KeyScript access_cutter;
     private KeyScript access_key;
 
@@ -80,9 +83,7 @@ public class HintTasto : MonoBehaviour {
             if (other.gameObject.CompareTag("Player"))
             {
 				hud.centralBoxText ("Premi \"Left Shit\" per correre");
-				//testo.text = "Premi \"Left Shit\" per correre";
 				hud.centralBoxEnabler (true);
-				//testo.enabled = true;
             }
         }
 
@@ -91,9 +92,7 @@ public class HintTasto : MonoBehaviour {
             if (other.gameObject.CompareTag("Player"))
             {
 				hud.centralBoxText ("Premi \"W\" per avanzare");
-                //testo.text = "Premi \"W\" per avanzare";
 				hud.centralBoxEnabler (true);
-				//testo.enabled = true;
             }
         }
 
@@ -102,9 +101,7 @@ public class HintTasto : MonoBehaviour {
             if (other.gameObject.CompareTag("Player"))
             {
 				hud.centralBoxText ("Premi \"F\" per accendere e spegnere la torcia");
-                //testo.text = "Premi \"F\" per accendere e spegnere la torcia";
 				hud.centralBoxEnabler (true);
-				//testo.enabled = true;
                 GetComponent<AudioSource>().Play();
             }
         }
@@ -112,17 +109,13 @@ public class HintTasto : MonoBehaviour {
         if (gameObject.name.Equals("KitmedicoHint"))
         {
 			hud.centralBoxText ("Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo");
-            //testo.text = "Premi \"E\" per raccogliere " + gameObject.name + "e premi \"K\" per usarlo";
 			hud.centralBoxEnabler (true);
-			//testo.enabled = true;
         }
 
         if (gameObject.CompareTag("Axe"))
         {
 			hud.centralBoxText ("Premi \"E\" per raccogliere l'ascia");
-            //testo.text = "Premi \"E\" per raccogliere l'ascia";
 			hud.centralBoxEnabler (true);
-			//testo.enabled = true;
         }
     }
 
@@ -131,13 +124,6 @@ public class HintTasto : MonoBehaviour {
         if (other.gameObject.CompareTag("Player"))
         {
             hud.centralBoxEnabler(false);
-            //testo.enabled = false;
         }
-
-        //Distruggo i gameobject dei consigli sui comandi quando il player esce dal loro trigger
-        /*if (gameObject.name.Equals("Corsa") || gameObject.name.Equals("Camminata") || gameObject.name.Equals("TorciaHint"))   
-        {
-            Destroy(gameObject);
-        }*/
     }
 }

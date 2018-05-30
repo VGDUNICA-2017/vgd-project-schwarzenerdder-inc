@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
+	/// <summary>
+	/// author: silvio
+	/// </summary>
 
 	//Componeneti
 	private Animator animator;
@@ -54,41 +57,35 @@ public class EnemyController : MonoBehaviour {
     public bool loaded = false;
 
     void Start () {
-        
-            animator = this.GetComponent<Animator>();
-            agent = this.GetComponent<NavMeshAgent>();
-            playsound = this.GetComponent<PlayEnemySound>();
+        animator = this.GetComponent<Animator>();
+        agent = this.GetComponent<NavMeshAgent>();
+        playsound = this.GetComponent<PlayEnemySound>();
 
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-            playerSpotPoint = GameObject.Find("SpotPoint").transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerSpotPoint = GameObject.Find("SpotPoint").transform;
 
-            distance = spotDistance + 1.0f;
+        distance = spotDistance + 1.0f;
 
-        if (Load.new_game == true)
-        {
+        if (Load.new_game == true) {
             startPosition = this.transform.position;
             health = MaxHealth;
         }
-            backToStart = false;
-            //startLocalPosition = this.transform.localPosition;
-            startDistance = 0.0f;
 
-            isPlayerVisible = false;
-            tracking = false;
-            canRoar = true;
-            //		randomAttack = true;
+	    backToStart = false;
+	    startDistance = 0.0f;
 
-            debug = -1;
+	    isPlayerVisible = false;
+	    tracking = false;
+	    canRoar = true;
+//		randomAttack = true;
 
-            if (health <= 1)
-            {
-                deathCall = true;
-            }
-            else
-            {
-                deathCall = false;
-            }
-        
+	    debug = -1;
+
+	    if (health <= 1) {
+	        deathCall = true;
+	    } else {
+	        deathCall = false;
+	    }
     }
 
 	void Update () {
@@ -380,6 +377,7 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
     
+	//Funzione di salvataggio dati
     public Enemy saveEnemy () {
 		Enemy tempEnemy = new Enemy();
 
@@ -397,6 +395,7 @@ public class EnemyController : MonoBehaviour {
 		return tempEnemy;
     }
 
+	//Caricamento dei dati salvati
     public void loadEnemy (Enemy data) {
 		transform.position = new Vector3 (data.x, data.y, data.z);
 		startPosition = new Vector3 (data.startX, data.startY, data.startZ);

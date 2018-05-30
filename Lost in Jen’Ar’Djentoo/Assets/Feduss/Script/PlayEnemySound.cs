@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayEnemySound : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     [SerializeField] private AudioClip m_Roar;
     [SerializeField] private AudioClip m_EnemyAttack;
     [SerializeField] private AudioClip m_EnemyHit;

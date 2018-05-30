@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class Save : MonoBehaviour {
 
+    /// <summary>
+    /// authors: feduss, silvio
+    /// </summary>
     private InventorySystem isys;
     private GameObject player;
     private HUDSystem hud;

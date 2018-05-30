@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Moving : MonoBehaviour
 {
-
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     private float horizontal;
     private float vertical;
     private Vector3 moveDirection;
@@ -38,16 +40,12 @@ public class Moving : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
         move();
-
-        
-        
     }
 
     private void LateUpdate()
     {
-        mouseRotation();
+        mouseRotation(); //nel lateupdate per le braccia sono animate, e devo modificare la rotazione prima del rendering dell'animazione stessa
     }
 
     public void move()
@@ -74,9 +72,7 @@ public class Moving : MonoBehaviour
         {
             controller.Move(moveDirection * Time.deltaTime * speed);
         }
-
-        /*if (moveDirection != Vector3.zero)
-            transform.forward = moveDirection;*/
+        
     }
 
 
@@ -98,7 +94,7 @@ public class Moving : MonoBehaviour
         GameObject.FindGameObjectWithTag("MainCamera").transform.localEulerAngles = new Vector3(posX, posY, 0f);
 
         //Se mira, cambio il fov (non puoi mirare se hai la torcia o l'ascia, o stai correndo o ricaricando)
-        if ((Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("Axe") && !animator.GetBool("Run") && !animator.GetBool("Reload")))
+        if ((Input.GetButton("Aim") && (animator.GetBool("Pistol") || !animator.GetBool("Smg")) && !animator.GetBool("Run") && !animator.GetBool("Reload")))
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, end_fov, Time.deltaTime * 5);
 

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlaySound : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     //Suoni passi
     [SerializeField] public AudioClip[] m_FootstepSounds_Indoor;
     [SerializeField] public AudioClip[] m_FootstepSounds_Snow;    // an array of footstep sounds that will be randomly selected from.
@@ -118,7 +121,6 @@ public class PlaySound : MonoBehaviour {
         }
     }
 
-   
 
     public void PlayPlayerDeath()
     {

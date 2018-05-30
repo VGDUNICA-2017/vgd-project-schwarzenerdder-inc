@@ -36,7 +36,7 @@ Transform:
   m_GameObject: {fileID: 1188857175339446}
   m_LocalRotation: {x: -0, y: -0.14421353, z: -0, w: 0.9895466}
   m_LocalPosition: {x: -173.5, y: 35.920002, z: 300.7}
-  m_LocalScale: {x: 36.185097, y: 11.709431, z: 57.045033}
+  m_LocalScale: {x: 36.185097, y: 11.709431, z: 45.704468}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -84,7 +84,6 @@ MonoBehaviour:
     mappa: 0
     armaAttiva: 0
   sceneName: Level_2
-  loadingScreen: {fileID: 0}
-  loadingProgress: {fileID: 0}
-  premiper: {fileID: 0}
+  percentageText: {fileID: 0}
+  loadingText: {fileID: 0}
   slider: {fileID: 0}

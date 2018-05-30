@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyDamageDealer : MonoBehaviour {
+	/// <summary>
+	/// author: silvio
+	/// </summary>
 
 	private Animator enemyAnimator;
 	public bool damageDealt;
@@ -20,7 +23,6 @@ public class EnemyDamageDealer : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter (Collider other) {
-		
 		if (other.gameObject.CompareTag("Player")) {
 			if (enemyAnimator.GetCurrentAnimatorStateInfo (0).IsName("Attacking")) {
 				if (!damageDealt) {

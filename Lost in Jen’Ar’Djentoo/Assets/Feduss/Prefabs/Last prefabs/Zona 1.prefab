@@ -1205,7 +1205,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 40
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1445423482015200
 GameObject:
@@ -1274,7 +1274,7 @@ GameObject:
   m_TagString: Terreno
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 40
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1471122923042372
 GameObject:
@@ -10045,7 +10045,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.21, y: 2.86, z: 2.8}
+  m_Size: {x: 6.84, y: 2.86, z: 4.24}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65616885932170156
 BoxCollider:

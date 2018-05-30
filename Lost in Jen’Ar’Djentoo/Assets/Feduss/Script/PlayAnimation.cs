@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayAnimation : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
+    /// 
     private Animator animator; // animator del player
     private HUDSystem hudsystem; //script del player
     private PlaySound playsound; //script del player
@@ -31,15 +35,11 @@ public class PlayAnimation : MonoBehaviour {
     {
         //Gestione della camminata dritta e di lato
         animator.SetFloat("Speed", Input.GetAxis("Vertical") + Input.GetAxis("Horizontal"));
-        //animator.SetFloat("isTurning", Input.GetAxis("Horizontal"));
-
-        //Se ha raccolto la torcia, non è più senza armi, altrimenti lo è
-        //if (animator.GetBool("Torch")) animator.SetBool("WeaponLess", false);
 
         //Se avanza, riproduce il suo dei passi
         if ((Input.GetAxis("Vertical") != 0.0) || (Input.GetAxis("Horizontal") != 0.0))
         {
-            hudsystem.movingState(true);
+            hudsystem.movingState(true); //Setta il reticolo a seconda del movimento o meno
             if (!animator.GetBool("Run") && snow) playsound.PlayFootStepAudioSnow(1);
             else if (!animator.GetBool("Run") && !snow) playsound.PlayFootStepAudioIndoor(1);
         }
@@ -65,13 +65,10 @@ public class PlayAnimation : MonoBehaviour {
         
 
         //MIRA
-        //Se preme il tasto dx del mouse, se non ho la torcia e se non sto correndo
-        if (Input.GetButton("Aim") && !animator.GetBool("Torch") && !animator.GetBool("Run") && !animator.GetBool("Reload"))
+        //Se preme il tasto dx del mouse, se ha la pistola o il mitra
+        if (Input.GetButton("Aim") && (animator.GetBool("Pistol") || animator.GetBool("Smg")) && !animator.GetBool("Run") && !animator.GetBool("Reload"))
         {
             animator.SetBool("Aim", true);
-
-
-
         }
         else
         {

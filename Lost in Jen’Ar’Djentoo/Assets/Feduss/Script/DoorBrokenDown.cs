@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DoorBrokenDown : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     public float force;
     public bool flag = false;
     public bool forward = false; //bool che serve per orientare la forza applicata al rigidbody del gameobject
@@ -24,6 +27,7 @@ public class DoorBrokenDown : MonoBehaviour {
 
     }
 
+    //Funzione che reimposta l'evento durante il caricamento di una partita
     public void brokenOnLoading()
     {
         if (forward) GetComponent<Rigidbody>().AddForce(Vector3.forward * force, ForceMode.Impulse);
@@ -50,6 +54,7 @@ public class DoorBrokenDown : MonoBehaviour {
             audio_source.Play();
             gameObject.AddComponent<Rigidbody>();
 
+            //Oriento la forza applicata
             if(forward) GetComponent<Rigidbody>().AddForce(Vector3.forward * force, ForceMode.Impulse);
             else GetComponent<Rigidbody>().AddForce(Vector3.right * force, ForceMode.Impulse);
 
@@ -60,7 +65,6 @@ public class DoorBrokenDown : MonoBehaviour {
                     Destroy(collider);
                 }
             }
-            //Destroy(gameObject.GetComponent<Rigidbody>());
         }
     }
 

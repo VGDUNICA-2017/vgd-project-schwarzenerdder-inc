@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Door : MonoBehaviour {
+	/// <summary>
+	/// author: silvio
+	/// </summary>
+
 	private HUDSystem hud;
 	private bool inRange;
 	private bool isOpened;
@@ -14,14 +18,11 @@ public class Door : MonoBehaviour {
 	public float closeDoorY = 0.0f;
 	public float openDoorY = 45.0f;
 
-	//private Vector3 portaAperta = new Vector3 (0.0f, 90.0f, 0.0f);
-	//private Vector3 portaChiusa = new Vector3 (0.0f, 0.0f, 0.0f);
-
 	// Use this for initialization
 	void Start () {
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
+
 		isOpened = false;
-		hud.centralBoxEnabler (false);
 		inRange = false;
 	}
 
@@ -35,16 +36,21 @@ public class Door : MonoBehaviour {
 		//La porta è chiusa e richiede di aprirsi
 		if (!(isOpened) && (moveDoor)) {
 			hud.centralBoxEnabler (false);
+
+			//Recupero dell'angolo corrente
 			currentY = transform.eulerAngles.y;
 
+			//Lerp
 			currentY = Mathf.LerpAngle(currentY, openDoorY, Time.deltaTime);
 
+			//Correzione del valore
 			if (Mathf.Abs (openDoorY - currentY) > 360.0f) {
 				absoluteY = Mathf.Abs (openDoorY - currentY) - 360.0f;
 			} else {
 				absoluteY = Mathf.Abs (openDoorY - currentY);
 			}
 
+			//Correzione ulteriore: evita che la porta continui il lerp per valori molto piccoli
 			if (absoluteY < 1.0f) {
 				currentY = openDoorY;
 				moveDoor = false;

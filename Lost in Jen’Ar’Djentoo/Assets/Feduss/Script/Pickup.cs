@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class Pickup : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     //private Text testo;
     //private Text take;
     private GameObject player;
@@ -42,7 +45,7 @@ public class Pickup : MonoBehaviour {
         CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
         SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
 
-        munizioni_ammobox = start_ammo;
+        munizioni_ammobox = start_ammo;//Setto le munizioni contenute nell'ammo box
 
         misc = player.GetComponent<Misc>();
 
@@ -73,15 +76,16 @@ public class Pickup : MonoBehaviour {
     public void OnTriggerStay(Collider other) {
         if (Input.GetButtonDown("Open Door") && other.gameObject.CompareTag("Player")) {
             if (gameObject.name.Equals("la Torcia") && onetime) {
-                onetime = false;
+                onetime = false;//onetime serve a non entrare nell'if più volte
                 EquipTorch();
-				hud.centralBoxEnabler(false);
+				hud.centralBoxEnabler(false); //disattivo la scritta centrale nell'hud
 				inventario.setTorcia (true);
                 player.GetComponent<SwitchWeapon>().getTorch = true;
                 Destroy(GameObject.Find("MuroInvisibile1"));
-				hud.sideBoxEnabler (true);
+				hud.sideBoxEnabler (true); //attivo la scritta laterale nell'hud
 				hud.sideBoxText("Hai raccolto la torcia");
 
+                //Disattivo i nemici da spawnare
                 AxeSpawn.SetActive(false);
                 PistolSpawn.SetActive(false);
                 ChainSpawn.SetActive(false);

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LightScript : MonoBehaviour {
 
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     private GameObject lamp;
     private GameObject light;
 	// Use this for initialization

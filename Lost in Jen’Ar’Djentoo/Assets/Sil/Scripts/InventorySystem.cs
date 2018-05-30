@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventorySystem : MonoBehaviour {
+	/// <summary>
+	/// author: silvio
+	/// </summary>
+
 	//Altri script
 	private HUDSystem hudScript;
 
@@ -32,8 +36,7 @@ public class InventorySystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (Load.new_game==true)
-        {
+        if (Load.new_game == true) {
             //Vita default
             currentHealth = fullHealth;
             medKits = 0;
@@ -57,11 +60,6 @@ public class InventorySystem : MonoBehaviour {
         hudScript.medKitSet(medKits);
 		playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
     }
-
-	// Update is called once per frame
-	void Update () {
-
-	}
 
 	//Funzione per subire danni
 	public void takeDamage(int damage) {
@@ -141,8 +139,7 @@ public class InventorySystem : MonoBehaviour {
 	}
 
     //Getter munizioni massime nel caricatore
-    public int maxAmmo(int indexArma)
-    {
+    public int maxAmmo(int indexArma) {
         return magCapacity[indexArma];
     }
 
@@ -268,7 +265,7 @@ public class InventorySystem : MonoBehaviour {
 		return this.cesoie;
 	}
 
-	//SaveData del Player
+	//SaveData del player
 	public PlayerData SavePlayer () {
 		PlayerData data	= new PlayerData ();
 		Animator anim = this.GetComponent<Animator> ();
@@ -310,6 +307,7 @@ public class InventorySystem : MonoBehaviour {
 		return data;
 	}
 
+	//LoadData del player
 	public void LoadPlayer (PlayerData data) {
 		Animator anim = this.GetComponent<Animator> ();
         hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MinimapCamera : MonoBehaviour {
+	/// <summary>
+	/// author: silvio
+	/// </summary>
 
 	public Transform player;
 

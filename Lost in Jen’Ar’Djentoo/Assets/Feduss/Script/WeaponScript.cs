@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour {
 
-
+    /// <summary>
+    /// author: feduss
+    /// </summary>
     //Ho seguito il seguente tutorial ---> https://www.youtube.com/watch?v=THnivyG0Mvo per impostare il rateo di fuoco e l'effetto particellare dello sparo
     //Ho seguito il tutorial di unity per impostare il raycast (per lo sparo)
 
@@ -67,7 +69,7 @@ public class WeaponScript : MonoBehaviour {
 
 	public void Update() {
 
-
+        //Disattivo il reticolo di mira quando ho l'ascia, e imposto il suo danno
         if (player.GetBool("Axe"))
         {
             hudsystem.hudShotsEnabler(false);
@@ -127,7 +129,7 @@ public class WeaponScript : MonoBehaviour {
 
     public void Reload()
     {
-        //Può ricaricare se preme R, se non sta già ricaricando o sparando e se ha abbastanza colpi di riserva
+        //Può ricaricare se preme R, se non sta già ricaricando o sparando e se ha abbastanza colpi di riserva (e se non ha già il massimo dei colpi nel caricatore)
         if (Input.GetButton("Reload") && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg")) &&
             !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") && !(player.GetCurrentAnimatorStateInfo(1).IsName("Fire_Smg")) &&
             leftInvAmmo > 0 && leftMagAmmo!=inventario.maxAmmo(index))
@@ -167,9 +169,10 @@ public class WeaponScript : MonoBehaviour {
     public void Shot()
     {
 
-        //Spara se preme il tasto sinistro del mouse e se è passato il tempo minimo tra uno sparo e l'altro
+        //Spara se preme il tasto sinistro del mouse, se è passato il tempo minimo tra uno sparo e l'altro, e se non sta ricaricando
+        //il check su "Fire" serve per riprodurre correttamente (per ogni sparo) l'animazione della pistola (per quella del mitra non serve)
         if (Input.GetButton("Fire1") && Time.time >= nextFire && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") &&
-            !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg"))) //Serve per riprodurre correttamente (per ogni sparo) l'animazione della pistola (per quella del mitra non serve)
+            !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg"))) 
         {
             nextFire = Time.time + 1f/fireRate; //Spara ogni 1/fireRate secondi
 
@@ -188,7 +191,6 @@ public class WeaponScript : MonoBehaviour {
                 
 
             }
-            print("Scalo colpo");
             inventario.shot(index); //Scalo un colpo
             
 
@@ -198,15 +200,12 @@ public class WeaponScript : MonoBehaviour {
         {
             player.SetBool("Fire", false);
         }
-
-
-        
     }
 
     public void Axehit()
     {
 
-        //Posso colpo con l'ascia se premo il tasto sinistro del mouse, se non sto già attaccando o correndo
+        //Posso colpire con l'ascia se premo il tasto sinistro del mouse, se non sto già attaccando o correndo
         if (Input.GetButtonDown("Fire1") && !(player.GetCurrentAnimatorStateInfo(1).IsName("MeleeAttack")) && !player.IsInTransition(1) && !player.GetBool("Run"))
         {
             player.SetTrigger("Attack"); //Avvio l'animazione
@@ -217,12 +216,10 @@ public class WeaponScript : MonoBehaviour {
 
     public void RaycastShot()
     {
-
-        print("Raycast");
+        //Avvio l'effetto particellare dello sparo se, quando sto premendo il tasto sx del mouse, non ho l'ascia in mano
         if (!player.GetBool("Axe")) fire_effect.Play();
 
         //Funzione in parte scritta seguendo il tutorial di unity sui raycast
-
         Vector3 rayOrigin;
         Vector3 direction;
 
@@ -236,17 +233,19 @@ public class WeaponScript : MonoBehaviour {
         //-direzione del ray (il forward della camera
         //-info sull'oggetto colpito
         //-gittata raggio
+        //-layer mask
 
         if (Physics.Raycast(rayOrigin, direction, out hit, weaponRange, lm))
         {
-            print(hit.collider.name);
             //Se colpisco il nemico (Enemy_part=mani del nemico)) o il boss
             if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Enemy_part") || hit.collider.gameObject.CompareTag("Boss") || hit.collider.gameObject.CompareTag("MiniBoss"))
             {
                 print(hit.collider.name);
                 //Istanzio il sangue sul nemico
                 Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
-                //Gli infliggo danno (l'else gestisce il danno se colpisco il nemico nelle mani, cioè enemy_part)
+                
+                //Gestione del danno in base al nemico colpito (che può avere una diversa scritp di controllo) e in base alla parte del corpo colpita
+                //Danno normale per il corpo, danno doppio per colpo in testa e metà danno per colpo nelle mani
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     hit.collider.gameObject.GetComponent<EnemyController>().takeDamage(gunDamage);
@@ -261,23 +260,22 @@ public class WeaponScript : MonoBehaviour {
                             else
                             {
                                 if (hit.collider.gameObject.GetComponentInParent<EnemyController>()!=null) {
-                                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
+                                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage/2);
                                 }
                                 else if(hit.collider.gameObject.GetComponentInParent<BossHealth>() != null) {
-                                    hit.collider.gameObject.GetComponentInParent<BossHealth>().TakeDamage(gunDamage);
+                                    hit.collider.gameObject.GetComponentInParent<BossHealth>().TakeDamage(gunDamage/2);
                                 }
                                     else
                                     {
-                                        hit.collider.gameObject.GetComponentInParent<Boss1Controller>().takeDamage(gunDamage);
+                                        hit.collider.gameObject.GetComponentInParent<Boss1Controller>().takeDamage(gunDamage/2);
                                     }
                             }
                      
             }
             else
-            { //danno bonus se lo colpisce all testa (WIP, manca un collider che gestisca la testa)
+            { //danno bonus se lo colpisce all testa
                 if (hit.collider.gameObject.CompareTag("Testa") && !gameObject.CompareTag("Axe"))
                 {
-                    print("HEADSHOTTTT!");
                     //Istanzio il sangue sul nemico
                     Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
                     if (hit.collider.gameObject.GetComponentInParent<EnemyController>()!=null) {
@@ -297,10 +295,6 @@ public class WeaponScript : MonoBehaviour {
                 }
             }
         }
-
-   
-        
-
     }
 
     public void SetActive()

@@ -18,11 +18,6 @@ public class BossMovement : MonoBehaviour {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
     }
-
-    private void Update() {
-        print(nav.enabled);
-    }
-
     // Update is called once per frame
     void FixedUpdate() {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Attack") && GameObject.Find("TriggerFight").GetComponent<BossFight>().fightStarted == true) {
