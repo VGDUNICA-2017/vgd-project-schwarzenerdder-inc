@@ -28,6 +28,7 @@ public class Boss1Controller : MonoBehaviour {
 
 	//Elementi da settare
 	public float attackDistance = 4.0f;
+    public GameObject door;
 
     void Start () {
 		animator = this.GetComponent<Animator> ();
@@ -111,6 +112,8 @@ public class Boss1Controller : MonoBehaviour {
 	public void deathAction() {
 		//Se il nemico non è ancora in fase di morte, attiva tale animazione
 		if (deathCall) {
+            door.GetComponent<Animator>().SetTrigger("Boss dies");
+            hud.bossBarEnabler(false);
             print("we");
             playsound.PlayEnemyDeath();
 			animator.SetTrigger ("Death");

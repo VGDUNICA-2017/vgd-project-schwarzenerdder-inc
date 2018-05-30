@@ -2130,6 +2130,7 @@ MonoBehaviour:
   distance: 0
   health: 0
   attackDistance: 4
+  door: {fileID: 0}
 --- !u!114 &114542836839131710
 MonoBehaviour:
   m_ObjectHideFlags: 1

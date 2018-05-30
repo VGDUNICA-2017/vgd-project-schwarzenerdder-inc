@@ -9,9 +9,8 @@ public class EventScript : MonoBehaviour {
     /// </summary>
     private GameObject shutter1;
     private GameObject boss_door1;
-    public static GameObject boss1;
+    public GameObject boss1;
     private HUDSystem hud;
-    public static bool boss_defeated;
     public static bool boss_is_active;
 
 	// Use this for initialization
@@ -25,22 +24,11 @@ public class EventScript : MonoBehaviour {
             boss1.SetActive(false);
         }
         hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
-        boss_defeated = false;
         boss_is_active = false;
         
 
         
 
-
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        if (boss1!=null && boss_is_active && boss1.GetComponent<Boss1Controller>().health == 0)
-        {
-            boss_defeated = true;
-            hud.bossBarEnabler(false);
-        }
 
     }
 
@@ -66,14 +54,6 @@ public class EventScript : MonoBehaviour {
             boss1.SetActive(true);
             hud.bossBarEnabler(true);
             hud.bossNameSetter("Gente Mala");
-        }
-        else
-        {
-            //Se ho sconfitto il miniboss, apro la porta di uscita dalla zona
-            if (boss_defeated)
-            {
-                boss_door1.GetComponent<Animator>().SetTrigger("Boss dies");
-            }
         }
 
     }
