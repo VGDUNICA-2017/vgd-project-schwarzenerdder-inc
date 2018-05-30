@@ -18,12 +18,12 @@ public class Save : MonoBehaviour {
     private Scene m_Scene;
     public bool loaded = false;
 
-    private GameObject torcia;
-    private GameObject ascia;
-    private GameObject pistola;
-    private GameObject smg;
-    private GameObject final_key;
-    private GameObject cutter;
+    public GameObject torcia;
+    public GameObject ascia;
+    public GameObject pistola;
+    public GameObject smg;
+    public GameObject final_key;
+    public GameObject cutter;
 
     public GameObject AxeSpawn;
     public GameObject PistolSpawn;
@@ -47,18 +47,18 @@ public class Save : MonoBehaviour {
         m_Scene = SceneManager.GetActiveScene();
 
         if (m_Scene.name.Equals("Scena 1 - Il massiccio") && Load.new_game) {
-            torcia = GameObject.Find("la Torcia");
-            ascia = GameObject.Find("l'ascia");
-            pistola = GameObject.Find("P226");
-            smg = GameObject.Find("MP5");
-            final_key = GameObject.FindGameObjectWithTag("FinalKey");
-            cutter = GameObject.FindGameObjectWithTag("Cutter");
+            //torcia = GameObject.Find("la Torcia");
+            //ascia = GameObject.Find("l'ascia");
+            //pistola = GameObject.Find("P226");
+            //smg = GameObject.Find("MP5");
+            //final_key = GameObject.FindGameObjectWithTag("FinalKey");
+            //cutter = GameObject.FindGameObjectWithTag("Cutter");
 
-            AxeSpawn = GameObject.FindGameObjectWithTag("AxeEnemySpawn");
-            PistolSpawn = GameObject.FindGameObjectWithTag("PistolEnemySpawn");
-            ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
-            CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
-            SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
+            //AxeSpawn = GameObject.FindGameObjectWithTag("AxeEnemySpawn");
+            //PistolSpawn = GameObject.FindGameObjectWithTag("PistolEnemySpawn");
+            //ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
+            //CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
+            //SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
         }
 
 
@@ -111,6 +111,7 @@ public class Save : MonoBehaviour {
             data.idata.Add(ammo_smg.gameObject.name);
         }
 
+        print("p" + pistola + "a" + ascia + "s" + smg + "k"+final_key+"c"+cutter);
         if (torcia != null) data.idata.Add(torcia.gameObject.name);
 
         if (ascia != null) data.idata.Add(ascia.gameObject.name);

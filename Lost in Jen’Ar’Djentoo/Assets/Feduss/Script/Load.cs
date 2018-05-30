@@ -29,13 +29,13 @@ public class Load : MonoBehaviour {
     public static bool new_game;
     public GameObject loadButton;
 
-    private GameObject torcia;
-    private GameObject ascia;
-    private GameObject pistola;
-    private GameObject smg;
-    private GameObject final_key;
-    private GameObject cutter;
-    private GameObject boss_door1;
+    public GameObject torcia;
+    public GameObject ascia;
+    public GameObject pistola;
+    public GameObject smg;
+    public GameObject final_key;
+    public GameObject cutter;
+    public GameObject boss_door1;
 
     public GameObject AxeSpawn;
     public GameObject PistolSpawn;
@@ -53,13 +53,13 @@ public class Load : MonoBehaviour {
 
         if (m_Scene.name.Equals("Scena 1 - Il massiccio"))
         {
-            torcia = GameObject.Find("la Torcia");
-            ascia = GameObject.Find("l'ascia");
-            pistola = GameObject.Find("P226");
-            smg = GameObject.Find("MP5");
-            final_key = GameObject.FindGameObjectWithTag("FinalKey");
-            cutter = GameObject.FindGameObjectWithTag("Cutter");
-            boss_door1 = GameObject.Find("door_2");
+            //torcia = GameObject.Find("la Torcia");
+            //ascia = GameObject.Find("l'ascia");
+            //pistola = GameObject.Find("P226");
+            //smg = GameObject.Find("MP5");
+            //final_key = GameObject.FindGameObjectWithTag("FinalKey");
+            //cutter = GameObject.FindGameObjectWithTag("Cutter");
+            //boss_door1 = GameObject.Find("door_2");
         }
     }
 	
@@ -81,15 +81,16 @@ public class Load : MonoBehaviour {
 
     public void OnLevelWasLoaded(int level)
     {
+        Time.timeScale = 1f;
         if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio") && new_game==false)
         {
-            torcia = GameObject.Find("la Torcia");
-            ascia = GameObject.Find("l'ascia");
-            pistola = GameObject.Find("P226");
-            smg = GameObject.Find("MP5");
-            final_key = GameObject.FindGameObjectWithTag("FinalKey");
-            cutter = GameObject.FindGameObjectWithTag("Cutter");
-            boss_door1 = GameObject.Find("door_2");
+            //torcia = GameObject.Find("la Torcia");
+            //ascia = GameObject.Find("l'ascia");
+            //pistola = GameObject.Find("P226");
+            //smg = GameObject.Find("MP5");
+            //final_key = GameObject.FindGameObjectWithTag("FinalKey");
+            //cutter = GameObject.FindGameObjectWithTag("Cutter");
+            //boss_door1 = GameObject.Find("door_2");
 
 
     Load_("Scena 1 - Il massiccio");
@@ -108,11 +109,11 @@ public class Load : MonoBehaviour {
             hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
             player = GameObject.FindGameObjectWithTag("Player");
             misc = player.GetComponent<Misc>();
-            AxeSpawn =GameObject.FindGameObjectWithTag("AxeEnemySpawn");
-            PistolSpawn = GameObject.FindGameObjectWithTag("PistolEnemySpawn"); ;
-            ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn"); ;
-            CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn"); ;
-            SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn"); ;
+            //AxeSpawn =GameObject.FindGameObjectWithTag("AxeEnemySpawn");
+            //PistolSpawn = GameObject.FindGameObjectWithTag("PistolEnemySpawn"); ;
+            //ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn"); ;
+            //CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn"); ;
+            //SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn"); ;
 
     BinaryFormatter formatter = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);

@@ -3742,6 +3742,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: -1
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114241860939118676
 MonoBehaviour:
@@ -3766,6 +3773,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 6
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114297613408431194
 MonoBehaviour:
@@ -3779,6 +3793,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
   loaded: 0
 --- !u!114 &114360906475837714
 MonoBehaviour:
@@ -3792,6 +3808,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 4
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114381081026218044
 MonoBehaviour:
@@ -3805,6 +3828,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 8
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114441321129869062
 MonoBehaviour:
@@ -3818,6 +3848,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114461107147388416
 MonoBehaviour:
@@ -3831,6 +3868,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114479242389882606
 MonoBehaviour:
@@ -3855,6 +3899,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 5
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114571976240180140
 MonoBehaviour:
@@ -3879,6 +3930,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114647219896400738
 MonoBehaviour:
@@ -3892,6 +3950,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114676436772065258
 MonoBehaviour:
@@ -3905,6 +3970,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 30
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114885369446474180
 MonoBehaviour:
@@ -3918,6 +3990,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 0
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!114 &114899569691404122
 MonoBehaviour:
@@ -3931,6 +4010,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
   loaded: 0
 --- !u!114 &114962854851306418
 MonoBehaviour:
@@ -3944,6 +4025,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   start_ammo: 8
+  AxeSpawn: {fileID: 0}
+  PistolSpawn: {fileID: 0}
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
+  SmgSpawn: {fileID: 0}
+  misc: {fileID: 0}
+  onetime: 1
   loaded: 0
 --- !u!135 &135040191915291856
 SphereCollider:

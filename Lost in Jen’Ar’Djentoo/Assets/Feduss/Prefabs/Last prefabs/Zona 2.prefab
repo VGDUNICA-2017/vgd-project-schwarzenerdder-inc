@@ -90916,6 +90916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
   loaded: 0
 --- !u!114 &114090835014706736
 MonoBehaviour:
@@ -90942,6 +90944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
   loaded: 0
 --- !u!114 &114299698255435298
 MonoBehaviour:
@@ -90971,6 +90975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
   loaded: 0
 --- !u!114 &114550802338473702
 MonoBehaviour:

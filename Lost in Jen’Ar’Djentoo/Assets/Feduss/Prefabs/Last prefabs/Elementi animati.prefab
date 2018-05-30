@@ -4972,6 +4972,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 0
+  ChainSpawn: {fileID: 0}
+  CutterSpawn: {fileID: 0}
   loaded: 0
 --- !u!154 &154868751694524010
 TerrainCollider:

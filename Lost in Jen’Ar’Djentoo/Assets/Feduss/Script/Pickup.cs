@@ -20,13 +20,13 @@ public class Pickup : MonoBehaviour {
     public int start_ammo=-1; //numero di colpi presenti inizialmente nell'ammobox
 
 
-    private GameObject AxeSpawn;
-    private GameObject PistolSpawn;
-    private GameObject ChainSpawn;
-    private GameObject CutterSpawn;
-    private GameObject SmgSpawn;
-    private Misc misc;
-    private bool onetime = true;
+    public GameObject AxeSpawn;
+    public GameObject PistolSpawn;
+    public GameObject ChainSpawn;
+    public GameObject CutterSpawn;
+    public GameObject SmgSpawn;
+    public Misc misc;
+    public bool onetime = true;
 
     public bool loaded = false;
 
@@ -39,11 +39,11 @@ public class Pickup : MonoBehaviour {
         animator = player.GetComponent<Animator>();
         inventario = player.GetComponent<InventorySystem>();
 
-        AxeSpawn=GameObject.FindGameObjectWithTag("AxeEnemySpawn");
-        PistolSpawn=GameObject.FindGameObjectWithTag("PistolEnemySpawn");
-        ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
-        CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
-        SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
+        //AxeSpawn=GameObject.FindGameObjectWithTag("AxeEnemySpawn");
+        //PistolSpawn=GameObject.FindGameObjectWithTag("PistolEnemySpawn");
+        //ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
+        //CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
+        //SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
 
         munizioni_ammobox = start_ammo;//Setto le munizioni contenute nell'ammo box
 

@@ -12,8 +12,8 @@ public class KeyScript : MonoBehaviour
     public bool key = false;
 	private HUDSystem hud;
 
-    private GameObject ChainSpawn;
-    private GameObject CutterSpawn;
+    public GameObject ChainSpawn;
+    public GameObject CutterSpawn;
     private Misc misc;
     private GameObject player;
     private bool onetime=true;
@@ -24,8 +24,8 @@ public class KeyScript : MonoBehaviour
     {
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
         player = GameObject.FindGameObjectWithTag("Player");
-        ChainSpawn=GameObject.FindGameObjectWithTag("ChainEnemySpawn");
-        CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
+        //ChainSpawn=GameObject.FindGameObjectWithTag("ChainEnemySpawn");
+        //CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
         misc = player.GetComponent<Misc>();
 
 

@@ -51,7 +51,6 @@ public class Boss1Controller : MonoBehaviour {
 
 	//Aggiornamento continuo della barra di vita nell'hud
     private void Update() {
-        print(deathCall);
         hud.bossBarSetter(MaxHealth, health);
     }
 	
@@ -74,7 +73,7 @@ public class Boss1Controller : MonoBehaviour {
 			}
 		} else {
             //Se il nemico non è vivo
-            print("chiamo deathaction");
+
 			deathAction ();
 		}
 	}
@@ -114,7 +113,6 @@ public class Boss1Controller : MonoBehaviour {
 		if (deathCall) {
             door.GetComponent<Animator>().SetTrigger("Boss dies");
             hud.bossBarEnabler(false);
-            print("we");
             playsound.PlayEnemyDeath();
 			animator.SetTrigger ("Death");
 			animator.SetFloat ("Speed", 0.0f);
@@ -133,7 +131,6 @@ public class Boss1Controller : MonoBehaviour {
 		this.health -= damage;
 
         attack_num++;
-        print(health);
 
 		//Se il nemico è in stato di morte non deve applicare altre animazioni
 		if (!animator.GetCurrentAnimatorStateInfo (0).IsName ("Dying")) {
@@ -147,7 +144,6 @@ public class Boss1Controller : MonoBehaviour {
 
 			//Con la vita a zero o meno, avvia la fase di morte
 			if (health <= 0) {
-                print("morto");
 				deathCall = true;
 			}
 		}
