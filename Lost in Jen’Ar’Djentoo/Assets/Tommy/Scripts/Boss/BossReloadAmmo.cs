@@ -40,6 +40,7 @@ public class BossReloadAmmo : MonoBehaviour {
 				carriedWeapon = -1;
 			inventory.ammoPickup (16, 0, carriedWeapon);
 			inventory.ammoPickup (60, 2, carriedWeapon);
+			hud.centralBoxEnabler (false);
 		}
 	}
 

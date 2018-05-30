@@ -19,7 +19,7 @@ public class BossFight : MonoBehaviour {
 		
 	}
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerExit(Collider other) {
         if (other.gameObject.CompareTag("Player") && onetime) {
             (GameObject.Find("Jen'ni")).GetComponent<NavMeshAgent>().enabled = true;
             fightStarted = true;
@@ -27,6 +27,7 @@ public class BossFight : MonoBehaviour {
             hud.bossNameSetter("Jen'ni");
             hud.bossBarSetter(500, 500);
             onetime = false;
+            Destroy(gameObject.GetComponent<BoxCollider>(), 5f);
         }
             
 

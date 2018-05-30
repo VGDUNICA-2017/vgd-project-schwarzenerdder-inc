@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour {
 	private bool lastVisible;
 	private float startDistance;
 	private const int MaxHealth = 100;
-	public int health;
+	public int health = MaxHealth;
 	private bool deathCall;
 	public LayerMask mask;
 	private float rotateY;

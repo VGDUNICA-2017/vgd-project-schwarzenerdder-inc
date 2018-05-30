@@ -5,22 +5,31 @@ using UnityEngine;
 public class OpenCloseDoor : MonoBehaviour {
 
 	private Animator mov = null; // declarating the animator
+	[SerializeField] private AudioClip m_OpenDoor;
+	[SerializeField] private AudioClip m_CloseDoor;
+	private AudioSource m_AudioSource;
 
 	void Start(){
 		mov = GetComponent<Animator> (); // initializing animator
+		m_AudioSource = GetComponent<AudioSource>();
 	}
  
-
+	// when player enters the trigger, the door opens(setting the bool allows to change state and play animation)
 		void OnTriggerEnter(Collider other){
-			
-		mov.SetBool ("open", true); 
-		// when something enters the trigger, the door opens(setting the bool allows to change state and play animation)
+			if (other.CompareTag ("Player"))
+				m_AudioSource.clip = m_OpenDoor;
+				m_AudioSource.Play();
+				mov.SetBool ("open", true); 
+		
 		}
 
-		void OnTriggerExit(Collider other){
-
-		mov.SetBool ("open", false);
 		//opposite of entering the trigger
+		void OnTriggerExit(Collider other){
+			if (other.CompareTag("Player"))
+				m_AudioSource.clip = m_CloseDoor;
+				m_AudioSource.Play();
+				mov.SetBool ("open", false);
+
 		}
 
 }

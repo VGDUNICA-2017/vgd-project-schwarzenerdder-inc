@@ -38,6 +38,7 @@ public class BossHealth : MonoBehaviour {
 
     void Death() {
         GameObject.Find("Jen'ni").GetComponent<NavMeshAgent>().enabled = false;
+		GameObject.Find("Jen'ni").GetComponent<BossMovement>().enabled = false;
         isDead = true;
         capsuleCollider.isTrigger = true;
         GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated");

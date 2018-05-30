@@ -141,7 +141,7 @@ public class Misc : MonoBehaviour
 
     public void death()
     {
-        print("livep: " + transform.position);
+        print("livep: " + transform);
         deathposition = transform.position;
         deathposition.y -= 3f;
         print("deathp: " + deathposition);
@@ -172,12 +172,13 @@ public class Misc : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        GetComponent<Load>().Load_(SceneManager.GetActiveScene().name);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("Menu");
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
         //Setto snow (la variabile che indica se sei a contatto col terreno innevato) a secondo della collisione con il terreno o no
-        print(hit.gameObject.tag);
         if (hit.gameObject.CompareTag("Terreno"))
         {
             PlayAnimation.snow = true;

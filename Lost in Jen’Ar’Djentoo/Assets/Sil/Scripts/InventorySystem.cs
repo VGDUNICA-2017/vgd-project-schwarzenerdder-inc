@@ -67,8 +67,6 @@ public class InventorySystem : MonoBehaviour {
 	public void takeDamage(int damage) {
 		currentHealth -= damage;
 
-		print ("Danno: " + damage + "; Vita: " + currentHealth);
-
 		hudScript.getDamage ();
 		hudScript.radialHealthSet (currentHealth, fullHealth);
         playsound.PlayPlayerHitSound();
@@ -315,7 +313,7 @@ public class InventorySystem : MonoBehaviour {
 	public void LoadPlayer (PlayerData data) {
 		Animator anim = this.GetComponent<Animator> ();
         hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
-		
+
         /*
 		print("OnLoad\n" +
 			"VitaXD: " + data.health + "; Med: " + data.kit + "\n" +
@@ -323,13 +321,18 @@ public class InventorySystem : MonoBehaviour {
 			"SMG: " + data.flagSMG + "; " + data.ammoSMG + "/" + data.invSMG + "\n" +
 			"Torcia: " + data.torcia + "; Ascia: " + data.ascia + "; Cesoie: " + data.cesoie + "; Mappa: " + data.mappa);
 		*/
-		
-        if (data.fromFile) {
-			transform.position = new Vector3 (data.posX, data.posY, data.posZ);
-            transform.eulerAngles = new Vector3(0f, data.angleY, 0f);
-		}
 
-		this.currentHealth = data.health;
+        print(transform.eulerAngles.x + "/" + transform.eulerAngles.y + "/" + transform.eulerAngles.z);
+
+        if (data.fromFile) {
+            transform.position = new Vector3(data.posX, data.posY, data.posZ);
+            transform.eulerAngles = new Vector3(0f, data.angleY, 0f);
+        }
+
+        print(data.angleY);
+        print(transform.eulerAngles.x + "/" + transform.eulerAngles.y + "/" + transform.eulerAngles.z);
+
+        this.currentHealth = data.health;
 		this.medKits = data.kit;
 
 		setWeapon (data.flagPistol, 0);

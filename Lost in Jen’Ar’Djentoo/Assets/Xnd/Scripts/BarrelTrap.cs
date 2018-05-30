@@ -7,6 +7,7 @@ public class BarrelTrap : MonoBehaviour {
 	public float push;
 	public Rigidbody rb;
 	private bool firstTimeEntering = true;
+	public int damage = 10;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -18,7 +19,14 @@ public class BarrelTrap : MonoBehaviour {
 			rb.AddForce (push,0.0f, 0.0f, ForceMode.Impulse);
 			firstTimeEntering = false;
 		}
+			
+	}
+	//radioactive barrel damages player's life
+	void OnCollisionEnter(Collision other){
 
+		if (other.collider.CompareTag ("Player")) {
+			other.gameObject.GetComponent<InventorySystem> ().takeDamage (damage);
+		}
 	}
 
 }

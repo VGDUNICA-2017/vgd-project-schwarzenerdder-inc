@@ -61,19 +61,25 @@ public class HUDSystem : MonoBehaviour {
 	private bool death;
 	private Color deathScreenColor = new Color (1.0f, 1.0f, 1.0f, 0.4f);
 
-	// Use this for initialization
-	void Start () {
-		screenDamage.color = Color.clear;
+	//Supporti per il cambio di scena
+	public GameObject loadingScreen;
 
+	void Awake () {
 		//Recupero elementi HUD
 		ammoText = shotsUI.transform.Find ("ShotsLeft").transform.GetComponent<Text> ();
 		invAmmoText = shotsUI.transform.Find ("ShotsInventory").transform.GetComponent<Text> ();
+	}
+
+	// Use this for initialization
+	void Start () {
+		screenDamage.color = Color.clear;
 
 		//Disabilitazion elementi HUD
 		hudShotsEnabler (false);
 		minimapEnabler (false);
 		reticleEnabler (false);
 		bossBarEnabler (false);
+		loadingScreen.SetActive(false);
 
 		//Recupero transform
 		reticleTransform = (RectTransform)reticle.transform;
@@ -360,6 +366,19 @@ public class HUDSystem : MonoBehaviour {
 		} else {
 			deathBox.fontSize = 60;
 		}
+	}
+
+	public void onLoadHUD () {
+		loadingScreen.SetActive(true);
+
+		reticleEnabler (false);
+		hudShotsEnabler (false);
+
+		centralBoxEnabler (false);
+		sideBoxEnabler (false);
+
+		minimapEnabler (false);
+		bossBarEnabler (false);
 	}
 
 	public void resumeHUD (int health, int maxHealth, int medkit, int arma, int ammo, int invAmmo) {

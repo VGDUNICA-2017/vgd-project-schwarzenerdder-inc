@@ -943,6 +943,7 @@ GameObject:
   - component: {fileID: 143623939480828528}
   - component: {fileID: 195566740610792390}
   - component: {fileID: 114248238251901354}
+  - component: {fileID: 114069472950496718}
   m_Layer: 0
   m_Name: Boss 1
   m_TagString: MiniBoss
@@ -1502,8 +1503,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1903396975654806}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 100.09904, y: 0, z: 177.24}
+  m_LocalRotation: {x: -0, y: 0.6448077, z: -0, w: -0.7643449}
+  m_LocalPosition: {x: -208.12, y: 56.09, z: 25.94}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4791296705584776}
@@ -2004,6 +2005,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114069472950496718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903396975654806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a223412a9b1241549a28d152821da217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Roar: {fileID: 8300000, guid: 3d08f3a073590944fab8933b4a363de0, type: 3}
+  m_EnemyAttack: {fileID: 8300000, guid: 536a5b87399f3da4e803cb001e07a81e, type: 3}
+  m_EnemyHit: {fileID: 8300000, guid: ba3d37b5a16b227498f45c66ac26d065, type: 3}
+  m_EnemyDeath: {fileID: 8300000, guid: 53359573843488647af7cf4fab7b1fb5, type: 3}
 --- !u!114 &114135421944799390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2015,6 +2031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8826922670b984fa93a7d3de55ce51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageDealt: 0
   damage: 30
 --- !u!114 &114248238251901354
 MonoBehaviour:
@@ -2042,6 +2059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8826922670b984fa93a7d3de55ce51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageDealt: 0
   damage: 30
 --- !u!136 &136589477883679568
 CapsuleCollider:
@@ -2193,7 +2211,7 @@ CharacterController:
   m_Height: 2.24
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.07, z: 0}

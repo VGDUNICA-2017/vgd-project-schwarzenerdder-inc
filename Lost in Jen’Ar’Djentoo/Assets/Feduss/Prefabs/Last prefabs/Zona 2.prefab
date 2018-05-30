@@ -60,8 +60,8 @@ GameObject:
   m_Name: roof_flat (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1001566848236782
 GameObject:
@@ -165,8 +165,8 @@ GameObject:
   m_Name: roof (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1005146856151110
 GameObject:
@@ -201,8 +201,8 @@ GameObject:
   m_Name: roof (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1006471423566642
 GameObject:
@@ -709,8 +709,8 @@ GameObject:
   m_Name: roof_flat_corner (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1034972372839052
 GameObject:
@@ -1066,8 +1066,8 @@ GameObject:
   m_Name: roof (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1048373377665058
 GameObject:
@@ -1795,8 +1795,8 @@ GameObject:
   m_Name: floor1hole_1
   m_TagString: Terreno
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 40
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1098011729350022
 GameObject:
@@ -2042,8 +2042,8 @@ GameObject:
   m_Name: roof_corner (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1106969594970840
 GameObject:
@@ -3246,7 +3246,7 @@ GameObject:
   m_Name: ceilingcorner_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1181432507410230
@@ -3351,7 +3351,7 @@ GameObject:
   m_Name: ceilingcorner_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1185195848379650
@@ -3645,8 +3645,8 @@ GameObject:
   m_Name: roof_flat (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1201058315901894
 GameObject:
@@ -4019,7 +4019,7 @@ GameObject:
   m_Name: ceilingcorner_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1220066429220028
@@ -4054,8 +4054,8 @@ GameObject:
   m_Name: roof_corner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1220743066273782
 GameObject:
@@ -4382,7 +4382,7 @@ GameObject:
   m_Name: ceiling_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1241652325559978
@@ -4662,8 +4662,8 @@ GameObject:
   m_Name: roof_corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1257327394857414
 GameObject:
@@ -4699,7 +4699,7 @@ GameObject:
   m_Name: ceilingcorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1257941050610248
@@ -5034,8 +5034,8 @@ GameObject:
   m_Name: roof_flat_corner (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1272243249294312
 GameObject:
@@ -5106,8 +5106,8 @@ GameObject:
   m_Name: roof_corner (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1274079711543018
 GameObject:
@@ -5298,8 +5298,8 @@ GameObject:
   m_Name: roof (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1282983315916512
 GameObject:
@@ -5423,8 +5423,8 @@ GameObject:
   m_Name: roof_corner (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1288597670135014
 GameObject:
@@ -5459,8 +5459,8 @@ GameObject:
   m_Name: roof (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1289297745872998
 GameObject:
@@ -5493,8 +5493,8 @@ GameObject:
   m_Name: roof_flat (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1290301083529472
 GameObject:
@@ -5511,7 +5511,7 @@ GameObject:
   m_Name: ceiling_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1291317536224024
@@ -5618,8 +5618,8 @@ GameObject:
   m_Name: roof (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1298802692632044
 GameObject:
@@ -5933,7 +5933,7 @@ GameObject:
   m_Name: chimney_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1316384571055162
@@ -6528,8 +6528,8 @@ GameObject:
   m_Name: roof (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1343279088893662
 GameObject:
@@ -6702,8 +6702,8 @@ GameObject:
   m_Name: roof_corner (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1354499790679990
 GameObject:
@@ -6924,8 +6924,8 @@ GameObject:
   m_Name: roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1370877107678322
 GameObject:
@@ -7098,8 +7098,8 @@ GameObject:
   m_Name: floor1_1_2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 40
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1378597816120766
 GameObject:
@@ -7718,8 +7718,8 @@ GameObject:
   m_Name: floor1_1_2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 40
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1414384481840334
 GameObject:
@@ -7772,8 +7772,8 @@ GameObject:
   m_Name: roof (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1417119020583052
 GameObject:
@@ -8427,7 +8427,7 @@ GameObject:
   m_Name: ceiling_2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1445314588054882
@@ -8751,8 +8751,8 @@ GameObject:
   m_Name: roof (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1456891566921730
 GameObject:
@@ -8944,7 +8944,7 @@ GameObject:
   m_Name: chimney2_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1469043568181850
@@ -9414,8 +9414,8 @@ GameObject:
   m_Name: roof_flat_corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1492193268629884
 GameObject:
@@ -9855,8 +9855,8 @@ GameObject:
   m_Name: roof (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1517766097128308
 GameObject:
@@ -9955,7 +9955,7 @@ GameObject:
   m_Name: ceiling_1hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1521934196114598
@@ -10060,8 +10060,8 @@ GameObject:
   m_Name: roof_flat (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1526019233683718
 GameObject:
@@ -10167,8 +10167,8 @@ GameObject:
   m_Name: roof (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1530176372076742
 GameObject:
@@ -10645,8 +10645,8 @@ GameObject:
   m_Name: roof (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1551941210988036
 GameObject:
@@ -10908,8 +10908,8 @@ GameObject:
   m_Name: roof (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1563361011289882
 GameObject:
@@ -11169,8 +11169,8 @@ GameObject:
   m_Name: roof (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1582494697929876
 GameObject:
@@ -11550,8 +11550,8 @@ GameObject:
   m_Name: roof (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1596662627943602
 GameObject:
@@ -12807,8 +12807,8 @@ GameObject:
   m_Name: roof (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1649459211783584
 GameObject:
@@ -13189,8 +13189,8 @@ GameObject:
   m_Name: roof_corner (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1663846882682362
 GameObject:
@@ -13207,8 +13207,8 @@ GameObject:
   m_Name: roof (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1664059588734406
 GameObject:
@@ -13402,8 +13402,8 @@ GameObject:
   m_Name: floor1_1_2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 40
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1668805365910346
 GameObject:
@@ -14045,8 +14045,8 @@ GameObject:
   m_Name: roof_flat (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1699928351723662
 GameObject:
@@ -14081,8 +14081,8 @@ GameObject:
   m_Name: roof_flat (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1701649299665424
 GameObject:
@@ -14716,8 +14716,8 @@ GameObject:
   m_Name: roof (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1725353569851432
 GameObject:
@@ -14854,7 +14854,7 @@ GameObject:
   m_Name: ceiling_3_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1728525739878038
@@ -14926,8 +14926,8 @@ GameObject:
   m_Name: roof (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1729112110754446
 GameObject:
@@ -14996,8 +14996,8 @@ GameObject:
   m_Name: roof (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1731736784036788
 GameObject:
@@ -15104,8 +15104,8 @@ GameObject:
   m_Name: roof_flat (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1737346315257054
 GameObject:
@@ -15122,8 +15122,8 @@ GameObject:
   m_Name: roof_flat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1738126387847656
 GameObject:
@@ -16230,8 +16230,8 @@ GameObject:
   m_Name: roof_flat (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1800664758278878
 GameObject:
@@ -16473,8 +16473,8 @@ GameObject:
   m_Name: roof (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1809976776122726
 GameObject:
@@ -16934,8 +16934,8 @@ GameObject:
   m_Name: roof_flat (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1835749847626674
 GameObject:
@@ -17096,7 +17096,7 @@ GameObject:
   m_Name: ceilingcorner_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1847141851093536
@@ -17378,24 +17378,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1859876782908228
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4542471571875968}
-  - component: {fileID: 33499895706398458}
-  - component: {fileID: 23746398657168856}
-  - component: {fileID: 64684586110464572}
-  m_Layer: 0
-  m_Name: barrier_3_2 (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
-  m_IsActive: 1
 --- !u!1 &1862136288872432
 GameObject:
   m_ObjectHideFlags: 1
@@ -17566,8 +17548,8 @@ GameObject:
   m_Name: roof_flat (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1872682846055776
 GameObject:
@@ -17692,7 +17674,7 @@ GameObject:
   m_Name: ceiling_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1876249812309142
@@ -18028,7 +18010,7 @@ GameObject:
   m_Name: ceilingcorner_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1893037091127210
@@ -18171,7 +18153,7 @@ GameObject:
   m_Name: ceiling_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1897002238020022
@@ -18342,8 +18324,8 @@ GameObject:
   m_Name: roof (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1905920289814436
 GameObject:
@@ -18789,7 +18771,7 @@ GameObject:
   m_Name: ceilingcorner_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1926421955859162
@@ -19264,8 +19246,8 @@ GameObject:
   m_Name: roof_flat_corner (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1944337833861304
 GameObject:
@@ -19408,8 +19390,8 @@ GameObject:
   m_Name: roof_flat (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1951230849954754
 GameObject:
@@ -19848,7 +19830,7 @@ GameObject:
   m_Name: stairs (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!1 &1968124634252828
@@ -19884,8 +19866,8 @@ GameObject:
   m_Name: roof_corner (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1970761524841416
 GameObject:
@@ -20005,8 +19987,8 @@ GameObject:
   m_Name: roof (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967263
   m_IsActive: 1
 --- !u!1 &1975104215417376
 GameObject:
@@ -25994,11 +25976,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1009089800953508}
   m_LocalRotation: {x: 1.0134853e-17, y: -0.99975985, z: 1.2136485e-16, w: -0.021917397}
-  m_LocalPosition: {x: -1.64, y: 0.35259914, z: -11.19}
+  m_LocalPosition: {x: 3.12, y: 0.35259914, z: -17.32}
   m_LocalScale: {x: 1.0000008, y: 1, z: 1.0000008}
   m_Children: []
   m_Father: {fileID: 4447813851606010}
-  m_RootOrder: 201
+  m_RootOrder: 200
   m_LocalEulerAnglesHint: {x: 0, y: -182.512, z: 0}
 --- !u!4 &4371314375469632
 Transform:
@@ -27497,7 +27479,6 @@ Transform:
   - {fileID: 4809430734044440}
   - {fileID: 4681297420690726}
   - {fileID: 4997892803994030}
-  - {fileID: 4542471571875968}
   - {fileID: 4515273609428940}
   - {fileID: 4370499107560056}
   m_Father: {fileID: 4282240549168056}
@@ -28727,13 +28708,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813808149855082}
-  m_LocalRotation: {x: 8.611657e-17, y: -0.7774687, z: 8.611657e-17, w: 0.6289216}
-  m_LocalPosition: {x: -1.6399916, y: 0.35259914, z: -13.310001}
+  m_LocalRotation: {x: 1.2054297e-16, y: 0.03782855, z: -1.7364797e-17, w: 0.99928427}
+  m_LocalPosition: {x: 0.82, y: 0.35259914, z: -17.14}
   m_LocalScale: {x: 1.0000008, y: 1, z: 1.0000008}
   m_Children: []
   m_Father: {fileID: 4447813851606010}
-  m_RootOrder: 200
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 199
+  m_LocalEulerAnglesHint: {x: 0, y: 4.3360004, z: 0}
 --- !u!4 &4515942213546754
 Transform:
   m_ObjectHideFlags: 1
@@ -29122,19 +29103,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4140217057054788}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4542471571875968
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1859876782908228}
-  m_LocalRotation: {x: 8.611657e-17, y: -0.7774687, z: 8.611657e-17, w: 0.6289216}
-  m_LocalPosition: {x: -1.64, y: 0.35259914, z: -13.31}
-  m_LocalScale: {x: 1.0000008, y: 1, z: 1.0000008}
-  m_Children: []
-  m_Father: {fileID: 4447813851606010}
-  m_RootOrder: 199
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4543238347697398
 Transform:
@@ -61171,40 +61139,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23746398657168856
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1859876782908228}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: 4e2bea0eec362e4438e5f8ea9476ff88, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23747443873104908
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -72599,13 +72533,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1962625195765706}
   m_Mesh: {fileID: 4300000, guid: c2242df8405cd634dbe82bcdb6dd3a17, type: 3}
---- !u!33 &33499895706398458
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1859876782908228}
-  m_Mesh: {fileID: 4300210, guid: 70bd327581f110b4a936db6df5f9ed54, type: 3}
 --- !u!33 &33501662096198176
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -83282,20 +83209,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300052, guid: 70bd327581f110b4a936db6df5f9ed54, type: 3}
---- !u!64 &64684586110464572
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1859876782908228}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300210, guid: 70bd327581f110b4a936db6df5f9ed54, type: 3}
 --- !u!64 &64685043712223132
 MeshCollider:
   m_ObjectHideFlags: 1

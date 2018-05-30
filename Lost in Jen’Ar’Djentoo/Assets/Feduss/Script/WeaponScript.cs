@@ -121,7 +121,7 @@ public class WeaponScript : MonoBehaviour {
         if (player.GetBool("Axe"))
         {
             Axehit();
-            weaponRange = 4f;
+            weaponRange = 5f;
         }
 	}
 

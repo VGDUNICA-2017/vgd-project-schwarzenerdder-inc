@@ -31,6 +31,7 @@ public class BossRestoreHealth : MonoBehaviour {
 			oneAndOnly = false;
 			InventorySystem inventory = other.GetComponent<InventorySystem> ();
 			inventory.healDamage(80);
+			hud.centralBoxEnabler (false);
 		}
 	}
 

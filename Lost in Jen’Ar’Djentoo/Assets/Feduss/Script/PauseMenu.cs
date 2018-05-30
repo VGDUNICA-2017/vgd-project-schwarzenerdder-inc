@@ -31,6 +31,7 @@ public class PauseMenu : MonoBehaviour {
             else
             {
                 Pause();
+
             }
         }
 
@@ -42,12 +43,12 @@ public class PauseMenu : MonoBehaviour {
         Time.timeScale = 0f; //"Fermo" il tempo
         GameIsPaused = true;
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>().enabled = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<flashlight>().enabled = false;
-        pistola.GetComponent<WeaponScript>().enabled = false;
-        mitra.GetComponent<WeaponScript>().enabled = false;
-        ascia.GetComponent<WeaponScript>().enabled = false;
+        Cursor.lockState = CursorLockMode.Confined; 
+        if(GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>().enabled =!false) GameObject.FindGameObjectWithTag("Player").GetComponent<Moving>().enabled = false;
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<flashlight>().enabled = !false) GameObject.FindGameObjectWithTag("Player").GetComponent<flashlight>().enabled = false;
+        if(pistola!=null) pistola.GetComponent<WeaponScript>().enabled = false;
+        if(mitra!=null) mitra.GetComponent<WeaponScript>().enabled = false;
+        if(ascia!=null) ascia.GetComponent<WeaponScript>().enabled = false;
     }
 
     public void Resume()

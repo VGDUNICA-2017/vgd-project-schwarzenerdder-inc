@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tommy/Scenes/Options.unity
     guid: 27ca18ddda63af74192efcf52889f8f6
+  - enabled: 1
+    path: Assets/Xnd/Scenes/Level_2.unity
+    guid: 2c315572a3b43ee46a38e76326dd73cf

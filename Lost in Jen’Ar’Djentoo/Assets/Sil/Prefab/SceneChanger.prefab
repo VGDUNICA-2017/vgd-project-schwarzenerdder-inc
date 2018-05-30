@@ -64,8 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f082d2c432b1a43ad1a12b7d47773d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadCheck: 0
-  oneTime: 0
   pdata:
     posX: 0
     posY: 0
@@ -86,3 +84,7 @@ MonoBehaviour:
     mappa: 0
     armaAttiva: 0
   sceneName: Level_2
+  loadingScreen: {fileID: 0}
+  loadingProgress: {fileID: 0}
+  premiper: {fileID: 0}
+  slider: {fileID: 0}

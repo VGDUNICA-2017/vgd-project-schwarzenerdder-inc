@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneChanger : MonoBehaviour {
-	public bool loadCheck;
-	public bool oneTime;
+	private bool loadCheck;
+	private bool inside;
+	private bool oneTime;
 	[SerializeField]private PlayerData pdata;
 	private HUDSystem hud;
 	public string sceneName;
@@ -19,6 +20,7 @@ public class SceneChanger : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		loadCheck = false;
+		inside = false;
 		oneTime = false;
 		hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 	}
@@ -29,10 +31,9 @@ public class SceneChanger : MonoBehaviour {
 			DontDestroyOnLoad (gameObject);
 		}
 
-		if (loadCheck && Input.GetButton ("Open Door")) {
-            loadingScreen.SetActive(true);
-            StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<Load>().LoadAsync(sceneName, loadingProgress, premiper, slider));
-            
+		if (loadCheck && inside && Input.GetButton ("Open Door")) {
+			hud.onLoadHUD ();
+			StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<Load>().LoadAsync(sceneName, loadingProgress, premiper, slider));
 			oneTime = true;
 		}
 
@@ -45,18 +46,30 @@ public class SceneChanger : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter (Collider other) {
-		if (other.gameObject.CompareTag ("Player")) {
+		if (other.gameObject.CompareTag ("Player") && !oneTime) {
 			loadCheck = true;
 			pdata = other.GetComponent<InventorySystem> ().SavePlayer ();
 			pdata.fromFile = false;
 			print ("Player saved!");
+			GameObject.FindGameObjectWithTag ("HUD").GetComponent<PauseMenu> ().enabled = false;
 
 			hud.centralBoxEnabler (true);
 			hud.centralBoxText ("Premi E per apri... ehm, passare alla prossima zona; non potrai tornare indietro...");
+			inside = true;
 		}
 	}
 
 	public void OnTriggerStay (Collider other) {
-		hud.centralBoxEnabler (true);
+		if (other.gameObject.CompareTag ("Player") && !oneTime) {
+			hud.centralBoxEnabler (true);
+		}
+	}
+
+	public void OnTriggerExit (Collider other) {
+		if (other.gameObject.CompareTag ("Player") && !oneTime) {
+			hud.centralBoxEnabler (false);
+			GameObject.FindGameObjectWithTag ("HUD").GetComponent<PauseMenu> ().enabled = true;
+			inside = false;
+		}
 	}
 }
