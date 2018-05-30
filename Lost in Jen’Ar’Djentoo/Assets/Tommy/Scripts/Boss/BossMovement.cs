@@ -13,20 +13,30 @@ public class BossMovement : MonoBehaviour {
     private float currentDistance;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Swiping") && GameObject.Find("TriggerFight").GetComponent<BossFight>().fightStarted == true) nav.enabled = true;
+    }
+
+    private void Update() {
+        print(nav.enabled);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate() {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Attack") && GameObject.Find("TriggerFight").GetComponent<BossFight>().fightStarted == true) {
+            nav.enabled = true;
+        }
         /*if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Jump Attack")) {
             nav.speed = 25;
             nav.angularSpeed = 120;
             nav.acceleration = 8;
         }*/
+
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Attack")) { 
+            nav.enabled = false;
+        }
         if (nav.enabled == true) {
 
             nav.SetDestination(player.position);

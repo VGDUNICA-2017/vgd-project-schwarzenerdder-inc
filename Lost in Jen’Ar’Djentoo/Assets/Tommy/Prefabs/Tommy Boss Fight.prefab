@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 114082762993497598}
   m_Layer: 0
   m_Name: Mutant:LeftHand
-  m_TagString: Untagged
+  m_TagString: Enemy_part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 4611627588672416}
   m_Layer: 0
   m_Name: Mutant:RightHand
-  m_TagString: Untagged
+  m_TagString: Enemy_part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -188,6 +188,7 @@ public class WeaponScript : MonoBehaviour {
                 
 
             }
+            print("Scalo colpo");
             inventario.shot(index); //Scalo un colpo
             
 
@@ -216,8 +217,8 @@ public class WeaponScript : MonoBehaviour {
 
     public void RaycastShot()
     {
-        
 
+        print("Raycast");
         if (!player.GetBool("Axe")) fire_effect.Play();
 
         //Funzione in parte scritta seguendo il tutorial di unity sui raycast
@@ -262,10 +263,13 @@ public class WeaponScript : MonoBehaviour {
                                 if (hit.collider.gameObject.GetComponentInParent<EnemyController>()!=null) {
                                     hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage);
                                 }
-                                else
-                                {
-                                    hit.collider.gameObject.GetComponentInParent<Boss1Controller>().takeDamage(gunDamage);
+                                else if(hit.collider.gameObject.GetComponentInParent<BossHealth>() != null) {
+                                    hit.collider.gameObject.GetComponentInParent<BossHealth>().TakeDamage(gunDamage);
                                 }
+                                    else
+                                    {
+                                        hit.collider.gameObject.GetComponentInParent<Boss1Controller>().takeDamage(gunDamage);
+                                    }
                             }
                      
             }
@@ -276,7 +280,12 @@ public class WeaponScript : MonoBehaviour {
                     print("HEADSHOTTTT!");
                     //Istanzio il sangue sul nemico
                     Instantiate(bullet_impact, hit.point, Quaternion.Euler(hit.normal));
-                    hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);
+                    if (hit.collider.gameObject.GetComponentInParent<EnemyController>()!=null) {
+                        hit.collider.gameObject.GetComponentInParent<EnemyController>().takeDamage(gunDamage * 2);
+                    }
+                    else {
+                        hit.collider.gameObject.GetComponentInParent<BossHealth>().TakeDamage(gunDamage * 2);
+                    }
                 }
                 else
                 {
