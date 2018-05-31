@@ -18,8 +18,8 @@ public class Moving : MonoBehaviour
     public float Velocità_X = 1.0f; //Velocità di spostamento verticale
     private float Spostamento_X = 0.0f;
 
-    private float posX;
-    private float posY;
+    public float posX;
+    public float posY;
 
     //Fov della camera (utile per quando si mira)
     private int start_fov = 60;
@@ -28,6 +28,7 @@ public class Moving : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
     private Camera cam;
+    private bool onetime = true;
 
     // Use this for initialization
     void Start()
@@ -35,6 +36,8 @@ public class Moving : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         cam = GetComponentInChildren<Camera>();
+
+        
     }
 
     // Update is called once per frame
@@ -83,6 +86,12 @@ public class Moving : MonoBehaviour
 
         posX += Spostamento_Y; //rotazione verticale
         posY += Spostamento_X; //rotazione orizzontale
+
+        if (Load.new_game == false && onetime) {
+
+            GetComponent<InventorySystem>().setTransform();
+            onetime = false;
+        }
 
         //Vincolo la rotazione verticale
         if (posX < -45.0f) posX = -45.0f;

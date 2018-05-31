@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class InventorySystem : MonoBehaviour {
@@ -60,6 +62,13 @@ public class InventorySystem : MonoBehaviour {
         hudScript.medKitSet(medKits);
 		playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
     }
+
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			print ("Hands: " + GameObject.FindGameObjectWithTag ("Hands").transform.localEulerAngles);
+			print ("Camera: " + GameObject.FindGameObjectWithTag ("MainCamera").transform.localEulerAngles);
+		}
+	}
 
 	//Funzione per subire danni
 	public void takeDamage(int damage) {
@@ -273,9 +282,11 @@ public class InventorySystem : MonoBehaviour {
 		data.posX = transform.position.x;
 		data.posY = transform.position.y;
 		data.posZ = transform.position.z;
-        data.angleY = transform.eulerAngles.y;
 
-		data.fromFile = true;
+		data.rotX = GetComponent<Moving>().posX;
+		data.rotY = GetComponent<Moving>().posY;
+
+        data.fromFile = true;
 
 		data.health = currentHealth;
 		data.kit = medKits;
@@ -312,24 +323,6 @@ public class InventorySystem : MonoBehaviour {
 		Animator anim = this.GetComponent<Animator> ();
         hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 
-        /*
-		print("OnLoad\n" +
-			"VitaXD: " + data.health + "; Med: " + data.kit + "\n" +
-			"Pistola: " + data.flagPistol + "; " + data.ammoPistol + "/" + data.invPistol + "\n" +
-			"SMG: " + data.flagSMG + "; " + data.ammoSMG + "/" + data.invSMG + "\n" +
-			"Torcia: " + data.torcia + "; Ascia: " + data.ascia + "; Cesoie: " + data.cesoie + "; Mappa: " + data.mappa);
-		*/
-
-        print(transform.eulerAngles.x + "/" + transform.eulerAngles.y + "/" + transform.eulerAngles.z);
-
-        if (data.fromFile) {
-            transform.position = new Vector3(data.posX, data.posY, data.posZ);
-            transform.eulerAngles = new Vector3(0f, data.angleY, 0f);
-        }
-
-        print(data.angleY);
-        print(transform.eulerAngles.x + "/" + transform.eulerAngles.y + "/" + transform.eulerAngles.z);
-
         this.currentHealth = data.health;
 		this.medKits = data.kit;
 
@@ -354,7 +347,6 @@ public class InventorySystem : MonoBehaviour {
 			anim.SetBool ("Axe", true);
 			anim.SetBool ("Pistol", false);
 			anim.SetBool ("Smg", false);
-            print(hudScript);
 			hudScript.resumeHUD (currentHealth, fullHealth, medKits, data.armaAttiva, 0, 0);
 		} else if (data.armaAttiva == 1) {
 			anim.SetBool ("Axe", false);
@@ -373,6 +365,22 @@ public class InventorySystem : MonoBehaviour {
 			hudScript.resumeHUD (currentHealth, fullHealth, medKits, data.armaAttiva, 0, 0);
 		}
 	}
+
+    public void setTransform() {
+
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
+
+        SceneData data = (SceneData)formatter.Deserialize(file);
+        PlayerData pdata = data.pdata;
+        file.Close();
+
+        if (pdata.fromFile) {
+            transform.position = new Vector3(pdata.posX, pdata.posY, pdata.posZ);
+            GetComponent<Moving>().posX = pdata.rotX;
+            GetComponent<Moving>().posY = pdata.rotY;
+        }
+    }
 }
 
 [System.Serializable]
@@ -381,7 +389,12 @@ public class PlayerData {
 	public float posX;
 	public float posY;
 	public float posZ;
-    public float angleY;
+
+	//Rotazione
+	public float rotX;
+	public float rotY;
+
+	//Flag di controllo
 	public bool fromFile;
 
 	//Vita e vite

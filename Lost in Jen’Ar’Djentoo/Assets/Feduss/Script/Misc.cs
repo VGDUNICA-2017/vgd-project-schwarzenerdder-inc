@@ -27,7 +27,6 @@ public class Misc : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        print(Time.timeScale);
         //Assegnazione variabili
         inventario = GetComponent<InventorySystem>();
         smg_imp = GameObject.Find("MP5 (Impugnato)");

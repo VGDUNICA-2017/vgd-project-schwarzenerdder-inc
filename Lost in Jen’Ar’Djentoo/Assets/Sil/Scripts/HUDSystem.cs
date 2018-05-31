@@ -176,6 +176,7 @@ public class HUDSystem : MonoBehaviour {
 
 		//Percentile del radiale
 		radialHealth.fillAmount = (float) health / maxHealth;
+		radialHealth.enabled = true;
 
 		if (health == maxHealth) {
 			//Vita al 100%

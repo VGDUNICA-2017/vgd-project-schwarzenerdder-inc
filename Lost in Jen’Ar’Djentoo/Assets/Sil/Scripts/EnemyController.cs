@@ -40,7 +40,7 @@ public class EnemyController : MonoBehaviour {
 	private bool lastVisible;
 	private float startDistance;
 	private const int MaxHealth = 100;
-	public int health = MaxHealth;
+	public int health;
 	private bool deathCall;
 	public LayerMask mask;
 	private float rotateY;
@@ -66,7 +66,7 @@ public class EnemyController : MonoBehaviour {
 
         distance = spotDistance + 1.0f;
 
-        if (Load.new_game == true) {
+        if (!loaded) {
             startPosition = this.transform.position;
             health = MaxHealth;
         }
@@ -400,5 +400,6 @@ public class EnemyController : MonoBehaviour {
 		transform.position = new Vector3 (data.x, data.y, data.z);
 		startPosition = new Vector3 (data.startX, data.startY, data.startZ);
 		this.health = data.health;
+		this.loaded = true;
     }
 }

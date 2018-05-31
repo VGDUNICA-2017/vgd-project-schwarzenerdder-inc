@@ -40,6 +40,7 @@ public class SceneChanger : MonoBehaviour {
 			hud.onLoadHUD ();
 			StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<Load>().LoadAsync(sceneName, percentageText, loadingText, slider));
 			oneTime = true;
+			loadCheck = false;
 		}
 
 		//Nella nuova scena, carica i dati del player

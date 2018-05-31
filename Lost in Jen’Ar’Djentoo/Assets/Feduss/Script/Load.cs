@@ -104,7 +104,6 @@ public class Load : MonoBehaviour {
         
         if (File.Exists(Application.persistentDataPath + "/save.dat") && scene_name.Equals("Scena 1 - Il massiccio"))
         {
-            print(GameObject.FindGameObjectWithTag("Player").gameObject.name);
             isys = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
             hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
             player = GameObject.FindGameObjectWithTag("Player");
@@ -115,7 +114,7 @@ public class Load : MonoBehaviour {
             //CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn"); ;
             //SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn"); ;
 
-    BinaryFormatter formatter = new BinaryFormatter();
+            BinaryFormatter formatter = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
 
             SceneData data = (SceneData)formatter.Deserialize(file);
@@ -156,16 +155,13 @@ public class Load : MonoBehaviour {
                 CutterSpawn.SetActive(false);
             }
 
-            Save.CutterSpawnActive = data.spawn.CutterSpawnActive;
-            if (data.spawn.CutterSpawnActive) {
+            Save.SmgSpawnActive = data.spawn.SmgSpawnActive;
+            if (data.spawn.SmgSpawnActive) {
                 SmgSpawn.SetActive(true);
             }
             else {
                 SmgSpawn.SetActive(false);
             }
-
-
-
 
             //Per ogni nemico nella scena (inizialmente sono tutti attivi, anche quelli da spawnare via script)
             foreach (GameObject nemico in GameObject.FindGameObjectsWithTag("Enemy")) { 
@@ -324,8 +320,13 @@ public class Load : MonoBehaviour {
                         porta.GetComponent<DoorBrokenDown>().brokenOnLoading();
                     }
                 }
+
+                Destroy(GameObject.Find("WeaponsCrate"));
+                Destroy(GameObject.Find("crate"));
             }
+
             Destroy(GameObject.Find(data.checkpoint_name));
+
             foreach(GameObject checkpoint_scena in GameObject.FindGameObjectsWithTag("Checkpoint")) {
                 foreach (string checkpoint_save in data.check_data) {
                     if (checkpoint_scena.name.Equals(checkpoint_save)) {
@@ -357,7 +358,6 @@ public class Load : MonoBehaviour {
     //Caricamento asincrono della scena indicata per mostrare la barra di caricamento (Il tutto dal menù principale)
     public IEnumerator LoadAsync(string scene_name, Text loadingProgress, GameObject premiper, Slider slider)
     {
-        print("async | new game:" + new_game);
         AsyncOperation operation = SceneManager.LoadSceneAsync(scene_name); //Caricamento asincrono della scena (mi restituisce un oggetto con info utili)
         
         operation.allowSceneActivation = false;

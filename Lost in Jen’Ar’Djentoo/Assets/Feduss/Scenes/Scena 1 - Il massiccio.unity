@@ -1195,8 +1195,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1031205648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 445, y: 8.72683, z: 126}
+  m_LocalRotation: {x: 0.0032305026, y: 0.9722319, z: 0.23361051, w: -0.013445376}
+  m_LocalPosition: {x: -107.87282, y: -0.99057007, z: 151.11346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2224,222 +2224,27 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: torcia
-      value: 
-      objectReference: {fileID: 1623944979}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: ascia
-      value: 
-      objectReference: {fileID: 1623944978}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: pistola
-      value: 
-      objectReference: {fileID: 1623944977}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: smg
-      value: 
-      objectReference: {fileID: 1623944976}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: final_key
-      value: 
-      objectReference: {fileID: 1623944975}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: cutter
-      value: 
-      objectReference: {fileID: 1623944974}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: AxeSpawn
       value: 
       objectReference: {fileID: 606433739}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: PistolSpawn
       value: 
       objectReference: {fileID: 1202088669}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: ChainSpawn
       value: 
       objectReference: {fileID: 133756782}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: CutterSpawn
       value: 
       objectReference: {fileID: 1044118191}
-    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: SmgSpawn
-      value: 
-      objectReference: {fileID: 436894730}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: torcia
-      value: 
-      objectReference: {fileID: 1623944979}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: ascia
-      value: 
-      objectReference: {fileID: 1623944978}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: pistola
-      value: 
-      objectReference: {fileID: 1623944977}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: smg
-      value: 
-      objectReference: {fileID: 1623944976}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: final_key
-      value: 
-      objectReference: {fileID: 1623944975}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: cutter
-      value: 
-      objectReference: {fileID: 1623944974}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: AxeSpawn
-      value: 
-      objectReference: {fileID: 606433739}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: PistolSpawn
-      value: 
-      objectReference: {fileID: 1202088669}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: ChainSpawn
-      value: 
-      objectReference: {fileID: 133756782}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: CutterSpawn
-      value: 
-      objectReference: {fileID: 1044118191}
-    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: SmgSpawn
-      value: 
-      objectReference: {fileID: 436894730}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: torcia
-      value: 
-      objectReference: {fileID: 1623944979}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: ascia
-      value: 
-      objectReference: {fileID: 1623944978}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: pistola
-      value: 
-      objectReference: {fileID: 1623944977}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: smg
-      value: 
-      objectReference: {fileID: 1623944976}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: final_key
-      value: 
-      objectReference: {fileID: 1623944975}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: cutter
-      value: 
-      objectReference: {fileID: 1623944974}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: AxeSpawn
-      value: 
-      objectReference: {fileID: 606433739}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: PistolSpawn
-      value: 
-      objectReference: {fileID: 1202088669}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: ChainSpawn
-      value: 
-      objectReference: {fileID: 133756782}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: CutterSpawn
-      value: 
-      objectReference: {fileID: 1044118191}
-    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: SmgSpawn
-      value: 
-      objectReference: {fileID: 436894730}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: torcia
-      value: 
-      objectReference: {fileID: 1623944979}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: ascia
-      value: 
-      objectReference: {fileID: 1623944978}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: pistola
-      value: 
-      objectReference: {fileID: 1623944977}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: smg
-      value: 
-      objectReference: {fileID: 1623944976}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: final_key
-      value: 
-      objectReference: {fileID: 1623944975}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: cutter
-      value: 
-      objectReference: {fileID: 1623944974}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: AxeSpawn
-      value: 
-      objectReference: {fileID: 606433739}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: PistolSpawn
-      value: 
-      objectReference: {fileID: 1202088669}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: ChainSpawn
-      value: 
-      objectReference: {fileID: 133756782}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
-        type: 2}
-      propertyPath: CutterSpawn
-      value: 
-      objectReference: {fileID: 1044118191}
-    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: SmgSpawn
       value: 
@@ -2499,27 +2304,222 @@ Prefab:
       propertyPath: SmgSpawn
       value: 
       objectReference: {fileID: 436894730}
-    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: torcia
+      value: 
+      objectReference: {fileID: 1623944979}
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: ascia
+      value: 
+      objectReference: {fileID: 1623944978}
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: pistola
+      value: 
+      objectReference: {fileID: 1623944977}
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: smg
+      value: 
+      objectReference: {fileID: 1623944976}
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: final_key
+      value: 
+      objectReference: {fileID: 1623944975}
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: cutter
+      value: 
+      objectReference: {fileID: 1623944974}
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: AxeSpawn
       value: 
       objectReference: {fileID: 606433739}
-    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: PistolSpawn
       value: 
       objectReference: {fileID: 1202088669}
-    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: ChainSpawn
       value: 
       objectReference: {fileID: 133756782}
-    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: CutterSpawn
       value: 
       objectReference: {fileID: 1044118191}
-    - target: {fileID: 114967270482913338, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+    - target: {fileID: 114934926892154090, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: SmgSpawn
+      value: 
+      objectReference: {fileID: 436894730}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: torcia
+      value: 
+      objectReference: {fileID: 1623944979}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: ascia
+      value: 
+      objectReference: {fileID: 1623944978}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: pistola
+      value: 
+      objectReference: {fileID: 1623944977}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: smg
+      value: 
+      objectReference: {fileID: 1623944976}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: final_key
+      value: 
+      objectReference: {fileID: 1623944975}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: cutter
+      value: 
+      objectReference: {fileID: 1623944974}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: AxeSpawn
+      value: 
+      objectReference: {fileID: 606433739}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: PistolSpawn
+      value: 
+      objectReference: {fileID: 1202088669}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: ChainSpawn
+      value: 
+      objectReference: {fileID: 133756782}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: CutterSpawn
+      value: 
+      objectReference: {fileID: 1044118191}
+    - target: {fileID: 114949114910223510, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: SmgSpawn
+      value: 
+      objectReference: {fileID: 436894730}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: torcia
+      value: 
+      objectReference: {fileID: 1623944979}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: ascia
+      value: 
+      objectReference: {fileID: 1623944978}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: pistola
+      value: 
+      objectReference: {fileID: 1623944977}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: smg
+      value: 
+      objectReference: {fileID: 1623944976}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: final_key
+      value: 
+      objectReference: {fileID: 1623944975}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: cutter
+      value: 
+      objectReference: {fileID: 1623944974}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: AxeSpawn
+      value: 
+      objectReference: {fileID: 606433739}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: PistolSpawn
+      value: 
+      objectReference: {fileID: 1202088669}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: ChainSpawn
+      value: 
+      objectReference: {fileID: 133756782}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: CutterSpawn
+      value: 
+      objectReference: {fileID: 1044118191}
+    - target: {fileID: 114284883861317584, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: SmgSpawn
+      value: 
+      objectReference: {fileID: 436894730}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: torcia
+      value: 
+      objectReference: {fileID: 1623944979}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: ascia
+      value: 
+      objectReference: {fileID: 1623944978}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: pistola
+      value: 
+      objectReference: {fileID: 1623944977}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: smg
+      value: 
+      objectReference: {fileID: 1623944976}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: final_key
+      value: 
+      objectReference: {fileID: 1623944975}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: cutter
+      value: 
+      objectReference: {fileID: 1623944974}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: AxeSpawn
+      value: 
+      objectReference: {fileID: 606433739}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: PistolSpawn
+      value: 
+      objectReference: {fileID: 1202088669}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: ChainSpawn
+      value: 
+      objectReference: {fileID: 133756782}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
+        type: 2}
+      propertyPath: CutterSpawn
+      value: 
+      objectReference: {fileID: 1044118191}
+    - target: {fileID: 114656768732760512, guid: 7ee3a3a51c9d1ce49ab991a41cbe4667,
         type: 2}
       propertyPath: SmgSpawn
       value: 
