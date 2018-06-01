@@ -84,16 +84,11 @@ public class Load : MonoBehaviour {
         Time.timeScale = 1f;
         if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio") && new_game==false)
         {
-            //torcia = GameObject.Find("la Torcia");
-            //ascia = GameObject.Find("l'ascia");
-            //pistola = GameObject.Find("P226");
-            //smg = GameObject.Find("MP5");
-            //final_key = GameObject.FindGameObjectWithTag("FinalKey");
-            //cutter = GameObject.FindGameObjectWithTag("Cutter");
-            //boss_door1 = GameObject.Find("door_2");
+            Load_("Scena 1 - Il massiccio");
+        }
 
-
-    Load_("Scena 1 - Il massiccio");
+        else if(SceneManager.GetActiveScene().name.Equals("Level_2") && new_game == false) {
+            Load_("Level_2");
         }
 
         //if(gameObject.name.Equals("LoadingController")) Destroy(gameObject);
