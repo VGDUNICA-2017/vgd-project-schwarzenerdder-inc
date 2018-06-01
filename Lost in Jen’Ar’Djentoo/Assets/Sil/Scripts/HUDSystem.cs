@@ -499,7 +499,8 @@ public class HUDSystem : MonoBehaviour {
 					endText.Append ("Adieu!");
 					creditBox.text = endText.ToString ();
                     Cursor.visible = true;
-					SceneManager.LoadScene("Menu");
+                    Cursor.lockState = CursorLockMode.None;
+                    SceneManager.LoadScene("Crediti");
 					break;
 				}
 

@@ -105,11 +105,8 @@ public class PlaySound : MonoBehaviour {
 
     public void PlayPlayerHitSound()
     {
-        if (m_AudioSource.isPlaying != true)
-        {
-            m_AudioSource.clip = m_PlayerHit;
-            m_AudioSource.Play();
-        }
+        m_AudioSource.clip = m_PlayerHit;
+        m_AudioSource.Play();
     }
 
     public void PlaySpottedSong()

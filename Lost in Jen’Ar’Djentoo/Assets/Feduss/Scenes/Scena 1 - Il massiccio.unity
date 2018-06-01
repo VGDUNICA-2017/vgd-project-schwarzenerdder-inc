@@ -581,6 +581,16 @@ Prefab:
       propertyPath: m_Name
       value: Final BossFight
       objectReference: {fileID: 0}
+    - target: {fileID: 136853963462550256, guid: c287660a67685e74f8cc9c9eb365fa79,
+        type: 2}
+      propertyPath: m_Height
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 114550498526890162, guid: c287660a67685e74f8cc9c9eb365fa79,
+        type: 2}
+      propertyPath: attackDistance
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c287660a67685e74f8cc9c9eb365fa79, type: 2}
   m_IsPrefabParent: 0
@@ -1205,8 +1215,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1031205648}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 445, y: 8.72683, z: 126}
+  m_LocalRotation: {x: -0.07463826, y: 0.9175073, z: 0.33160383, w: 0.20651494}
+  m_LocalPosition: {x: -147.7518, y: -1.6989899, z: 256.71014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2631,6 +2641,11 @@ Prefab:
         type: 2}
       propertyPath: m_StepOffset
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114696675859051882, guid: b16a53df4fdd0fd439b3ee814cba8df6,
+        type: 2}
+      propertyPath: spotDistance
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b16a53df4fdd0fd439b3ee814cba8df6, type: 2}
