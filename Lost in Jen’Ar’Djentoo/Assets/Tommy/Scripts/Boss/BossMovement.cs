@@ -15,6 +15,7 @@ public class BossMovement : MonoBehaviour {
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         nav = GetComponent<NavMeshAgent>();
+        nav.enabled = false;
         anim = GetComponent<Animator>();
     }
 

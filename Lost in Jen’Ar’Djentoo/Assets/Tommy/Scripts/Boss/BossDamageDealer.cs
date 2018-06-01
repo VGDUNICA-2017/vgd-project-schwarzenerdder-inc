@@ -15,14 +15,14 @@ public class BossDamageDealer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Swiping")) { //se il boss non sta attaccando
+		if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Attack")) { //se il boss non sta attaccando
             damageDealt = false;
         }
 	}
 
     public void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Player")) { //se il collider collide con il player
-			if (anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Swiping")) {//se il boss sta attaccando
+			if (anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Attack")) {//se il boss sta attaccando
 				if (!damageDealt) {//se non ha già inflitto danno
                     //print("bool");
                     other.GetComponent<InventorySystem>().takeDamage(30);//infliggi danno al player

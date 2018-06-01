@@ -39,6 +39,7 @@ public class SceneChanger : MonoBehaviour {
 		if (loadCheck && inside && Input.GetButton ("Open Door")) {
 			hud.onLoadHUD ();
 			StartCoroutine(GameObject.FindGameObjectWithTag("Player").GetComponent<Load>().LoadAsync(sceneName, percentageText, loadingText, slider));
+            Load.new_game = true;
 			oneTime = true;
 			loadCheck = false;
 		}

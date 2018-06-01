@@ -1620,7 +1620,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDistance: 5
-  chaseDistance: 30
 --- !u!114 &114949370454562192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1655,6 +1654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fightStarted: 0
+  boss_name: Jen'ni
 --- !u!135 &135076793137477756
 SphereCollider:
   m_ObjectHideFlags: 1

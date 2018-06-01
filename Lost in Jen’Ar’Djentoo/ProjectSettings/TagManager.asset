@@ -44,6 +44,10 @@ TagManager:
   - Checkpoint
   - LoadingBar
   - BottoniMenu
+  - SlidingDoor
+  - BarrelTrap1
+  - BarrelTrap
+  - PortaCheckpoint
   layers:
   - Default
   - TransparentFX

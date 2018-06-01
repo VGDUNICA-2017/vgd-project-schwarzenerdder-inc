@@ -323,7 +323,8 @@ public class InventorySystem : MonoBehaviour {
 		Animator anim = this.GetComponent<Animator> ();
         hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 
-		if (data.fromFile) {
+        print("printacaso + pdatafromfile: " + data.fromFile);
+        if (data.fromFile) {
 			transform.position = new Vector3 (data.posX, data.posY, data.posZ);
 		}
 
@@ -378,6 +379,8 @@ public class InventorySystem : MonoBehaviour {
         SceneData data = (SceneData)formatter.Deserialize(file);
         PlayerData pdata = data.pdata;
         file.Close();
+
+        
 
         if (pdata.fromFile) {
             //transform.position = new Vector3(pdata.posX, pdata.posY, pdata.posZ);

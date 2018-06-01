@@ -39,11 +39,11 @@ public class BossHealth : MonoBehaviour {
 
 	//funzione della morte 
     void Death() {
-        GameObject.Find("Jen'ni").GetComponent<NavMeshAgent>().enabled = false; //disabilita il navmesh del boss
-		GameObject.Find("Jen'ni").GetComponent<BossMovement>().enabled = false; //disabilita lo script di movimento del boss
+        GetComponent<NavMeshAgent>().enabled = false; //disabilita il navmesh del boss
+		GetComponent<BossMovement>().enabled = false; //disabilita lo script di movimento del boss
         isDead = true; 
         capsuleCollider.isTrigger = true;
-        GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated"); //si sblocca l'uscita dal livello
+        if(!gameObject.name.Equals("Jentoo")) GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated"); //si sblocca l'uscita dal livello
         hud.bossBarEnabler(false); //l'hud sparisce
         anim.SetTrigger("Die"); //parte l'animazione di morte
     }

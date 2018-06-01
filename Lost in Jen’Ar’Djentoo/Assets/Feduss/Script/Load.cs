@@ -82,6 +82,8 @@ public class Load : MonoBehaviour {
     public void OnLevelWasLoaded(int level)
     {
         Time.timeScale = 1f;
+
+        print(new_game);
         if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio") && new_game==false)
         {
             Load_("Scena 1 - Il massiccio");
@@ -97,7 +99,7 @@ public class Load : MonoBehaviour {
     public void Load_(string scene_name)
     {
         
-        if (File.Exists(Application.persistentDataPath + "/save.dat") && scene_name.Equals("Scena 1 - Il massiccio"))
+        if (File.Exists(Application.persistentDataPath + "/save.dat"))
         {
             isys = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
             hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
@@ -322,6 +324,20 @@ public class Load : MonoBehaviour {
                 Destroy(GameObject.Find("crate"));
             }
 
+            if (data.checkpoint_name.Equals("Checkpoint1")) {
+                foreach (GameObject porta in GameObject.FindGameObjectsWithTag("PortaCheckpoint")) {
+                    if (porta.name.Equals("PortaPostCheckpoint1")) {
+                        porta.GetComponentInChildren<OpenCloseDoor>().unlocked = false;
+                    }
+                }
+            }if (data.checkpoint_name.Equals("Checkpoint2")) {
+                foreach (GameObject porta in GameObject.FindGameObjectsWithTag("PortaCheckpoint")) {
+                    if (porta.name.Equals("PortaPostCheckpoint2")) {
+                        porta.GetComponentInChildren<OpenCloseDoor>().unlocked = false;
+                    }
+                }
+            }
+
             Destroy(GameObject.Find(data.checkpoint_name));
 
             foreach(GameObject checkpoint_scena in GameObject.FindGameObjectsWithTag("Checkpoint")) {
@@ -378,14 +394,13 @@ public class Load : MonoBehaviour {
             slider.value = progress;
             loadingProgress.text = progress * 100f + "%";
 
-            premiper.SetActive(true);
+            if(SceneManager.GetActiveScene().name.Equals("Menu")) premiper.SetActive(true);
             premiper.GetComponent <Text>().text = descrizione;
 
             if (operation.progress == .9f && loadingProgress.text.Equals("100%")) {
                 loadingProgress.text = "Premi E per giocare";
 
                 if (Input.GetButtonDown("Open Door")) {
-                    premiper.SetActive(true);
                     premiper.GetComponent<Text>().text = "Attivazione scena...";
                     operation.allowSceneActivation = true;
                 }
