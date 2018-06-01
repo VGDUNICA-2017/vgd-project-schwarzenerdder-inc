@@ -18,6 +18,7 @@ public class Save : MonoBehaviour {
     private Scene m_Scene;
     public bool loaded = false;
 
+    //Variabili per il primo livello
     public GameObject torcia;
     public GameObject ascia;
     public GameObject pistola;
@@ -37,6 +38,8 @@ public class Save : MonoBehaviour {
     public static bool CutterSpawnActive = false;
     public static bool SmgSpawnActive = false;
 
+    //fine variabili primo livello
+
     // Use this for initialization
     void Start() {
         isys = GameObject.FindGameObjectWithTag("Player").GetComponent<InventorySystem>();
@@ -44,28 +47,7 @@ public class Save : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         misc = player.GetComponent<Misc>();
 
-        m_Scene = SceneManager.GetActiveScene();
 
-        if (m_Scene.name.Equals("Scena 1 - Il massiccio") && Load.new_game) {
-            //torcia = GameObject.Find("la Torcia");
-            //ascia = GameObject.Find("l'ascia");
-            //pistola = GameObject.Find("P226");
-            //smg = GameObject.Find("MP5");
-            //final_key = GameObject.FindGameObjectWithTag("FinalKey");
-            //cutter = GameObject.FindGameObjectWithTag("Cutter");
-
-            //AxeSpawn = GameObject.FindGameObjectWithTag("AxeEnemySpawn");
-            //PistolSpawn = GameObject.FindGameObjectWithTag("PistolEnemySpawn");
-            //ChainSpawn = GameObject.FindGameObjectWithTag("ChainEnemySpawn");
-            //CutterSpawn = GameObject.FindGameObjectWithTag("CutterEnemySpawn");
-            //SmgSpawn = GameObject.FindGameObjectWithTag("SmgEnemySpawn");
-        }
-
-
-    }
-
-    // Update is called once per frame
-    void Update() {
     }
 
     public void Save_() {
@@ -80,11 +62,14 @@ public class Save : MonoBehaviour {
         data.spawn = new Spawn();
         data.checkpoint_name = gameObject.name;
         data.scena_name = SceneManager.GetActiveScene().name;
-        data.spawn.AxeSpawnActive = AxeSpawnActive;
-        data.spawn.ChainSpawnActive = ChainSpawnActive;
-        data.spawn.CutterSpawnActive = CutterSpawnActive;
-        data.spawn.PistolSpawnActive = PistolSpawnActive;
-        data.spawn.SmgSpawnActive = SmgSpawnActive;
+
+        //Valido per il primo livello
+        if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio")) {
+            data.spawn.ChainSpawnActive = ChainSpawnActive;
+            data.spawn.CutterSpawnActive = CutterSpawnActive;
+            data.spawn.PistolSpawnActive = PistolSpawnActive;
+            data.spawn.SmgSpawnActive = SmgSpawnActive;
+        }
 
         foreach (GameObject checkpoint_scene in GameObject.FindGameObjectsWithTag("Checkpoint")) {
             data.check_data.Add(checkpoint_scene.name);
@@ -111,18 +96,20 @@ public class Save : MonoBehaviour {
             data.idata.Add(ammo_smg.gameObject.name);
         }
 
-        print("p" + pistola + "a" + ascia + "s" + smg + "k"+final_key+"c"+cutter);
-        if (torcia != null) data.idata.Add(torcia.gameObject.name);
+        //Valido per il primo livello
+        if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio")) {
+            if (torcia != null) data.idata.Add(torcia.gameObject.name);
 
-        if (ascia != null) data.idata.Add(ascia.gameObject.name);
+            if (ascia != null) data.idata.Add(ascia.gameObject.name);
 
-        if (pistola != null) data.idata.Add(pistola.gameObject.name);
+            if (pistola != null) data.idata.Add(pistola.gameObject.name);
 
-        if (smg != null) data.idata.Add(smg.gameObject.name);
+            if (smg != null) data.idata.Add(smg.gameObject.name);
 
-        if (final_key != null) data.idata.Add(final_key.gameObject.name);
+            if (final_key != null) data.idata.Add(final_key.gameObject.name);
 
-        if (cutter != null) data.idata.Add(cutter.gameObject.name);
+            if (cutter != null) data.idata.Add(cutter.gameObject.name);
+        }
 
         formatter.Serialize(file, data);
 
@@ -134,40 +121,43 @@ public class Save : MonoBehaviour {
     public void OnTriggerEnter(Collider other) {
 
         if (other.gameObject.CompareTag("Player")) {
-            print(AxeSpawn);
-            if (!AxeSpawn.activeInHierarchy) {
-                AxeSpawn.SetActive(true);
-            }
-            else {
-                AxeSpawnActive = true;
-            }
 
-            if (!PistolSpawn.activeInHierarchy) {
-                PistolSpawn.SetActive(true);
-            }
-            else {
-                PistolSpawnActive = true;
-            }
+            //Valido solo per il primo livello
+            if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio")) {
+                if (!AxeSpawn.activeInHierarchy) {
+                    AxeSpawn.SetActive(true);
+                }
+                else {
+                    AxeSpawnActive = true;
+                }
 
-            if (!ChainSpawn.activeInHierarchy) {
-                ChainSpawn.SetActive(true);
-            }
-            else {
-                ChainSpawnActive = true;
-            }
+                if (!PistolSpawn.activeInHierarchy) {
+                    PistolSpawn.SetActive(true);
+                }
+                else {
+                    PistolSpawnActive = true;
+                }
 
-            if (!CutterSpawn.activeInHierarchy) {
-                CutterSpawn.SetActive(true);
-            }
-            else {
-                CutterSpawnActive = true;
-            }
+                if (!ChainSpawn.activeInHierarchy) {
+                    ChainSpawn.SetActive(true);
+                }
+                else {
+                    ChainSpawnActive = true;
+                }
 
-            if (!SmgSpawn.activeInHierarchy) {
-                SmgSpawn.SetActive(true);
-            }
-            else {
-                SmgSpawnActive = true;
+                if (!CutterSpawn.activeInHierarchy) {
+                    CutterSpawn.SetActive(true);
+                }
+                else {
+                    CutterSpawnActive = true;
+                }
+
+                if (!SmgSpawn.activeInHierarchy) {
+                    SmgSpawn.SetActive(true);
+                }
+                else {
+                    SmgSpawnActive = true;
+                }
             }
         }
     }
@@ -180,24 +170,27 @@ public class Save : MonoBehaviour {
             hud.sideBoxText("Checkpoint raggiunto!");
             Save_();
 
-            if (!AxeSpawnActive) {
-                AxeSpawn.SetActive(false);
-            }
+            //Valido solo per il primo livello
+            if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio")) {
+                if (!AxeSpawnActive) {
+                    AxeSpawn.SetActive(false);
+                }
 
-            if (!PistolSpawnActive) {
-                PistolSpawn.SetActive(false);
-            }
+                if (!PistolSpawnActive) {
+                    PistolSpawn.SetActive(false);
+                }
 
-            if (!ChainSpawnActive) {
-                ChainSpawn.SetActive(false);
-            }
+                if (!ChainSpawnActive) {
+                    ChainSpawn.SetActive(false);
+                }
 
-            if (!CutterSpawnActive) {
-                CutterSpawn.SetActive(false);
-            }
+                if (!CutterSpawnActive) {
+                    CutterSpawn.SetActive(false);
+                }
 
-            if (!SmgSpawnActive) {
-                SmgSpawn.SetActive(false);
+                if (!SmgSpawnActive) {
+                    SmgSpawn.SetActive(false);
+                }
             }
 
 

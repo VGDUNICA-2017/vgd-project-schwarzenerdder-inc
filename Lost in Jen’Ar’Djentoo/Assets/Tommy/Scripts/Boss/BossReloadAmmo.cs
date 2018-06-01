@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossReloadAmmo : MonoBehaviour {
 
 	private HUDSystem hud;
-	private bool oneAndOnly = true;
+	private bool oneAndOnly = true; //variabile per assicurarsi che le casse siano utilizzate una volta sola
 	// Use this for initialization
 	void Start () {
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem>();
@@ -17,18 +17,18 @@ public class BossReloadAmmo : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
-		if (other.gameObject.CompareTag ("Player") && oneAndOnly) {
+		if (other.gameObject.CompareTag ("Player") && oneAndOnly) { //se la cassa non è stata mai usata
 			hud.centralBoxText("Premi E per avere giusto una possibilità in più di battere quel bestione");
 			hud.centralBoxEnabler (true);
-		} else if (other.gameObject.CompareTag ("Player")) {
+		} else if (other.gameObject.CompareTag ("Player")) { //altrimenti
 			hud.centralBoxText("Ehi, non essere ingordo");
 			hud.centralBoxEnabler (true);
 		};
 	}
 
 	void OnTriggerStay (Collider other){
-		if (other.gameObject.CompareTag ("Player") && Input.GetButtonDown("Open Door") && oneAndOnly) {
-			oneAndOnly = false;
+		if (other.gameObject.CompareTag ("Player") && Input.GetButtonDown("Open Door") && oneAndOnly) {  //se la cassa non è stata mai usata
+			oneAndOnly = false; //disattiva oneAndOnly
 			InventorySystem inventory = other.GetComponent<InventorySystem> ();
 			int carriedWeapon;
 			Animator anim = other.gameObject.GetComponent<Animator>();
@@ -37,14 +37,14 @@ public class BossReloadAmmo : MonoBehaviour {
 			else if (anim.GetBool ("Smg"))
 				carriedWeapon = 2;
 			else
-				carriedWeapon = -1;
-			inventory.ammoPickup (16, 0, carriedWeapon);
-			inventory.ammoPickup (60, 2, carriedWeapon);
-			hud.centralBoxEnabler (false);
+				carriedWeapon = -1; //recupera informazioni sull'arma attualmente imbracciata 
+			inventory.ammoPickup (16, 0, carriedWeapon); 
+			inventory.ammoPickup (60, 2, carriedWeapon); //ricarica le armi
+			hud.centralBoxEnabler (false); //disattiva l'hud
 		}
 	}
 
 	void OnTriggerExit (Collider other) {
-		if (other.gameObject.CompareTag ("Player")) hud.centralBoxEnabler (false);
+		if (other.gameObject.CompareTag ("Player")) hud.centralBoxEnabler (false); //quando il giocatore esce dall'area disattiva l'hud
 	}
 }

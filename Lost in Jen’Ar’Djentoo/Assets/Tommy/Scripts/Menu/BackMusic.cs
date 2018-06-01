@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackMusic : MonoBehaviour {
 
-    private static BackMusic instance = null;
+    private static BackMusic instance = null; //variabile che contiene l'istanza della musica di background
 
     // Use this for initialization
     void Start () {
@@ -19,12 +19,14 @@ public class BackMusic : MonoBehaviour {
     public static BackMusic Instance {
         get { return instance; }
     }
-
+	//funzione che permette di mantenere la musica di gioco tra le varie sezioni del menu (obsoleta)
     void Awake() {
-        if (instance != null && instance != this) {
-            Destroy(this.gameObject);
+        if (instance != null && instance != this) { //se è già presente un istanza e se è diversa da quella attuale
+            Destroy(this.gameObject); //distruggi l'istanza attuale
             return;
-        } else instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        } else instance = this; //altrimenti mantienila nella variabile
+        DontDestroyOnLoad(this.gameObject); //non distruggere al cambio di scena
     }
+
+	//fonte del codice: https://answers.unity.com/questions/11314/audio-or-music-to-continue-playing-between-scene-c.html
 }

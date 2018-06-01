@@ -122,45 +122,48 @@ public class Load : MonoBehaviour {
 
             isys.LoadPlayer(data.pdata);
 
-            Save.AxeSpawnActive = data.spawn.AxeSpawnActive;
-            if (data.spawn.AxeSpawnActive) {
-                AxeSpawn.SetActive(true);
-            }
-            else {
-                AxeSpawn.SetActive(false);
-            }
+            //Valido per il primo livello
+            if (scene_name.Equals("Scena 1 - Il massiccio")) {
+                Save.AxeSpawnActive = data.spawn.AxeSpawnActive;
+                if (data.spawn.AxeSpawnActive) {
+                    AxeSpawn.SetActive(true);
+                }
+                else {
+                    AxeSpawn.SetActive(false);
+                }
 
-            Save.PistolSpawnActive = data.spawn.PistolSpawnActive;
-            if (data.spawn.PistolSpawnActive) {
-                PistolSpawn.SetActive(true);
-                
-            }
-            else {
-                PistolSpawn.SetActive(false);
-            }
+                Save.PistolSpawnActive = data.spawn.PistolSpawnActive;
+                if (data.spawn.PistolSpawnActive) {
+                    PistolSpawn.SetActive(true);
 
-            Save.ChainSpawnActive = data.spawn.ChainSpawnActive;
-            if (data.spawn.ChainSpawnActive) {
-                ChainSpawn.SetActive(true);
-            }
-            else {
-                ChainSpawn.SetActive(false);
-            }
+                }
+                else {
+                    PistolSpawn.SetActive(false);
+                }
 
-            Save.CutterSpawnActive = data.spawn.CutterSpawnActive;
-            if (data.spawn.CutterSpawnActive) {
-                CutterSpawn.SetActive(true);
-            }
-            else {
-                CutterSpawn.SetActive(false);
-            }
+                Save.ChainSpawnActive = data.spawn.ChainSpawnActive;
+                if (data.spawn.ChainSpawnActive) {
+                    ChainSpawn.SetActive(true);
+                }
+                else {
+                    ChainSpawn.SetActive(false);
+                }
 
-            Save.SmgSpawnActive = data.spawn.SmgSpawnActive;
-            if (data.spawn.SmgSpawnActive) {
-                SmgSpawn.SetActive(true);
-            }
-            else {
-                SmgSpawn.SetActive(false);
+                Save.CutterSpawnActive = data.spawn.CutterSpawnActive;
+                if (data.spawn.CutterSpawnActive) {
+                    CutterSpawn.SetActive(true);
+                }
+                else {
+                    CutterSpawn.SetActive(false);
+                }
+
+                Save.SmgSpawnActive = data.spawn.SmgSpawnActive;
+                if (data.spawn.SmgSpawnActive) {
+                    SmgSpawn.SetActive(true);
+                }
+                else {
+                    SmgSpawn.SetActive(false);
+                }
             }
 
             //Per ogni nemico nella scena (inizialmente sono tutti attivi, anche quelli da spawnare via script)
@@ -233,14 +236,15 @@ public class Load : MonoBehaviour {
                     smg.GetComponent<Pickup>().loaded = true;
                 }
 
-                if (final_key != null && final_key.gameObject.name.Equals(nome))
-                {
-                    final_key.GetComponent<KeyScript>().loaded = true;
-                }
+                //Valido per il primo livello
+                if (scene_name.Equals("Scena 1 - Il massiccio")) {
+                    if (final_key != null && final_key.gameObject.name.Equals(nome)) {
+                        final_key.GetComponent<KeyScript>().loaded = true;
+                    }
 
-                if (cutter != null && cutter.gameObject.name.Equals(nome))
-                {
-                    cutter.GetComponent<KeyScript>().loaded = true;
+                    if (cutter != null && cutter.gameObject.name.Equals(nome)) {
+                        cutter.GetComponent<KeyScript>().loaded = true;
+                    }
                 }
             }
 
@@ -269,34 +273,32 @@ public class Load : MonoBehaviour {
                 }
             }
 
-            if (torcia!=null && torcia.GetComponent<Pickup>().loaded == false)
-            {
-                Destroy(torcia);
-            }
 
-            if (ascia != null && ascia.GetComponent<Pickup>().loaded == false)
-            {
-                Destroy(ascia);
-            }
+            //Valido per il primo livello
+            if (scene_name.Equals("Scena 1 - Il massiccio")) {
+                if (torcia != null && torcia.GetComponent<Pickup>().loaded == false) {
+                    Destroy(torcia);
+                }
 
-            if (pistola != null && pistola.GetComponent<Pickup>().loaded == false)
-            {
-                Destroy(pistola);
-            }
+                if (ascia != null && ascia.GetComponent<Pickup>().loaded == false) {
+                    Destroy(ascia);
+                }
 
-            if (smg != null && smg.GetComponent<Pickup>().loaded == false)
-            {
-                Destroy(smg);
-            }
+                if (pistola != null && pistola.GetComponent<Pickup>().loaded == false) {
+                    Destroy(pistola);
+                }
 
-            if (final_key != null && final_key.GetComponent<KeyScript>().loaded == false)
-            {
-                Destroy(final_key);
-            }
+                if (smg != null && smg.GetComponent<Pickup>().loaded == false) {
+                    Destroy(smg);
+                }
 
-            if (cutter != null && cutter.GetComponent<KeyScript>().loaded == false)
-            {
-                Destroy(cutter);
+                if (final_key != null && final_key.GetComponent<KeyScript>().loaded == false) {
+                    Destroy(final_key);
+                }
+
+                if (cutter != null && cutter.GetComponent<KeyScript>().loaded == false) {
+                    Destroy(cutter);
+                }
             }
 
             //Setto gli eventi
@@ -340,12 +342,18 @@ public class Load : MonoBehaviour {
                     Destroy(checkpoint_scena);
                 }
                 else {
-                    checkpoint_scena.GetComponent<Save>().AxeSpawn = AxeSpawn;
-                    print(checkpoint_scena.GetComponent<Save>().AxeSpawn);
-                    checkpoint_scena.GetComponent<Save>().PistolSpawn = PistolSpawn;
-                    checkpoint_scena.GetComponent<Save>().ChainSpawn = ChainSpawn;
-                    checkpoint_scena.GetComponent<Save>().CutterSpawn = CutterSpawn;
-                    checkpoint_scena.GetComponent<Save>().SmgSpawn = SmgSpawn;
+
+                    //Valido per il primo livello
+                    if (scene_name.Equals("Scena 1 - Il massiccio")) {
+
+                        checkpoint_scena.GetComponent<Save>().AxeSpawn = AxeSpawn;
+                        print(checkpoint_scena.GetComponent<Save>().AxeSpawn);
+                        checkpoint_scena.GetComponent<Save>().PistolSpawn = PistolSpawn;
+                        checkpoint_scena.GetComponent<Save>().ChainSpawn = ChainSpawn;
+                        checkpoint_scena.GetComponent<Save>().CutterSpawn = CutterSpawn;
+                        checkpoint_scena.GetComponent<Save>().SmgSpawn = SmgSpawn;
+                    }
+                    
                 }
 
             }

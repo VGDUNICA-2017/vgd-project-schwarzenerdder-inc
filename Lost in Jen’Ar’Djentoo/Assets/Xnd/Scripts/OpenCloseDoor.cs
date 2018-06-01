@@ -8,6 +8,7 @@ public class OpenCloseDoor : MonoBehaviour {
 	[SerializeField] private AudioClip m_OpenDoor;
 	[SerializeField] private AudioClip m_CloseDoor;
 	private AudioSource m_AudioSource;
+	public bool unlocked = false;
 
 	void Start(){
 		mov = GetComponent<Animator> (); // initializing animator
@@ -16,20 +17,22 @@ public class OpenCloseDoor : MonoBehaviour {
  
 	// when player enters the trigger, the door opens(setting the bool allows to change state and play animation)
 		void OnTriggerEnter(Collider other){
-			if (other.CompareTag ("Player"))
+			if ((other.CompareTag ("Player")) && (unlocked == true)) {
 				m_AudioSource.clip = m_OpenDoor;
-				m_AudioSource.Play();
+				m_AudioSource.Play ();
 				mov.SetBool ("open", true); 
-		
+			}
+
 		}
 
 		//opposite of entering the trigger
 		void OnTriggerExit(Collider other){
-			if (other.CompareTag("Player"))
+			if ((other.CompareTag ("Player")) && (unlocked == true)) {
 				m_AudioSource.clip = m_CloseDoor;
-				m_AudioSource.Play();
+				m_AudioSource.Play ();
 				mov.SetBool ("open", false);
+			}
 
 		}
-
+		
 }

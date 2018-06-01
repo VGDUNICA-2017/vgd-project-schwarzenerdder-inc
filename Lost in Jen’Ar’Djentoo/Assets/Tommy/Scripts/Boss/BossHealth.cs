@@ -5,12 +5,12 @@ using UnityEngine.AI;
 
 public class BossHealth : MonoBehaviour {
 
-    public int startingBossHealth = 500;
-    public int currentHealth;
+    public int startingBossHealth = 500; //salute iniziale del boss
+    public int currentHealth; //salute attuale del boss
 
     Animator anim;
     CapsuleCollider capsuleCollider;
-    bool isDead = false;
+    bool isDead = false; //indica se il boss è morto
 
     private HUDSystem hud;
 
@@ -21,7 +21,7 @@ public class BossHealth : MonoBehaviour {
 
         currentHealth = startingBossHealth;
 
-        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>(); //recupera l'hud
 	}
 	
 	// Update is called once per frame
@@ -29,20 +29,24 @@ public class BossHealth : MonoBehaviour {
 		
 	}
 
+	//funzione per il danno del boss
     public void TakeDamage (int amount) {
-        if (isDead) return;
+        if (isDead) return; //se il boss è morto non può ricevere danno
         currentHealth -= amount;
-        hud.bossBarSetter(startingBossHealth, currentHealth);
-        if (currentHealth <= 0) Death();
+        hud.bossBarSetter(startingBossHealth, currentHealth); //viene aggiornato l'hud
+        if (currentHealth <= 0) Death(); //il boss muore se raggiunge 0 o un numero negativo di salute
     }
 
+	//funzione della morte 
     void Death() {
-        GameObject.Find("Jen'ni").GetComponent<NavMeshAgent>().enabled = false;
-		GameObject.Find("Jen'ni").GetComponent<BossMovement>().enabled = false;
-        isDead = true;
+        GameObject.Find("Jen'ni").GetComponent<NavMeshAgent>().enabled = false; //disabilita il navmesh del boss
+		GameObject.Find("Jen'ni").GetComponent<BossMovement>().enabled = false; //disabilita lo script di movimento del boss
+        isDead = true; 
         capsuleCollider.isTrigger = true;
-        GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated");
-        hud.bossBarEnabler(false);
-        anim.SetTrigger("Die");
+        GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated"); //si sblocca l'uscita dal livello
+        hud.bossBarEnabler(false); //l'hud sparisce
+        anim.SetTrigger("Die"); //parte l'animazione di morte
     }
+
+	//fonte del codice: https://unity3d.com/learn/tutorials/s/survival-shooter-tutorial
 }

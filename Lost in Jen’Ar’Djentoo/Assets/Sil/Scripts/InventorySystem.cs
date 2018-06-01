@@ -323,6 +323,12 @@ public class InventorySystem : MonoBehaviour {
 		Animator anim = this.GetComponent<Animator> ();
         hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 
+        print(data.posX);
+
+		if (data.fromFile) {
+			transform.position = new Vector3 (data.posX, data.posY, data.posZ);
+		}
+
         this.currentHealth = data.health;
 		this.medKits = data.kit;
 
@@ -376,7 +382,7 @@ public class InventorySystem : MonoBehaviour {
         file.Close();
 
         if (pdata.fromFile) {
-            transform.position = new Vector3(pdata.posX, pdata.posY, pdata.posZ);
+            //transform.position = new Vector3(pdata.posX, pdata.posY, pdata.posZ);
             GetComponent<Moving>().posX = pdata.rotX;
             GetComponent<Moving>().posY = pdata.rotY;
         }
