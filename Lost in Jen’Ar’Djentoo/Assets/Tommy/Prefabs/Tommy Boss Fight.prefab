@@ -1606,8 +1606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fdb28e9a7e913a429ae08fb5fc00c1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingBossHealth: 500
+  startingBossHealth: 1000
   currentHealth: 0
+  musicaFondo: {fileID: 0}
+  endSong: {fileID: 0}
 --- !u!114 &114550498526890162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1655,6 +1657,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fightStarted: 0
   boss_name: Jen'ni
+  musicaFondo: {fileID: 0}
+  bossMusic1: {fileID: 8300000, guid: 292bd244e9cdc7f4392f44ed215f8f23, type: 3}
+  bossMusic2: {fileID: 8300000, guid: 5a3d10515bab1f04f8fe56064040ad6b, type: 3}
 --- !u!135 &135076793137477756
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1808,7 +1813,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 8
+  m_Speed: 10
   m_Acceleration: 80
   avoidancePriority: 50
   m_AngularSpeed: 120

@@ -63,13 +63,6 @@ public class InventorySystem : MonoBehaviour {
 		playsound = GameObject.FindGameObjectWithTag("Player").GetComponent<PlaySound>();
     }
 
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			print ("Hands: " + GameObject.FindGameObjectWithTag ("Hands").transform.localEulerAngles);
-			print ("Camera: " + GameObject.FindGameObjectWithTag ("MainCamera").transform.localEulerAngles);
-		}
-	}
-
 	//Funzione per subire danni
 	public void takeDamage(int damage) {
 		currentHealth -= damage;
@@ -323,8 +316,7 @@ public class InventorySystem : MonoBehaviour {
 		Animator anim = this.GetComponent<Animator> ();
         hudScript = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
 
-        print("printacaso + pdatafromfile: " + data.fromFile);
-        if (data.fromFile) {
+		if (data.fromFile) {
 			transform.position = new Vector3 (data.posX, data.posY, data.posZ);
 		}
 
@@ -372,15 +364,12 @@ public class InventorySystem : MonoBehaviour {
 	}
 
     public void setTransform() {
-
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + "/save.dat", FileMode.Open);
 
         SceneData data = (SceneData)formatter.Deserialize(file);
         PlayerData pdata = data.pdata;
         file.Close();
-
-        
 
         if (pdata.fromFile) {
             //transform.position = new Vector3(pdata.posX, pdata.posY, pdata.posZ);

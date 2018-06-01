@@ -64,9 +64,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4512315528977914}
+  - component: {fileID: 136507325405306044}
+  - component: {fileID: 114217803986036610}
   m_Layer: 0
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: Enemy_part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,9 +156,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4145106310691060}
+  - component: {fileID: 135169529271795262}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Testa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,10 +249,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4825122617921136}
   - component: {fileID: 136604088148474736}
-  - component: {fileID: 114923346371583098}
+  - component: {fileID: 114398532499626566}
   m_Layer: 0
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Enemy_part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4455366153705916}
   - component: {fileID: 65108152691853274}
-  - component: {fileID: 114237285019847452}
+  - component: {fileID: 114049477593470370}
   m_Layer: 0
   m_Name: TriggerFight
   m_TagString: Untagged
@@ -688,8 +691,9 @@ GameObject:
   - component: {fileID: 54956093938638070}
   - component: {fileID: 136719913493953606}
   - component: {fileID: 195364512441451828}
-  - component: {fileID: 114740398620911900}
-  - component: {fileID: 114722320469134362}
+  - component: {fileID: 114217234388944592}
+  - component: {fileID: 114993223016959632}
+  - component: {fileID: 114678286781730654}
   m_Layer: 0
   m_Name: Jentoo
   m_TagString: Boss
@@ -1595,7 +1599,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1345293617141608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.17095947, y: -40.673897, z: 50.52939}
+  m_LocalPosition: {x: 0.17095947, y: -48.1, z: 50.52939}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4915805962860490}
@@ -2062,7 +2066,7 @@ Animator:
   m_GameObject: {fileID: 1703227279560548}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 386200b757304be4b9245a93e992c4a1, type: 3}
-  m_Controller: {fileID: 9100000, guid: f4b345ffee10b37438233af4db1e488f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 388a7d89bfce53c4a9a8a9a7f54057f3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2070,7 +2074,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114237285019847452
+--- !u!114 &114049477593470370
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2078,11 +2082,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1345293617141608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 049ab63dc218fed41ae727618fd7bb2d, type: 3}
+  m_Script: {fileID: 11500000, guid: c9e67bbd7cb879242bcd17e9de4faa86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fightStarted: 0
---- !u!114 &114722320469134362
+  boss_name: Jentoo
+  musicaFondo: {fileID: 0}
+  bossMusic1: {fileID: 8300000, guid: 292bd244e9cdc7f4392f44ed215f8f23, type: 3}
+  bossMusic2: {fileID: 8300000, guid: 5a3d10515bab1f04f8fe56064040ad6b, type: 3}
+--- !u!114 &114217234388944592
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2090,24 +2098,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1703227279560548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e31ec6232c26464f853976c8cee8ac0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingBossHealth: 1000
-  currentHealth: 0
---- !u!114 &114740398620911900
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1703227279560548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d09c1ac66e05004bb1f64c94bd2d223, type: 3}
+  m_Script: {fileID: 11500000, guid: e53c7810b246e2f40887211425155b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDistance: 5
---- !u!114 &114923346371583098
+--- !u!114 &114217803986036610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074391920649746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b695b1e100f8d994a9a3f1c9e727aa17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114398532499626566
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2115,9 +2121,60 @@ MonoBehaviour:
   m_GameObject: {fileID: 1310591348920534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55a45c54abfeb545bd37499329fb07c, type: 3}
+  m_Script: {fileID: 11500000, guid: b695b1e100f8d994a9a3f1c9e727aa17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114678286781730654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703227279560548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f177957e515af094eb16922700ddd023, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114993223016959632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703227279560548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fdb28e9a7e913a429ae08fb5fc00c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingBossHealth: 1000
+  currentHealth: 0
+  musicaFondo: {fileID: 0}
+  endSong: {fileID: 8300000, guid: 3cb90804de8f713458ffdef663ffce92, type: 3}
+--- !u!135 &135169529271795262
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227447484376874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136507325405306044
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074391920649746}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.74
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136604088148474736
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2125,10 +2182,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310591348920534}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.2
-  m_Height: 1
+  m_Height: 1.74
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136719913493953606
@@ -2140,10 +2197,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 2
+  m_Radius: 0.46
+  m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 1.2, z: 0}
+  m_Center: {x: 0, y: 0.8, z: 0.2}
 --- !u!137 &137701515695951940
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -29,7 +29,7 @@ public class Pickup : MonoBehaviour {
     public bool onetime = true;
 
     public bool loaded = false;
-
+    private string name;
     // Use this for initialization
     void Start() {
 		hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
@@ -66,6 +66,12 @@ public class Pickup : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player"))
         {
+
+            if (gameObject.tag.Equals("Ammo_9mm")) name = "9mm";
+            else if (gameObject.tag.Equals("Ammo_smg")) name = "9mmSmg";
+            else if (gameObject.tag.Equals("FirstAid")) name = "KitMedico (K)";
+            else name = gameObject.name;
+
 			hud.centralBoxText ("Premi \"E\" per raccogliere " + gameObject.name);
 			hud.centralBoxEnabler (true);
             

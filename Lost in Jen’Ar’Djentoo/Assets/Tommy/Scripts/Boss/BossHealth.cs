@@ -14,6 +14,9 @@ public class BossHealth : MonoBehaviour {
 
     private HUDSystem hud;
 
+    public GameObject musicaFondo;
+    public AudioClip endSong;
+
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
@@ -43,7 +46,15 @@ public class BossHealth : MonoBehaviour {
 		GetComponent<BossMovement>().enabled = false; //disabilita lo script di movimento del boss
         isDead = true; 
         capsuleCollider.isTrigger = true;
-        if(!gameObject.name.Equals("Jentoo")) GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated"); //si sblocca l'uscita dal livello
+        if (!gameObject.name.Equals("Jentoo")) {
+            GameObject.Find("door_endBoss").GetComponent<Animator>().SetTrigger("BossDefeated"); //si sblocca l'uscita dal livello
+            musicaFondo.GetComponent<AudioSource>().Stop();
+        }
+        else {
+            musicaFondo.GetComponent<AudioSource>().clip = endSong;
+            musicaFondo.GetComponent<AudioSource>().Play();
+            GetComponent<EndingScript>().ending();
+        }
         hud.bossBarEnabler(false); //l'hud sparisce
         anim.SetTrigger("Die"); //parte l'animazione di morte
     }

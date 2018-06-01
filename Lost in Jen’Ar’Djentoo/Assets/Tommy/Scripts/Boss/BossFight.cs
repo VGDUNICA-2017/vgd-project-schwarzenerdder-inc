@@ -10,7 +10,9 @@ public class BossFight : MonoBehaviour {
     public bool fightStarted = false; //variabile che indica se la bossfight è iniziata
     private bool onetime = true; //variabile per assicurarsi che la bossfight parta una volta sola
     public string boss_name;
-
+    public GameObject musicaFondo;
+    public AudioClip bossMusic1;
+    public AudioClip bossMusic2;
 	// Use this for initialization
 	void Start () {
         hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDSystem>();
@@ -29,12 +31,20 @@ public class BossFight : MonoBehaviour {
             if (SceneManager.GetActiveScene().name.Equals("Level_2")) {
                 GameObject.FindGameObjectWithTag("FinalDoor").GetComponentInChildren<OpenCloseDoor>().unlocked = false;
                 GameObject.FindGameObjectWithTag("FinalDoor").GetComponentInChildren<Animator>().SetBool("open", false);
+                musicaFondo.GetComponent<AudioSource>().clip = bossMusic1;
+                musicaFondo.GetComponent<AudioSource>().Play();
+            }
+            else {
+                musicaFondo.GetComponent<AudioSource>().clip = bossMusic2;
+                musicaFondo.GetComponent<AudioSource>().Play();
             }
             fightStarted = true; //inizia la boss fight
             hud.bossBarEnabler(true);
             hud.bossNameSetter(boss_name);
             hud.bossBarSetter(500, 500); //imposta l'hud del boss
             onetime = false; //disattiva onetime
+            
+
             Destroy(gameObject.GetComponent<BoxCollider>(), 5f);
         }
             

@@ -18,7 +18,7 @@ public class OpenCloseDoor : MonoBehaviour {
 
     //Le porte si aprono se il nemico ad esso associato è null (cioè se sono distrutti, poichè uccisi, durante il caricamento) o se sono senza vita
     public void Update() {
-        if(nemico.GetComponent<EnemyController>().health<=0 || nemico == null) {
+        if(nemico == null || (nemico!=null && nemico.GetComponent<EnemyController>().health<=0)) {
             unlocked = true;
         }
     }

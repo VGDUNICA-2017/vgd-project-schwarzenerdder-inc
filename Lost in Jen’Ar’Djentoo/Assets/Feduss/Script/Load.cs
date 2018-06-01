@@ -82,8 +82,6 @@ public class Load : MonoBehaviour {
     public void OnLevelWasLoaded(int level)
     {
         Time.timeScale = 1f;
-
-        print(new_game);
         if (SceneManager.GetActiveScene().name.Equals("Scena 1 - Il massiccio") && new_game==false)
         {
             Load_("Scena 1 - Il massiccio");
@@ -91,6 +89,10 @@ public class Load : MonoBehaviour {
 
         else if(SceneManager.GetActiveScene().name.Equals("Level_2") && new_game == false) {
             Load_("Level_2");
+            hud.minimapEnabler(true);
+        }
+        else if (SceneManager.GetActiveScene().name.Equals("Level_2") && new_game == true) {
+            hud.minimapEnabler(true);
         }
 
         //if(gameObject.name.Equals("LoadingController")) Destroy(gameObject);
@@ -326,14 +328,22 @@ public class Load : MonoBehaviour {
 
             if (data.checkpoint_name.Equals("Checkpoint1")) {
                 foreach (GameObject porta in GameObject.FindGameObjectsWithTag("PortaCheckpoint")) {
-                    if (porta.name.Equals("PortaPostCheckpoint1")) {
+                    if (porta!=null && porta.name.Equals("PortaPostCheckpoint1")) {
                         porta.GetComponentInChildren<OpenCloseDoor>().unlocked = false;
+                        porta.GetComponentInChildren<Animator>().SetBool("open", false);
                     }
                 }
+
+                if (GameObject.FindGameObjectWithTag("Porta")!=null) {
+                    GameObject.FindGameObjectWithTag("Porta").GetComponent<OpenCloseDoor>().unlocked = true;
+                }
+               
             }if (data.checkpoint_name.Equals("Checkpoint2")) {
+                print("we");
                 foreach (GameObject porta in GameObject.FindGameObjectsWithTag("PortaCheckpoint")) {
-                    if (porta.name.Equals("PortaPostCheckpoint2")) {
+                    if (porta!=null && porta.name.Equals("PortaPostCheckpoint2")) {
                         porta.GetComponentInChildren<OpenCloseDoor>().unlocked = false;
+                        porta.GetComponentInChildren<Animator>().SetBool("open", false);
                     }
                 }
             }
@@ -342,6 +352,7 @@ public class Load : MonoBehaviour {
 
             foreach(GameObject checkpoint_scena in GameObject.FindGameObjectsWithTag("Checkpoint")) {
                 foreach (string checkpoint_save in data.check_data) {
+                    print(checkpoint_save);
                     if (checkpoint_scena.name.Equals(checkpoint_save)) {
                         checkpoint_scena.GetComponent<Save>().loaded = true;
                     }
@@ -382,11 +393,12 @@ public class Load : MonoBehaviour {
         operation.allowSceneActivation = false;
 
         if (scene_name.Equals("Scena 1 - Il massiccio")) {
-            descrizione = "Fin, un ex soldato congedato con onore dalla guerra in Iraq, vive a Pimentel con la moglie e si gode la pensione ma un giorno, " +
-                            "mentre è in viaggio(verso una località a noi ignota), una luce abbagliante lo investe...";
+            descrizione = "Fin, ex soldato congedato con onore dopo la guerra in Iraq, vive a Pimentel con la moglie e si gode la pensione.\nUn giorno, mentre è in viaggio " +
+                          "(verso una località a noi ignota), una luce abbagliante lo investe...";
         }
         else {
-            descrizione = "descrizione livello 2";
+            descrizione = "Dopo aver attraversato una landa desolata infestata da mostri (neanche fosse un film di fantascienza), Fin giunge in una strana struttura (un laboratorio?)." +
+                          "\nRiuscira a trovare una via per tornare a casa?";
         }
 
         while (!operation.isDone) {

@@ -164,8 +164,7 @@ public class Save : MonoBehaviour {
 
     public void OnTriggerExit(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
-            
-            print("Salvataggio");
+
             hud.sideBoxEnabler(true);
             hud.sideBoxText("Checkpoint raggiunto!");
             Save_();

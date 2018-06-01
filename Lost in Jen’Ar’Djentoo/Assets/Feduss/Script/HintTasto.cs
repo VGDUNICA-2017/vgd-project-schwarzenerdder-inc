@@ -17,6 +17,10 @@ public class HintTasto : MonoBehaviour {
         access_cutter = GameObject.FindGameObjectWithTag("Cutter").GetComponent<KeyScript>();
         access_key = GameObject.FindGameObjectWithTag("FinalKey").GetComponent<KeyScript>();
 		hud = GameObject.FindGameObjectWithTag ("HUD").GetComponent<HUDSystem> ();
+
+        if (gameObject.name.Equals("MusicaFondo")) {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
 
@@ -102,7 +106,7 @@ public class HintTasto : MonoBehaviour {
             {
 				hud.centralBoxText ("Premi \"F\" per accendere e spegnere la torcia");
 				hud.centralBoxEnabler (true);
-                GetComponent<AudioSource>().Play();
+                
             }
         }
 

@@ -22,6 +22,7 @@ public class BossDamageDealer : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Player")) { //se il collider collide con il player
+            print("we");
 			if (anim.GetCurrentAnimatorStateInfo(0).IsName("Mutant Attack")) {//se il boss sta attaccando
 				if (!damageDealt) {//se non ha già inflitto danno
                     //print("bool");

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
+using UnityEngine.SceneManagement;
 
 public class HUDSystem : MonoBehaviour {
 	/// <summary>
@@ -68,6 +70,15 @@ public class HUDSystem : MonoBehaviour {
 	//Supporti per il cambio di scena
 	public GameObject loadingScreen;
 
+	//Supporti per l'ending
+	public Image endingScreen;
+	public Text creditBox;
+	private bool flagEnd;
+	private StringBuilder endText;
+	private float timeToPrint;
+	private const float printDelay = 2.0f;
+	private int endState;
+
 	void Awake () {
 		//Recupero elementi HUD
 		ammoText = shotsUI.transform.Find ("ShotsLeft").transform.GetComponent<Text> ();
@@ -84,6 +95,7 @@ public class HUDSystem : MonoBehaviour {
 		reticleEnabler (false);
 		bossBarEnabler (false);
 		loadingScreen.SetActive(false);
+		endingScreen.enabled = false;
 
 		//Recupero transform
 		reticleTransform = (RectTransform)reticle.transform;
@@ -166,6 +178,10 @@ public class HUDSystem : MonoBehaviour {
 					Mathf.Lerp (reticleTransform.rect.width, StayingSize, 0.2f), 
 					Mathf.Lerp (reticleTransform.rect.height, StayingSize, 0.2f));
 			}
+		}
+
+		if (flagEnd) {
+			endingPhase ();
 		}
 	}
 
@@ -407,5 +423,89 @@ public class HUDSystem : MonoBehaviour {
 
 		minimapEnabler (false);
 		bossBarEnabler (false);
+	}
+
+	//Attivazione schermata di ending
+	public void endingTrigger () {
+		endingScreen.enabled = true;
+		endingScreen.color = new Color (0.0f, 0.0f, 0.0f, 0.0f);
+		creditBox.enabled = false;
+		flagEnd = true;
+	}
+
+	//Funzione per l'ending screen
+	private void endingPhase () {
+		if (!flagEnd) {
+			return;
+		}
+
+		if (endingScreen.color.a < 1.0f) {
+			endingScreen.color = Color.Lerp (endingScreen.color, Color.black, Time.deltaTime);
+
+			if ((1.0f - endingScreen.color.a) < 0.05f) {
+				endingScreen.color = Color.black;
+				endState = 0;
+				endText = new StringBuilder ();
+				creditBox.text = string.Empty;
+				timeToPrint = Time.time + printDelay;
+			}
+		} else {
+			creditBox.enabled = true;
+
+			if ((Time.time > timeToPrint) && (endState < 10)) {
+				switch (endState) {
+				case 0:
+					endText.Append ("\"Ma come?");
+					timeToPrint = Time.time + printDelay;
+					break;
+				case 1:
+					endText.Append (" Finisce così?");
+					timeToPrint = Time.time + printDelay;
+					break;
+				case 2:
+					endText.Append (" Davvero è tutto qui?\"");
+					timeToPrint = Time.time + printDelay;
+					break;
+				case 3:
+					endText.Append ("\nEh già, è tutto qui...");
+					timeToPrint = Time.time + printDelay;
+					break;
+				case 4:
+					endText.Append ("\nMa pensa ad una cosa: e se fosse stato tutto solo un brutto sogno?");
+					timeToPrint = Time.time + (printDelay * 2.0f);
+					break;
+				case 5:
+					endText = new StringBuilder ();
+					endText.Append (".");
+					timeToPrint = Time.time + printDelay;
+					break;
+				case 6:
+					endText.Append (".");
+					timeToPrint = Time.time + printDelay;
+					break;
+				case 7:
+					endText.Append (".");
+					timeToPrint = Time.time + printDelay;
+					break;
+				case 8:
+					endText = new StringBuilder ();
+					endText.Append (":D");
+					creditBox.fontSize = 30;
+					creditBox.fontStyle = FontStyle.Bold;
+					timeToPrint = Time.time + (printDelay * 3.0f);
+					break;
+				case 9:
+					endText = new StringBuilder ();
+					endText.Append ("Adieu!");
+					creditBox.text = endText.ToString ();
+                    Cursor.visible = true;
+					SceneManager.LoadScene("Menu");
+					break;
+				}
+
+				endState++;
+				creditBox.text = endText.ToString ();
+			}
+		}
 	}
 }

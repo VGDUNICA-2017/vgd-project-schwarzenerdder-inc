@@ -169,10 +169,12 @@ public class WeaponScript : MonoBehaviour {
     public void Shot()
     {
 
-        //Spara se preme il tasto sinistro del mouse, se è passato il tempo minimo tra uno sparo e l'altro, e se non sta ricaricando
+        //Spara se preme il tasto sinistro del mouse, se è passato il tempo minimo tra uno sparo e l'altro, se non sta ricaricando o cambiando arma
         //il check su "Fire" serve per riprodurre correttamente (per ogni sparo) l'animazione della pistola (per quella del mitra non serve)
         if (Input.GetButton("Fire1") && Time.time >= nextFire && !player.GetCurrentAnimatorStateInfo(1).IsName("Fire") &&
-            !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg"))) 
+            !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload")) && !(player.GetCurrentAnimatorStateInfo(0).IsName("Reload_Smg")) &&
+            !player.GetCurrentAnimatorStateInfo(0).IsName("Equip Pistol") && !player.GetCurrentAnimatorStateInfo(0).IsName("Equip Smg") &&
+            !player.GetCurrentAnimatorStateInfo(0).IsName("Unequip Pistol") && !player.GetCurrentAnimatorStateInfo(0).IsName("Unequip Smg")) 
         {
             nextFire = Time.time + 1f/fireRate; //Spara ogni 1/fireRate secondi
 

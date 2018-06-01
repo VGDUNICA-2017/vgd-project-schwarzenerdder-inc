@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Feduss/Scenes/Scena 1 - Il massiccio.unity
     guid: ce1495628d64ee24481eecc65f4c2920
   - enabled: 1
-    path: Assets/Tommy/Scenes/Options.unity
-    guid: 27ca18ddda63af74192efcf52889f8f6
-  - enabled: 1
     path: Assets/Xnd/Scenes/Level_2.unity
     guid: 2c315572a3b43ee46a38e76326dd73cf
+  - enabled: 1
+    path: Assets/Feduss/Scenes/Crediti.unity
+    guid: 7374cc4e384ca8b4fa20ecdbaf817c48
